@@ -1,24 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rupushi 2.0
 
-## Getting Started
+This is a Next.js project built with PWA (Progressive Web App) support. It uses MongoDB as the database, connected through the Mongoose library.
 
-First, run the development server:
+## Technologies
+
+- [Next.js](https://nextjs.org/) - React-based full-stack framework
+- [MongoDB](https://www.mongodb.com/) - NoSQL database
+- [Mongoose](https://mongoosejs.com/) - ODM (Object Data Modeling) tool for MongoDB
+- [Next-PWA](https://www.npmjs.com/package/next-pwa) - PWA support for Next.js
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+
+## Setup
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd rupushi-2.0
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. MongoDB Setup:
+   - Install MongoDB server or use MongoDB Atlas
+   - Update your MongoDB URI in the `.env.local` file
+
+4. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+rupushi-2.0/
+  ├── public/
+  │   ├── icons/
+  │   │   ├── icon-192x192.png
+  |   │   └── icon-512x512.png
+  │   └── manifest.json
+  ├── src/
+  │   ├── app/
+  │   │   ├── api/
+  │   │   │   └── users/
+  │   │   │       └── route.ts
+  │   │   ├── layout.tsx
+  │   │   └── page.tsx
+  │   ├── lib/
+  │   │   └── mongoose.ts
+  │   └── models/
+  │       └── User.ts
+  ├── .env.local
+  ├── next.config.js
+  └── package.json
+```
+
+## Production Build
+
+To create a production build:
+
+```bash
+npm run build
+```
+
+To view the production build:
+
+```bash
+npm start
+```
+
+## PWA Support
+
+This application is built with PWA (Progressive Web App) support. It provides offline capabilities, home screen installation, and a native app-like experience when running in production mode.
 
 ## Learn More
 
