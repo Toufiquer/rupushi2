@@ -26,6 +26,7 @@ npm install
 ```
 
 3. MongoDB Setup:
+
    - Install MongoDB server or use MongoDB Atlas
    - Update your MongoDB URI in the `.env.local` file
 

@@ -1,4 +1,4 @@
-import  { Schema, model, models } from 'mongoose';
+import { Schema, model, models } from 'mongoose';
 // import mongoose, { Schema, model, models } from 'mongoose';
 
 export interface IUser {
@@ -37,10 +37,10 @@ const userSchema = new Schema<IUser>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 // এই কোড শুধুমাত্র সার্ভার সাইডে কাজ করবে কারণ মডেল শুধুমাত্র সার্ভারে পাওয়া যায়
 const User = models.User || model<IUser>('User', userSchema);
 
-export default User; 
+export default User;
