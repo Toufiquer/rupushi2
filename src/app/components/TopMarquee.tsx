@@ -13,7 +13,7 @@ export default function TopMarquee() {
   }, []);
 
   return (
-    <div className="bg-pink-600 text-white py-2 w-full overflow-hidden">
+    <div className="w-full overflow-hidden">
       <div className="marquee-container h-6">
         <div
           className={`marquee-content ${isPaused ? 'paused' : ''} ${isLoaded ? 'initial-visible' : ''}`}
