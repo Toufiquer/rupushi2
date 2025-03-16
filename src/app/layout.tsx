@@ -28,7 +28,7 @@ export default function RootLayout({
       >
         <div className="w-full bg-pink-600 flex items-center justify-between px-2">
           <TopMarquee />
-          <div className="w-full hidden md:block">
+          <div className="w-full hidden md:block px-2">
             <TopBar />
           </div>
         </div>
