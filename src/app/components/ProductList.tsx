@@ -3,7 +3,15 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Pagination from './Pagination';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
 // প্রডাক্ট এর টাইপ ডেফিনিশন
 interface Product {
@@ -98,7 +106,33 @@ export default function ProductList({
       </div>
 
       {/* পেজিনেশন */}
-      <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl={baseUrl} />
+      <div className="pt-8 pb-4">
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious href="#" />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink href="#">1</PaginationLink>
+              <PaginationLink href="#">2</PaginationLink>
+              <PaginationLink href="#">
+                <div className="text-pink-500 font-semibold">3</div>
+              </PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink href="#">11</PaginationLink>
+              <PaginationLink href="#">12</PaginationLink>
+              <PaginationLink href="#">13</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext href="#" />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      </div>
     </div>
   );
 }
