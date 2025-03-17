@@ -8,9 +8,9 @@ import Orders from './orders';
 const Dashboard = () => {
   const [statusMessage, setStatusMessage] = useState<string>('users');
   return (
-    <div className="flex">
+    <div className="flex flex-col md:flex-row">
       {/* সাইডবার */}
-      <aside className="w-1/4 bg-gray-200 p-4 min-h-screen">
+      <aside className="w-full max-w-[200px] bg-gray-200 p-4 md:min-h-screen">
         <h2 className="text-lg font-bold mb-4">ড্যাশবোর্ড</h2>
         <ul>
           <li className="mb-2">
@@ -41,7 +41,7 @@ const Dashboard = () => {
       </aside>
 
       {/* মূল কন্টেন্ট */}
-      <main className="flex-1 p-4">
+      <main className="w-full min-h-screen p-4">
         {statusMessage === 'users' && <Users />}
         {statusMessage === 'products' && <Products />}
         {statusMessage === 'orders' && <Orders />}
