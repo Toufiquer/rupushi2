@@ -42,7 +42,11 @@ const Dashboard = () => {
                     { title: 'Add User', componentName: 'add-user' },
                     { title: 'Trash', componentName: 'trash-user' },
                   ].map(i => (
-                    <div onClick={() => handleRoute(i.componentName)} className={lstItemStyle}>
+                    <div
+                      key={i.componentName}
+                      onClick={() => handleRoute(i.componentName)}
+                      className={lstItemStyle}
+                    >
                       {i.title}
                     </div>
                   ))}
@@ -67,7 +71,11 @@ const Dashboard = () => {
                     { title: 'Add Product', componentName: 'add-product' },
                     { title: 'Trash', componentName: 'trash-product' },
                   ].map(i => (
-                    <div onClick={() => handleRoute(i.componentName)} className={lstItemStyle}>
+                    <div
+                      key={i.componentName}
+                      onClick={() => handleRoute(i.componentName)}
+                      className={lstItemStyle}
+                    >
                       {i.title}
                     </div>
                   ))}
@@ -92,7 +100,11 @@ const Dashboard = () => {
                     { title: 'Add order', componentName: 'add-order' },
                     { title: 'Trash', componentName: 'trash-orders' },
                   ].map(i => (
-                    <div onClick={() => handleRoute(i.componentName)} className={lstItemStyle}>
+                    <div
+                      key={i.componentName}
+                      onClick={() => handleRoute(i.componentName)}
+                      className={lstItemStyle}
+                    >
                       {i.title}
                     </div>
                   ))}
