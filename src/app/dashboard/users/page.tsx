@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DemoTable from './table/table';
+import DemoTable from '../table/table';
 
 const Users = () => {
   return (

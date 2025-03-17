@@ -91,7 +91,7 @@ export const columns: ColumnDef<yourOrdersType>[] = [
   {
     accessorKey: 'edit',
     header: 'Edit',
-    cell: info => (
+    cell: () => (
       <span className="flex items-center gap-3">
         <TooltipProvider>
           <Tooltip>
