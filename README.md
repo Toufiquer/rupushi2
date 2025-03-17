@@ -1,4 +1,4 @@
-# Rupushi 2.0
+# Rupushi
 
 This is a Next.js project built with PWA (Progressive Web App) support. It uses MongoDB as the database, connected through the Mongoose library.
 

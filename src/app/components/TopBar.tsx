@@ -191,7 +191,7 @@ export default function TopBar() {
               <input
                 type="text"
                 placeholder="আপনার পছন্দের পণ্য খুঁজুন..."
-                className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full text-gray-800 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500"
               />
               <button className="absolute right-0 top-0 h-full px-4 bg-pink-600 text-white rounded-r-full hover:bg-pink-700">
                 <svg
@@ -211,27 +211,46 @@ export default function TopBar() {
               </button>
             </div>
           </div>
-
           {/* Mobile Hamburger Menu */}
           <div className="md:hidden">
-            <button onClick={toggleMenu} className="text-pink-600 focus:outline-none">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
+            {isMenuOpen ? (
+              <button onClick={toggleMenu} className="text-pink-600 focus:outline-none">
+                {/* ক্রস আইকন */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            ) : (
+              <button onClick={toggleMenu} className="text-pink-600 focus:outline-none">
+                {/* হ্যামবার্গার আইকন */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              </button>
+            )}
           </div>
-
           {/* Desktop User Icons */}
           <div className="hidden md:flex items-center space-x-4">
             <Link href="/account" className="text-gray-700 hover:text-pink-600">
@@ -360,13 +379,18 @@ export default function TopBar() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white shadow-lg">
+        <div className="md:hidden bg-white shadow-lg transition-transform transform duration-300 ease-in-out translate-y-0">
           <div className="px-4 py-3 border-b">
             <input
               type="text"
               placeholder="আপনার পছন্দের পণ্য খুঁজুন..."
-              className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full text-gray-800 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500"
             />
+            <div className="pt-2">
+              <div className="px-4 text-center py-2 rounded-full border border-green-600 text-green-600 hover:bg-green-600 hover:text-white transition duration-200">
+                খুঁজুন...
+              </div>
+            </div>
           </div>
           <nav className="px-4 py-2">
             <Link href="/" className="block py-2 text-gray-800 hover:text-pink-600">

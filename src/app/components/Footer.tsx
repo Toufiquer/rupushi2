@@ -33,7 +33,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="text-center">
-          <p>&copy; {new Date().getFullYear()} রূপশী ২.০ - সমস্ত অধিকার সংরক্ষিত</p>
+          <p>&copy; {new Date().getFullYear()} রূপশী - সমস্ত অধিকার সংরক্ষিত</p>
         </div>
       </div>
     </footer>

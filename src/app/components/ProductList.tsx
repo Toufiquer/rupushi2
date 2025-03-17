@@ -33,18 +33,44 @@ interface ProductListProps {
   baseUrl?: string;
 }
 
+const DesktopPagination = () => (
+  <Pagination>
+    <PaginationContent>
+      <PaginationItem>
+        <PaginationPrevious href="#" />
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationLink href="#">1</PaginationLink>
+        <PaginationLink href="#">2</PaginationLink>
+        <PaginationLink href="#">
+          <div className="text-pink-500 font-semibold">3</div>
+        </PaginationLink>
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationEllipsis />
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationLink href="#">11</PaginationLink>
+        <PaginationLink href="#">12</PaginationLink>
+        <PaginationLink href="#">13</PaginationLink>
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationNext href="#" />
+      </PaginationItem>
+    </PaginationContent>
+  </Pagination>
+);
+
 export default function ProductList({
   products,
   title = 'আমাদের পণ্যসমূহ',
   initialPage = 1,
   productsPerPage = 12,
-  baseUrl = '/products',
 }: ProductListProps) {
   const [currentPage, setCurrentPage] = useState(initialPage);
 
   console.log(setCurrentPage);
   // পেজিনেশন লজিক
-  const totalPages = Math.ceil(products.length / productsPerPage);
   const currentProducts = products.slice(
     (currentPage - 1) * productsPerPage,
     currentPage * productsPerPage,
@@ -55,7 +81,7 @@ export default function ProductList({
       {title && <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">{title}</h2>}
 
       {/* পণ্য গ্রিড */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
         {currentProducts.map(product => (
           <div
             key={product.id}
@@ -107,31 +133,7 @@ export default function ProductList({
 
       {/* পেজিনেশন */}
       <div className="pt-8 pb-4">
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious href="#" />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">1</PaginationLink>
-              <PaginationLink href="#">2</PaginationLink>
-              <PaginationLink href="#">
-                <div className="text-pink-500 font-semibold">3</div>
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">11</PaginationLink>
-              <PaginationLink href="#">12</PaginationLink>
-              <PaginationLink href="#">13</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext href="#" />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+        <DesktopPagination />
       </div>
     </div>
   );

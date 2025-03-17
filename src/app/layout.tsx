@@ -7,8 +7,8 @@ import TopBar from './components/TopBar';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'রূপশী ২.০',
-  description: 'রূপশী ২.০ অ্যাপ্লিকেশন',
+  title: 'রূপশী',
+  description: 'রূপশী অ্যাপ্লিকেশন',
   manifest: '/manifest.json',
   icons: {
     apple: '/icons/icon-192x192.png',
