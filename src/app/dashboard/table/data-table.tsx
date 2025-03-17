@@ -76,10 +76,10 @@ const DataTable = <TData, TValue>({ columns, data }: DataTableProps<TData, TValu
           placeholder="Filter..."
           value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
           onChange={event => table.getColumn('name')?.setFilterValue(event.target.value)}
-          className="max-w-sm bg-transparent"
+          className="max-w-sm bg-slate-200"
         />
         <DropdownMenu>
-          <DropdownMenuTrigger asChild className="bg-transparent">
+          <DropdownMenuTrigger asChild className="bg-slate-200">
             <Button variant="outline" className="ml-auto">
               Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
             </Button>
@@ -92,7 +92,7 @@ const DataTable = <TData, TValue>({ columns, data }: DataTableProps<TData, TValu
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
-                    className="capitalize"
+                    className="capitalize bg-slate-200 -m-1 cursor-pointer hover:bg-slate-300"
                     checked={column.getIsVisible()}
                     onCheckedChange={value => column.toggleVisibility(!!value)}
                   >
