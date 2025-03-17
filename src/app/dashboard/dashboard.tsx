@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Users from './users/page';
+import Users from './users/all-users';
 import Products from './products/page';
 import Orders from './orders/page';
 import {
@@ -10,16 +10,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { useRouter } from 'next/navigation';
 
 const lstItemStyle = 'w-full ml-4 font-semibold py-1 hover:text-pink-500 cursor-pointer';
 
 const Dashboard = () => {
   const [statusMessage, setStatusMessage] = useState<string>('users');
-  const router = useRouter();
 
-  const handleRoute = (route: string) => {
-    router.push(route);
+  const handleRoute = (componentName: string) => {
+    setStatusMessage(componentName);
   };
   return (
     <div className="flex flex-col md:flex-row">
@@ -40,14 +38,11 @@ const Dashboard = () => {
                 </AccordionTrigger>
                 <AccordionContent>
                   {[
-                    { title: 'All Users', link: 'all-users' },
-                    { title: 'Add User', link: 'add-user' },
-                    { title: 'Trash', link: 'trash-user' },
+                    { title: 'All Users', componentName: 'all-users' },
+                    { title: 'Add User', componentName: 'add-user' },
+                    { title: 'Trash', componentName: 'trash-user' },
                   ].map(i => (
-                    <div
-                      onClick={() => handleRoute(`/dashboard/users/${i.link}`)}
-                      className={lstItemStyle}
-                    >
+                    <div onClick={() => handleRoute(i.componentName)} className={lstItemStyle}>
                       {i.title}
                     </div>
                   ))}
@@ -68,14 +63,11 @@ const Dashboard = () => {
                 </AccordionTrigger>
                 <AccordionContent>
                   {[
-                    { title: 'All Products', link: 'all-products' },
-                    { title: 'Add Product', link: 'add-product' },
-                    { title: 'Trash', link: 'trash-product' },
+                    { title: 'All Products', componentName: 'all-products' },
+                    { title: 'Add Product', componentName: 'add-product' },
+                    { title: 'Trash', componentName: 'trash-product' },
                   ].map(i => (
-                    <div
-                      onClick={() => handleRoute(`/dashboard/product/${i.link}`)}
-                      className={lstItemStyle}
-                    >
+                    <div onClick={() => handleRoute(i.componentName)} className={lstItemStyle}>
                       {i.title}
                     </div>
                   ))}
@@ -96,14 +88,11 @@ const Dashboard = () => {
                 </AccordionTrigger>
                 <AccordionContent>
                   {[
-                    { title: 'All Orders', link: 'all-orders' },
-                    { title: 'Add order', link: 'add-order' },
-                    { title: 'Trash', link: 'trash-orders' },
+                    { title: 'All Orders', componentName: 'all-orders' },
+                    { title: 'Add order', componentName: 'add-order' },
+                    { title: 'Trash', componentName: 'trash-orders' },
                   ].map(i => (
-                    <div
-                      onClick={() => handleRoute(`/dashboard/orders/${i.link}`)}
-                      className={lstItemStyle}
-                    >
+                    <div onClick={() => handleRoute(i.componentName)} className={lstItemStyle}>
                       {i.title}
                     </div>
                   ))}
@@ -116,6 +105,7 @@ const Dashboard = () => {
 
       {/* মূল কন্টেন্ট */}
       <main className="w-full min-h-screen p-4">
+        {statusMessage}
         {statusMessage === 'users' && <Users />}
         {statusMessage === 'products' && <Products />}
         {statusMessage === 'orders' && <Orders />}
