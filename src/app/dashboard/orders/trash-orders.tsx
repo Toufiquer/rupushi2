@@ -1,8 +1,7 @@
 import React from 'react';
-
 import DemoTable from '../table/table';
 
-const AllUsers = () => {
+const TrashOrders = () => {
   return (
     <div className="w-full">
       <h2 className="text-lg font-bold mb-4">
@@ -12,4 +11,4 @@ const AllUsers = () => {
   );
 };
 
-export default AllUsers;
+export default TrashOrders;

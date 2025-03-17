@@ -1,20 +1,43 @@
 'use client';
 
 import React, { useState } from 'react';
-import Users from './users/all-users';
-import Products from './products/page';
-import Orders from './orders/page';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import AllUsers from './users/all-users';
+import AddNewUser from './users/add-new-user';
+import UsersTrash from './users/users-trash';
+import TrashProducts from './products/trash-products';
+import AllProducts from './products/all-products';
+import AddNewProduct from './products/add-new-product';
+import AllOrders from './orders/all-orders';
+import AddNewOrder from './orders/add-new-order';
+import TrashOrders from './orders/trash-orders';
 
 const lstItemStyle = 'w-full ml-4 font-semibold py-1 hover:text-pink-500 cursor-pointer';
+const accordionData = {
+  users: [
+    { title: 'All Users', componentName: 'all-users' },
+    { title: 'Add User', componentName: 'add-user' },
+    { title: 'Trash', componentName: 'trash-user' },
+  ],
+  products: [
+    { title: 'All Products', componentName: 'all-products' },
+    { title: 'Add Product', componentName: 'add-product' },
+    { title: 'Trash', componentName: 'trash-product' },
+  ],
+  orders: [
+    { title: 'All Orders', componentName: 'all-orders' },
+    { title: 'Add order', componentName: 'add-order' },
+    { title: 'Trash', componentName: 'trash-orders' },
+  ],
+};
 
 const Dashboard = () => {
-  const [statusMessage, setStatusMessage] = useState<string>('users');
+  const [statusMessage, setStatusMessage] = useState<string>('all-users');
 
   const handleRoute = (componentName: string) => {
     setStatusMessage(componentName);
@@ -30,22 +53,17 @@ const Dashboard = () => {
               <AccordionItem value="item-1">
                 <AccordionTrigger>
                   <div
-                    onClick={() => setStatusMessage('users')}
-                    className={`hover:text-pink-500 ${statusMessage === 'users' ? ' text-pink-500 ' : ' text-slate-500 '}`}
+                    className={`hover:text-pink-500 ${accordionData.users.map(i => i.componentName).includes(statusMessage) ? ' text-pink-500 ' : ' text-slate-500 '}`}
                   >
                     Users
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
-                  {[
-                    { title: 'All Users', componentName: 'all-users' },
-                    { title: 'Add User', componentName: 'add-user' },
-                    { title: 'Trash', componentName: 'trash-user' },
-                  ].map(i => (
+                  {accordionData.users.map(i => (
                     <div
                       key={i.componentName}
                       onClick={() => handleRoute(i.componentName)}
-                      className={lstItemStyle}
+                      className={`${lstItemStyle} ${statusMessage === i.componentName ? ' text-pink-500 ' : ' text-slate-500 '}`}
                     >
                       {i.title}
                     </div>
@@ -59,22 +77,17 @@ const Dashboard = () => {
               <AccordionItem value="item-1">
                 <AccordionTrigger>
                   <div
-                    onClick={() => setStatusMessage('products')}
-                    className={`hover:text-pink-500 ${statusMessage === 'products' ? ' text-pink-500 ' : ' text-slate-500 '}`}
+                    className={`hover:text-pink-500 ${accordionData.products.map(i => i.componentName).includes(statusMessage) ? ' text-pink-500 ' : ' text-slate-500 '}`}
                   >
                     Products
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
-                  {[
-                    { title: 'All Products', componentName: 'all-products' },
-                    { title: 'Add Product', componentName: 'add-product' },
-                    { title: 'Trash', componentName: 'trash-product' },
-                  ].map(i => (
+                  {accordionData.products.map(i => (
                     <div
                       key={i.componentName}
                       onClick={() => handleRoute(i.componentName)}
-                      className={lstItemStyle}
+                      className={`${lstItemStyle} ${statusMessage === i.componentName ? ' text-pink-500 ' : ' text-slate-500 '}`}
                     >
                       {i.title}
                     </div>
@@ -88,22 +101,17 @@ const Dashboard = () => {
               <AccordionItem value="item-1">
                 <AccordionTrigger>
                   <div
-                    onClick={() => setStatusMessage('orders')}
-                    className={`hover:text-pink-500 ${statusMessage === 'orders' ? ' text-pink-500 ' : ' text-slate-500 '}`}
+                    className={`hover:text-pink-500 ${accordionData.orders.map(i => i.componentName).includes(statusMessage) ? ' text-pink-500 ' : ' text-slate-500 '}`}
                   >
                     Orders
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
-                  {[
-                    { title: 'All Orders', componentName: 'all-orders' },
-                    { title: 'Add order', componentName: 'add-order' },
-                    { title: 'Trash', componentName: 'trash-orders' },
-                  ].map(i => (
+                  {accordionData.orders.map(i => (
                     <div
                       key={i.componentName}
                       onClick={() => handleRoute(i.componentName)}
-                      className={lstItemStyle}
+                      className={`${lstItemStyle} ${statusMessage === i.componentName ? ' text-pink-500 ' : ' text-slate-500 '}`}
                     >
                       {i.title}
                     </div>
@@ -116,11 +124,17 @@ const Dashboard = () => {
       </aside>
 
       {/* মূল কন্টেন্ট */}
-      <main className="w-full min-h-screen p-4">
+      <main className="w-full md:min-h-screen p-4">
         {statusMessage}
-        {statusMessage === 'users' && <Users />}
-        {statusMessage === 'products' && <Products />}
-        {statusMessage === 'orders' && <Orders />}
+        {statusMessage === 'all-users' && <AllUsers />}
+        {statusMessage === 'add-user' && <AddNewUser />}
+        {statusMessage === 'trash-user' && <UsersTrash />}
+        {statusMessage === 'all-products' && <AllProducts />}
+        {statusMessage === 'add-product' && <AddNewProduct />}
+        {statusMessage === 'trash-product' && <TrashProducts />}
+        {statusMessage === 'all-orders' && <AllOrders />}
+        {statusMessage === 'add-order' && <AddNewOrder />}
+        {statusMessage === 'trash-orders' && <TrashOrders />}
       </main>
     </div>
   );
