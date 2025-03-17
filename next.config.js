@@ -9,12 +9,19 @@ const withPWA = require('next-pwa')({
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: [
-      'via.placeholder.com',
-      'placehold.co',
-      'via.placeholder.co',
-      'https://kanerdul.com',
-      'kanerdul.com',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'kanerdul.com',
+      },
     ],
   },
 };
