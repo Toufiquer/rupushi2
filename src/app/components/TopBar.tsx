@@ -253,7 +253,7 @@ export default function TopBar() {
           </div>
           {/* Desktop User Icons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link href="/account" className="text-gray-700 hover:text-pink-600">
+            <Link href="/login" className="text-gray-700 hover:text-pink-600">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -421,7 +421,7 @@ export default function TopBar() {
             </div>
           </nav>
           <div className="flex justify-around py-3 border-t">
-            <Link href="/account" className="text-gray-700 hover:text-pink-600">
+            <Link href="/login" className="text-gray-700 hover:text-pink-600">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
