@@ -97,16 +97,26 @@ export async function PUT(
 //   );
 // }
 
-// export async function DELETE(req: NextApiRequest & { json: () => void }, res: NextApiResponse) {
-//   await dbConnect();
-
-//   const result = await req.json();
-//   const rtk: IRtk = await Rtk.deleteOne({ _id: result.id });
-//   return new Response(
-//     JSON.stringify({
-//       data: result,
-//       result: rtk,
-//       message: 'Patch request successful invoke',
-//     }),
-//   );
-// }
+export async function DELETE(
+  req: NextApiRequest & { json: () => { id: string } },
+  res: NextApiResponse,
+) {
+  const updateUser = await req.json();
+  await client.connect();
+  // Access the database and collection
+  const database = client.db('db_users');
+  const collection = database.collection('users_collection');
+  // Delete a single document
+  const id = updateUser.id; // Replace with the actual _id value
+  console.log('--id ', id);
+  const filter = { _id: new ObjectId(id) };
+  const deleteOneResult = await collection.deleteOne(filter);
+  console.log(`Deleted ${deleteOneResult.deletedCount} document(s)`);
+  return new Response(
+    JSON.stringify({
+      data: updateUser,
+      result: deleteOneResult,
+      message: 'Patch request successful invoke',
+    }),
+  );
+}
