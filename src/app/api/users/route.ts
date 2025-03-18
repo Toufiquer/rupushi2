@@ -42,21 +42,19 @@ export async function POST(req: NextApiRequest & { json: () => void }, res: Next
 }
 
 /* it can change all data */
-// export async function PUT(
-//   req: NextApiRequest & { json: () => { id: string; data: any } },
-//   res: NextApiResponse,
-// ) {
-//   await dbConnect();
-//   const result = await req.json();
-//   const rtk: IRtk = await Rtk.updateOne({ _id: result.id }, { name: result.title });
-//   return new Response(
-//     JSON.stringify({
-//       data: result,
-//       result: rtk,
-//       message: 'Put request successful invoke',
-//     }),
-//   );
-// }
+export async function PUT(
+  req: NextApiRequest & { json: () => { id: string; data: any } },
+  res: NextApiResponse,
+) {
+  const result = await req.json();
+  return new Response(
+    JSON.stringify({
+      data: result,
+      result: result,
+      message: 'Put request successful invoke',
+    }),
+  );
+}
 
 /*  only change particular data not change all data */
 // export async function PATCH(req: NextApiRequest & { json: () => void }, res: NextApiResponse) {
