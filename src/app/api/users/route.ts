@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import { client } from '../lib/dbConnect';
 
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -43,14 +44,38 @@ export async function POST(req: NextApiRequest & { json: () => void }, res: Next
 
 /* it can change all data */
 export async function PUT(
-  req: NextApiRequest & { json: () => { id: string; data: any } },
+  req: NextApiRequest & { json: () => { id: string; user: any } },
   res: NextApiResponse,
 ) {
-  const result = await req.json();
+  const updateUser = await req.json();
+  console.log('updateUser.id ', updateUser.id);
+  console.log('updateUser.user ', updateUser.user);
+  // ! ----------------------------
+  await client.connect();
+  // Access the database and collection
+  const database = client.db('db_users');
+  const collection = database.collection('users_collection');
+  // Specify the document to update using its _id
+  const id = updateUser.id; // Replace with the actual _id value
+  console.log('--id ', id);
+  const filter = { _id: new ObjectId(id) };
+  // Define the update operation
+  const updateDocument = {
+    $set: {
+      user: updateUser.user, // Replace with the actual field and value to update
+    },
+  };
+  // Perform the update
+  const result = await collection.updateOne(filter, updateDocument);
+  console.log(
+    `***  ---  ${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
+  );
+  // ! ----------------------------
+
   return new Response(
     JSON.stringify({
-      data: result,
-      result: result,
+      data: updateUser,
+      result: updateUser,
       message: 'Put request successful invoke',
     }),
   );
