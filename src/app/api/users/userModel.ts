@@ -13,7 +13,7 @@ const userSchema = new Schema(
     alias: { type: String, required: true },
     role: {
       type: String,
-      required: true,
+      required: false,
       enum: ['user', 'admin', 'moderator'],
       default: 'user',
     },

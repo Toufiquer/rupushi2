@@ -6,6 +6,11 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Product name is required'],
       trim: true,
+    },
+    uniqueProductId: {
+      type: String,
+      required: [true, 'Unique product id is required'],
+      trim: true,
       unique: true,
     },
     img: {
