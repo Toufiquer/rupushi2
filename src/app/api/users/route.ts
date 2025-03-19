@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
 import User from './userModel';
+import bcrypt from 'bcrypt';
+
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-AE7AY3rygyNZ0V';
 
 // Connect to MongoDB
 const connectDB = async () => {
@@ -27,6 +30,13 @@ export async function POST(req: Request) {
   try {
     await connectDB();
     const userData = await req.json();
+
+    // যদি পাসওয়ার্ড আপডেট করা হয়
+    if (userData.password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(userData.password, salt);
+      userData.password = hashedPassword;
+    }
     const newUser = await User.create(userData);
     return NextResponse.json(
       { data: newUser, message: 'User created successfully' },
@@ -41,7 +51,15 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     await connectDB();
-    const { id, ...updateData } = await req.json();
+    const { id, password, ...updateData } = await req.json();
+
+    // যদি পাসওয়ার্ড আপডেট করা হয়
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      updateData.password = hashedPassword;
+    }
+
     const updatedUser = await User.findByIdAndUpdate(id, updateData, {
       new: true,
       runValidators: true,

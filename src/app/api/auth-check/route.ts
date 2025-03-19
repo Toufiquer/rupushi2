@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
 import User from '../../api/users/userModel';
 import { generateToken, verifyToken } from '@/app/utils/jwt';
+import bcrypt from 'bcrypt';
 
 // Connect to MongoDB
 const connectDB = async () => {
@@ -23,7 +24,10 @@ export async function POST(req: Request) {
     const findUser = users.find(user => user.email === userData.email);
 
     if (findUser) {
-      if (findUser.password === userData.password && findUser.alias === userData.alias) {
+      // পাসওয়ার্ড ম্যাচ করা
+      const isPasswordValid = await bcrypt.compare(userData.password, findUser.password);
+
+      if (isPasswordValid && findUser.alias === userData.alias) {
         // JWT টোকেন জেনারেট করা
         token = generateToken(userData.email, userData.alias);
       }
@@ -55,7 +59,7 @@ export async function GET(req: Request) {
     }
 
     return NextResponse.json(
-      { data: decoded, message: 'Token verified successfully' },
+      { data: decoded && true, message: 'Token verified successfully' },
       { status: 200 },
     );
   } catch (error: any) {
