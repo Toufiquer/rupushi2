@@ -14,6 +14,11 @@ const mediaSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    status: {
+      type: String,
+      enum: ['active', 'trash'],
+      default: 'active',
+    },
   },
   {
     timestamps: true,
