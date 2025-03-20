@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
@@ -8,7 +8,24 @@ import { toast } from 'sonner';
 const Media = () => {
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<string[]>([]);
+  const [imgFile, setImgFiles] = useState<
+    { delete_url: string; url: string; display_url: string }[]
+  >([]);
   const [showUploadModal, setShowUploadModal] = useState(false);
+  useEffect(() => {
+    const fetchImages = async () => {
+      const response = await fetch('/api/media');
+      const data = await response.json();
+      console.log('data : ', data);
+      setImgFiles(data.data);
+      setImages(
+        data.data.map(
+          (item: { delete_url: string; url: string; display_url: string }) => item.display_url,
+        ),
+      );
+    };
+    fetchImages();
+  }, []);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -30,6 +47,24 @@ const Media = () => {
       const data = await response.json();
       if (data.success) {
         console.log('data : ', data);
+
+        // Save image data to our server
+        const saveResponse = await fetch('/api/media', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            delete_url: data.data.delete_url,
+            url: data.data.url,
+            display_url: data.data.display_url,
+          }),
+        });
+
+        if (!saveResponse.ok) {
+          throw new Error('সার্ভারে ছবি সেভ করতে সমস্যা হয়েছে');
+        }
+
         setImages(prev => [...prev, data.data.url]);
         toast.success('ছবি সফলভাবে আপলোড হয়েছে!');
         setShowUploadModal(false);
@@ -56,7 +91,7 @@ const Media = () => {
         </Button>
       </div>
 
-      {showUploadModal && (
+      {showUploadModal ? (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-4 rounded-lg w-96">
             <h3 className="text-lg font-semibold mb-4">ছবি আপলোড করুন</h3>
@@ -73,19 +108,19 @@ const Media = () => {
             </div>
           </div>
         </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {images.map((imageUrl, index) => (
+            <div key={index} className="relative group">
+              <img
+                src={imageUrl}
+                alt={`Image ${index + 1}`}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+            </div>
+          ))}
+        </div>
       )}
-
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {images.map((imageUrl, index) => (
-          <div key={index} className="relative group">
-            <img
-              src={imageUrl}
-              alt={`Image ${index + 1}`}
-              className="w-full h-48 object-cover rounded-lg"
-            />
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
