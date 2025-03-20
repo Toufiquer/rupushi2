@@ -3,8 +3,11 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import TopMarquee from './TopMarquee';
+import { usePathname } from 'next/navigation';
 
 export default function TopBar() {
+  const pathname = usePathname();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -147,33 +150,35 @@ export default function TopBar() {
   return (
     <>
       {/* Desktop navigation with TopMarquee */}
-      <div className="bg-pink-600 text-white py-2">
-        <div className="container mx-auto flex justify-between items-center px-2">
-          {/* TopMarquee - visible on all devices */}
-          <div className="flex-grow md:flex-grow-0 md:w-2/4">
-            <TopMarquee />
-          </div>
+      {!['/dashboard', '/login'].includes(pathname) && (
+        <div className="bg-pink-600 text-white py-2">
+          <div className="container mx-auto flex justify-between items-center px-2">
+            {/* TopMarquee - visible on all devices */}
+            <div className="flex-grow md:flex-grow-0 md:w-2/4">
+              <TopMarquee />
+            </div>
 
-          {/* Desktop Navigation Links - hidden on mobile */}
-          <div className="hidden md:flex items-center space-x-4 md:pl-1">
-            <Link href="/" className="hover:underline duration-200">
-              Home
-            </Link>
-            <span>|</span>
-            <Link href="/about-us" className="hover:underline duration-200">
-              About Us
-            </Link>
-            <span>|</span>
-            <Link href="/terms-condition" className="hover:underline duration-200">
-              Terms & Condition
-            </Link>
-            <span>|</span>
-            <Link href="/privacy-policy" className="hover:underline duration-200">
-              Privacy Policy
-            </Link>
+            {/* Desktop Navigation Links - hidden on mobile */}
+            <div className="hidden md:flex items-center space-x-4 md:pl-1">
+              <Link href="/" className="hover:underline duration-200">
+                Home
+              </Link>
+              <span>|</span>
+              <Link href="/about-us" className="hover:underline duration-200">
+                About Us
+              </Link>
+              <span>|</span>
+              <Link href="/terms-condition" className="hover:underline duration-200">
+                Terms & Condition
+              </Link>
+              <span>|</span>
+              <Link href="/privacy-policy" className="hover:underline duration-200">
+                Privacy Policy
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Search Bar - visible on all devices */}
       <div className="bg-white shadow-md py-3 px-4">
@@ -306,76 +311,78 @@ export default function TopBar() {
       </div>
 
       {/* Category Slider Menu - visible on all devices */}
-      <div className="bg-gray-100 py-3 overflow-hidden relative">
-        {/* বাম নেভিগেশন বাটন */}
-        <button
-          onClick={scrollLeftHandler}
-          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-r-md p-2 shadow-md z-10 text-pink-600 hover:text-pink-700 focus:outline-none"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+      {!['/dashboard', '/login'].includes(pathname) && (
+        <div className="bg-gray-100 py-3 overflow-hidden relative">
+          {/* বাম নেভিগেশন বাটন */}
+          <button
+            onClick={scrollLeftHandler}
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-r-md p-2 shadow-md z-10 text-pink-600 hover:text-pink-700 focus:outline-none"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
 
-        <div className="container mx-auto px-4">
-          <div
-            ref={sliderRef}
-            className="flex items-center space-x-4 overflow-x-auto no-scrollbar scroll-smooth px-8"
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            onMouseEnter={stopAutoplay}
-            onMouseLeave={startAutoplay}
-            style={{
-              cursor: isDragging ? 'grabbing' : 'grab',
-              WebkitOverflowScrolling: 'touch',
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-              scrollBehavior: 'smooth',
-              padding: '0.75rem 0',
-            }}
-          >
-            {categoryMenuItems.map((item, index) => (
-              <Link
-                href={item.href}
-                key={index}
-                className="whitespace-nowrap px-6 py-2 bg-white rounded-md shadow-sm text-gray-700 hover:text-pink-600 hover:shadow-md transition-all duration-200 flex-shrink-0"
-              >
-                {item.name}
-              </Link>
-            ))}
+          <div className="container mx-auto px-4">
+            <div
+              ref={sliderRef}
+              className="flex items-center space-x-4 overflow-x-auto no-scrollbar scroll-smooth px-8"
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onMouseEnter={stopAutoplay}
+              onMouseLeave={startAutoplay}
+              style={{
+                cursor: isDragging ? 'grabbing' : 'grab',
+                WebkitOverflowScrolling: 'touch',
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+                scrollBehavior: 'smooth',
+                padding: '0.75rem 0',
+              }}
+            >
+              {categoryMenuItems.map((item, index) => (
+                <Link
+                  href={item.href}
+                  key={index}
+                  className="whitespace-nowrap px-6 py-2 bg-white rounded-md shadow-sm text-gray-700 hover:text-pink-600 hover:shadow-md transition-all duration-200 flex-shrink-0"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* ডান নেভিগেশন বাটন */}
-        <button
-          onClick={scrollRightHandler}
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-l-md p-2 shadow-md z-10 text-pink-600 hover:text-pink-700 focus:outline-none"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+          {/* ডান নেভিগেশন বাটন */}
+          <button
+            onClick={scrollRightHandler}
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-l-md p-2 shadow-md z-10 text-pink-600 hover:text-pink-700 focus:outline-none"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      )}
 
       {/* Mobile Menu */}
       {isMenuOpen && (
