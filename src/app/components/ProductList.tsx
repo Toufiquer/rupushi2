@@ -87,46 +87,59 @@ export default function ProductList({
             key={product.id}
             className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1"
           >
-            <Link href={`/product/${product.slug}`}>
-              <div className="relative pt-[100%]">
+            <div className="relative pt-[100%]">
+              <Link aria-disabled={!product.inStock} href={`/product/${product.slug}`}>
                 <Image
                   src={product.image}
                   alt={product.name}
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                />
-                {product.isNew && (
-                  <span className="absolute top-2 left-2 bg-pink-600 text-white text-xs px-2 py-1 rounded-full">
-                    নতুন
-                  </span>
-                )}
-                {product.discountPrice && (
-                  <span className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
-                    {Math.round(((product.price - product.discountPrice) / product.price) * 100)}%
-                    ছাড়
-                  </span>
-                )}
-              </div>
-              <div className="p-4">
-                <h3 className="text-sm font-medium text-gray-800 mb-1 line-clamp-2">
-                  {product.name}
-                </h3>
-                <div className="flex items-center space-x-2">
-                  {product.discountPrice ? (
-                    <>
-                      <span className="text-pink-600 font-bold">৳{product.discountPrice}</span>
-                      <span className="text-gray-500 text-sm line-through">৳{product.price}</span>
-                    </>
-                  ) : (
-                    <span className="text-pink-600 font-bold">৳{product.price}</span>
-                  )}
-                </div>
-                {!product.inStock && (
-                  <span className="text-red-500 text-xs block mt-1">স্টক শেষ</span>
+                />{' '}
+              </Link>   
+              {product.isNew && (
+                <span className="absolute top-2 left-2 bg-pink-600 text-white text-xs px-2 py-1 rounded-full">
+                  নতুন
+                </span>
+              )}
+              {product.discountPrice && (
+                <span className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                  {Math.round(((product.price - product.discountPrice) / product.price) * 100)}%
+                  ছাড়
+                </span>
+              )}
+            </div>
+            <div className="p-4">
+              <h3 className="text-sm font-medium text-gray-800 mb-1 line-clamp-2">
+                {product.name}
+              </h3>
+              <div className="flex items-center space-x-2">
+                {product.discountPrice ? (
+                  <>
+                    <span className="text-pink-600 font-bold">৳{product.discountPrice}</span>
+                    <span className="text-gray-500 text-sm line-through">৳{product.price}</span>
+                  </>
+                ) : (
+                  <span className="text-pink-600 font-bold">৳{product.price}</span>
                 )}
               </div>
-            </Link>
+              {!product.inStock ? (
+                <Link
+                  href={`/product/${product.slug}`}
+                  aria-disabled={true}
+                  className="block text-center w-full py-2 bg-yellow-200 text-black font-medium rounded transition duration-200"
+                >
+                  স্টক শেষ
+                </Link>
+              ) : (
+                <Link
+                  href={`/product/${product.slug}`}
+                  className="block text-center w-full py-2 bg-yellow-500 text-white font-medium rounded hover:bg-yellow-600 transition duration-200"
+                >
+                  অর্ডার করুন
+                </Link>
+              )}
+            </div>
           </div>
         ))}
       </div>

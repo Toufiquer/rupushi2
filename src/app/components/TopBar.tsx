@@ -314,7 +314,7 @@ export default function TopBar() {
       {!['/dashboard', '/login'].includes(pathname) && (
         <div className="bg-gray-100 py-3 overflow-hidden relative">
           {/* বাম নেভিগেশন বাটন */}
-          <button
+          {/* <button
             onClick={scrollLeftHandler}
             className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-r-md p-2 shadow-md z-10 text-pink-600 hover:text-pink-700 focus:outline-none"
           >
@@ -332,7 +332,7 @@ export default function TopBar() {
                 d="M15 19l-7-7 7-7"
               />
             </svg>
-          </button>
+          </button> */}
 
           <div className="container mx-auto px-4">
             <div
@@ -367,7 +367,7 @@ export default function TopBar() {
           </div>
 
           {/* ডান নেভিগেশন বাটন */}
-          <button
+          {/* <button
             onClick={scrollRightHandler}
             className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-l-md p-2 shadow-md z-10 text-pink-600 hover:text-pink-700 focus:outline-none"
           >
@@ -380,7 +380,7 @@ export default function TopBar() {
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-          </button>
+          </button> */}
         </div>
       )}
 
