@@ -16,6 +16,9 @@ import AddNewProduct from './products/add-new-product';
 import AllOrders from './orders/all-orders';
 import AddNewOrder from './orders/add-new-order';
 import TrashOrders from './orders/trash-orders';
+import AllPictures from './media/all-pictures';
+import AddPicture from './media/add-picture';
+import TrashPictures from './media/trash-pictures';
 
 const lstItemStyle = 'w-full ml-4 font-semibold py-1 hover:text-pink-500 cursor-pointer';
 const accordionData = {
@@ -33,6 +36,11 @@ const accordionData = {
     { title: 'All Orders', componentName: 'all-orders' },
     { title: 'Add order', componentName: 'add-order' },
     { title: 'Trash', componentName: 'trash-orders' },
+  ],
+  media: [
+    { title: 'All Pictures', componentName: 'all-pictures' },
+    { title: 'Add Picture', componentName: 'add-picture' },
+    { title: 'Trash', componentName: 'trash-pictures' },
   ],
 };
 
@@ -120,6 +128,30 @@ const Dashboard = () => {
               </AccordionItem>
             </Accordion>
           </li>
+          <li>
+            <Accordion type="single" collapsible>
+              <AccordionItem value="item-1">
+                <AccordionTrigger>
+                  <div
+                    className={`hover:text-pink-500 ${accordionData.media.map(i => i.componentName).includes(statusMessage) ? ' text-pink-500 ' : ' text-slate-500 '}`}
+                  >
+                    Media
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  {accordionData.media.map(i => (
+                    <div
+                      key={i.componentName}
+                      onClick={() => handleRoute(i.componentName)}
+                      className={`${lstItemStyle} ${statusMessage === i.componentName ? ' text-pink-500 ' : ' text-slate-500 '}`}
+                    >
+                      {i.title}
+                    </div>
+                  ))}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </li>
         </ul>
       </aside>
 
@@ -135,6 +167,9 @@ const Dashboard = () => {
         {statusMessage === 'all-orders' && <AllOrders />}
         {statusMessage === 'add-order' && <AddNewOrder />}
         {statusMessage === 'trash-orders' && <TrashOrders />}
+        {statusMessage === 'all-pictures' && <AllPictures />}
+        {statusMessage === 'add-picture' && <AddPicture />}
+        {statusMessage === 'trash-pictures' && <TrashPictures />}
       </main>
     </div>
   );
