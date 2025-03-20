@@ -1,5 +1,7 @@
+import Media from './media';
+
 const AllPictures = () => {
-  return <div>All Pictures</div>;
+  return <Media />;
 };
 
 export default AllPictures;
