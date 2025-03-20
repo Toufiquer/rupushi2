@@ -3,9 +3,9 @@ import React from 'react';
 
 const Login = () => {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">লগইন করুন</h2>
-      <form className="max-w-md mx-auto">
+    <div className="container mx-auto px-4 py-8 min-h-screen flex items-center justify-center flex-col w-full">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center w-full">লগইন করুন</h2>
+      <form className="max-w-md mx-auto w-full">
         <div className="mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="email">
             ইমেইল
@@ -22,6 +22,12 @@ const Login = () => {
             className="border rounded w-full py-2 px-3"
             required
           />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2" htmlFor="alias">
+            alias
+          </label>
+          <input type="alias" id="alias" className="border rounded w-full py-2 px-3" required />
         </div>
         <Link href="/dashboard">
           <button
