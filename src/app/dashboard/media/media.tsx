@@ -29,6 +29,7 @@ const Media = () => {
 
       const data = await response.json();
       if (data.success) {
+        console.log('data : ', data);
         setImages(prev => [...prev, data.data.url]);
         toast.success('ছবি সফলভাবে আপলোড হয়েছে!');
         setShowUploadModal(false);
