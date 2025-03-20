@@ -21,9 +21,10 @@ export async function POST(req: Request) {
 
     const users = await User.find({});
     const findUser = users.find(user => user.email === userData.email);
-
+    // Use the decryptPassCode method
+    const decryptedPassCode = findUser.decryptPassCode();
     if (findUser) {
-      if (findUser.password === userData.password && findUser.alias === userData.alias) {
+      if (decryptedPassCode === userData.passCode && findUser.alias === userData.alias) {
         // JWT টোকেন জেনারেট করা
         token = generateToken(userData.email, userData.alias);
       }
