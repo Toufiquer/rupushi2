@@ -21,11 +21,21 @@ const Media = () => {
       const response = await fetch('/api/media');
       const data = await response.json();
       console.log('data : ', data);
-      setImgFiles(data.data);
-      setImages(
-        data.data.map(
-          (item: { delete_url: string; url: string; display_url: string }) => item.display_url,
+      setImgFiles(
+        data.data.filter(
+          (i: { delete_url: string; url: string; display_url: string; status: string }) =>
+            i.status === 'active',
         ),
+      );
+      setImages(
+        data.data
+          .filter(
+            (i: { delete_url: string; url: string; display_url: string; status: string }) =>
+              i.status === 'active',
+          )
+          .map(
+            (item: { delete_url: string; url: string; display_url: string }) => item.display_url,
+          ),
       );
     };
     fetchImages();
@@ -92,12 +102,14 @@ const Media = () => {
 
   const handleMoveToTrash = async (id: string) => {
     try {
-      const response = await fetch(`/api/media/${id}`, {
-        method: 'PATCH',
+      console.log('id : ', id);
+      const response = await fetch(`/api/media`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ status: 'trash' }),
+
+        body: JSON.stringify({ id, status: 'trash' }),
       });
 
       if (response.ok) {

@@ -21,15 +21,26 @@ const Media = () => {
       const response = await fetch('/api/media');
       const data = await response.json();
       console.log('data : ', data);
-      setImgFiles(data.data);
-      setImages(
-        data.data.map(
-          (item: { delete_url: string; url: string; display_url: string }) => item.display_url,
+      setImgFiles(
+        data.data.filter(
+          (i: { delete_url: string; url: string; display_url: string; status: string }) =>
+            i.status === 'trash',
         ),
+      );
+      setImages(
+        data.data
+          .filter(
+            (i: { delete_url: string; url: string; display_url: string; status: string }) =>
+              i.status === 'trash',
+          )
+          .map(
+            (item: { delete_url: string; url: string; display_url: string }) => item.display_url,
+          ),
       );
     };
     fetchImages();
   }, []);
+
   const handleDeleteImage = async (id: string, url: string, delete_url: string) => {
     try {
       const response = await fetch(`/api/media`, {
@@ -114,14 +125,16 @@ const Media = () => {
     }
   };
 
-  const handleMoveToTrash = async (id: string) => {
+  const handleRecover = async (id: string) => {
     try {
-      const response = await fetch(`/api/media/${id}`, {
-        method: 'PATCH',
+      console.log('id : ', id);
+      const response = await fetch(`/api/media`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ status: 'trash' }),
+
+        body: JSON.stringify({ id, status: 'active' }),
       });
 
       if (response.ok) {
@@ -133,29 +146,22 @@ const Media = () => {
         toast.error('ছবি ট্র্যাশে সরাতে সমস্যা হয়েছে!');
       }
     } catch (error) {
-      console.error('Error moving to trash:', error);
+      console.error('Error moving to active:', error);
       toast.error('ছবি ট্র্যাশে সরাতে সমস্যা হয়েছে!');
     }
     setShowTrashModal(false);
   };
-
   return (
     <div className="p-4 space-y-4">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">ইমেজ গ্যালারি</h2>
-        <Button
-          className="hover:bg-pink-500 border-1-pink-600 rounded-full bg-pink-400 text-white cursor-pointer"
-          onClick={() => setShowUploadModal(true)}
-        >
-          ছবি আপলোড করুন
-        </Button>
       </div>
 
       {showTrashModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-4 rounded-lg w-96">
             <h3 className="text-lg font-semibold mb-4">নিশ্চিত করুন</h3>
-            <p>আপনি কি এই ছবিটি ট্র্যাশে সরাতে চান?</p>
+            <p>Are you sure?</p>
             <div className="flex justify-end gap-2 mt-4">
               <Button
                 className="text-sm cursor-pointer bg-green-400 text-white border-green-500 hover:bg-green-600 hover:text-white hover:border-red-600 transition-all duration-300"
@@ -167,7 +173,7 @@ const Media = () => {
               <Button
                 variant="destructive"
                 className="text-sm cursor-pointer bg-rose-400 text-white border-rose-500 hover:bg-rose-600 hover:text-white hover:border-red-600 transition-all duration-300"
-                onClick={() => handleMoveToTrash(selectedImageId)}
+                onClick={() => handleRecover(selectedImageId)}
               >
                 হ্যাঁ
               </Button>
@@ -221,7 +227,7 @@ const Media = () => {
                         setShowTrashModal(true);
                       }}
                     >
-                      move to trash
+                      Recovery
                     </Button>
                     <Button
                       variant="outline"
