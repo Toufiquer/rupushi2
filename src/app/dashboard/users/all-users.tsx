@@ -29,6 +29,7 @@ interface User {
   role: 'user' | 'admin' | 'moderator';
   createdAt: string;
 }
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const AllUsers = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -298,78 +299,83 @@ const AllUsers = () => {
               Create New User
             </DialogTitle>
           </DialogHeader>
-          <div className="grid gap-5 py-5 overflow-y-auto px-1">
-            <div className="grid gap-2">
-              <label htmlFor="name" className="text-sm font-medium text-gray-700">
-                Full Name
-              </label>
-              <Input
-                id="name"
-                value={newUser.name}
-                onChange={e => setNewUser({ ...newUser, name: e.target.value })}
-                className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
-                placeholder="Enter user's full name"
-              />
+          <ScrollArea className="h-[500px] w-full rounded-md p-4">
+            <div className="grid gap-5 py-5  px-1">
+              <div className="grid gap-2">
+                <label htmlFor="name" className="text-sm font-medium text-gray-700">
+                  Full Name
+                </label>
+                <Input
+                  id="name"
+                  value={newUser.name}
+                  onChange={e => setNewUser({ ...newUser, name: e.target.value })}
+                  className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
+                  placeholder="Enter user's full name"
+                />
+              </div>
+              <div className="grid gap-2">
+                <label htmlFor="email" className="text-sm font-medium text-gray-700">
+                  Email Address
+                </label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={newUser.email}
+                  onChange={e => setNewUser({ ...newUser, email: e.target.value })}
+                  className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
+                  placeholder="user@example.com"
+                />
+              </div>
+              <div className="grid gap-2">
+                <label htmlFor="passCode" className="text-sm font-medium text-gray-700">
+                  Password
+                </label>
+                <Input
+                  id="passCode"
+                  type="password"
+                  value={newUser.passCode}
+                  onChange={e => setNewUser({ ...newUser, passCode: e.target.value })}
+                  className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
+                  placeholder="Minimum 8 characters"
+                />
+              </div>
+              <div className="grid gap-2">
+                <label htmlFor="alias" className="text-sm font-medium text-gray-700">
+                  Username/Alias
+                </label>
+                <Input
+                  id="alias"
+                  value={newUser.alias}
+                  onChange={e => setNewUser({ ...newUser, alias: e.target.value })}
+                  className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
+                  placeholder="Choose a username"
+                />
+              </div>
+              <div className="grid gap-2 bg-white">
+                <label htmlFor="role" className="text-sm font-medium text-gray-700">
+                  User Role
+                </label>
+                <Select
+                  value={newUser.role}
+                  onValueChange={(value: 'user' | 'admin' | 'moderator') =>
+                    setNewUser({ ...newUser, role: value })
+                  }
+                >
+                  <SelectTrigger className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200">
+                    <SelectValue placeholder="Select a role" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="user">Regular User</SelectItem>
+                    <SelectItem value="admin">Administrator</SelectItem>
+                    <SelectItem value="moderator">Moderator</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-2">
+                <div className="py-12" />
+              </div>
             </div>
-            <div className="grid gap-2">
-              <label htmlFor="email" className="text-sm font-medium text-gray-700">
-                Email Address
-              </label>
-              <Input
-                id="email"
-                type="email"
-                value={newUser.email}
-                onChange={e => setNewUser({ ...newUser, email: e.target.value })}
-                className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
-                placeholder="user@example.com"
-              />
-            </div>
-            <div className="grid gap-2">
-              <label htmlFor="passCode" className="text-sm font-medium text-gray-700">
-                Password
-              </label>
-              <Input
-                id="passCode"
-                type="password"
-                value={newUser.passCode}
-                onChange={e => setNewUser({ ...newUser, passCode: e.target.value })}
-                className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
-                placeholder="Minimum 8 characters"
-              />
-            </div>
-            <div className="grid gap-2">
-              <label htmlFor="alias" className="text-sm font-medium text-gray-700">
-                Username/Alias
-              </label>
-              <Input
-                id="alias"
-                value={newUser.alias}
-                onChange={e => setNewUser({ ...newUser, alias: e.target.value })}
-                className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
-                placeholder="Choose a username"
-              />
-            </div>
-            <div className="grid gap-2">
-              <label htmlFor="role" className="text-sm font-medium text-gray-700">
-                User Role
-              </label>
-              <Select
-                value={newUser.role}
-                onValueChange={(value: 'user' | 'admin' | 'moderator') =>
-                  setNewUser({ ...newUser, role: value })
-                }
-              >
-                <SelectTrigger className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200">
-                  <SelectValue placeholder="Select a role" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="user">Regular User</SelectItem>
-                  <SelectItem value="admin">Administrator</SelectItem>
-                  <SelectItem value="moderator">Moderator</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+          </ScrollArea>
           <DialogFooter className="border-t pt-4 gap-3 flex shrink-0 mt-auto">
             <Button
               variant="outline"
@@ -396,61 +402,67 @@ const AllUsers = () => {
               Edit User
             </DialogTitle>
           </DialogHeader>
-          <div className="grid gap-5 py-5 overflow-y-auto px-1">
-            <div className="grid gap-2">
-              <label htmlFor="edit-name" className="text-sm font-medium text-gray-700">
-                Full Name
-              </label>
-              <Input
-                id="edit-name"
-                value={editForm.name}
-                onChange={e => setEditForm({ ...editForm, name: e.target.value })}
-                className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
-              />
+
+          <ScrollArea className="h-[500px] w-full rounded-md p-4">
+            <div className="grid gap-5 py-5 px-1">
+              <div className="grid gap-2">
+                <label htmlFor="edit-name" className="text-sm font-medium text-gray-700">
+                  Full Name
+                </label>
+                <Input
+                  id="edit-name"
+                  value={editForm.name}
+                  onChange={e => setEditForm({ ...editForm, name: e.target.value })}
+                  className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
+                />
+              </div>
+              <div className="grid gap-2">
+                <label htmlFor="edit-email" className="text-sm font-medium text-gray-700">
+                  Email Address
+                </label>
+                <Input
+                  id="edit-email"
+                  value={editForm.email}
+                  onChange={e => setEditForm({ ...editForm, email: e.target.value })}
+                  className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
+                />
+              </div>
+              <div className="grid gap-2">
+                <label htmlFor="edit-alias" className="text-sm font-medium text-gray-700">
+                  Username/Alias
+                </label>
+                <Input
+                  id="edit-alias"
+                  value={editForm.alias}
+                  onChange={e => setEditForm({ ...editForm, alias: e.target.value })}
+                  className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
+                />
+              </div>
+              <div className="grid gap-2">
+                <label htmlFor="edit-role" className="text-sm font-medium text-gray-700">
+                  User Role
+                </label>
+                <Select
+                  value={editForm.role}
+                  onValueChange={(value: 'user' | 'admin' | 'moderator') =>
+                    setEditForm({ ...editForm, role: value })
+                  }
+                >
+                  <SelectTrigger className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200">
+                    <SelectValue placeholder="Select a role" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="user">Regular User</SelectItem>
+                    <SelectItem value="admin">Administrator</SelectItem>
+                    <SelectItem value="moderator">Moderator</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-2">
+                <div className="py-12" />
+              </div>
             </div>
-            <div className="grid gap-2">
-              <label htmlFor="edit-email" className="text-sm font-medium text-gray-700">
-                Email Address
-              </label>
-              <Input
-                id="edit-email"
-                value={editForm.email}
-                onChange={e => setEditForm({ ...editForm, email: e.target.value })}
-                className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
-              />
-            </div>
-            <div className="grid gap-2">
-              <label htmlFor="edit-alias" className="text-sm font-medium text-gray-700">
-                Username/Alias
-              </label>
-              <Input
-                id="edit-alias"
-                value={editForm.alias}
-                onChange={e => setEditForm({ ...editForm, alias: e.target.value })}
-                className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
-              />
-            </div>
-            <div className="grid gap-2">
-              <label htmlFor="edit-role" className="text-sm font-medium text-gray-700">
-                User Role
-              </label>
-              <Select
-                value={editForm.role}
-                onValueChange={(value: 'user' | 'admin' | 'moderator') =>
-                  setEditForm({ ...editForm, role: value })
-                }
-              >
-                <SelectTrigger className="border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200">
-                  <SelectValue placeholder="Select a role" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="user">Regular User</SelectItem>
-                  <SelectItem value="admin">Administrator</SelectItem>
-                  <SelectItem value="moderator">Moderator</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+          </ScrollArea>
           <DialogFooter className="border-t pt-4 gap-3 flex shrink-0 mt-auto">
             <Button
               variant="outline"

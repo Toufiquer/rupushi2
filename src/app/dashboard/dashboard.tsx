@@ -8,7 +8,6 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import AllUsers from './users/all-users';
-import UsersTrash from './users/users-trash';
 import TrashProducts from './products/trash-products';
 import AllProducts from './products/all-products';
 import AllOrders from './orders/all-orders';
@@ -18,10 +17,7 @@ import TrashPictures from './media/trash-pictures';
 
 const lstItemStyle = 'w-full ml-4 font-semibold py-1 hover:text-pink-500 cursor-pointer';
 const accordionData = {
-  users: [
-    { title: 'All Users', componentName: 'all-users' },
-    { title: 'Trash', componentName: 'trash-user' },
-  ],
+  users: [{ title: 'All Users', componentName: 'all-users' }],
   products: [
     { title: 'All Products', componentName: 'all-products' },
     { title: 'Trash', componentName: 'trash-product' },
@@ -151,7 +147,6 @@ const Dashboard = () => {
       <main className="w-full md:min-h-screen p-4">
         {statusMessage}
         {statusMessage === 'all-users' && <AllUsers />}
-        {statusMessage === 'trash-user' && <UsersTrash />}
         {statusMessage === 'all-products' && <AllProducts />}
         {statusMessage === 'trash-product' && <TrashProducts />}
         {statusMessage === 'all-orders' && <AllOrders />}
