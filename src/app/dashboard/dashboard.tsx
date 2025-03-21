@@ -14,6 +14,7 @@ import AllOrders from './orders/all-orders';
 import TrashOrders from './orders/trash-orders';
 import AllPictures from './media/all-pictures';
 import TrashPictures from './media/trash-pictures';
+import { useRouter } from 'next/navigation';
 
 const lstItemStyle = 'w-full ml-4 font-semibold py-1 hover:text-pink-500 cursor-pointer';
 const accordionData = {
@@ -38,10 +39,11 @@ const Dashboard = () => {
   const handleRoute = (componentName: string) => {
     setStatusMessage(componentName);
   };
+  const router = useRouter();
   return (
     <div className="flex flex-col md:flex-row">
       {/* সাইডবার */}
-      <aside className="w-full md:max-w-[200px] bg-gray-200 p-4 md:min-h-screen">
+      <aside className="w-full md:max-w-[200px] bg-gray-200 p-4 md:min-h-screen relative">
         <h2 className="text-lg font-bold mb-4">ড্যাশবোর্ড</h2>
         <ul>
           <li>
@@ -141,6 +143,15 @@ const Dashboard = () => {
             </Accordion>
           </li>
         </ul>
+        <button
+          className="cursor-pointer bottom-4 right-4 bg-rose-400 hover:bg-rose-500 rounded-full absolute left-0 text-white px-4 py-2 m-4"
+          onClick={() => {
+            localStorage.removeItem('token'); // Clear localStorage on logout
+            router.push('/login'); // Redirect to login page
+          }}
+        >
+          Logout
+        </button>
       </aside>
 
       {/* মূল কন্টেন্ট */}
