@@ -30,35 +30,11 @@ const Media = () => {
     };
     fetchImages();
   }, []);
-  const handleDeleteImage = async (id: string, url: string, delete_url: string) => {
+  const handleViewImage = async (url: string) => {
     try {
-      const response = await fetch(`/api/media`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id }),
-      });
-
-      if (response.ok) {
-        toast.success('ছবি সফলভাবে ডিলিট করা হয়েছে!');
-        const othersImagesFiles = imgFile.filter(img => img.id !== id);
-        setImgFiles(othersImagesFiles);
-        const othersImages = images.filter(img => img !== url);
-        setImages(othersImages);
-
-        //!  Remove the image from the state
-        setImgFiles(prev => prev.filter(img => img.id !== id));
-        setImages(prev => prev.filter((_, index) => imgFile[index].id !== id));
-
-        // ! now it will delete image from the imagebb server
-        window.open(delete_url, '_blank');
-      } else {
-        toast.error('ছবি ডিলিট করতে সমস্যা হয়েছে!');
-      }
-    } catch (error) {
-      console.error('Error deleting image:', error);
-      toast.error('ছবি ডিলিট করতে সমস্যা হয়েছে!');
+      window.open(url, '_blank');
+    } catch (e: unknown) {
+      console.log(e);
     }
   };
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -225,16 +201,10 @@ const Media = () => {
                     </Button>
                     <Button
                       variant="outline"
-                      className="text-sm w-full cursor-pointer bg-rose-400 text-white border-rose-500 hover:bg-rose-600 hover:text-white hover:border-red-600 transition-all duration-300"
-                      onClick={() =>
-                        handleDeleteImage(
-                          imgFile[index].id,
-                          imgFile[index].url,
-                          imgFile[index].delete_url,
-                        )
-                      }
+                      className="text-sm w-full cursor-pointer bg-green-400 text-white border-green-500 hover:bg-green-600 hover:text-white hover:border-green-600 transition-all duration-300"
+                      onClick={() => handleViewImage(imgFile[index].url)}
                     >
-                      delete
+                      view
                     </Button>
                   </div>
                 </div>
