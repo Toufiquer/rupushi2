@@ -109,6 +109,7 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
   };
   const handleSelectImage = (imageUrl: string) => {
     setSelectedImage(imageUrl);
+    setFormData({ ...formData, img: imageUrl });
     setProductData({ ...productData, img: imageUrl });
     setShowMediaModal(false);
   };
@@ -136,7 +137,7 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
           <label className="block text-gray-700 font-medium">Product Image:</label>
           <Button
             onClick={() => setShowMediaModal(true)}
-            className="bg-blue-500 text-white hover:bg-blue-600"
+            className="bg-blue-500 cursor-pointer text-white hover:bg-blue-600"
           >
             Select Image
           </Button>
@@ -224,10 +225,10 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
             />
           </div>
 
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <Label htmlFor="img">Image URL</Label>
             <Input id="img" name="img" value={formData.img} onChange={handleChange} />
-          </div>
+          </div> */}
 
           <div className="space-y-2">
             <Label htmlFor="realPrice">Price (£) *</Label>
@@ -340,7 +341,11 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
         </div>
 
         <div className="flex justify-end">
-          <Button type="submit" disabled={loading}>
+          <Button
+            type="submit"
+            disabled={loading}
+            className="flex cursor-pointer items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-md transition-all hover:shadow-lg"
+          >
             {loading ? 'Creating...' : 'Add Product'}
           </Button>
         </div>
