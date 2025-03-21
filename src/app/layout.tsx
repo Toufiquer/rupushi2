@@ -27,7 +27,7 @@ export default function RootLayout({
         className={`${inter.className} bg-white text-gray-900 overflow-x-hidden flex flex-col min-h-screen`}
       >
         <TopBar />
-        <main className="flex-grow">{children}</main>
+        <main className="flex-grow ">{children}</main>
         <Footer />
         <Toaster />
       </body>

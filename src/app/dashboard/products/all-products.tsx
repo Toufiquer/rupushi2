@@ -334,14 +334,17 @@ const AllProducts = () => {
     <div className="w-full">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Manage Products</h2>
-        <Button onClick={() => setAddDialogOpen(true)} className="flex items-center gap-2">
+        <Button
+          onClick={() => setAddDialogOpen(true)}
+          className="flex cursor-pointer items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-md transition-all hover:shadow-lg"
+        >
           <FaPlus size={14} />
           Add New Product
         </Button>
       </div>
 
       {/* Products Table */}
-      <div className="bg-white rounded-lg shadow">
+      <div className=" rounded-lg  ">
         <DataTable columns={columns} data={products} loading={loading} searchKey="name" />
       </div>
 
