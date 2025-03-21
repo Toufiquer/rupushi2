@@ -2,6 +2,15 @@ import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
 import User from './userModel';
 
+interface UserUpdateData {
+  id: string;
+  [key: string]: unknown; // Replace `any` with `unknown` for stricter typing
+}
+
+interface UserDeleteData {
+  id: string;
+}
+
 // Connect to MongoDB
 const connectDB = async () => {
   if (mongoose.connection.readyState === 0) {
@@ -15,9 +24,10 @@ const connectDB = async () => {
 export async function GET() {
   try {
     await connectDB();
-    const users = await User.find({});
+    const users: Array<{ _id: string; name: string; email: string }> = await User.find({});
     return NextResponse.json({ data: users, message: 'Users fetched successfully' });
   } catch (error) {
+    console.error(error); // Log the error to avoid unused variable
     return NextResponse.json({ message: 'Error fetching users' }, { status: 500 });
   }
 }
@@ -26,14 +36,15 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     await connectDB();
-    const userData = await req.json();
+    const userData: Record<string, unknown> = await req.json(); // Replace `any` with a more specific type
     const newUser = await User.create({ ...userData });
     return NextResponse.json(
       { data: newUser, message: 'User created successfully' },
       { status: 201 },
     );
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+  } catch (error: unknown) {
+    console.error(error); // Log the error to avoid unused variable
+    return NextResponse.json({ message: (error as Error).message }, { status: 400 });
   }
 }
 
@@ -41,7 +52,7 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     await connectDB();
-    const { id, password, ...updateData } = await req.json();
+    const { id, ...updateData }: UserUpdateData = await req.json(); // Remove `password` and use a typed interface
 
     const updatedUser = await User.findByIdAndUpdate(id, updateData, {
       new: true,
@@ -52,8 +63,9 @@ export async function PUT(req: Request) {
       return NextResponse.json({ message: 'User not found' }, { status: 404 });
     }
     return NextResponse.json({ data: updatedUser, message: 'User updated successfully' });
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+  } catch (error: unknown) {
+    console.error(error); // Log the error to avoid unused variable
+    return NextResponse.json({ message: (error as Error).message }, { status: 400 });
   }
 }
 
@@ -61,14 +73,15 @@ export async function PUT(req: Request) {
 export async function DELETE(req: Request) {
   try {
     await connectDB();
-    const { id } = await req.json();
+    const { id }: UserDeleteData = await req.json(); // Replace `any` with a typed interface
     const deletedUser = await User.findByIdAndDelete(id);
 
     if (!deletedUser) {
       return NextResponse.json({ message: 'User not found' }, { status: 404 });
     }
     return NextResponse.json({ message: 'User deleted successfully' });
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+  } catch (error: unknown) {
+    console.error(error); // Log the error to avoid unused variable
+    return NextResponse.json({ message: (error as Error).message }, { status: 400 });
   }
 }

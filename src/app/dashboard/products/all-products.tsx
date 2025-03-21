@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { ColumnDef } from '@tanstack/react-table';
 import DataTable from '../table/data-table';
 import Image from 'next/image';
@@ -9,14 +9,14 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { StatusBox } from '../table/status-box';
 import {
   AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
+  // AlertDialogHeader, (removed as it is not exported)
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+  AlertDialogDescription,
+  // AlertDialogFooter, (removed as it is not exported)
+  AlertDialogCancel,
+  AlertDialogAction,
+} from '@radix-ui/react-alert-dialog';
 import {
   Dialog,
   DialogContent,
@@ -81,7 +81,7 @@ const AllProducts = () => {
   });
 
   // Function to fetch products
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch('/api/products');
@@ -100,7 +100,7 @@ const AllProducts = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
 
   // Handle edit product
   const handleEditClick = (product: Product) => {
@@ -229,7 +229,7 @@ const AllProducts = () => {
           try {
             new URL(url);
             return true;
-          } catch (e) {
+          } catch {
             return false;
           }
         };
@@ -328,7 +328,7 @@ const AllProducts = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [fetchProducts]);
 
   return (
     <div className="w-full">
@@ -525,20 +525,22 @@ const AllProducts = () => {
       </Dialog>
 
       {/* Delete Confirmation Dialog */}
+
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
-          <AlertDialogHeader>
+          <div>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This will delete the product "{productToDelete?.name}". This action cannot be undone.
+              This will delete the product &quot;{productToDelete?.name}&quot;. This action cannot
+              be undone.
             </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+          </div>
+          <div className="flex justify-end gap-4 mt-4">
+            <AlertDialogCancel onClick={() => setDeleteDialogOpen(false)}>Cancel</AlertDialogCancel>
             <AlertDialogAction onClick={confirmDelete} className="bg-red-600 hover:bg-red-700">
               Delete
             </AlertDialogAction>
-          </AlertDialogFooter>
+          </div>
         </AlertDialogContent>
       </AlertDialog>
     </div>

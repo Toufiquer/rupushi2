@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import Image from 'next/image';
 
 const AddNewProduct = () => {
   const [productData, setProductData] = useState({
@@ -119,30 +119,31 @@ const AddNewProduct = () => {
       setSelectedImage('');
     } catch (error) {
       console.error('Error adding product:', error);
-
-      let errorMessage = 'Failed to add product. Please try again.';
-
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
-
-      // Try to extract more specific error from response if available
-      if (error instanceof Response || (error as any)?.response) {
-        try {
-          const response = error instanceof Response ? error : (error as any).response;
-          const errorData = await response.json();
-          if (errorData.message) {
-            errorMessage = errorData.message;
-          } else if (errorData.error) {
-            errorMessage = errorData.error;
-          }
-        } catch (e) {
-          // If we can't parse the error response, use the default message
-        }
-      }
-
-      showNotification(`Error: ${errorMessage}`, 'error');
+      handleError(error);
     }
+  };
+
+  const handleError = async (error: unknown) => {
+    let errorMessage = 'Failed to add product. Please try again.';
+
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+
+    if (error instanceof Response) {
+      try {
+        const errorData = await error.json();
+        if (errorData.message) {
+          errorMessage = errorData.message;
+        } else if (errorData.error) {
+          errorMessage = errorData.error;
+        }
+      } catch {
+        // Default message if parsing fails
+      }
+    }
+
+    showNotification(`Error: ${errorMessage}`, 'error');
   };
 
   return (
@@ -225,10 +226,11 @@ const AddNewProduct = () => {
             </div>
             {selectedImage ? (
               <div className="relative w-full h-48 border rounded-md overflow-hidden">
-                <img
+                <Image
                   src={selectedImage}
                   alt="Selected product"
-                  className="w-full h-full object-contain"
+                  layout="fill"
+                  objectFit="contain"
                 />
                 <Button
                   onClick={() => {
@@ -273,10 +275,12 @@ const AddNewProduct = () => {
                         className="relative cursor-pointer group"
                         onClick={() => handleSelectImage(image.url)}
                       >
-                        <img
+                        <Image
                           src={image.url}
                           alt="Media"
-                          className="w-full h-32 object-cover rounded-md border hover:border-blue-500 hover:shadow-lg"
+                          width={128}
+                          height={128}
+                          className="rounded-md border hover:border-blue-500 hover:shadow-lg"
                         />
                         <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-20 flex items-center justify-center rounded-md">
                           <Button className="opacity-0 group-hover:opacity-100 bg-blue-500 text-white">

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { ColumnDef } from '@tanstack/react-table';
 import DataTable from '../table/data-table';
 import Image from 'next/image';
@@ -10,14 +10,16 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import {
   AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
+  AlertDialogTrigger,
+  AlertDialogPortal,
+  AlertDialogOverlay,
   AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
+  // AlertDialogHeader, (removed as it is not exported)
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+  AlertDialogDescription,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from '@radix-ui/react-alert-dialog';
 
 // Product type definition
 type Product = {
@@ -37,7 +39,7 @@ const TrashProducts = () => {
   const [productToDelete, setProductToDelete] = useState<Product | null>(null);
 
   // Function to fetch deleted products
-  const fetchDeletedProducts = async () => {
+  const fetchDeletedProducts = useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch('/api/products/trash');
@@ -56,7 +58,7 @@ const TrashProducts = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
 
   // Handle restore product
   const handleRestore = async (product: Product) => {
@@ -221,7 +223,7 @@ const TrashProducts = () => {
 
   useEffect(() => {
     fetchDeletedProducts();
-  }, []);
+  }, [fetchDeletedProducts]);
 
   return (
     <div className="w-full">
@@ -243,30 +245,49 @@ const TrashProducts = () => {
           data={deletedProducts}
           loading={loading}
           searchKey="name"
-          emptyMessage="No deleted products found"
+          // Handle empty state within the DataTable or parent component
         />
       </div>
-
-      {/* Permanent Delete Confirmation Dialog */}
-      <AlertDialog open={permanentDeleteDialogOpen} onOpenChange={setPermanentDeleteDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Permanently Delete?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This will permanently delete the product "{productToDelete?.name}". This action cannot
-              be undone.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={confirmPermanentDelete}
-              className="bg-red-600 hover:bg-red-700"
-            >
-              Permanently Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <button
+            className="hidden"
+            aria-hidden="true"
+            onClick={() => setPermanentDeleteDialogOpen(true)}
+          />
+        </AlertDialogTrigger>
+        {permanentDeleteDialogOpen && (
+          <AlertDialogPortal>
+            <AlertDialogOverlay className="fixed inset-0 bg-black/50" />
+            <AlertDialogContent className="fixed inset-0 m-auto max-w-md bg-white p-6 rounded shadow-lg">
+              <div>
+                <AlertDialogTitle>Permanently Delete?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This will permanently delete the product &quot;{productToDelete?.name}&quot;. This
+                  action cannot be undone.
+                </AlertDialogDescription>
+              </div>
+              <div className="flex justify-end gap-4 mt-4">
+                <AlertDialogCancel asChild>
+                  <button
+                    className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                    onClick={() => setPermanentDeleteDialogOpen(false)}
+                  >
+                    Cancel
+                  </button>
+                </AlertDialogCancel>
+                <AlertDialogAction asChild>
+                  <button
+                    className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                    onClick={confirmPermanentDelete}
+                  >
+                    Permanently Delete
+                  </button>
+                </AlertDialogAction>
+              </div>
+            </AlertDialogContent>
+          </AlertDialogPortal>
+        )}
       </AlertDialog>
     </div>
   );

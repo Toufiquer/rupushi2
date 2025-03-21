@@ -17,8 +17,9 @@ export async function GET() {
     await connectDB();
     const mediaItems = await Media.find({});
     return NextResponse.json({ data: mediaItems, message: 'মিডিয়া সফলভাবে লোড হয়েছে' });
-  } catch (error) {
-    return NextResponse.json({ message: 'মিডিয়া লোড করতে সমস্যা হয়েছে' }, { status: 500 });
+  } catch {
+    // Removed unused 'error' variable
+    return NextResponse.json({ message: 'An error occurred' }, { status: 500 });
   }
 }
 
@@ -32,8 +33,9 @@ export async function POST(req: Request) {
       { data: newMedia, message: 'মিডিয়া সফলভাবে তৈরি হয়েছে' },
       { status: 201 },
     );
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    return NextResponse.json({ message: errorMessage }, { status: 400 });
   }
 }
 
@@ -51,8 +53,9 @@ export async function PUT(req: Request) {
       return NextResponse.json({ message: 'মিডিয়া খুঁজে পাওয়া যায়নি' }, { status: 404 });
     }
     return NextResponse.json({ data: updatedMedia, message: 'মিডিয়া সফলভাবে আপডেট হয়েছে' });
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    return NextResponse.json({ message: errorMessage }, { status: 400 });
   }
 }
 
@@ -67,7 +70,8 @@ export async function DELETE(req: Request) {
       return NextResponse.json({ message: 'মিডিয়া খুঁজে পাওয়া যায়নি' }, { status: 404 });
     }
     return NextResponse.json({ message: 'মিডিয়া সফলভাবে মুছে ফেলা হয়েছে' });
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    return NextResponse.json({ message: errorMessage }, { status: 400 });
   }
 }

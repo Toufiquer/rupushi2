@@ -18,7 +18,7 @@ export async function GET() {
     // Only return products that are not deleted
     const products = await Product.find({ isDeleted: { $ne: true } });
     return NextResponse.json({ data: products, message: 'Products fetched successfully' });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ message: 'Error fetching products' }, { status: 500 });
   }
 }
@@ -27,14 +27,14 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     await connectDB();
-    const productData = await req.json();
+    const productData: Record<string, unknown> = await req.json();
     const newProduct = await Product.create(productData);
     return NextResponse.json(
       { data: newProduct, message: 'Product created successfully' },
       { status: 201 },
     );
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+  } catch {
+    return NextResponse.json({ message: 'Error creating product' }, { status: 400 });
   }
 }
 
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     await connectDB();
-    const { id, ...updateData } = await req.json();
+    const { id, ...updateData }: { id: string; [key: string]: unknown } = await req.json();
     const updatedProduct = await Product.findByIdAndUpdate(id, updateData, {
       new: true,
       runValidators: true,
@@ -52,8 +52,8 @@ export async function PUT(req: Request) {
       return NextResponse.json({ message: 'Product not found' }, { status: 404 });
     }
     return NextResponse.json({ data: updatedProduct, message: 'Product updated successfully' });
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+  } catch {
+    return NextResponse.json({ message: 'Error updating product' }, { status: 400 });
   }
 }
 
@@ -61,14 +61,14 @@ export async function PUT(req: Request) {
 export async function DELETE(req: Request) {
   try {
     await connectDB();
-    const { id } = await req.json();
+    const { id }: { id: string } = await req.json();
     const deletedProduct = await Product.findByIdAndDelete(id);
 
     if (!deletedProduct) {
       return NextResponse.json({ message: 'Product not found' }, { status: 404 });
     }
     return NextResponse.json({ message: 'Product deleted successfully' });
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+  } catch {
+    return NextResponse.json({ message: 'Error deleting product' }, { status: 400 });
   }
 }

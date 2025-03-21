@@ -50,7 +50,6 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
         throw new Error('Failed to create product');
       }
 
-      const data = await response.json();
       toast({
         title: 'Success',
         description: 'Product created successfully',

@@ -34,8 +34,9 @@ export async function POST(req: Request) {
       { data: token, message: token ? 'Token created successfully' : 'Invalid credentials' },
       { status: token ? 201 : 401 },
     );
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    return NextResponse.json({ message: errorMessage }, { status: 400 });
   }
 }
 
@@ -59,7 +60,8 @@ export async function GET(req: Request) {
       { data: decoded && true, message: 'Token verified successfully' },
       { status: 200 },
     );
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    return NextResponse.json({ message: errorMessage }, { status: 400 });
   }
 }

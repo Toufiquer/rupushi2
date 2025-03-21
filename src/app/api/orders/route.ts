@@ -17,8 +17,8 @@ export async function GET() {
     await connectDB();
     const orders = await Order.find({});
     return NextResponse.json({ data: orders, message: 'Orders fetched successfully' });
-  } catch (error) {
-    return NextResponse.json({ message: 'Error fetching orders' }, { status: 500 });
+  } catch {
+    return NextResponse.json({ message: 'An error occurred' }, { status: 500 });
   }
 }
 
@@ -26,7 +26,7 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     await connectDB();
-    const orderData = await req.json();
+    const orderData: Record<string, unknown> = await req.json();
 
     // Basic validation check
     if (!orderData.phone || !orderData.address) {
@@ -38,8 +38,9 @@ export async function POST(req: Request) {
       { data: newOrder, message: 'Order created successfully' },
       { status: 201 },
     );
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    return NextResponse.json({ message: errorMessage }, { status: 400 });
   }
 }
 
@@ -47,7 +48,7 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     await connectDB();
-    const { id, ...updateData } = await req.json();
+    const { id, ...updateData }: { id: string; [key: string]: unknown } = await req.json();
 
     const updatedOrder = await Order.findByIdAndUpdate(id, updateData, {
       new: true,
@@ -58,8 +59,9 @@ export async function PUT(req: Request) {
       return NextResponse.json({ message: 'Order not found' }, { status: 404 });
     }
     return NextResponse.json({ data: updatedOrder, message: 'Order updated successfully' });
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    return NextResponse.json({ message: errorMessage }, { status: 400 });
   }
 }
 
@@ -67,14 +69,15 @@ export async function PUT(req: Request) {
 export async function DELETE(req: Request) {
   try {
     await connectDB();
-    const { id } = await req.json();
+    const { id }: { id: string } = await req.json();
     const deletedOrder = await Order.findByIdAndDelete(id);
 
     if (!deletedOrder) {
       return NextResponse.json({ message: 'Order not found' }, { status: 404 });
     }
     return NextResponse.json({ message: 'Order deleted successfully' });
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    return NextResponse.json({ message: errorMessage }, { status: 400 });
   }
 }

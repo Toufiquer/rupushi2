@@ -21,7 +21,7 @@ export async function GET() {
       data: deletedProducts,
       message: 'Deleted products fetched successfully',
     });
-  } catch (error) {
-    return NextResponse.json({ message: 'Error fetching deleted products' }, { status: 500 });
+  } catch {
+    return NextResponse.json({ message: 'Error handling request' }, { status: 500 });
   }
 }

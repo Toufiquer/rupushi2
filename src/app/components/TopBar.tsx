@@ -58,25 +58,6 @@ export default function TopBar() {
     setIsDragging(false);
   };
 
-  // স্লাইডার নেভিগেশন ফাংশন
-  const scrollLeftHandler = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({
-        left: -200,
-        behavior: 'smooth',
-      });
-    }
-  };
-
-  const scrollRightHandler = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({
-        left: 200,
-        behavior: 'smooth',
-      });
-    }
-  };
-
   // অটোপ্লে স্লাইডার ফাংশন
   const startAutoplay = useCallback(() => {
     setAutoplayInterval(prevInterval => {
@@ -313,27 +294,6 @@ export default function TopBar() {
       {/* Category Slider Menu - visible on all devices */}
       {!['/dashboard', '/login'].includes(pathname) && (
         <div className="bg-gray-100 py-3 overflow-hidden relative">
-          {/* বাম নেভিগেশন বাটন */}
-          {/* <button
-            onClick={scrollLeftHandler}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-r-md p-2 shadow-md z-10 text-pink-600 hover:text-pink-700 focus:outline-none"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button> */}
-
           <div className="container mx-auto px-4">
             <div
               ref={sliderRef}
@@ -365,22 +325,6 @@ export default function TopBar() {
               ))}
             </div>
           </div>
-
-          {/* ডান নেভিগেশন বাটন */}
-          {/* <button
-            onClick={scrollRightHandler}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-l-md p-2 shadow-md z-10 text-pink-600 hover:text-pink-700 focus:outline-none"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button> */}
         </div>
       )}
 

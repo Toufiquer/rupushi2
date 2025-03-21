@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
+import Image from 'next/image';
 
 const Media = () => {
   const [loading, setLoading] = useState(false);
@@ -204,9 +205,11 @@ const Media = () => {
             images.map((imageUrl, index) => (
               <div key={index} className="relative group">
                 <div className="w-full flex flex-col">
-                  <img
+                  <Image
                     src={imageUrl}
                     alt={`Image ${index + 1}`}
+                    width={300}
+                    height={192}
                     className="w-full h-48 object-cover rounded-lg"
                   />
                   <div className="w-full grid grid-cols-2 items-center justify-between mt-2 gap-2">
