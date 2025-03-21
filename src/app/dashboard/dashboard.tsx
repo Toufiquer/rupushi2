@@ -8,13 +8,10 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import AllUsers from './users/all-users';
-import AddNewUser from './users/add-new-user';
 import UsersTrash from './users/users-trash';
 import TrashProducts from './products/trash-products';
 import AllProducts from './products/all-products';
-import AddNewProduct from './products/add-new-product';
 import AllOrders from './orders/all-orders';
-import AddNewOrder from './orders/add-new-order';
 import TrashOrders from './orders/trash-orders';
 import AllPictures from './media/all-pictures';
 import TrashPictures from './media/trash-pictures';
@@ -23,17 +20,14 @@ const lstItemStyle = 'w-full ml-4 font-semibold py-1 hover:text-pink-500 cursor-
 const accordionData = {
   users: [
     { title: 'All Users', componentName: 'all-users' },
-    { title: 'Add User', componentName: 'add-user' },
     { title: 'Trash', componentName: 'trash-user' },
   ],
   products: [
     { title: 'All Products', componentName: 'all-products' },
-    { title: 'Add Product', componentName: 'add-product' },
     { title: 'Trash', componentName: 'trash-product' },
   ],
   orders: [
     { title: 'All Orders', componentName: 'all-orders' },
-    { title: 'Add order', componentName: 'add-order' },
     { title: 'Trash', componentName: 'trash-orders' },
   ],
   media: [
@@ -157,13 +151,10 @@ const Dashboard = () => {
       <main className="w-full md:min-h-screen p-4">
         {statusMessage}
         {statusMessage === 'all-users' && <AllUsers />}
-        {statusMessage === 'add-user' && <AddNewUser />}
         {statusMessage === 'trash-user' && <UsersTrash />}
         {statusMessage === 'all-products' && <AllProducts />}
-        {statusMessage === 'add-product' && <AddNewProduct />}
         {statusMessage === 'trash-product' && <TrashProducts />}
         {statusMessage === 'all-orders' && <AllOrders />}
-        {statusMessage === 'add-order' && <AddNewOrder />}
         {statusMessage === 'trash-orders' && <TrashOrders />}
         {statusMessage === 'all-pictures' && <AllPictures />}
         {statusMessage === 'trash-pictures' && <TrashPictures />}

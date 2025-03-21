@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Footer from './components/Footer';
 import TopBar from './components/TopBar';
+import { Toaster } from '@/components/ui/toaster';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
         <TopBar />
         <main className="flex-grow">{children}</main>
         <Footer />
+        <Toaster />
       </body>
     </html>
   );

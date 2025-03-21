@@ -1,0 +1,51 @@
+[
+  {
+    "name": "Gold Pendant Necklace",
+    "product-code": "GP001",
+    "img": "gold-pendant.jpg",
+    "realPrice": "1999",
+    "discountedPrice": "1599",
+    "offer": "20",
+    "stock": "15",
+    "description-top": "Elegant gold pendant necklace with intricate design",
+    "description-bottom": "Perfect for special occasions",
+    "material": "18k Gold",
+    "design": "Floral",
+    "color": "Gold",
+    "weight": "12g",
+    "chain length": "18 inches",
+    "style": "Contemporary"
+  },
+  {
+    "name": "Silver Earrings",
+    "product-code": "SE002",
+    "img": "silver-earrings.jpg",
+    "realPrice": "699",
+    "discountedPrice": "599",
+    "offer": "15",
+    "stock": "25",
+    "description-top": "Sterling silver earrings with drop design",
+    "description-bottom": "Lightweight and comfortable for everyday wear",
+    "material": "Sterling Silver",
+    "design": "Drop",
+    "color": "Silver",
+    "weight": "5g",
+    "style": "Classic"
+  },
+  {
+    "name": "Diamond Ring",
+    "product-code": "DR003",
+    "img": "diamond-ring.jpg",
+    "realPrice": "12999",
+    "discountedPrice": "10999",
+    "offer": "15",
+    "stock": "8",
+    "description-top": "Brilliant cut diamond ring with white gold band",
+    "description-bottom": "Ideal for engagements and special gifts",
+    "material": "White Gold, Diamond",
+    "design": "Solitaire",
+    "color": "White",
+    "weight": "7g",
+    "style": "Elegant"
+  }
+]

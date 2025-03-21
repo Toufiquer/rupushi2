@@ -11,11 +11,12 @@ const connectDB = async () => {
   }
 };
 
-// GET all products
+// GET all products (excluding deleted ones)
 export async function GET() {
   try {
     await connectDB();
-    const products = await Product.find({});
+    // Only return products that are not deleted
+    const products = await Product.find({ isDeleted: { $ne: true } });
     return NextResponse.json({ data: products, message: 'Products fetched successfully' });
   } catch (error) {
     return NextResponse.json({ message: 'Error fetching products' }, { status: 500 });

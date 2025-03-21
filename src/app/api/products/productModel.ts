@@ -6,10 +6,11 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Product name is required'],
       trim: true,
+      unique: false,
     },
-    uniqueProductId: {
+    'product-code': {
       type: String,
-      required: [true, 'Unique product id is required'],
+      required: [true, 'Product code is required'],
       trim: true,
       unique: true,
     },
@@ -19,25 +20,73 @@ const productSchema = new mongoose.Schema(
       trim: true,
     },
     realPrice: {
-      type: Number,
+      type: String,
       required: [true, 'Real price is required'],
-      min: [0, 'Price cannot be negative'],
+      trim: true,
+    },
+    discountedPrice: {
+      type: String,
+      required: false,
+      trim: true,
     },
     offer: {
-      type: Number,
-      required: [true, 'Offer percentage is required'],
-      min: [0, 'Offer cannot be negative'],
-      max: [100, 'Offer cannot exceed 100%'],
-      default: 0,
+      type: String,
+      required: [true, 'Offer is required'],
+      trim: true,
+      default: '0',
     },
     stock: {
-      type: Number,
-      required: [true, 'Stock quantity is required'],
-      min: [0, 'Stock cannot be negative'],
-    },
-    description: {
       type: String,
-      required: [true, 'Product description is required'],
+      required: [true, 'Stock quantity is required'],
+      trim: true,
+    },
+    'description-top': {
+      type: String,
+      required: [true, 'Top description is required'],
+      trim: true,
+    },
+    'description-bottom': {
+      type: String,
+      required: false,
+      trim: true,
+    },
+    material: {
+      type: String,
+      required: false,
+      trim: true,
+    },
+    design: {
+      type: String,
+      required: false,
+      trim: true,
+    },
+    color: {
+      type: String,
+      required: false,
+      trim: true,
+    },
+    weight: {
+      type: String,
+      required: false,
+      trim: true,
+    },
+    'chain length': {
+      type: String,
+      required: false,
+      trim: true,
+    },
+    style: {
+      type: String,
+      required: false,
+      trim: true,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+    deletedAt: {
+      type: Date,
+      default: null,
     },
   },
   {
@@ -46,10 +95,5 @@ const productSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   },
 );
-
-// Virtual for calculating discounted price
-productSchema.virtual('discountedPrice').get(function () {
-  return this.realPrice * (1 - this.offer / 100);
-});
 
 export default mongoose.models.Product || mongoose.model('Product', productSchema);
