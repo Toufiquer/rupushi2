@@ -6,7 +6,6 @@ import DataTable from '../table/data-table';
 import Image from 'next/image';
 import { FaRegEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { StatusBox } from '../table/status-box';
 import {
   AlertDialog,
   AlertDialogContent,
