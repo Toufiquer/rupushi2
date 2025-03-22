@@ -309,15 +309,7 @@ const AllProducts = () => {
     {
       accessorKey: 'stock',
       header: 'Stock',
-      cell: info => (
-        <span className="flex items-center">
-          {parseInt(info.getValue() as string) > 0 ? (
-            <StatusBox className="text-[12px]" text="In Stock" />
-          ) : (
-            <StatusBox className="text-[12px] bg-red-100 text-red-600" text="Out of Stock" />
-          )}
-        </span>
-      ),
+      cell: info => <span className="font-mono text-xs">{info.getValue() as string}</span>,
     },
     {
       accessorKey: 'updatedAt',
