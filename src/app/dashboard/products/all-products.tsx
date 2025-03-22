@@ -5,23 +5,15 @@ import { ColumnDef } from '@tanstack/react-table';
 import DataTable from '../table/data-table';
 import Image from 'next/image';
 import { FaRegEdit, FaTrash, FaPlus } from 'react-icons/fa';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import {
-  AlertDialog,
-  AlertDialogContent,
-  // AlertDialogHeader, (removed as it is not exported)
-  AlertDialogTitle,
-  AlertDialogDescription,
-  // AlertDialogFooter, (removed as it is not exported)
-  AlertDialogCancel,
-  AlertDialogAction,
-} from '@radix-ui/react-alert-dialog';
+import { Tooltip, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  DialogDescription,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -333,9 +325,9 @@ const AllProducts = () => {
                   <FaRegEdit size={18} />
                 </button>
               </TooltipTrigger>
-              <TooltipContent>
+              {/* <TooltipContent>
                 <p className="text-xs">Edit</p>
-              </TooltipContent>
+              </TooltipContent> */}
             </Tooltip>
           </TooltipProvider>
 
@@ -349,9 +341,9 @@ const AllProducts = () => {
                   <FaTrash size={16} />
                 </button>
               </TooltipTrigger>
-              <TooltipContent>
+              {/* <TooltipContent>
                 <p className="text-xs">Delete</p>
-              </TooltipContent>
+              </TooltipContent> */}
             </Tooltip>
           </TooltipProvider>
         </div>
@@ -666,23 +658,27 @@ const AllProducts = () => {
 
       {/* Delete Confirmation Dialog */}
 
-      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent>
+      <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <DialogContent>
           <div>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
+            <DialogTitle>Are you sure?</DialogTitle>
+            <DialogDescription>
               This will delete the product &quot;{productToDelete?.name}&quot;. This action cannot
               be undone.
-            </AlertDialogDescription>
+            </DialogDescription>
           </div>
           <div className="flex justify-end gap-4 mt-4">
-            <AlertDialogCancel onClick={() => setDeleteDialogOpen(false)}>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDelete} className="bg-red-600 hover:bg-red-700">
+            <div onClick={() => setDeleteDialogOpen(false)}>Cancel</div>
+            <Button
+              variant="outline"
+              onClick={confirmDelete}
+              className="bg-red-600 hover:bg-red-700"
+            >
               Delete
-            </AlertDialogAction>
+            </Button>
           </div>
-        </AlertDialogContent>
-      </AlertDialog>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
