@@ -213,7 +213,7 @@ const AllProducts = () => {
     if (!productToDelete) return;
 
     try {
-      const response = await fetch(`/api/products/${productToDelete._id}`, {
+      const response = await fetch(`/api/products`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -668,11 +668,13 @@ const AllProducts = () => {
             </DialogDescription>
           </div>
           <div className="flex justify-end gap-4 mt-4">
-            <div onClick={() => setDeleteDialogOpen(false)}>Cancel</div>
+            <Button className="cursor-pointer " onClick={() => setDeleteDialogOpen(false)}>
+              Cancel
+            </Button>
             <Button
               variant="outline"
               onClick={confirmDelete}
-              className="bg-red-600 hover:bg-red-700"
+              className="cursor-pointer bg-red-600 hover:bg-red-700"
             >
               Delete
             </Button>
