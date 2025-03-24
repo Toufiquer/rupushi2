@@ -22,7 +22,7 @@ export type Product = {
   'chain length': string;
   style: string;
   isDeleted: boolean;
-  isNew: boolean;
+  isNew: string;
   deletedAt: null | string;
   status: 'active' | 'inactive' | string;
 };

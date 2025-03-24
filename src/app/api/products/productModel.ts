@@ -84,6 +84,9 @@ const productSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isNew: {
+      type: String,
+    },
     deletedAt: {
       type: Date,
       default: null,

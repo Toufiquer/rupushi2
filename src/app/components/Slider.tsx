@@ -51,6 +51,8 @@ export function Slider() {
           <CarouselItem key={index}>
             <div className="p-1 w-full flex items-center justify-center h-[200px]">
               <Image
+                width={1920}
+                height={200}
                 src={imgSrc}
                 alt={`Slide ${index + 1}`}
                 className="h-full w-full object-cover"
