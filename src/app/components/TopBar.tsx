@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+
 import Link from 'next/link';
 import TopMarquee from './TopMarquee';
 import { usePathname } from 'next/navigation';
@@ -11,47 +12,18 @@ export default function TopBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeftPosition, setScrollLeftPosition] = useState(0);
   const [autoplayInterval, setAutoplayInterval] = useState<NodeJS.Timeout | null>(null);
 
   console.log(autoplayInterval);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!sliderRef.current) return;
-    setIsDragging(true);
-    setStartX(e.pageX - sliderRef.current.offsetLeft);
-    setScrollLeftPosition(sliderRef.current.scrollLeft);
-  };
+
 
   const handleMouseUp = () => {
     setIsDragging(false);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !sliderRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - sliderRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
-    sliderRef.current.scrollLeft = scrollLeftPosition - walk;
-  };
-
-  // টাচ ইভেন্ট হ্যান্ডলারস
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (!sliderRef.current) return;
-    setIsDragging(true);
-    setStartX(e.touches[0].pageX - sliderRef.current.offsetLeft);
-    setScrollLeftPosition(sliderRef.current.scrollLeft);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging || !sliderRef.current) return;
-    const x = e.touches[0].pageX - sliderRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
-    sliderRef.current.scrollLeft = scrollLeftPosition - walk;
   };
 
   const handleTouchEnd = () => {
@@ -127,6 +99,42 @@ export default function TopBar() {
     { name: 'Premium Collection', href: '/category/premium-collection' },
     { name: 'Premium Earrings', href: '/category/premium-earrings' },
   ];
+  // State to track hover status
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+
+  // Ref for the marquee container
+  const marqueeRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const marqueeElement = marqueeRef.current;
+    if (!marqueeElement) return;
+
+    let animationFrameId: number;
+    let position = 0;
+    const speed = 1; // Adjust speed of marquee
+
+    const animate = () => {
+      if (!isHovered) {
+        position -= speed;
+
+        // Reset position when fully scrolled
+        if (Math.abs(position) >= marqueeElement.scrollWidth / 2) {
+          position = 0;
+        }
+
+        marqueeElement.style.transform = `translateX(${position}px)`;
+      }
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+
+    // Cleanup function to cancel animation frame
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isHovered]);
 
   return (
     <>
@@ -293,37 +301,22 @@ export default function TopBar() {
 
       {/* Category Slider Menu - visible on all devices */}
       {!['/dashboard', '/login'].includes(pathname) && (
-        <div className="bg-gray-100 py-3 overflow-hidden relative">
-          <div className="container mx-auto px-4">
-            <div
-              ref={sliderRef}
-              className="flex items-center space-x-4 overflow-x-auto no-scrollbar scroll-smooth px-8"
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-              onMouseEnter={stopAutoplay}
-              onMouseLeave={startAutoplay}
-              style={{
-                cursor: isDragging ? 'grabbing' : 'grab',
-                WebkitOverflowScrolling: 'touch',
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none',
-                scrollBehavior: 'smooth',
-                padding: '0.75rem 0',
-              }}
-            >
-              {categoryMenuItems.map((item, index) => (
-                <Link
-                  href={item.href}
-                  key={index}
-                  className="whitespace-nowrap px-6 py-2 bg-white rounded-md shadow-sm text-gray-700 hover:text-pink-600 hover:shadow-md transition-all duration-200 flex-shrink-0"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
+        <div
+          className="overflow-hidden w-full relative py-6"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <div ref={marqueeRef} className="gap-4 whitespace-nowrap inline-flex">
+            {/* Duplicate items to create seamless loop */}
+            {[...categoryMenuItems, ...categoryMenuItems].map((item, index) => (
+              <a
+                key={`${item.href}-${index}`}
+                href={item.href}
+                className="px-4 py-2 bg-gray-100 text-gray-800 rounded-md text-sm transition-colors"
+              >
+                {item.name}
+              </a>
+            ))}
           </div>
         </div>
       )}
