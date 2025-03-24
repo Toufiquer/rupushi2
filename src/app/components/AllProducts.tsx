@@ -13,31 +13,63 @@ import ProductCard, { Product } from '../components/ProductsCard';
 
 const AllProducts = () => {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [showAllProducts, setShowAllProducts] = useState<Product[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const productsPerPage = 8;
+
+  // Fetch products on component mount
   useEffect(() => {
     fetch('/api/products')
       .then(res => res.json())
       .then(data => {
-        console.log(' all products data : ', data.data);
-        setAllProducts(data.data);
+        if (data.data.length > 0) {
+          setAllProducts(data.data);
+          // Initially show first 8 products
+          setShowAllProducts(data.data.slice(0, productsPerPage));
+        }
       });
   }, []);
+
+  // Pagination handler
+  const handlePageChange = (pageNumber: number) => {
+    // Calculate start and end indices for the current page
+    const startIndex = (pageNumber - 1) * productsPerPage;
+    const endIndex = startIndex + productsPerPage;
+
+    // Slice the products for the current page
+    const pageProducts = allProducts.slice(startIndex, endIndex);
+
+    // Update state
+    setCurrentPage(pageNumber);
+    setShowAllProducts(pageProducts);
+  };
+
+  // Calculate total number of pages
+  const totalPages = Math.ceil(allProducts.length / productsPerPage);
+
+  // Generate page numbers
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
+
   const onClick = () => {};
   let renderProducts = (
     <div className="text-center w-full h-screen flex items-center justify-center text-2xl">
       Loading...
     </div>
   );
-  if (allProducts.length === 0) {
+  if (showAllProducts.length === 0) {
     renderProducts = (
       <div className="text-center w-full h-screen flex items-center justify-center text-2xl">
         No Products Found
       </div>
     );
   }
-  if (allProducts.length > 0) {
+  if (showAllProducts.length > 0) {
     renderProducts = (
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {allProducts.map(product => (
+        {showAllProducts.map(product => (
           <div key={product['product-code']}>
             <ProductCard productData={product} />
           </div>
@@ -60,7 +92,67 @@ const AllProducts = () => {
           </button>
         </div>
       </div>
-      <div className="">{renderProducts}</div>
+      <div className="w-full flex flex-col">
+        <div className="w-full">{renderProducts}</div>
+        <div className="w-full">
+          <div className="container mx-auto p-4">
+            <div className="flex justify-center items-center mt-6 space-x-2">
+              {/* Previous button */}
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:text-green-600 cursor-pointer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+
+              {/* Page number buttons */}
+              {pageNumbers.map(number => (
+                <button
+                  key={number}
+                  onClick={() => handlePageChange(number)}
+                  className={`px-4 py-2 ${currentPage === number ? ' text-green-600 cursor-text' : 'cursor-pointer hover:text-green-600'}`}
+                >
+                  {number}
+                </button>
+              ))}
+
+              {/* Next button */}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed hover:text-green-600 cursor-pointer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   );
 };
