@@ -68,7 +68,7 @@ const AllProducts = () => {
   }
   if (showAllProducts.length > 0) {
     renderProducts = (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-4 gap-2">
         {showAllProducts.map(product => (
           <div key={product['product-code']}>
             <ProductCard productData={product} />
@@ -79,8 +79,8 @@ const AllProducts = () => {
   }
   return (
     <main className="w-full flex flex-col py-12">
-      <div className="w-full flex items-center justify-between">
-        <h2 className="text-3xl font-bold text-gray-900 mb-6 py-3 tracking-tight w-full">
+      <div className="w-full flex items-center justify-between mb-6 py-3">
+        <h2 className="text-xl md:text-3xl font-bold text-gray-900 tracking-tight w-full justify-center ">
           All Products
         </h2>
         <div className="w-full flex items-center justify-end">
