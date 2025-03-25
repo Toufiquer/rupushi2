@@ -42,6 +42,7 @@ export function Slider() {
           delay: 3000, // Change slide every 3 seconds
           stopOnInteraction: false, // Continue autoplay even when user interacts
           jump: false, // Smoothly transition between slides
+          playOnInit: true, 
         }),
       ]}
       className="w-full"

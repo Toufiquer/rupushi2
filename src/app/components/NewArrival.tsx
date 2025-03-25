@@ -32,7 +32,6 @@ const NewArrival = () => {
       });
   }, []);
 
-
   // Calculate total number of pages
   const totalPages = Math.ceil(allProducts.length / productsPerPage);
 
