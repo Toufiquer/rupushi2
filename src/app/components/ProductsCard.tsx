@@ -68,7 +68,7 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
           </div>
 
           {/* Order Button */}
-          <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black cursor-pointer">
+          <Button className="w-full font-semibold bg-[#fbc79a] hover:bg-[#e39366] text-black cursor-pointer">
             অর্ডার করুন
           </Button>
         </div>

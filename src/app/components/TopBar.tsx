@@ -5,6 +5,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import TopMarquee from './TopMarquee';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 export default function TopBar() {
   const pathname = usePathname();
@@ -19,8 +20,6 @@ export default function TopBar() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-
 
   const handleMouseUp = () => {
     setIsDragging(false);
@@ -175,7 +174,16 @@ export default function TopBar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="text-2xl font-bold text-pink-600">
-              RUPUSHI
+              <div className="w-[160px] h-[30px] relative">
+                <div className="absolute top-[-15px] left-0 w-full h-auto mb-4">
+                  <Image
+                    src="/rupushi-crop.png" // Replace with your actual logo path
+                    alt="Rupush Logo"
+                    width={200}
+                    height={100}
+                  />
+                </div>
+              </div>
             </Link>
           </div>
 

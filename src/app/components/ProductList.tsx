@@ -96,7 +96,7 @@ export default function ProductList({
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                 />{' '}
-              </Link>   
+              </Link>
               {product.isNew && (
                 <span className="absolute top-2 left-2 bg-pink-600 text-white text-xs px-2 py-1 rounded-full">
                   নতুন
@@ -125,7 +125,7 @@ export default function ProductList({
               </div>
               {!product.inStock ? (
                 <Link
-                  href={`/product/${product.slug}`}
+                  href={`/`}
                   aria-disabled={true}
                   className="block text-center w-full py-2 bg-yellow-200 text-black font-medium rounded transition duration-200"
                 >
@@ -133,8 +133,8 @@ export default function ProductList({
                 </Link>
               ) : (
                 <Link
-                  href={`/product/${product.slug}`}
-                  className="block text-center w-full py-2 bg-yellow-500 text-white font-medium rounded hover:bg-yellow-600 transition duration-200"
+                  href={`/cart/${product.id}`}
+                  className="block text-center  font-semibold w-full py-2 bg-[#fbc79a] hover:bg-[#e39366] text-white rounded  transition duration-200"
                 >
                   অর্ডার করুন
                 </Link>
