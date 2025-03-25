@@ -1,7 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Truck, Clock, Shield, Facebook, Instagram, Twitter } from 'lucide-react';
-
+export const categoryMenuItems = [
+  { name: 'Special Offer', href: '/category/special-offer' },
+  { name: 'Earrings', href: '/category/earrings' },
+  { name: 'Necklace', href: '/category/necklace' },
+  { name: 'Anklet', href: '/category/anklet' },
+];
 const MobileLogoFooter = () => (
   <div className="relative flex flex-col w-[200px] h-[100px] items-start p-4 justify-start">
     <div className="absolute top-0 left-0 w-[200px] h-[100px] mb-4">
@@ -100,18 +105,6 @@ const InformationSection = () => (
   </div>
 );
 const TopCategoriesSection = () => {
-  const categoryMenuItems = [
-    { name: 'Diamond Cut Earrings', href: '/category/diamond-cut-earrings' },
-    { name: 'Zircon Stone Earrings', href: '/category/zircon-stone-earrings' },
-    { name: 'Viral Errings', href: '/category/viral-earrings' },
-    { name: 'Trendy Earrings', href: '/category/trendy-earrings' },
-    { name: 'Pendant Necklace', href: '/category/pendant-necklace' },
-    { name: 'Necklace Set', href: '/category/necklace-set' },
-    { name: 'Offer Products', href: '/category/offer-products' },
-    { name: 'All Earrings Collection', href: '/category/all-earrings-collection' },
-    { name: 'Premium Collection', href: '/category/premium-collection' },
-    { name: 'Premium Earrings', href: '/category/premium-earrings' },
-  ];
   return (
     <div>
       <h4 className="font-bold text-lg mb-4 text-center md:text-left">Top Categories</h4>

@@ -7,6 +7,7 @@ import TopMarquee from './TopMarquee';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import SearchBox from './SearchBox';
+import { categoryMenuItems } from './Footer';
 
 export default function TopBar() {
   const pathname = usePathname();
@@ -87,18 +88,6 @@ export default function TopBar() {
     }
   }, [isDragging, startAutoplay, stopAutoplay]);
 
-  const categoryMenuItems = [
-    { name: 'Diamond Cut Earrings', href: '/category/diamond-cut-earrings' },
-    { name: 'Zircon Stone Earrings', href: '/category/zircon-stone-earrings' },
-    { name: 'Viral Errings', href: '/category/viral-earrings' },
-    { name: 'Trendy Earrings', href: '/category/trendy-earrings' },
-    { name: 'Pendant Necklace', href: '/category/pendant-necklace' },
-    { name: 'Necklace Set', href: '/category/necklace-set' },
-    { name: 'Offer Products', href: '/category/offer-products' },
-    { name: 'All Earrings Collection', href: '/category/all-earrings-collection' },
-    { name: 'Premium Collection', href: '/category/premium-collection' },
-    { name: 'Premium Earrings', href: '/category/premium-earrings' },
-  ];
   // State to track hover status
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
