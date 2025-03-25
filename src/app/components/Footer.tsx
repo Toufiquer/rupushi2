@@ -19,7 +19,7 @@ const MobileLogoFooter = () => (
     </div>
     <div className="mt-[50px] mb-[20px]" />
     <div className="text-center md:text-left">
-      <div className="space-y-2 text-gray-700">
+      <div className="space-y-2 text-gray-200">
         <div className="flex items-center justify-center md:justify-start gap-2">
           <Truck className="text-red-500" size={20} />
           <span>Faster Delivery</span>
@@ -48,7 +48,7 @@ const TabletLogoFooter = () => (
     </div>
     <div className="mt-[50px] mb-[20px]" />
     <div className="text-center md:text-left">
-      <div className="space-y-2 text-gray-700">
+      <div className="space-y-2 text-gray-200">
         <div className="flex items-center justify-center md:justify-start gap-2">
           <Truck className="text-red-500" size={20} />
           <span>Faster Delivery</span>
@@ -80,7 +80,7 @@ const LogoSection = () => (
 const InformationSection = () => (
   <div>
     <h4 className="font-bold text-lg mb-4 text-center md:text-left">Information</h4>
-    <ul className="text-gray-700 text-center md:text-left space-y-2">
+    <ul className="text-gray-200 text-center md:text-left space-y-2">
       <li>
         <Link href="/about" className="hover:text-red-500 transition">
           About Us
@@ -108,7 +108,7 @@ const TopCategoriesSection = () => {
   return (
     <div>
       <h4 className="font-bold text-lg mb-4 text-center md:text-left">Top Categories</h4>
-      <ul className="text-gray-700 text-center md:text-left space-y-2">
+      <ul className="text-gray-200 text-center md:text-left space-y-2">
         {categoryMenuItems.map((item, index) => (
           <li key={index}>
             <Link href={item.href} className="hover:text-red-500 transition">
@@ -123,7 +123,7 @@ const TopCategoriesSection = () => {
 const CustomerCareSection = () => (
   <div>
     <h4 className="font-bold text-lg mb-4 text-center md:text-left">Customer Care</h4>
-    <div className="text-gray-700 text-center md:text-left space-y-2">
+    <div className="text-gray-200 text-center md:text-left space-y-2">
       <p>📞 Call: +1234567890</p>
       <p>✉️ Email: support@rupush.com</p>
       <div className="flex justify-center md:justify-start space-x-4 mt-4">
@@ -152,7 +152,7 @@ const CustomerCareSection = () => (
 
 const Footer = () => {
   return (
-    <footer className="bg-white shadow-lg border-t-2 border-rose-500 shadow-stone-200">
+    <footer className="bg-slate-700 text-white pt-12 shadow-lg border-t-2 border-slate-900 shadow-stone-200">
       <div className="w-full flex flex-col">
         <div className="md:hidden block">
           <div className="w-full grid grid-cols-1 py-8">
@@ -189,8 +189,8 @@ const Footer = () => {
           </div>
         </div>
         {/* Bottom Bar */}
-        <div className="bg-red-500 text-white text-center py-4">
-          <p>&copy; 2025 Rupush. All Rights Reserved.</p>
+        <div className="border-t-1 mt-12 border-slate-900 text-white text-center py-4">
+          <p> Rupushi - All Rights Reserved &copy; {new Date().getFullYear()}</p>
         </div>
       </div>
     </footer>

@@ -45,7 +45,6 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
                 <div className="w-full flex flex-row gap-4">
                   <Link
                     href={`/order-now/${product.id}`}
-                    target="_blank"
                     className="flex-1 cursor-pointer bg-[#e39366] font-semibold text-white py-3 rounded-lg flex items-center justify-center space-x-2 hover:bg-[hsl(22,40%,59%)] transition"
                   >
                     <button
@@ -59,7 +58,6 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
 
                   <Link
                     href={`/order-now/${product.id}`}
-                    target="_blank"
                     className="flex-1 cursor-pointer bg-green-600 font-semibold text-white py-3 rounded-lg flex items-center justify-center space-x-2 hover:bg-green-700 transition"
                   >
                     <button

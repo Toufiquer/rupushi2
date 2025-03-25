@@ -282,11 +282,18 @@ export default function TopBar() {
         >
           <div ref={marqueeRef} className="gap-4 whitespace-nowrap inline-flex">
             {/* Duplicate items to create seamless loop */}
-            {[...categoryMenuItems, ...categoryMenuItems].map((item, index) => (
+            {[
+              ...categoryMenuItems,
+              ...categoryMenuItems,
+              ...categoryMenuItems,
+              ...categoryMenuItems,
+              ...categoryMenuItems,
+              ...categoryMenuItems,
+            ].map((item, index) => (
               <a
                 key={`${item.href}-${index}`}
                 href={item.href}
-                className="px-4 py-2 bg-gray-100 text-gray-800 rounded-md text-sm transition-colors"
+                className="px-4 min-w-[200px] text-center py-2 bg-gray-100 text-gray-800 rounded-md text-sm transition-colors"
               >
                 {item.name}
               </a>
