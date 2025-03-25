@@ -26,6 +26,16 @@ const orderSchema = new mongoose.Schema(
         },
       },
     ],
+    deliveryCharge: {
+      type: Number,
+      required: true,
+      min: [0, 'Delivery charge cannot be negative'],
+    },
+    total: {
+      type: Number,
+      required: true,
+      min: [0, 'Total cannot be negative'],
+    },
     address: {
       type: String,
       required: [true, 'Shipping address is required'],
@@ -46,7 +56,12 @@ const orderSchema = new mongoose.Schema(
     note: {
       type: String,
       trim: true,
-      maxlength: [500, 'Note cannot exceed 500 characters'],
+      maxLength: [500, 'Note cannot exceed 500 characters'],
+    },
+    orderStatus: {
+      type: String,
+      trim: true,
+      maxLength: [500, 'Note cannot exceed 500 characters'],
     },
   },
   {

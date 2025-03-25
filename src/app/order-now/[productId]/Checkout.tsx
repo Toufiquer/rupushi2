@@ -8,6 +8,7 @@ interface FormData {
   name: string;
   mobile: string;
   address: string;
+  note: string;
   deliveryOption: string;
 }
 
@@ -18,6 +19,7 @@ const Checkout = ({ product }: { product: IProduct }) => {
     name: '',
     mobile: '',
     address: '',
+    note: '',
     deliveryOption: '130',
   });
 
@@ -46,7 +48,24 @@ const Checkout = ({ product }: { product: IProduct }) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     // Add your form submission logic here
-    console.log('formData', formData);
+    const generateOrders = {
+      name: formData.name,
+      allProducts: [
+        {
+          uniqueProductId: product.id,
+          price: subtotal / quantity,
+          quantity: quantity,
+        },
+      ],
+      address: formData.address,
+      phone: formData.mobile,
+      shippingArea: formData.deliveryOption === 'inside Dhaka' ? 'inside Dhaka' : 'outside Dhaka',
+      note: formData.note || '',
+      orderStatus: 'pending',
+      deliveryCharge: deliveryCharge,
+      total: total,
+    };
+    console.log('generateOrders : ', generateOrders);
   };
 
   return (
@@ -93,6 +112,17 @@ const Checkout = ({ product }: { product: IProduct }) => {
               onChange={handleInputChange}
               className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="আপনার সম্পূর্ণ ঠিকানা"
+              rows={4}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Note</label>
+            <textarea
+              name="note"
+              value={formData.note}
+              onChange={handleInputChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Writ a note, if needed"
               rows={4}
             />
           </div>
