@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 export interface IProduct extends Document {
+  id: string;
   name: string;
   'product-code': string;
   img?: string;
@@ -68,9 +69,11 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
           </div>
 
           {/* Order Button */}
-          <Button className="w-full font-semibold bg-[#fbc79a] hover:bg-[#e39366] text-black cursor-pointer">
-            অর্ডার করুন
-          </Button>
+          <Link href={`/product-details/${productData.id}`} target="_blank">
+            <Button className="w-full font-semibold bg-[#fbc79a] hover:bg-[#e39366] text-black cursor-pointer">
+              অর্ডার করুন
+            </Button>
+          </Link>
         </div>
       </CardContent>
     </Card>
