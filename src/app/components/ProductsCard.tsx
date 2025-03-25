@@ -4,30 +4,30 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
-// Product type as specified
-export type Product = {
+export interface IProduct extends Document {
   name: string;
   'product-code': string;
-  img: string;
+  img?: string;
   realPrice: string;
-  discountedPrice: string;
-  offer: string;
+  discountedPrice?: string;
+  offer?: string;
   stock: string;
-  'description-top': string;
-  'description-bottom': string;
-  material: string;
-  design: string;
-  color: string;
-  weight: string;
-  'chain length': string;
-  style: string;
-  isDeleted: boolean;
-  isNew: string;
-  deletedAt: null | string;
+  'description-top'?: string;
+  'description-bottom'?: string;
+  material?: string;
+  design?: string;
+  color?: string;
+  weight?: string;
+  category?: string;
+  'chain length'?: string;
+  style?: string;
+  isDeleted?: boolean;
+  isArrival?: boolean;
+  isNew?: string;
+  greenBox?: string;
   status: 'active' | 'inactive' | string;
-};
-
-const ProductCard = ({ productData }: { productData: Product }) => {
+}
+const ProductCard = ({ productData }: { productData: IProduct }) => {
   return (
     <Card className="w-full max-w-sm overflow-hidden shadow-lg rounded-lg py-0 border-0">
       <CardContent className="p-0">

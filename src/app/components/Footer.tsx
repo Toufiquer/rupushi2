@@ -16,7 +16,7 @@ const Footer = () => {
     { name: 'Premium Earrings', href: '/category/premium-earrings' },
   ];
   return (
-    <footer className="bg-white shadow-lg">
+    <footer className="bg-white shadow-lg border-t-2 border-rose-500 shadow-stone-200">
       <div className="container mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Logo Section */}
         <div className="relative flex flex-col w-[200px] h-[100px] items-start p-4 justify-start">

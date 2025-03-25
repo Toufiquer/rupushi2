@@ -9,11 +9,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import ProductCard, { Product } from '../components/ProductsCard';
+import ProductCard, { IProduct } from '../components/ProductsCard';
 
 const AllProducts = () => {
-  const [allProducts, setAllProducts] = useState<Product[]>([]);
-  const [showAllProducts, setShowAllProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<IProduct[]>([]);
+  const [showAllProducts, setShowAllProducts] = useState<IProduct[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const productsPerPage = 8;
 

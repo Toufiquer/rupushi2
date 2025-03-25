@@ -9,11 +9,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import ProductCard, { Product } from './ProductsCard';
+import ProductCard, { IProduct } from './ProductsCard';
 
 const NewArrival = () => {
-  const [allProducts, setAllProducts] = useState<Product[]>([]);
-  const [showAllProducts, setShowAllProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<IProduct[]>([]);
+  const [showAllProducts, setShowAllProducts] = useState<IProduct[]>([]);
 
   const productsPerPage = 4;
 
@@ -26,7 +26,7 @@ const NewArrival = () => {
           setAllProducts(data.data);
           // Initially show first 8 products
           setShowAllProducts(
-            data.data.filter((i: Product) => i.isNew !== '').slice(0, productsPerPage),
+            data.data.filter((i: IProduct) => i.isArrival).slice(0, productsPerPage),
           );
         }
       });

@@ -65,6 +65,11 @@ const productSchema = new mongoose.Schema(
       required: false,
       trim: true,
     },
+    category: {
+      type: String,
+      required: false,
+      trim: true,
+    },
     weight: {
       type: String,
       required: false,
@@ -84,7 +89,14 @@ const productSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isArrival: {
+      type: Boolean,
+      default: true,
+    },
     isNew: {
+      type: String,
+    },
+    greenBox: {
       type: String,
     },
     deletedAt: {
