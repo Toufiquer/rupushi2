@@ -10,6 +10,7 @@
 
 import { useEffect, useState } from 'react';
 import ProductCard, { IProduct } from './ProductsCard';
+import Link from 'next/link';
 
 const NewArrival = () => {
   const [allProducts, setAllProducts] = useState<IProduct[]>([]);
@@ -72,12 +73,14 @@ const NewArrival = () => {
           New Arrival
         </h2>
         <div className="w-full flex items-center justify-end">
-          <button
-            onClick={onClick}
-            className={`px-4 py-2 text-green-600 border border-green-600 rounded-md hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-200 transition-colors duration-200 cursor-pointer`}
-          >
-            See More
-          </button>
+          <Link href="/new-arrival">
+            <button
+              onClick={onClick}
+              className={`px-4 py-2 text-green-600 border border-green-600 rounded-md hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-200 transition-colors duration-200 cursor-pointer`}
+            >
+              See More
+            </button>
+          </Link>
         </div>
       </div>
       <div className="w-full flex flex-col">

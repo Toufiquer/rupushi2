@@ -9,8 +9,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import ProductCard, { IProduct } from '../components/ProductsCard';
-import Link from 'next/link';
+import ProductCard, { IProduct } from '../../components/ProductsCard';
+import { useParams } from 'next/navigation';
 
 const AllProducts = () => {
   const [allProducts, setAllProducts] = useState<IProduct[]>([]);
@@ -18,18 +18,26 @@ const AllProducts = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const productsPerPage = 8;
 
+  // Get the category from the URL
+  const params = useParams();
+  const category = params?.category as string;
+
   // Fetch products on component mount
   useEffect(() => {
     fetch('/api/products')
       .then(res => res.json())
       .then(data => {
         if (data.data.length > 0) {
-          setAllProducts(data.data);
+          // Filter products by category
+          const filteredProducts = data.data.filter((product: IProduct) =>
+            product.category ? product.category.toLowerCase() === category.toLowerCase() : false,
+          );
+          setAllProducts(filteredProducts);
           // Initially show first 8 products
-          setShowAllProducts(data.data.slice(0, productsPerPage));
+          setShowAllProducts(filteredProducts.slice(0, productsPerPage));
         }
       });
-  }, []);
+  }, [category]);
 
   // Pagination handler
   const handlePageChange = (pageNumber: number) => {
@@ -54,7 +62,6 @@ const AllProducts = () => {
     pageNumbers.push(i);
   }
 
-  const onClick = () => {};
   let renderProducts = (
     <div className="text-center w-full h-screen flex items-center justify-center text-2xl">
       Loading...
@@ -79,21 +86,12 @@ const AllProducts = () => {
     );
   }
   return (
-    <main className="w-full flex flex-col py-12">
+    <main className="w-full flex flex-col py-12 p-12">
       <div className="w-full flex items-center justify-between mb-6 py-3">
-        <h2 className="text-xl md:text-3xl font-bold text-gray-900 tracking-tight w-full justify-center ">
-          All Products
+        <h2 className="text-xl md:text-3xl uppercase font-bold text-gray-900 tracking-tight w-full justify-center ">
+          {category.replaceAll('-', ' ')}
         </h2>
-        <div className="w-full flex items-center justify-end">
-          <Link href="/all-products">
-            <button
-              onClick={onClick}
-              className={`px-4 py-2 text-green-600 border border-green-600 rounded-md hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-200 transition-colors duration-200 cursor-pointer`}
-            >
-              See More
-            </button>
-          </Link>
-        </div>
+        <div className="w-full flex items-center justify-end"></div>
       </div>
       <div className="w-full flex flex-col">
         <div className="w-full">{renderProducts}</div>
