@@ -48,9 +48,9 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
             </div>
           )}
           {/* Offer Badge */}
-          {productData.isNew && (
+          {productData.greenBox && (
             <div className="absolute top-2 right-2 bg-green-600 font-semibold text-white px-2 py-1 rounded-[6px] text-xs">
-              {productData.isNew}
+              {productData.greenBox}
             </div>
           )}
         </div>

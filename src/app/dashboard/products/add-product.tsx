@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import Image from 'next/image';
+import { Switch } from '@/components/ui/switch';
 
 const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
   const { toast } = useToast();
@@ -30,6 +31,7 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
   const [images, setImages] = useState<{ id: string; url: string; display_url: string }[]>([]);
   const [showMediaModal, setShowMediaModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isNewArrival, setIsNewArrival] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     'product-code': '',
@@ -44,6 +46,9 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
     design: '',
     color: '',
     weight: '',
+    category: '',
+    greenBox: '',
+    isArrival: true,
     'chain length': '',
     style: '',
   });
@@ -89,6 +94,9 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
         material: '',
         design: '',
         color: '',
+        greenBox: '',
+        category: '',
+        isArrival: true,
         weight: '',
         'chain length': '',
         style: '',
@@ -225,11 +233,6 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
             />
           </div>
 
-          {/* <div className="space-y-2">
-            <Label htmlFor="img">Image URL</Label>
-            <Input id="img" name="img" value={formData.img} onChange={handleChange} />
-          </div> */}
-
           <div className="space-y-2">
             <Label htmlFor="realPrice">Price (£) *</Label>
             <Input
@@ -315,8 +318,41 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
             <Label htmlFor="style">Style</Label>
             <Input id="style" name="style" value={formData.style} onChange={handleChange} />
           </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="category">Category</Label>
+            <Input
+              id="category"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="greenBox">Green Box</Label>
+            <Input
+              id="greenBox"
+              name="greenBox"
+              value={formData.greenBox}
+              onChange={handleChange}
+            />
+          </div>
         </div>
 
+        <div className="space-y-2 col-span-2">
+          <div className="w-full flex justify-between items-center mb-2">
+            <Label htmlFor="description-top">New Arrival</Label>
+            <div className="flex items-center justify-end">
+              <p className="text-xs text-gray-800 pr-2">{isNewArrival ? 'ON' : 'OFF'}</p>
+              <Switch
+                className="border-2 border-slate-200 cursor-pointer"
+                checked={isNewArrival}
+                onCheckedChange={() => setIsNewArrival(!isNewArrival)}
+              />
+            </div>
+          </div>
+        </div>
         <div className="space-y-2 col-span-2">
           <Label htmlFor="description-top">Top Description *</Label>
           <Textarea
