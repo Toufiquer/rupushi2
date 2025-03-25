@@ -7,6 +7,14 @@ const withPWA = require('next-pwa')({
 });
 
 const nextConfig = {
+  async headers() {
+    return [
+      {
+        source: '/api/:path*',
+        headers: [{ key: 'Access-Control-Allow-Origin', value: '*' }],
+      },
+    ];
+  },
   reactStrictMode: true,
   images: {
     remotePatterns: [
