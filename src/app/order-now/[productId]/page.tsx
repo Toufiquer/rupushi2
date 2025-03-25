@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { IProduct } from '../../components/ProductsCard';
 import { useParams } from 'next/navigation';
 import Checkout from './Checkout';
+import Link from 'next/link';
 
 const AllProducts = () => {
   const [showAllProducts, setShowAllProducts] = useState<IProduct[]>([]);
@@ -55,6 +56,11 @@ const AllProducts = () => {
     renderProducts = (
       <div className="w-full flex flex-col gap-4">
         <Checkout product={showFilterProducts[0]} />
+        <Link href="/">
+          <button className="w-full cursor-pointer mt-12 bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition">
+            আরো প্রোডাক্ট দেখুন
+          </button>
+        </Link>
       </div>
     );
   }

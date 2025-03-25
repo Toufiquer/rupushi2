@@ -34,7 +34,7 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
       <CardContent className="p-0">
         {/* Product Image */}
         <div className="relative w-full  aspect-square">
-          <Link href={`/products/details`} target="_blank">
+          <Link href={`/product-details/${productData.id}`} target="_blank">
             <Image
               src={productData.img || '/placeholder.jpg'}
               alt={productData.name}
@@ -69,7 +69,7 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
           </div>
 
           {/* Order Button */}
-          <Link href={`/product-details/${productData.id}`} target="_blank">
+          <Link href={`/order-now/${productData.id}`} target="_blank">
             <Button className="w-full font-semibold bg-[#fbc79a] hover:bg-[#e39366] text-black cursor-pointer">
               অর্ডার করুন
             </Button>

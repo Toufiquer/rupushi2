@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { ShoppingCart, PhoneCall } from 'lucide-react';
 import { IProduct } from '@/app/components/ProductsCard';
+import Link from 'next/link';
 
 const ProductDetailPage = ({ product }: { product: IProduct }) => {
   const handleCreateOrder = () => {};
@@ -42,22 +43,34 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
             <div className="flex space-x-4 mt-8">
               <div className="w-full flex flex-col gap-4">
                 <div className="w-full flex flex-row gap-4">
-                  {' '}
-                  <button
-                    onClick={handleCreateOrder}
-                    type="button"
+                  <Link
+                    href={`/order-now/${product.id}`}
+                    target="_blank"
                     className="flex-1 cursor-pointer bg-[#e39366] font-semibold text-white py-3 rounded-lg flex items-center justify-center space-x-2 hover:bg-[hsl(22,40%,59%)] transition"
                   >
-                    <span>অর্ডার করুন</span>
-                  </button>
-                  <button
-                    onClick={handleCreateOrder}
-                    type="button"
+                    <button
+                      onClick={handleCreateOrder}
+                      type="button"
+                      className="flex items-center justify-center space-x-2 cursor-pointer"
+                    >
+                      <span>অর্ডার করুন</span>
+                    </button>
+                  </Link>
+
+                  <Link
+                    href={`/order-now/${product.id}`}
+                    target="_blank"
                     className="flex-1 cursor-pointer bg-green-600 font-semibold text-white py-3 rounded-lg flex items-center justify-center space-x-2 hover:bg-green-700 transition"
                   >
-                    <ShoppingCart />
-                    <span>Buy Now</span>
-                  </button>
+                    <button
+                      onClick={handleCreateOrder}
+                      type="button"
+                      className="flex items-center justify-center space-x-2 cursor-pointer"
+                    >
+                      <ShoppingCart />
+                      <span>Buy Now</span>
+                    </button>
+                  </Link>
                 </div>
                 <button
                   onClick={handleCreateOrder}

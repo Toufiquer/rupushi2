@@ -3,6 +3,7 @@ import { useState, ChangeEvent, FormEvent } from 'react';
 import Image from 'next/image';
 import { IProduct } from '@/app/components/ProductsCard';
 
+import { useToast } from '@/components/ui/use-toast';
 // Define interfaces for form data and product
 interface FormData {
   name: string;
@@ -25,7 +26,9 @@ const Checkout = ({ product }: { product: IProduct }) => {
 
   // State for cart item quantity with type
   const [quantity, setQuantity] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
 
+  const { toast } = useToast();
   // Calculate totals
   const subtotal: number = product?.discountedPrice
     ? Number(product.discountedPrice) * quantity
@@ -45,7 +48,7 @@ const Checkout = ({ product }: { product: IProduct }) => {
   };
 
   // Form submission handler with type
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     // Add your form submission logic here
     const generateOrders = {
@@ -66,6 +69,44 @@ const Checkout = ({ product }: { product: IProduct }) => {
       total: total,
     };
     console.log('generateOrders : ', generateOrders);
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(generateOrders),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create order');
+      }
+
+      toast({
+        title: 'Success',
+        description: 'order created successfully',
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        mobile: '',
+        address: '',
+        note: '',
+        deliveryOption: '130',
+      });
+    } catch (error) {
+      console.error('Error creating order:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to create order',
+        variant: 'destructive',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -102,6 +143,8 @@ const Checkout = ({ product }: { product: IProduct }) => {
               className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="আপনার মোবাইল নাম্বার"
               required
+              pattern="^\+?[0-9\s\-\(\)]{6,20}$"
+              title="Please enter a valid phone number"
             />
           </div>
           <div>
@@ -164,8 +207,9 @@ const Checkout = ({ product }: { product: IProduct }) => {
             </div>
           </div>
           <button
+            disabled={loading}
             type="submit"
-            className="w-full bg-red-600 text-white py-3 rounded-md hover:bg-red-700 transition"
+            className="w-full cursor-pointer bg-red-600 text-white py-3 rounded-md hover:bg-red-700 transition"
           >
             অর্ডার কনফার্ম করুন
           </button>
