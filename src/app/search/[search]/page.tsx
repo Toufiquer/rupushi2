@@ -18,10 +18,36 @@ const AllProducts = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const productsPerPage = 8;
 
+  const filterProducts = (product: IProduct, searchText: string): boolean => {
+    // Convert search text to lowercase for case-insensitive matching
+    const normalizedSearchText = searchText.toLowerCase().trim();
+
+    // If search text is empty, return true for all products
+    if (!normalizedSearchText) return true;
+
+    // Step 1: Direct search text match (if found, return true immediately)
+    const directMatch = Object.values(product).some(
+      value => value && String(value).toLowerCase().includes(normalizedSearchText),
+    );
+    if (directMatch) return true;
+
+    // Step 2 & 3: Filter keys with values and match with search text
+    const keysWithValues = (Object.keys(product) as (keyof IProduct)[]).filter(
+      key =>
+        // Filter out keys with undefined, null, or empty string values
+        product[key] !== undefined && product[key] !== null && product[key] !== '',
+    );
+
+    // Check if any of the non-empty keys match the search text
+    return keysWithValues.some(key => {
+      const value = product[key];
+      return value !== undefined && String(value).toLowerCase().includes(normalizedSearchText);
+    });
+  };
   // Get the searchText from the URL
   const params = useParams();
-  const searchText = params?.search as string;
-
+  let searchText = params?.search as string;
+  searchText = searchText.replaceAll('%20', ' ');
   // Fetch products on component mount
   useEffect(() => {
     fetch('/api/products')
@@ -30,7 +56,7 @@ const AllProducts = () => {
         if (data.data.length > 0) {
           // Filter products by searchText
           const filteredProducts = data.data.filter((product: IProduct) =>
-            product.name.toLowerCase().includes(searchText ? searchText.toLowerCase() : ''),
+            filterProducts(product, searchText),
           );
           setAllProducts(filteredProducts);
           // Initially show first 8 products
