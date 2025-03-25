@@ -4,12 +4,6 @@ import { ShoppingCart, PhoneCall } from 'lucide-react';
 import { IProduct } from '@/app/components/ProductsCard';
 
 const ProductDetailPage = ({ product }: { product: IProduct }) => {
-  const [quantity, setQuantity] = useState(1);
-
-  const handleQuantityChange = (change: number) => {
-    setQuantity(Math.max(1, quantity + change));
-  };
-
   const handleCreateOrder = () => {};
   return (
     <div className="container mx-auto px-4 py-8 flex flex-col gap-8">
@@ -34,7 +28,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
             <p className="text-gray-600">Product Code: {product['product-code']}</p>
 
             {/* Pricing */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 mt-8">
               <span className="text-2xl font-bold text-red-600">৳ {product.discountedPrice}</span>
               <span className="line-through text-gray-500">৳ {product.realPrice}</span>
               {product.offer && (
@@ -44,28 +38,8 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
               )}
             </div>
 
-            {/* Quantity Selector */}
-            <div className="flex items-center space-x-4">
-              <span>Quantity:</span>
-              <div className="flex items-center border rounded">
-                <button
-                  onClick={() => handleQuantityChange(-1)}
-                  className="px-3 py-1 bg-gray-100 cursor-pointer"
-                >
-                  -
-                </button>
-                <span className="px-4">{quantity}</span>
-                <button
-                  onClick={() => handleQuantityChange(1)}
-                  className="px-3 py-1 bg-gray-100 cursor-pointer"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-
             {/* Action Buttons */}
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 mt-8">
               <div className="w-full flex flex-col gap-4">
                 <div className="w-full flex flex-row gap-4">
                   {' '}
