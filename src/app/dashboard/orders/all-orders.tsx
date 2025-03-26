@@ -4,8 +4,6 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { ColumnDef } from '@tanstack/react-table';
 import DataTable from '../table/data-table';
 import Image from 'next/image';
-import { FaRegEdit } from 'react-icons/fa';
-import { Tooltip, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 import {
   Dialog,
@@ -108,7 +106,7 @@ const AllOrders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
-  const [orderToEdit, setOrderToEdit] = useState<Order | null>(null);
+  const [orderToEdit] = useState<Order | null>(null);
   const [editForm, setEditForm] = useState<EditFormState>({
     name: '',
     'product-code': '',
@@ -187,28 +185,6 @@ const AllOrders = () => {
   }, [toast]);
 
   // Handle edit order
-  const handleEditClick = (order: Order) => {
-    setOrderToEdit(order);
-    setEditForm({
-      name: order.name,
-      'product-code': order['product-code'],
-      img: order.img,
-      realPrice: order.realPrice,
-      discountedPrice: order.discountedPrice || '',
-      offer: order.offer,
-      stock: order.stock,
-      'description-top': order['description-top'],
-      'description-bottom': order['description-bottom'] || '',
-      material: order.material || '',
-      design: order.design || '',
-      color: order.color || '',
-      weight: order.weight || '',
-      'chain length': order['chain length'] || '',
-      style: order.style || '',
-    });
-    setSelectedImage(order.img);
-    setEditDialogOpen(true);
-  };
 
   // Handle input change for edit form
   const handleEditChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -291,8 +267,13 @@ const AllOrders = () => {
   // Column definitions
   const columns: ColumnDef<Order>[] = [
     {
+      accessorKey: 'orderId',
+      header: 'Order ID',
+      cell: info => <span className="font-mono text-xs">{info.getValue() as string}</span>,
+    },
+    {
       accessorKey: 'product-code',
-      header: 'Code',
+      header: 'Product Code',
       cell: info => <span className="font-mono text-xs">{info.getValue() as string}</span>,
     },
     {
@@ -324,10 +305,10 @@ const AllOrders = () => {
       },
     },
     {
-      accessorKey: 'name',
-      header: 'Product Name',
+      accessorKey: 'customerName',
+      header: 'Customer Name',
       cell: info => {
-        const name = (info.getValue() as string) || '';
+        const name = info.getValue() as string;
         return (
           <div className="inline-block min-w-[180px] font-semibold">
             {name.length > 30 ? `${name.slice(0, 30)}...` : name}
@@ -336,24 +317,18 @@ const AllOrders = () => {
       },
     },
     {
-      accessorKey: 'realPrice',
+      accessorKey: 'price',
       header: 'Price',
       cell: info => (
-        <span className="flex min-w-[80px] items-center">£ {info.getValue() as string}</span>
+        <span className="flex min-w-[80px] items-center">
+          ৳ {(info.getValue() as number).toFixed(2)}
+        </span>
       ),
     },
     {
-      accessorKey: 'stock',
-      header: 'Stock',
+      accessorKey: 'quantity',
+      header: 'Quantity',
       cell: info => <span className="font-mono text-xs">{info.getValue() as string}</span>,
-    },
-    {
-      accessorKey: 'updatedAt',
-      header: 'Last Updated',
-      cell: info => {
-        const date = new Date(info.getValue() as string);
-        return <span className="text-xs">{date.toLocaleDateString()}</span>;
-      },
     },
     {
       accessorKey: 'orderStatus',
@@ -366,33 +341,32 @@ const AllOrders = () => {
             onChange={e => handleUpdateStatus(row.original._id, e.target.value)}
             className="border rounded px-2 py-1"
           >
-            <option value="Pending">Pending</option>
-            <option value="Processing">Processing</option>
-            <option value="Shipped">Shipped</option>
-            <option value="Delivered">Delivered</option>
+            <option value="pending">Pending</option>
+            <option value="processing">Processing</option>
+            <option value="shipped">Shipped</option>
+            <option value="delivered">Delivered</option>
           </select>
         );
       },
     },
     {
-      id: 'actions',
-      header: 'Actions',
-      cell: ({ row }) => (
-        <div className="flex items-center gap-3">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  className="text-blue-600 hover:text-blue-800 cursor-pointer"
-                  onClick={() => handleEditClick(row.original)}
-                >
-                  <FaRegEdit size={18} />
-                </button>
-              </TooltipTrigger>
-            </Tooltip>
-          </TooltipProvider>
-          {/* Removed delete button */}
-        </div>
+      accessorKey: 'productName',
+      header: 'Product Name',
+      cell: info => (
+        <span className="font-mono text-xs">
+          {(info.getValue() as string).length > 30
+            ? `${(info.getValue() as string).slice(0, 30)}...`
+            : (info.getValue() as string)}
+        </span>
+      ),
+    },
+    {
+      accessorKey: 'totalPrice',
+      header: 'Total Price',
+      cell: info => (
+        <span className="flex min-w-[80px] items-center">
+          ৳ {(info.getValue() as number).toFixed(2)}
+        </span>
       ),
     },
   ];
@@ -432,7 +406,7 @@ const AllOrders = () => {
 
       {/* Orders Table */}
       <div className=" rounded-lg  ">
-        <DataTable columns={columns} data={orders} loading={loading} searchKey="name" />
+        <DataTable columns={columns} data={orders} loading={loading} searchKey="productName" />
       </div>
 
       {/* Edit Order Dialog */}
@@ -551,7 +525,7 @@ const AllOrders = () => {
             </div> */}
 
             <div className="space-y-2">
-              <Label htmlFor="realPrice">Price (£) *</Label>
+              <Label htmlFor="realPrice">Price (৳ ) *</Label>
               <Input
                 id="realPrice"
                 name="realPrice"
@@ -563,7 +537,7 @@ const AllOrders = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="discountedPrice">Discounted Price (£)</Label>
+              <Label htmlFor="discountedPrice">Discounted Price (৳ )</Label>
               <Input
                 id="discountedPrice"
                 name="discountedPrice"
