@@ -13,13 +13,12 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
+import { IProduct } from '@/app/components/ProductsCard';
+import ProductOrderDisplay from './display-order-product';
 
 // Order type definition
-type Order = {
+export type Order = {
   _id: string;
   name: string;
   'product-code': string;
@@ -37,14 +36,15 @@ type Order = {
   'chain length'?: string;
   style?: string;
   createdAt: string;
+  phone: string;
   updatedAt: string;
-  orderStatus?: string; // Added orderStatus field
-  customerName?: string;
-  price?: number;
-  quantity?: string;
-  productName?: string;
-  totalPrice?: number;
-  orderId?: string;
+  orderStatus: string; // Added orderStatus field
+  customerName: string;
+  price: number;
+  quantity: string;
+  productName: string;
+  totalPrice: number;
+  orderId: string;
 };
 
 interface ImageType {
@@ -53,49 +53,25 @@ interface ImageType {
   display_url: string;
 }
 
-interface OrderDataState {
-  name: string;
-  realPrice: string;
-  discountedPrice: string;
-  offer: string;
-  stock: string;
-  'description-top': string;
-  'description-bottom': string;
-  img: string;
-  'product-code': string;
-  material: string;
-  design: string;
-  color: string;
-  weight: string;
-  'chain-length': string;
-  style: string;
-}
-
 const AllOrders = () => {
   const { toast } = useToast();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [viewDialogOpen, setViewDialogOpen] = useState<boolean>(false);
-  const [, setOrderToView] = useState<Order | null>(null);
+  const [orderToView, setOrderToView] = useState<Order | null>(null);
   const [, setImages] = useState<ImageType[]>([]);
-  const [orderData, setOrderData] = useState<OrderDataState>({
-    name: '',
-    realPrice: '',
-    discountedPrice: '',
-    offer: '',
-    stock: '',
-    'description-top': '',
-    'description-bottom': '',
-    img: '',
-    'product-code': '',
-    material: '',
-    design: '',
-    color: '',
-    weight: '',
-    'chain-length': '',
-    style: '',
-  });
+  const [allProducts, setAllProducts] = useState<IProduct[]>([]);
+  const [filterProduct, setFilterProduct] = useState<IProduct | null>(null);
 
+  useEffect(() => {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(data => {
+        if (data.data.length > 0) {
+          setAllProducts(data.data);
+        }
+      });
+  }, []);
   // Function to fetch orders
   const fetchOrders = useCallback(async () => {
     setLoading(true);
@@ -152,26 +128,19 @@ const AllOrders = () => {
     }
   };
 
-  const handleViewOrder = (order: Order) => {
-    setOrderToView(order);
-    setOrderData({
-      name: order.name,
-      'product-code': order['product-code'],
-      img: order.img,
-      realPrice: order.realPrice,
-      discountedPrice: order.discountedPrice || '',
-      offer: order.offer,
-      stock: order.stock,
-      'description-top': order['description-top'],
-      'description-bottom': order['description-bottom'] || '',
-      material: order.material || '',
-      design: order.design || '',
-      color: order.color || '',
-      weight: order.weight || '',
-      'chain-length': order['chain length'] || '',
-      style: order.style || '',
-    });
-    setViewDialogOpen(true);
+  const handleOrderDetails = (orderId: string) => {
+    const findOrder = orders.find(order => order.orderId === orderId);
+    const productCode = findOrder ? findOrder['product-code'] : '';
+    const findProduct = allProducts.find(product => product['product-code'] === productCode);
+    if (findProduct) {
+      setFilterProduct(findProduct);
+    }
+    if (findOrder) {
+      setOrderToView(findOrder);
+    }
+    if (findOrder && findProduct) {
+      setViewDialogOpen(true);
+    }
   };
 
   // Column definitions
@@ -280,12 +249,12 @@ const AllOrders = () => {
       ),
     },
     {
-      id: 'actions',
-      header: 'Actions',
-      cell: ({ row }) => (
+      accessorKey: 'orderId',
+      header: 'View',
+      cell: info => (
         <Button
           className="hover:bg-slate-300 cursor-pointer"
-          onClick={() => handleViewOrder(row.original)}
+          onClick={() => handleOrderDetails(info.getValue() as string)}
         >
           View
         </Button>
@@ -331,159 +300,9 @@ const AllOrders = () => {
             <DialogTitle>View Order</DialogTitle>
           </DialogHeader>
 
-          <div className="mb-6">
-            <div className="flex justify-between items-center mb-2">
-              <label className="block text-gray-700 font-medium">Product Image:</label>
-            </div>
-            {orderData.img ? (
-              <div className="relative w-full h-48 border rounded-md overflow-hidden">
-                <Image src={orderData.img} alt="Product" layout="fill" objectFit="contain" />
-              </div>
-            ) : (
-              <div className="w-full h-48 border rounded-md flex items-center justify-center bg-gray-100">
-                <p className="text-gray-500">No image available</p>
-              </div>
-            )}
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Product Name *</Label>
-              <Input
-                id="name"
-                name="name"
-                value={orderData.name}
-                readOnly // Make it read-only
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="product-code">Product Code *</Label>
-              <Input
-                id="product-code"
-                name="product-code"
-                value={orderData['product-code']}
-                readOnly // Make it read-only
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="realPrice">Price (৳ ) *</Label>
-              <Input
-                id="realPrice"
-                name="realPrice"
-                type="text"
-                value={orderData.realPrice}
-                readOnly // Make it read-only
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="discountedPrice">Discounted Price (৳ )</Label>
-              <Input
-                id="discountedPrice"
-                name="discountedPrice"
-                type="text"
-                value={orderData.discountedPrice}
-                readOnly // Make it read-only
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="offer">Offer %</Label>
-              <Input
-                id="offer"
-                name="offer"
-                type="text"
-                value={orderData.offer}
-                readOnly // Make it read-only
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="stock">Stock *</Label>
-              <Input
-                id="stock"
-                name="stock"
-                type="text"
-                value={orderData.stock}
-                readOnly // Make it read-only
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="material">Material</Label>
-              <Input
-                id="material"
-                name="material"
-                value={orderData.material}
-                readOnly // Make it read-only
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="design">Design</Label>
-              <Input
-                id="design"
-                name="design"
-                value={orderData.design}
-                readOnly // Make it read-only
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="color">Color</Label>
-              <Input id="color" name="color" value={orderData.color} readOnly />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="weight">Weight</Label>
-              <Input
-                id="weight"
-                name="weight"
-                value={orderData.weight}
-                readOnly // Make it read-only
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="chain length">Chain Length</Label>
-              <Input
-                id="chain length"
-                name="chain length"
-                value={orderData['chain-length']}
-                readOnly // Make it read-only
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="style">Style</Label>
-              <Input id="style" name="style" value={orderData.style} readOnly />
-            </div>
-
-            <div className="space-y-2 col-span-full">
-              <Label htmlFor="description-top">Top Description *</Label>
-              <Textarea
-                id="description-top"
-                name="description-top"
-                value={orderData['description-top']}
-                readOnly // Make it read-only
-                rows={3}
-              />
-            </div>
-
-            <div className="space-y-2 col-span-full">
-              <Label htmlFor="description-bottom">Bottom Description</Label>
-              <Textarea
-                id="description-bottom"
-                name="description-bottom"
-                value={orderData['description-bottom']}
-                readOnly // Make it read-only
-                rows={3}
-              />
-            </div>
-          </div>
-
+          {orderToView && filterProduct && (
+            <ProductOrderDisplay order={orderToView} product={filterProduct} />
+          )}
           <DialogFooter>
             <Button variant="outline" onClick={() => setViewDialogOpen(false)}>
               Close

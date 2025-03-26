@@ -91,7 +91,7 @@ const Checkout = ({ product }: { product: IProduct }) => {
 
       return {
         customerName: formData.name,
-        productName: productData.name,
+        productName: productData.name || '',
         orderId,
         'product-code': productData['product-code'],
         img: productData.img || '',
