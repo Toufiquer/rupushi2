@@ -10,7 +10,6 @@ import {
 import AllUsers from './users/all-users';
 import AllProducts from './products/all-products';
 import AllOrders from './orders/all-orders';
-import TrashOrders from './orders/trash-orders';
 import AllPictures from './media/all-pictures';
 import TrashPictures from './media/trash-pictures';
 import { useRouter } from 'next/navigation';
@@ -19,10 +18,7 @@ const lstItemStyle = 'w-full ml-4 font-semibold py-1 hover:text-pink-500 cursor-
 const accordionData = {
   users: [{ title: 'All Users', componentName: 'all-users' }],
   products: [{ title: 'All Products', componentName: 'all-products' }],
-  orders: [
-    { title: 'All Orders', componentName: 'all-orders' },
-    { title: 'Trash', componentName: 'trash-orders' },
-  ],
+  orders: [{ title: 'All Orders', componentName: 'all-orders' }],
   media: [
     { title: 'All Pictures', componentName: 'all-pictures' },
     { title: 'Trash', componentName: 'trash-pictures' },
@@ -156,7 +152,6 @@ const Dashboard = () => {
         {statusMessage === 'all-users' && <AllUsers />}
         {statusMessage === 'all-products' && <AllProducts />}
         {statusMessage === 'all-orders' && <AllOrders />}
-        {statusMessage === 'trash-orders' && <TrashOrders />}
         {statusMessage === 'all-pictures' && <AllPictures />}
         {statusMessage === 'trash-pictures' && <TrashPictures />}
       </main>

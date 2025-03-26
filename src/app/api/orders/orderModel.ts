@@ -2,39 +2,50 @@ import mongoose from 'mongoose';
 
 const orderSchema = new mongoose.Schema(
   {
-    name: {
+    customerName: {
       type: String,
       required: [true, 'Customer name is required'],
       trim: true,
     },
-    allProducts: [
-      {
-        uniqueProductId: {
-          type: String,
-          required: [true, 'Unique product id is required'],
-          trim: true,
-        },
-        price: {
-          type: Number,
-          required: [true, 'Price is required'],
-          min: [0, 'Price cannot be negative'],
-        },
-        quantity: {
-          type: Number,
-          required: [true, 'Quantity is required'],
-          min: [1, 'Quantity must be at least 1'],
-        },
-      },
-    ],
+    productName: {
+      type: String,
+      required: [true, 'Product name is required'],
+      trim: true,
+    },
+    orderId: {
+      type: Number,
+      required: [true, 'Order Id is required'],
+      trim: true,
+    },
+    'product-code': {
+      type: String,
+      required: [true, 'product-code is required'],
+      trim: true,
+    },
+    img: {
+      type: String,
+      required: [true, 'image is required'],
+      trim: true,
+    },
+    price: {
+      type: Number,
+      required: [true, 'Price is required'],
+      min: [0, 'Price cannot be negative'],
+    },
+    quantity: {
+      type: Number,
+      required: [true, 'Quantity is required'],
+      min: [1, 'Quantity must be at least 1'],
+    },
     deliveryCharge: {
       type: Number,
       required: true,
       min: [0, 'Delivery charge cannot be negative'],
     },
-    total: {
+    totalPrice: {
       type: Number,
       required: true,
-      min: [0, 'Total cannot be negative'],
+      min: [0, 'TotalPrice cannot be negative'],
     },
     address: {
       type: String,
