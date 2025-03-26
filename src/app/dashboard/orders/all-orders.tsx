@@ -39,30 +39,18 @@ type Order = {
   createdAt: string;
   updatedAt: string;
   orderStatus?: string; // Added orderStatus field
+  customerName?: string;
+  price?: number;
+  quantity?: string;
+  productName?: string;
+  totalPrice?: number;
+  orderId?: string;
 };
 
 interface ImageType {
   id: string;
   url: string;
   display_url: string;
-}
-
-interface EditFormState {
-  name: string;
-  'product-code': string;
-  img: string;
-  realPrice: string;
-  discountedPrice: string;
-  offer: string;
-  stock: string;
-  'description-top': string;
-  'description-bottom': string;
-  material: string;
-  design: string;
-  color: string;
-  weight: string;
-  'chain length': string;
-  style: string;
 }
 
 interface OrderDataState {
@@ -83,48 +71,13 @@ interface OrderDataState {
   style: string;
 }
 
-interface FormDataState {
-  name: string;
-  'product-code': string;
-  img: string;
-  realPrice: string;
-  discountedPrice: string;
-  offer: string;
-  stock: string;
-  'description-top': string;
-  'description-bottom': string;
-  material: string;
-  design: string;
-  color: string;
-  weight: string;
-  'chain length': string;
-  style: string;
-}
-
 const AllOrders = () => {
   const { toast } = useToast();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
-  const [orderToEdit] = useState<Order | null>(null);
-  const [editForm, setEditForm] = useState<EditFormState>({
-    name: '',
-    'product-code': '',
-    img: '',
-    realPrice: '',
-    discountedPrice: '',
-    offer: '',
-    stock: '',
-    'description-top': '',
-    'description-bottom': '',
-    material: '',
-    design: '',
-    color: '',
-    weight: '',
-    'chain length': '',
-    style: '',
-  });
-  const [images, setImages] = useState<ImageType[]>([]);
+  const [viewDialogOpen, setViewDialogOpen] = useState<boolean>(false);
+  const [, setOrderToView] = useState<Order | null>(null);
+  const [, setImages] = useState<ImageType[]>([]);
   const [orderData, setOrderData] = useState<OrderDataState>({
     name: '',
     realPrice: '',
@@ -142,25 +95,6 @@ const AllOrders = () => {
     'chain-length': '',
     style: '',
   });
-  const [formData, setFormData] = useState<FormDataState>({
-    name: '',
-    'product-code': '',
-    img: 'https://i.ibb.co/ZfzRN83/product.png',
-    realPrice: '',
-    discountedPrice: '',
-    offer: '0',
-    stock: '',
-    'description-top': '',
-    'description-bottom': '',
-    material: '',
-    design: '',
-    color: '',
-    weight: '',
-    'chain length': '',
-    style: '',
-  });
-  const [selectedImage, setSelectedImage] = useState<string>('');
-  const [showMediaModal, setShowMediaModal] = useState<boolean>(false);
 
   // Function to fetch orders
   const fetchOrders = useCallback(async () => {
@@ -183,52 +117,6 @@ const AllOrders = () => {
       setLoading(false);
     }
   }, [toast]);
-
-  // Handle edit order
-
-  // Handle input change for edit form
-  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setEditForm(prev => ({ ...prev, [name]: value }));
-  };
-
-  // Save edit changes
-  const handleSaveEdit = async () => {
-    if (!orderToEdit) return;
-    editForm.img = selectedImage;
-    try {
-      const response = await fetch(`/api/orders`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: orderToEdit._id,
-          ...editForm,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update order');
-      }
-
-      toast({
-        title: 'Success',
-        description: 'Order updated successfully',
-      });
-
-      // Update the local state
-      setOrders(orders.map(p => (p._id === orderToEdit._id ? { ...p, ...editForm } : p)));
-      setEditDialogOpen(false);
-    } catch (error: unknown) {
-      console.error('Error updating order:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to update order',
-        variant: 'destructive',
-      });
-    }
-  };
 
   // Handle update order status
   const handleUpdateStatus = async (orderId: string, newStatus: string) => {
@@ -262,6 +150,28 @@ const AllOrders = () => {
         variant: 'destructive',
       });
     }
+  };
+
+  const handleViewOrder = (order: Order) => {
+    setOrderToView(order);
+    setOrderData({
+      name: order.name,
+      'product-code': order['product-code'],
+      img: order.img,
+      realPrice: order.realPrice,
+      discountedPrice: order.discountedPrice || '',
+      offer: order.offer,
+      stock: order.stock,
+      'description-top': order['description-top'],
+      'description-bottom': order['description-bottom'] || '',
+      material: order.material || '',
+      design: order.design || '',
+      color: order.color || '',
+      weight: order.weight || '',
+      'chain-length': order['chain length'] || '',
+      style: order.style || '',
+    });
+    setViewDialogOpen(true);
   };
 
   // Column definitions
@@ -369,14 +279,19 @@ const AllOrders = () => {
         </span>
       ),
     },
+    {
+      id: 'actions',
+      header: 'Actions',
+      cell: ({ row }) => (
+        <Button
+          className="hover:bg-slate-300 cursor-pointer"
+          onClick={() => handleViewOrder(row.original)}
+        >
+          View
+        </Button>
+      ),
+    },
   ];
-
-  const handleSelectImage = (imageUrl: string) => {
-    setSelectedImage(imageUrl);
-    setFormData({ ...formData, img: imageUrl });
-    setOrderData({ ...orderData, img: imageUrl });
-    setShowMediaModal(false);
-  };
 
   useEffect(() => {
     fetchOrders();
@@ -409,102 +324,36 @@ const AllOrders = () => {
         <DataTable columns={columns} data={orders} loading={loading} searchKey="productName" />
       </div>
 
-      {/* Edit Order Dialog */}
-      <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+      {/* View Order Dialog */}
+      <Dialog open={viewDialogOpen} onOpenChange={setViewDialogOpen}>
         <DialogContent className="sm:max-w-5xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Edit Order</DialogTitle>
+            <DialogTitle>View Order</DialogTitle>
           </DialogHeader>
-          {/* Image Selection Section */}
+
           <div className="mb-6">
             <div className="flex justify-between items-center mb-2">
               <label className="block text-gray-700 font-medium">Product Image:</label>
-              <Button
-                onClick={() => setShowMediaModal(true)}
-                className="bg-blue-500 cursor-pointer text-white hover:bg-blue-600"
-              >
-                Select Image
-              </Button>
             </div>
-            {selectedImage ? (
+            {orderData.img ? (
               <div className="relative w-full h-48 border rounded-md overflow-hidden">
-                <Image
-                  src={selectedImage}
-                  alt="Selected product"
-                  layout="fill"
-                  objectFit="contain"
-                />
-                <Button
-                  onClick={() => {
-                    setSelectedImage('');
-                    setOrderData({ ...orderData, img: '' });
-                  }}
-                  className="absolute top-2 right-2 bg-red-500 text-white hover:bg-red-600 p-1 rounded-full w-8 h-8"
-                >
-                  ✕
-                </Button>
+                <Image src={orderData.img} alt="Product" layout="fill" objectFit="contain" />
               </div>
             ) : (
               <div className="w-full h-48 border rounded-md flex items-center justify-center bg-gray-100">
-                <p className="text-gray-500">No image selected</p>
+                <p className="text-gray-500">No image available</p>
               </div>
             )}
           </div>
 
-          {/* Media Selection Modal */}
-          {showMediaModal && (
-            <div className="fixed inset-0 backdrop-blur-lg bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-white p-4 rounded-lg w-3/4 max-h-[80vh] overflow-y-auto">
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-lg font-semibold">Select an Image</h3>
-                  <Button
-                    onClick={() => setShowMediaModal(false)}
-                    className="bg-gray-200 text-gray-800 hover:bg-gray-300"
-                  >
-                    Cancel
-                  </Button>
-                </div>
-
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {images.length === 0 ? (
-                    <div className="col-span-full flex justify-center items-center h-32">
-                      <p className="text-gray-500">No images available</p>
-                    </div>
-                  ) : (
-                    images.map(image => (
-                      <div
-                        key={image.id}
-                        className="relative cursor-pointer group"
-                        onClick={() => handleSelectImage(image.url)}
-                      >
-                        <Image
-                          src={image.url}
-                          alt="Media"
-                          width={128}
-                          height={128}
-                          className="rounded-md border hover:border-blue-500 hover:shadow-lg"
-                        />
-                        <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-20 flex items-center justify-center rounded-md">
-                          <Button className="opacity-0 group-hover:opacity-100 bg-blue-500 text-white">
-                            Select
-                          </Button>
-                        </div>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4">
             <div className="space-y-2">
               <Label htmlFor="name">Product Name *</Label>
               <Input
                 id="name"
                 name="name"
-                value={editForm.name}
-                onChange={handleEditChange}
-                required
+                value={orderData.name}
+                readOnly // Make it read-only
               />
             </div>
 
@@ -513,16 +362,10 @@ const AllOrders = () => {
               <Input
                 id="product-code"
                 name="product-code"
-                value={editForm['product-code']}
-                onChange={handleEditChange}
-                required
+                value={orderData['product-code']}
+                readOnly // Make it read-only
               />
             </div>
-
-            {/* <div className="space-y-2">
-              <Label htmlFor="img">Image URL</Label>
-              <Input id="img" name="img" value={editForm.img} onChange={handleEditChange} />
-            </div> */}
 
             <div className="space-y-2">
               <Label htmlFor="realPrice">Price (৳ ) *</Label>
@@ -530,9 +373,8 @@ const AllOrders = () => {
                 id="realPrice"
                 name="realPrice"
                 type="text"
-                value={editForm.realPrice}
-                onChange={handleEditChange}
-                required
+                value={orderData.realPrice}
+                readOnly // Make it read-only
               />
             </div>
 
@@ -542,8 +384,8 @@ const AllOrders = () => {
                 id="discountedPrice"
                 name="discountedPrice"
                 type="text"
-                value={editForm.discountedPrice}
-                onChange={handleEditChange}
+                value={orderData.discountedPrice}
+                readOnly // Make it read-only
               />
             </div>
 
@@ -553,8 +395,8 @@ const AllOrders = () => {
                 id="offer"
                 name="offer"
                 type="text"
-                value={editForm.offer}
-                onChange={handleEditChange}
+                value={orderData.offer}
+                readOnly // Make it read-only
               />
             </div>
 
@@ -564,9 +406,8 @@ const AllOrders = () => {
                 id="stock"
                 name="stock"
                 type="text"
-                value={editForm.stock}
-                onChange={handleEditChange}
-                required
+                value={orderData.stock}
+                readOnly // Make it read-only
               />
             </div>
 
@@ -575,8 +416,8 @@ const AllOrders = () => {
               <Input
                 id="material"
                 name="material"
-                value={editForm.material}
-                onChange={handleEditChange}
+                value={orderData.material}
+                readOnly // Make it read-only
               />
             </div>
 
@@ -585,14 +426,14 @@ const AllOrders = () => {
               <Input
                 id="design"
                 name="design"
-                value={editForm.design}
-                onChange={handleEditChange}
+                value={orderData.design}
+                readOnly // Make it read-only
               />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="color">Color</Label>
-              <Input id="color" name="color" value={editForm.color} onChange={handleEditChange} />
+              <Input id="color" name="color" value={orderData.color} readOnly />
             </div>
 
             <div className="space-y-2">
@@ -600,8 +441,8 @@ const AllOrders = () => {
               <Input
                 id="weight"
                 name="weight"
-                value={editForm.weight}
-                onChange={handleEditChange}
+                value={orderData.weight}
+                readOnly // Make it read-only
               />
             </div>
 
@@ -610,14 +451,14 @@ const AllOrders = () => {
               <Input
                 id="chain length"
                 name="chain length"
-                value={editForm['chain length']}
-                onChange={handleEditChange}
+                value={orderData['chain-length']}
+                readOnly // Make it read-only
               />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="style">Style</Label>
-              <Input id="style" name="style" value={editForm.style} onChange={handleEditChange} />
+              <Input id="style" name="style" value={orderData.style} readOnly />
             </div>
 
             <div className="space-y-2 col-span-full">
@@ -625,9 +466,8 @@ const AllOrders = () => {
               <Textarea
                 id="description-top"
                 name="description-top"
-                value={editForm['description-top']}
-                onChange={handleEditChange}
-                required
+                value={orderData['description-top']}
+                readOnly // Make it read-only
                 rows={3}
               />
             </div>
@@ -637,22 +477,16 @@ const AllOrders = () => {
               <Textarea
                 id="description-bottom"
                 name="description-bottom"
-                value={editForm['description-bottom']}
-                onChange={handleEditChange}
+                value={orderData['description-bottom']}
+                readOnly // Make it read-only
                 rows={3}
               />
             </div>
           </div>
 
           <DialogFooter>
-            <Button variant="outline" onClick={() => setEditDialogOpen(false)}>
-              Cancel
-            </Button>
-            <Button
-              onClick={handleSaveEdit}
-              className="flex cursor-pointer items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-md transition-all hover:shadow-lg"
-            >
-              Save Changes
+            <Button variant="outline" onClick={() => setViewDialogOpen(false)}>
+              Close
             </Button>
           </DialogFooter>
         </DialogContent>
