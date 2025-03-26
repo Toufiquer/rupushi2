@@ -46,28 +46,71 @@ const Checkout = ({ product }: { product: IProduct }) => {
   const handleQuantityChange = (change: number): void => {
     setQuantity(prev => Math.max(1, prev + change));
   };
-
+  interface OrderData {
+    customerName: string;
+    productName: string;
+    orderId: number;
+    'product-code': string;
+    img: string;
+    price: number;
+    quantity: number;
+    deliveryCharge: number;
+    totalPrice: number;
+    address: string;
+    phone: string;
+    shippingArea: 'inside Dhaka' | 'outside Dhaka';
+    note?: string;
+    orderStatus?: string;
+  }
   // Form submission handler with type
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    // Add your form submission logic here
-    const generateOrders = {
-      name: formData.name,
-      allProducts: [
-        {
-          uniqueProductId: product.id,
-          price: subtotal / quantity,
-          quantity: quantity,
-        },
-      ],
-      address: formData.address,
-      phone: formData.mobile,
-      shippingArea: formData.deliveryOption === 'inside Dhaka' ? 'inside Dhaka' : 'outside Dhaka',
-      note: formData.note || '',
-      orderStatus: 'pending',
-      deliveryCharge: deliveryCharge,
-      total: total,
+    const getMillisecondsSince2000 = () => {
+      const now = new Date();
+      const midnightJan12000 = new Date(2000, 0, 1, 0, 0, 0, 0);
+
+      // Calculate milliseconds since midnight on January 1st, 2000
+      const millisecondsSince2000 = now.getTime() - midnightJan12000.getTime();
+
+      return millisecondsSince2000;
     };
+    function generateOrder(formData: FormData, productData: IProduct): OrderData {
+      // Generate a simple order ID (you might want to use a more robust method in production)
+      const orderId = getMillisecondsSince2000();
+
+      // Determine delivery charge and shipping area based on delivery option
+      const deliveryCharge = formData.deliveryOption === '130' ? 130 : 60;
+      const shippingArea = deliveryCharge === 130 ? 'inside Dhaka' : 'outside Dhaka';
+
+      // Calculate total price
+      const price = parseFloat(
+        productData.discountedPrice ? productData.discountedPrice : productData.realPrice,
+      );
+      const quantity = 1; // Assuming single item order
+      const totalPrice = price * quantity + deliveryCharge;
+
+      return {
+        customerName: formData.name,
+        productName: productData.name,
+        orderId,
+        'product-code': productData['product-code'],
+        img: productData.img || '',
+        price,
+        quantity,
+        deliveryCharge,
+        totalPrice,
+        address: formData.address,
+        phone: formData.mobile,
+        shippingArea,
+        note: formData.note || '',
+        orderStatus: 'pending', // Default initial status
+      };
+    }
+
+    console.log('form data : ', formData);
+    console.log('product : ', product);
+    // Add your form submission logic here
+    const generateOrders = generateOrder(formData, product);
     console.log('generateOrders : ', generateOrders);
     setLoading(true);
 
