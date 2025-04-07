@@ -4,8 +4,8 @@ import { Slider } from './components/Slider';
 
 export default function Home() {
   return (
-    <main>
-      <div className="container mx-auto">
+    <main className="w-full flex items-center justify-center">
+      <div className="container mx-auto max-w-7xl">
         <Slider />
         <NewArrival />
         <AllProducts />
