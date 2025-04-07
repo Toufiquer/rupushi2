@@ -10,52 +10,41 @@
 
 import { useEffect, useState } from 'react';
 import { IProduct } from '../../components/ProductsCard';
-import { useParams } from 'next/navigation';
-import Checkout from './Checkout';
+import Checkout from '../../cart/Checkout';
 import Link from 'next/link';
 
 const AllProducts = () => {
-  const [showAllProducts, setShowAllProducts] = useState<IProduct[]>([]);
   const [showFilterProducts, setShowFilterProducts] = useState<IProduct[]>([]);
-  const productsPerPage = 8;
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Get the productId from the URL
-  const params = useParams();
-  const productId = params?.productId as string;
-
-  // Fetch products on component mount
+  // Get product from localStorage on component mount
   useEffect(() => {
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(data => {
-        if (data.data.length > 0) {
-          // Filter products by category
-          const filteredProducts = data.data.filter((product: IProduct) =>
-            product.id ? product.id.toLowerCase() === productId.toLowerCase() : false,
-          );
-          setShowFilterProducts(filteredProducts);
-          // Initially show first 8 products
-          setShowAllProducts(data.data.slice(0, productsPerPage));
-        }
-      });
-  }, [productId]);
+    const cartItem = localStorage.getItem('selectedProduct');
+    if (cartItem) {
+      const product = JSON.parse(cartItem);
+      setShowFilterProducts([product]);
+    }
+    setIsLoading(false);
+  }, []);
 
   let renderProducts = (
     <div className="text-center w-full h-screen flex items-center justify-center text-2xl">
       Loading...
     </div>
   );
-  if (showAllProducts.length === 0) {
+
+  if (!isLoading && showFilterProducts.length === 0) {
     renderProducts = (
       <div className="text-center w-full h-screen flex items-center justify-center text-2xl">
-        No Products Found
+        No Product Selected
       </div>
     );
   }
-  if (showAllProducts.length > 0) {
+
+  if (showFilterProducts.length > 0) {
     renderProducts = (
       <div className="w-full flex flex-col gap-4">
-        <Checkout product={showFilterProducts[0]} />
+        <Checkout products={showFilterProducts} />
         <Link href="/">
           <button className="w-full cursor-pointer mt-12 bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition">
             আরো প্রোডাক্ট দেখুন
@@ -64,6 +53,7 @@ const AllProducts = () => {
       </div>
     );
   }
+
   return (
     <div className="w-full flex items-center justify-center">
       <div className="container max-w-7xl">
@@ -76,4 +66,5 @@ const AllProducts = () => {
     </div>
   );
 };
+
 export default AllProducts;

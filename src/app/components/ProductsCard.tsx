@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export interface IProduct extends Document {
   id: string;
@@ -29,6 +30,27 @@ export interface IProduct extends Document {
   status: 'active' | 'inactive' | string;
 }
 const ProductCard = ({ productData }: { productData: IProduct }) => {
+  const router = useRouter();
+
+  const handleAddToCart = () => {
+    // Get existing cart items from localStorage
+    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    // Check if item already exists in cart
+    const isExisting = existingCart.find((item: IProduct) => item.id === productData.id);
+    console.log('handle log');
+    let newCart = [];
+    if (!isExisting) {
+      // Add new item to cart
+      newCart = [...existingCart, productData];
+    } else {
+      newCart = [...existingCart, productData];
+    }
+    localStorage.setItem('cart', JSON.stringify(newCart));
+    console.log('handle log cart');
+    router.push('/cart');
+  };
+
   return (
     <Card className="w-full max-w-sm overflow-hidden shadow-lg rounded-lg py-0 border-0">
       <CardContent className="p-0">
@@ -69,11 +91,12 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
           </div>
 
           {/* Order Button */}
-          <Link href={`/order-now/${productData.id}`}>
-            <Button className="w-full font-semibold bg-[#fbc79a] hover:bg-[#e39366] text-black cursor-pointer">
-              অর্ডার করুন
-            </Button>
-          </Link>
+          <Button
+            onClick={handleAddToCart}
+            className="w-full font-semibold bg-[#fbc79a] hover:bg-[#e39366] text-black cursor-pointer"
+          >
+            অর্ডার করুন
+          </Button>
         </div>
       </CardContent>
     </Card>
