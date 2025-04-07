@@ -37,16 +37,24 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
     const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
 
     // Check if item already exists in cart
-    const isExisting = existingCart.find((item: IProduct) => item.id === productData.id);
-    console.log('handle log');
-    let newCart = [];
-    if (!isExisting) {
-      // Add new item to cart
-      newCart = [...existingCart, productData];
+    const isExistingIndex = existingCart.findIndex((item: IProduct) => item.id === productData.id);
+
+    let newCart: (IProduct & { quantity: number })[] = [...existingCart];
+
+    if (isExistingIndex > -1) {
+      // Item exists, increment quantity
+      newCart = newCart.map((item, index) =>
+        index === isExistingIndex ? { ...item, quantity: item.quantity + 1 } : item,
+      );
     } else {
-      newCart = [...existingCart, productData];
+      // Item doesn't exist, add it with quantity 1
+      newCart = [...existingCart, { ...productData, quantity: 1 }];
     }
+
+    console.log('storage cart : ', newCart);
     localStorage.setItem('cart', JSON.stringify(newCart));
+    console.log('handle log cart');
+    // router.push('/cart');
     console.log('handle log cart');
     router.push('/cart');
   };

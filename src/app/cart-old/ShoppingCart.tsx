@@ -82,7 +82,7 @@ const CartItemComponent: React.FC<CartItemComponentProps> = ({
         </div>
         <div>
           <h3 className="font-medium">{item.name}</h3>
-          <p className="text-sm text-gray-500">${item.price.toFixed(2)}</p>
+          <p className="text-sm text-gray-500">${item.price?.toFixed(2)}</p>
         </div>
       </div>
 
@@ -122,7 +122,27 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) =>
   // Tax and shipping constants (could be fetched from an API)
   const TAX_RATE: number = 0.08;
   const SHIPPING_COST: number = 5.99;
+  useEffect(() => {
+    const fetchCartData = async (): Promise<void> => {
+      setIsLoading(true);
+      setError(null);
 
+      try {
+        // Get cart data from localStorage
+        const savedCart = localStorage.getItem('cart');
+        if (savedCart) {
+          const parsedCart: CartItem[] = JSON.parse(savedCart);
+          setCartItems(parsedCart);
+        }
+      } catch (error) {
+        setError('Failed to load cart items. Please refresh the page and try again.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCartData();
+  }, []);
   // Calculate subtotal
   const calculateSubtotal = (): number => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -203,7 +223,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) =>
 
   // Mock checkout function
   const handleCheckout = (): void => {
-    alert(`Proceeding to checkout with total: $${calculateTotal().toFixed(2)}`);
+    alert(`Proceeding to checkout with total: $${calculateTotal()?.toFixed(2)}`);
     // In a real application, you would navigate to a checkout page or trigger a checkout modal
   };
 
@@ -266,9 +286,9 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) =>
 
       <div className="divide-y divide-gray-200">
         <AnimatePresence>
-          {cartItems.map(item => (
+          {cartItems.map((item, idx: number) => (
             <CartItemComponent
-              key={item.id}
+              key={item.id + idx}
               item={item}
               updateQuantity={updateQuantity}
               removeItem={removeItem}
@@ -288,13 +308,13 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) =>
               transition={{ duration: 0.3 }}
               className="font-medium"
             >
-              ${subtotal.toFixed(2)}
+              ${subtotal?.toFixed(2)}
             </motion.span>
           </div>
 
           <div className="flex justify-between">
             <span className="text-gray-600">Tax (8%)</span>
-            <span>${tax.toFixed(2)}</span>
+            <span>${tax?.toFixed(2)}</span>
           </div>
 
           <div className="flex justify-between">
@@ -311,7 +331,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) =>
               transition={{ duration: 0.3 }}
               className="font-semibold text-lg"
             >
-              ${total.toFixed(2)}
+              ${total?.toFixed(2)}
             </motion.span>
           </div>
         </div>
