@@ -17,9 +17,17 @@ export default function TopBar() {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [autoplayInterval, setAutoplayInterval] = useState<NodeJS.Timeout | null>(null);
-
+  const [cartProductLength, setCartProductLength] = useState(0);
   console.log(autoplayInterval);
-
+  useEffect(() => {
+    const cartItem = localStorage.getItem('cart');
+    console.log('cartItem', cartItem);
+    if (cartItem) {
+      const products = JSON.parse(cartItem);
+      console.log('products : ', products);
+      setCartProductLength(products.length);
+    }
+  }, []);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -201,7 +209,10 @@ export default function TopBar() {
                 />
               </svg>
             </Link>
-            <Link href="/cart" className="text-gray-700 hover:text-[#f16514]">
+            <Link href="/cart" className="text-gray-700 hover:text-[#f16514] relative">
+              <span className="absolute -top-2 -right-2 bg-[#f16514] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                {cartProductLength}
+              </span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -326,7 +337,10 @@ export default function TopBar() {
                   />
                 </svg>
               </Link>
-              <Link href="/cart" className="text-gray-700 hover:text-[#f16514]">
+              <Link href="/cart" className="text-gray-700 hover:text-[#f16514] relative">
+                <span className="absolute -top-2 -right-2 bg-[#f16514] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                  {cartProductLength}
+                </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
