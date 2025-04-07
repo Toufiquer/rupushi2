@@ -5,7 +5,7 @@ import { Slider } from './components/Slider';
 export default function Home() {
   return (
     <main>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <Slider />
         <AllProducts />
         <NewArrival />

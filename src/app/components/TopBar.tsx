@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import SearchBox from './SearchBox';
 import { categoryMenuItems } from './Footer';
+import CategoryMenu from './CategoryMenu';
 
 export default function TopBar() {
   const pathname = usePathname();
@@ -87,43 +88,6 @@ export default function TopBar() {
       startAutoplay();
     }
   }, [isDragging, startAutoplay, stopAutoplay]);
-
-  // State to track hover status
-  const [isHovered, setIsHovered] = useState<boolean>(false);
-
-  // Ref for the marquee container
-  const marqueeRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const marqueeElement = marqueeRef.current;
-    if (!marqueeElement) return;
-
-    let animationFrameId: number;
-    let position = 0;
-    const speed = 1; // Adjust speed of marquee
-
-    const animate = () => {
-      if (!isHovered) {
-        position -= speed;
-
-        // Reset position when fully scrolled
-        if (Math.abs(position) >= marqueeElement.scrollWidth / 2) {
-          position = 0;
-        }
-
-        marqueeElement.style.transform = `translateX(${position}px)`;
-      }
-
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animationFrameId = requestAnimationFrame(animate);
-
-    // Cleanup function to cancel animation frame
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [isHovered]);
 
   return (
     <>
@@ -258,33 +222,7 @@ export default function TopBar() {
       </div>
 
       {/* Category Slider Menu - visible on all devices */}
-      {!['/dashboard', '/login'].includes(pathname) && (
-        <div
-          className="overflow-hidden w-full relative py-6"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <div ref={marqueeRef} className="gap-4 whitespace-nowrap inline-flex">
-            {/* Duplicate items to create seamless loop */}
-            {[
-              ...categoryMenuItems,
-              ...categoryMenuItems,
-              ...categoryMenuItems,
-              ...categoryMenuItems,
-              ...categoryMenuItems,
-              ...categoryMenuItems,
-            ].map((item, index) => (
-              <a
-                key={`${item.href}-${index}`}
-                href={item.href}
-                className="px-4 min-w-[200px] text-center py-2 bg-gray-100 text-gray-800 rounded-md text-sm transition-colors"
-              >
-                {item.name}
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
+      {!['/dashboard', '/login'].includes(pathname) && <CategoryMenu />}
 
       {/* Mobile Menu */}
       {isMenuOpen && (
