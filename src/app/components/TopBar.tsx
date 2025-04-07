@@ -129,7 +129,7 @@ export default function TopBar() {
     <>
       {/* Desktop navigation with TopMarquee */}
       {!['/dashboard', '/login'].includes(pathname) && (
-        <div className="bg-pink-600 text-white py-2">
+        <div className="bg-[#f16514] text-white py-2">
           <div className=" container max-w-7xl mx-auto flex justify-between items-center px-2">
             {/* TopMarquee - visible on all devices */}
             <div className="flex-grow md:flex-grow-0 md:w-2/4">
@@ -163,7 +163,7 @@ export default function TopBar() {
         <div className=" container max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="text-2xl font-bold text-pink-600">
+            <Link href="/" className="text-2xl font-bold text-[#f16514]">
               <div className="w-[160px] h-[30px] relative">
                 <div className="absolute top-[-15px] left-[-10px] md:left-0 w-full h-auto mb-4">
                   <Image
@@ -182,7 +182,7 @@ export default function TopBar() {
           {/* Mobile Hamburger Menu */}
           <div className="md:hidden">
             {isMenuOpen ? (
-              <button onClick={toggleMenu} className="text-pink-600 focus:outline-none">
+              <button onClick={toggleMenu} className="text-[rgb(245,112,35)] focus:outline-none">
                 {/* ক্রস আইকন */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -200,7 +200,7 @@ export default function TopBar() {
                 </svg>
               </button>
             ) : (
-              <button onClick={toggleMenu} className="text-pink-600 focus:outline-none">
+              <button onClick={toggleMenu} className="text-[#f16514] focus:outline-none">
                 {/* হ্যামবার্গার আইকন */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -221,7 +221,7 @@ export default function TopBar() {
           </div>
           {/* Desktop User Icons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link href="/wishlist" className="text-gray-700 hover:text-pink-600">
+            <Link href="/wishlist" className="text-gray-700 hover:text-[#f16514]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -237,7 +237,7 @@ export default function TopBar() {
                 />
               </svg>
             </Link>
-            <Link href="/cart" className="text-gray-700 hover:text-pink-600">
+            <Link href="/cart" className="text-gray-700 hover:text-[#f16514]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -290,7 +290,7 @@ export default function TopBar() {
       {isMenuOpen && (
         <div className="w-full h-screen fixed bg-slate-50 z-40">
           <div className="w-full flex items-center justify-end p-2">
-            <button onClick={toggleMenu} className="text-pink-600 focus:outline-none">
+            <button onClick={toggleMenu} className="text-[#f16514] focus:outline-none">
               {/* ক্রস আইকন */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -322,19 +322,22 @@ export default function TopBar() {
               </div>
             </div>
             <nav className="px-4 py-2">
-              <Link href="/" className="block py-2 text-gray-800 hover:text-pink-600">
+              <Link href="/" className="block py-2 text-gray-800 hover:text-[#f16514]">
                 Home
               </Link>
-              <Link href="/about-us" className="block py-2 text-gray-800 hover:text-pink-600">
+              <Link href="/about-us" className="block py-2 text-gray-800 hover:text-[#f16514]">
                 About Us
               </Link>
               <Link
                 href="/terms-condition"
-                className="block py-2 text-gray-800 hover:text-pink-600"
+                className="block py-2 text-gray-800 hover:text-[#f16514]"
               >
                 Terms & Condition
               </Link>
-              <Link href="/privacy-policy" className="block py-2 text-gray-800 hover:text-pink-600">
+              <Link
+                href="/privacy-policy"
+                className="block py-2 text-gray-800 hover:text-[#f16514]"
+              >
                 Privacy Policy
               </Link>
 
@@ -345,7 +348,7 @@ export default function TopBar() {
                   <Link
                     href={item.href}
                     key={index}
-                    className="block py-2 text-gray-800 hover:text-pink-600"
+                    className="block py-2 text-gray-800 hover:text-[#f16514]"
                   >
                     {item.name}
                   </Link>
@@ -353,7 +356,7 @@ export default function TopBar() {
               </div>
             </nav>
             <div className="flex justify-around py-3 border-t">
-              <Link href="/login" className="text-gray-700 hover:text-pink-600">
+              <Link href="/login" className="text-gray-700 hover:text-[#f16514]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -369,7 +372,7 @@ export default function TopBar() {
                   />
                 </svg>
               </Link>
-              <Link href="/wishlist" className="text-gray-700 hover:text-pink-600">
+              <Link href="/wishlist" className="text-gray-700 hover:text-[#f16514]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -385,7 +388,7 @@ export default function TopBar() {
                   />
                 </svg>
               </Link>
-              <Link href="/cart" className="text-gray-700 hover:text-pink-600">
+              <Link href="/cart" className="text-gray-700 hover:text-[#f16514]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
