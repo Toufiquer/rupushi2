@@ -16,10 +16,11 @@ const Checkout = ({ products }: { products: IProduct[] }) => {
   const cartProducts = products[0];
   console.log('cardProducts : ', cartProducts);
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl flex bg-white rounded-lg shadow-md p-8 container">
-        <FormComponent />
-
+    <div className=" min-h-screen flex items-center justify-center ">
+      <div className="max-w-7xl flex container">
+        <div className="flex bg-white rounded-lg shadow-md w-full">
+          <FormComponent />
+        </div>
         <div className="w-full pl-4">
           <ShoppingCart />
         </div>

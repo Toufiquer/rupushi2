@@ -64,7 +64,7 @@ const FormComponent: React.FC = () => {
     >
       <div className="px-6 py-8">
         <motion.h2
-          className="text-2xl font-bold text-center text-gray-800 mb-8"
+          className="text-2xl font-bold text-start text-gray-800 mb-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}

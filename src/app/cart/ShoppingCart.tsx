@@ -72,127 +72,44 @@ const CartItemComponent: React.FC<CartItemComponentProps> = ({
   updateQuantity,
   removeItem,
 }) => {
-  const [isUpdating, setIsUpdating] = useState<boolean>(false);
-  const [localQuantity, setLocalQuantity] = useState<number>(item.quantity);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    setLocalQuantity(item.quantity);
-  }, [item.quantity]);
-
-  const handleQuantityChange = async (newQuantity: number): Promise<void> => {
-    if (newQuantity < 1) return;
-
-    setIsUpdating(true);
-    setError(null);
-
-    try {
-      await updateQuantity(item.id, newQuantity);
-      setLocalQuantity(newQuantity);
-    } catch (error) {
-      setError('Failed to update quantity. Please try again.');
-    } finally {
-      setIsUpdating(false);
-    }
-  };
-
-  const handleRemove = async (): Promise<void> => {
-    setIsUpdating(true);
-    setError(null);
-
-    try {
-      await removeItem(item.id);
-    } catch (error) {
-      setError('Failed to remove item. Please try again.');
-      setIsUpdating(false);
-    }
-  };
+  const [quantity, setQuantity] = useState(item.quantity);
 
   return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -20 }}
-      className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 border-b border-gray-200 relative"
-    >
-      {error && <ErrorMessage message={error} />}
-
-      <div className="flex items-center mb-4 sm:mb-0">
-        <div className="relative h-16 w-16 rounded-md overflow-hidden bg-gray-100 mr-4">
+    <div className="flex items-center justify-between p-4 border-b">
+      <div className="flex items-center">
+        <div className="relative h-16 w-16 mr-4">
           <Image src={item.image} alt={item.name} layout="fill" objectFit="cover" />
         </div>
-
         <div>
-          <h3 className="font-medium text-gray-800">{item.name}</h3>
-          <p className="text-gray-500 text-sm">Item #: {item.id}</p>
+          <h3 className="font-medium">{item.name}</h3>
+          <p className="text-sm text-gray-500">${item.price.toFixed(2)}</p>
         </div>
       </div>
 
-      <div className="flex items-center justify-between w-full sm:w-auto">
-        <div className="mr-6">
-          <p className="font-medium text-gray-900">${item.price.toFixed(2)}</p>
-        </div>
-
-        <div className="flex items-center mr-6">
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            className="p-1 focus:outline-none text-blue-500 disabled:text-gray-300"
-            onClick={() => handleQuantityChange(localQuantity - 1)}
-            disabled={isUpdating || localQuantity <= 1}
-          >
-            <MinusCircle size={20} />
-          </motion.button>
-
-          <input
-            type="number"
-            min="1"
-            value={localQuantity}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              const value = parseInt(e.target.value);
-              if (!isNaN(value) && value > 0) {
-                setLocalQuantity(value);
-              }
-            }}
-            onBlur={() => {
-              if (localQuantity !== item.quantity) {
-                handleQuantityChange(localQuantity);
-              }
-            }}
-            className="w-12 text-center mx-1 p-1 border rounded-md"
-            disabled={isUpdating}
-          />
-
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            className="p-1 focus:outline-none text-blue-500 disabled:text-gray-300"
-            onClick={() => handleQuantityChange(localQuantity + 1)}
-            disabled={isUpdating}
-          >
-            <PlusCircle size={20} />
-          </motion.button>
-        </div>
-
-        <div className="w-20 text-right mr-6">
-          <p className="font-medium text-gray-900">${(item.price * item.quantity).toFixed(2)}</p>
-        </div>
-
-        <motion.button
-          whileTap={{ scale: 0.9 }}
-          className="p-1 focus:outline-none text-red-500 hover:text-red-700 disabled:text-gray-300"
-          onClick={handleRemove}
-          disabled={isUpdating}
-        >
+      <div className="flex items-center">
+        <button onClick={() => updateQuantity(item.id, quantity - 1)} disabled={quantity <= 1}>
+          <MinusCircle size={20} />
+        </button>
+        <input
+          type="number"
+          value={quantity}
+          onChange={e => {
+            const val = parseInt(e.target.value);
+            if (val > 0) {
+              setQuantity(val);
+              updateQuantity(item.id, val);
+            }
+          }}
+          className="w-12 text-center mx-2"
+        />
+        <button onClick={() => updateQuantity(item.id, quantity + 1)}>
+          <PlusCircle size={20} />
+        </button>
+        <button onClick={() => removeItem(item.id)} className="ml-4 text-red-500">
           <X size={20} />
-        </motion.button>
+        </button>
       </div>
-
-      {isUpdating && (
-        <div className="absolute inset-0 bg-white bg-opacity-50 flex items-center justify-center">
-          <LoadingSpinner />
-        </div>
-      )}
-    </motion.div>
+    </div>
   );
 };
 
