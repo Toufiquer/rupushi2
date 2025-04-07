@@ -65,11 +65,15 @@ const AllProducts = () => {
     );
   }
   return (
-    <main className="w-full flex flex-col py-12 p-12">
-      <div className="w-full flex flex-col">
-        <div className="w-full">{renderProducts}</div>
+    <div className="w-full flex items-center justify-center">
+      <div className="container max-w-7xl">
+        <main className="w-full flex flex-col py-12">
+          <div className="w-full flex flex-col">
+            <div className="w-full">{renderProducts}</div>
+          </div>
+        </main>
       </div>
-    </main>
+    </div>
   );
 };
 export default AllProducts;
