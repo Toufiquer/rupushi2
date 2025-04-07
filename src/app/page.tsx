@@ -7,8 +7,8 @@ export default function Home() {
     <main>
       <div className="container mx-auto">
         <Slider />
-        <AllProducts />
         <NewArrival />
+        <AllProducts />
       </div>
     </main>
   );

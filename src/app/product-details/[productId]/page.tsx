@@ -81,19 +81,23 @@ const AllProducts = () => {
     renderProducts = (
       <div className="w-full flex flex-col gap-4">
         <ProductDetailPage product={showFilterProducts[0]} />
-        <div className="w-full flex flex-col gap-4 mt-12">
-          <div className="border-b-2 border-gray-200 pb-4 w-full flex items-center justify-between mb-6 py-3">
-            <h2 className=" text-xl md:text-3xl font-bold text-gray-900 tracking-tight w-full justify-center ">
-              Related Products
-            </h2>
-            <div className="w-full flex items-center justify-end"></div>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-4 gap-2">
-            {showAllProducts.map(product => (
-              <div key={product['product-code']}>
-                <ProductCard productData={product} />
+        <div className="w-full flex items-center justify-center">
+          <div className="container max-w-7xl">
+            <div className="w-full flex flex-col gap-4 mt-12">
+              <div className="border-b-2 border-gray-200 pb-4 w-full flex items-center justify-between mb-6 py-3">
+                <h2 className=" text-xl md:text-3xl font-bold text-gray-900 tracking-tight w-full justify-center ">
+                  Related Products
+                </h2>
+                <div className="w-full flex items-center justify-end"></div>
               </div>
-            ))}
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-4 gap-2">
+                {showAllProducts.map(product => (
+                  <div key={product['product-code']}>
+                    <ProductCard productData={product} />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -152,8 +152,8 @@ const CustomerCareSection = () => (
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-700 text-white pt-12 shadow-lg border-t-2 border-slate-900 shadow-stone-200">
-      <div className="w-full flex flex-col">
+    <footer className="bg-slate-700 text-white pt-12 shadow-lg border-t-2 border-slate-900 shadow-stone-200 flex flex-col items-center justify-center">
+      <div className="w-full flex flex-col container max-w-7xl">
         <div className="md:hidden block">
           <div className="w-full grid grid-cols-1 py-8">
             <LogoSection />
@@ -188,10 +188,10 @@ const Footer = () => {
             <CustomerCareSection />
           </div>
         </div>
-        {/* Bottom Bar */}
-        <div className="border-t-1 mt-12 border-slate-900 text-white text-center py-4">
-          <p> Rupushi - All Rights Reserved &copy; {new Date().getFullYear()}</p>
-        </div>
+      </div>
+      {/* Bottom Bar */}
+      <div className="border-t-1 mt-12 border-slate-900 text-white text-center py-4 w-full">
+        <p> Rupushi - All Rights Reserved &copy; {new Date().getFullYear()}</p>
       </div>
     </footer>
   );

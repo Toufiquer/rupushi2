@@ -16,7 +16,7 @@ const AllProducts = () => {
   const [allProducts, setAllProducts] = useState<IProduct[]>([]);
   const [showAllProducts, setShowAllProducts] = useState<IProduct[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const productsPerPage = 8;
+  const productsPerPage = 20;
 
   // Fetch products on component mount
   useEffect(() => {
