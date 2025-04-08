@@ -65,13 +65,6 @@ const DataTable = <TData, TValue>({
       pagination: {
         pageSize: 5,
       },
-      sorting: [
-        {
-          // Replace 'createdAt' with your actual timestamp field name
-          id: 'createdAt',
-          desc: true, // true for descending order (newest first)
-        },
-      ],
     },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),

@@ -80,7 +80,15 @@ const FormData = () => {
       const deliveryCharge = formData.deliveryOption === '130' ? 130 : 60;
       const shippingArea = deliveryCharge === 130 ? 'inside Dhaka' : 'outside Dhaka';
 
-      const totalPrice = 0;
+      const totalPrice =
+        deliveryCharge +
+        cart.reduce((acc, curr) => {
+          let oldTotal = acc;
+          const price = curr.discountedPrice || curr.realPrice;
+          let quantity = curr.quantity || 1;
+          oldTotal = oldTotal + Number(price) * quantity;
+          return oldTotal;
+        }, 0);
 
       return {
         customerInfo: {
@@ -97,9 +105,9 @@ const FormData = () => {
         productInfo: productData,
       };
     }
-    console.log('generateOrder', generateOrder(formData, cart));
-    const newOrderData = generateOrder(formData, cart);
 
+    const newOrderData = generateOrder(formData, cart);
+    console.log('newOrderData', newOrderData);
     setLoading(true);
     try {
       const response = await fetch('/api/orders', {

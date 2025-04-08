@@ -54,40 +54,6 @@ const AllOrders = () => {
     }
   }, [toast]);
 
-  // Handle update order status
-  const handleUpdateStatus = async (orderId: string, newStatus: string) => {
-    try {
-      const response = await fetch(`/api/orders`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id: orderId, orderStatus: newStatus }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update order status');
-      }
-
-      toast({
-        title: 'Success',
-        description: 'Order status updated successfully',
-      });
-
-      // Update the local state
-      setOrders(
-        orders.map(order => (order._id === orderId ? { ...order, orderStatus: newStatus } : order)),
-      );
-    } catch (error: unknown) {
-      console.error('Error updating order status:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to update order status',
-        variant: 'destructive',
-      });
-    }
-  };
-
   const handleOrderDetails = (orderId: string) => {
     const findOrder = orders.find(order => order._id === orderId);
 
@@ -188,7 +154,16 @@ const AllOrders = () => {
       </div>
       {/* Orders Table */}
       <div className=" rounded-lg  ">
-        <DataTable columns={columns} data={orders} loading={loading} searchKey="_id" />
+        <DataTable
+          columns={columns}
+          data={orders.sort((a, b) =>
+            a.createdAt && b.createdAt
+              ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+              : 0,
+          )}
+          loading={loading}
+          searchKey="_id"
+        />
       </div>
       {/* View Order Dialog */}
       <Dialog open={viewDialogOpen} onOpenChange={setViewDialogOpen}>
