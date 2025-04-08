@@ -124,11 +124,11 @@ const DataTable = <TData, TValue>({
                   className="bg-slate-600 hover:bg-slate-700 text-slate-200"
                   key={headerGroup.id}
                 >
-                  {headerGroup.headers.map(header => {
+                  {headerGroup.headers.map((header, idx) => {
                     return (
                       <TableHead
                         key={header.id}
-                        className=" font-bold text-slate-200"
+                        className={`font-bold text-slate-200 ${idx + 1 === headerGroup.headers.length && ' text-end pr-6 '}`}
                         onClick={header.column.getToggleSortingHandler()}
                       >
                         {header.isPlaceholder
@@ -153,8 +153,11 @@ const DataTable = <TData, TValue>({
                     key={row.id}
                     data-state={row.getIsSelected() && 'selected'}
                   >
-                    {row.getVisibleCells().map(cell => (
-                      <TableCell key={cell.id}>
+                    {row.getVisibleCells().map((cell, idx) => (
+                      <TableCell
+                        key={cell.id}
+                        className={`text-slate-700 ${idx + 1 === row.getVisibleCells().length && ' text-end '}`}
+                      >
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </TableCell>
                     ))}
