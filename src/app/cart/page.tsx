@@ -12,12 +12,11 @@ import { useEffect, useState } from 'react';
 import { IProduct } from '../components/ProductsCard';
 import Checkout from './Checkout';
 import Link from 'next/link';
-import { AiOutlineConsoleSql } from 'react-icons/ai';
 import { useStore } from '@/app/utils/useStore';
 
 const AllProducts = () => {
   const [showFilterProducts, setShowFilterProducts] = useState<IProduct[]>([]);
-  const { cart, updateCart } = useStore();
+  const { cart } = useStore();
   useEffect(() => {
     if (cart.length > 0) {
       setShowFilterProducts(cart);
@@ -39,7 +38,7 @@ const AllProducts = () => {
   if (showFilterProducts.length > 0) {
     renderProducts = (
       <div className="w-full flex flex-col gap-4">
-        <Checkout product={showFilterProducts[0]} />
+        <Checkout allProducts={showFilterProducts} />
         <Link href="/">
           <button className="w-full cursor-pointer mt-12 bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition">
             আরো প্রোডাক্ট দেখুন

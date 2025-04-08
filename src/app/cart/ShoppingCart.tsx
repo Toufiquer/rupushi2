@@ -3,19 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { ShoppingBag, X, AlertCircle, PlusCircle, MinusCircle } from 'lucide-react';
-
-// Define the CartItem interface
-export interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
-}
+import { IProduct } from '../components/ProductsCard';
 
 // Props interface for the ShoppingCart component
 interface ShoppingCartProps {
-  initialCartItems?: CartItem[];
+  initialCartItems?: IProduct[];
 }
 
 // Error message component props
@@ -25,7 +17,7 @@ interface ErrorMessageProps {
 
 // Cart item component props
 interface CartItemComponentProps {
-  item: CartItem;
+  item: IProduct;
   updateQuantity: (id: string, quantity: number) => Promise<void>;
   removeItem: (id: string) => Promise<void>;
 }
@@ -78,7 +70,7 @@ const CartItemComponent: React.FC<CartItemComponentProps> = ({
     <div className="flex items-center justify-between p-4 border-b">
       <div className="flex items-center">
         <div className="relative h-16 w-16 mr-4">
-          <Image src={item.image} alt={item.name} layout="fill" objectFit="cover" />
+          <Image src={item.img || ''} alt={item.name} layout="fill" objectFit="cover" />
         </div>
         <div>
           <h3 className="font-medium">{item.name}</h3>
@@ -87,7 +79,10 @@ const CartItemComponent: React.FC<CartItemComponentProps> = ({
       </div>
 
       <div className="flex items-center">
-        <button onClick={() => updateQuantity(item.id, quantity - 1)} disabled={quantity <= 1}>
+        <button
+          onClick={() => updateQuantity(item.id, quantity ? quantity - 1 : 1)}
+          disabled={quantity ? quantity <= 1 : false}
+        >
           <MinusCircle size={20} />
         </button>
         <input
@@ -115,7 +110,7 @@ const CartItemComponent: React.FC<CartItemComponentProps> = ({
 
 // Main ShoppingCart component
 const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems);
+  const [cartItems, setCartItems] = useState<IProduct[]>(initialCartItems);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -131,7 +126,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) =>
         // Get cart data from localStorage
         const savedCart = localStorage.getItem('cart');
         if (savedCart) {
-          const parsedCart: CartItem[] = JSON.parse(savedCart);
+          const parsedCart: IProduct[] = JSON.parse(savedCart);
           setCartItems(parsedCart);
         }
       } catch (error) {

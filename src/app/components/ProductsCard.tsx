@@ -29,6 +29,7 @@ export interface IProduct {
   greenBox?: string;
   status: 'active' | 'inactive' | string;
   quantity?: number;
+  price?: number;
 }
 export const defaultIProduct = {
   id: 'default-product-id-123',

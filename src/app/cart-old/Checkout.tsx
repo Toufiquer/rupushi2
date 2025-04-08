@@ -11,7 +11,7 @@
 import React, { useState } from 'react';
 import { IProduct } from '../components/ProductsCard';
 import FormComponent from './FormComponent';
-import ShoppingCart from './ShoppingCart';
+import ShoppingCart from '../cart/ShoppingCart';
 const Checkout = ({ products }: { products: IProduct[] }) => {
   const cartProducts = products[0];
   console.log('cardProducts : ', cartProducts);
