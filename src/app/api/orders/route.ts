@@ -28,11 +28,6 @@ export async function POST(req: Request) {
     await connectDB();
     const orderData: Record<string, unknown> = await req.json();
 
-    // Basic validation check
-    if (!orderData.phone || !orderData.address) {
-      return NextResponse.json({ message: 'Phone and address are required' }, { status: 400 });
-    }
-
     const newOrder = await Order.create(orderData);
     return NextResponse.json(
       { data: newOrder, message: 'Order created successfully' },

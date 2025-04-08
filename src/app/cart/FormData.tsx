@@ -92,7 +92,6 @@ const FormData = () => {
     }
     console.log('generateOrder', generateOrder(formData, cart));
   };
-  const handleDeliveryCharge = (cost: number) => {};
   return (
     <div className="w-full bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-lg font-semibold text-red-600 mb-4">

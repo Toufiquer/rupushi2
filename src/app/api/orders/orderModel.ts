@@ -1,85 +1,108 @@
 import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 
-const orderSchema = new mongoose.Schema(
+// Define a sub-schema for the products within the order
+const ProductInfoSchema = new Schema(
   {
-    customerName: {
+    productId: {
       type: String,
-      required: [true, 'Customer name is required'],
-      trim: true,
     },
-    productName: {
+    name: {
       type: String,
-      required: [true, 'Product name is required'],
-      trim: true,
-    },
-    orderId: {
-      type: Number,
-      required: [true, 'Order Id is required'],
-      trim: true,
+      required: true,
     },
     'product-code': {
       type: String,
-      required: [true, 'product-code is required'],
-      trim: true,
     },
     img: {
       type: String,
-      required: [true, 'image is required'],
-      trim: true,
     },
-    price: {
+    realPrice: {
       type: Number,
-      required: [true, 'Price is required'],
-      min: [0, 'Price cannot be negative'],
     },
+    discountedPrice: {
+      type: Number,
+      required: true,
+    },
+    offer: {
+      type: String,
+    },
+    stock: {
+      type: Number,
+    },
+    'description-top': String,
+    'description-bottom': String,
+    material: String,
+    design: String,
+    color: String,
+    category: String,
+    weight: String,
+    'chain length': String,
+    style: String,
+    // --- Order specific product details ---
     quantity: {
       type: Number,
-      required: [true, 'Quantity is required'],
-      min: [1, 'Quantity must be at least 1'],
-    },
-    deliveryCharge: {
-      type: Number,
       required: true,
-      min: [0, 'Delivery charge cannot be negative'],
+      min: 1,
     },
-    totalPrice: {
-      type: Number,
-      required: true,
-      min: [0, 'TotalPrice cannot be negative'],
-    },
-    address: {
-      type: String,
-      required: [true, 'Shipping address is required'],
-    },
-    phone: {
-      type: String,
-      required: [true, 'Phone number is required'],
-      match: [/^\+?[0-9\s\-\(\)]{6,20}$/, 'Please enter a valid phone number'],
-    },
-    shippingArea: {
-      type: String,
-      enum: {
-        values: ['inside Dhaka', 'outside Dhaka'],
-        message: 'Shipping area must be either "inside Dhaka" or "outside Dhaka"',
+  },
+  { _id: false },
+);
+
+const OrderSchema = new Schema(
+  {
+    customerInfo: {
+      customerName: {
+        type: String,
+        required: true,
+        trim: true,
       },
-      default: 'inside Dhaka',
+      orderId: {
+        type: Number,
+        required: true,
+        unique: true,
+        index: true,
+      },
+      deliveryCharge: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
+      totalPrice: {
+        type: Number,
+        required: true,
+      },
+      address: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      phone: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      shippingArea: {
+        type: String,
+      },
+      note: {
+        type: String,
+        trim: true,
+      },
+      orderStatus: {
+        type: String,
+        required: true,
+        enum: ['pending', 'processing', 'shipped', 'delivered', 'cancelled', 'failed'],
+        default: 'pending',
+      },
     },
-    note: {
-      type: String,
-      trim: true,
-      maxLength: [500, 'Note cannot exceed 500 characters'],
-    },
-    orderStatus: {
-      type: String,
-      trim: true,
-      maxLength: [500, 'Note cannot exceed 500 characters'],
-    },
+    productInfo: [ProductInfoSchema],
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
   },
 );
 
-export default mongoose.models.Order || mongoose.model('Orders', orderSchema);
+const Order = mongoose.model('Order', OrderSchema);
+
+export default Order;
