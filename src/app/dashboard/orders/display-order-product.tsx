@@ -35,14 +35,14 @@ const ProductOrderDisplay: React.FC<ProductOrderDisplayProps> = ({ order }) => {
                 Order Details
               </h2>
               <div className="flex items-center justify-end gap-2">
-                <Select>
+                <Select onValueChange={setStatus} value={status}>
                   <SelectTrigger className="w-[180px] bg-slate-100">
                     <SelectValue placeholder={order.customerInfo.orderStatus || 'N/A'} />
                   </SelectTrigger>
                   <SelectContent className="bt-slate-100">
                     {orderStatus.map(i => (
                       <SelectItem
-                        onClick={() => setStatus(i)}
+                        onSelect={() => setStatus(i)}
                         key={i}
                         value={i}
                         className="cursor-pointer hover:bg-slate-200"
