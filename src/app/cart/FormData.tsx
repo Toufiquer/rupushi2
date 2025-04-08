@@ -93,7 +93,7 @@ const FormData = () => {
   };
 
   return (
-    <div className="w-full md:w-2/3 bg-white p-6 rounded-lg shadow-md">
+    <div className="w-full bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-lg font-semibold text-red-600 mb-4">
         আপনার তথ্যাদি কনফার্ম করতে আপনার নাম, ঠিকানা, (মোবাইল নাম্বার) এবং কনফার্ম করুন
         <br />
