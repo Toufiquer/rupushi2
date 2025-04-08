@@ -9,11 +9,6 @@ const Checkout = ({ allProducts }: { allProducts: IProduct[] }) => {
       {/* Left Section: Form */}
       <FormData />
       {/* Right Section: Cart Summary */}
-      {/* {allProducts.map(curr => (
-        <div className="w-full" key={curr.id}>
-          <SingleCartProduct product={curr} />
-        </div>
-      ))} */}
       <ShoppingCart initialCartItems={allProducts} />
     </div>
   );

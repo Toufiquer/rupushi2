@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { ShoppingBag, X, AlertCircle, PlusCircle, MinusCircle } from 'lucide-react';
 import { IProduct } from '../components/ProductsCard';
+import { useStore } from '../utils/useStore';
 
 // Props interface for the ShoppingCart component
 interface ShoppingCartProps {
@@ -18,8 +19,6 @@ interface ErrorMessageProps {
 // Cart item component props
 interface CartItemComponentProps {
   item: IProduct;
-  updateQuantity: (id: string, quantity: number) => Promise<void>;
-  removeItem: (id: string) => Promise<void>;
 }
 
 // ErrorMessage component for displaying errors
@@ -59,13 +58,9 @@ const EmptyCart: React.FC = () => (
 );
 
 // CartItem component
-const CartItemComponent: React.FC<CartItemComponentProps> = ({
-  item,
-  updateQuantity,
-  removeItem,
-}) => {
-  const [quantity, setQuantity] = useState(item.quantity || 1);
-
+const CartItemComponent: React.FC<CartItemComponentProps> = ({ item }) => {
+  const [quantity, setQuantity] = useState(1);
+  const handleRemove = (itemId: string) => {};
   return (
     <div className="flex items-center justify-between p-4 border-b">
       <div className="flex items-center">
@@ -80,27 +75,17 @@ const CartItemComponent: React.FC<CartItemComponentProps> = ({
 
       <div className="flex items-center">
         <button
-          onClick={() => updateQuantity(item.id, quantity ? quantity - 1 : 1)}
+          className="cursor-pointer"
+          onClick={() => quantity > 0 && setQuantity(pre => pre - 1)}
           disabled={quantity ? quantity <= 1 : false}
         >
           <MinusCircle size={20} />
         </button>
-        <input
-          type="number"
-          value={quantity}
-          onChange={e => {
-            const val = parseInt(e.target.value);
-            if (val > 0) {
-              setQuantity(val);
-              updateQuantity(item.id, val);
-            }
-          }}
-          className="w-12 text-center mx-2"
-        />
-        <button onClick={() => updateQuantity(item.id, quantity + 1)}>
+        <input type="number" value={quantity} className="w-12 text-center mx-2" />
+        <button className="cursor-pointer" onClick={() => setQuantity(pre => pre + 1)}>
           <PlusCircle size={20} />
         </button>
-        <button onClick={() => removeItem(item.id)} className="ml-4 text-red-500">
+        <button onClick={() => handleRemove(item.id)} className="ml-4 text-red-500">
           <X size={20} />
         </button>
       </div>
@@ -112,32 +97,16 @@ const CartItemComponent: React.FC<CartItemComponentProps> = ({
 const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) => {
   const [cartItems, setCartItems] = useState<IProduct[]>(initialCartItems);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-
+  const { cart } = useStore();
+  useEffect(() => {
+    if (cart.length < 0) {
+      setCartItems(cart);
+    }
+  }, [cart]);
   // Tax and shipping constants (could be fetched from an API)
   const TAX_RATE: number = 0.08;
   const SHIPPING_COST: number = 5.99;
-  useEffect(() => {
-    const fetchCartData = async (): Promise<void> => {
-      setIsLoading(true);
-      setError(null);
 
-      try {
-        // Get cart data from localStorage
-        const savedCart = localStorage.getItem('cart');
-        if (savedCart) {
-          const parsedCart: IProduct[] = JSON.parse(savedCart);
-          setCartItems(parsedCart);
-        }
-      } catch (error) {
-        setError('Failed to load cart items. Please refresh the page and try again.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchCartData();
-  }, []);
   // Calculate subtotal
   const calculateSubtotal = (): number => {
     return cartItems.reduce((total, item) => total + (item.price || 0) * (item.quantity || 1), 0);
@@ -155,67 +124,6 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) =>
     return subtotal + tax + (cartItems.length > 0 ? SHIPPING_COST : 0);
   };
 
-  // Mock API call for updating quantity
-  const updateQuantity = async (itemId: string, newQuantity: number): Promise<void> => {
-    setError(null);
-
-    // Simulate API call
-    return new Promise<void>((resolve, reject) => {
-      setTimeout(() => {
-        try {
-          // Update the cart items
-          setCartItems(prevItems =>
-            prevItems.map(item => (item.id === itemId ? { ...item, quantity: newQuantity } : item)),
-          );
-          resolve();
-        } catch (error) {
-          reject(error);
-        }
-      }, 600); // Simulate network delay
-    });
-  };
-
-  // Mock API call for removing an item
-  const removeItem = async (itemId: string): Promise<void> => {
-    setError(null);
-
-    // Simulate API call
-    return new Promise<void>((resolve, reject) => {
-      setTimeout(() => {
-        try {
-          // Remove the item from cart
-          setCartItems(prevItems => prevItems.filter(item => item.id !== itemId));
-          resolve();
-        } catch (error) {
-          reject(error);
-        }
-      }, 600); // Simulate network delay
-    });
-  };
-
-  // Simulate fetching cart data from an API
-  useEffect(() => {
-    const fetchCartData = async (): Promise<void> => {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        // For demo purposes, we're using initialCartItems
-        // In a real application, you would fetch from an API
-        // setCartItems(data from API);
-      } catch (error) {
-        setError('Failed to load cart items. Please refresh the page and try again.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchCartData();
-  }, []);
-
   // Mock checkout function
   const handleCheckout = (): void => {
     alert(`Proceeding to checkout with total: ৳${calculateTotal()?.toFixed(2)}`);
@@ -228,24 +136,6 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) =>
       <div className="bg-white rounded-lg shadow-md p-6">
         <h2 className="text-2xl font-semibold mb-6">Your Cart</h2>
         <LoadingSpinner />
-      </div>
-    );
-  }
-
-  // Display error state
-  if (error) {
-    return (
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-semibold text-center w-full flex items-center justify-center border-2 mb-6">
-          Your Cart
-        </h2>
-        <ErrorMessage message={error} />
-        <button
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-          onClick={() => window.location.reload()}
-        >
-          Refresh
-        </button>
       </div>
     );
   }
@@ -282,12 +172,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) =>
       <div className="divide-y divide-gray-200">
         <AnimatePresence>
           {cartItems.map((item, idx: number) => (
-            <CartItemComponent
-              key={item.id + idx}
-              item={item}
-              updateQuantity={updateQuantity}
-              removeItem={removeItem}
-            />
+            <CartItemComponent key={item.id + idx} item={item} />
           ))}
         </AnimatePresence>
       </div>
