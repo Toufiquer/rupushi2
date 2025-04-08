@@ -36,39 +36,28 @@ const EmptyCart: React.FC = () => (
 );
 
 // Main ShoppingCart component
-const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) => {
+const ShoppingCart: React.FC<ShoppingCartProps> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { cart } = useStore();
 
-  // Tax and shipping constants (could be fetched from an API)
-  const TAX_RATE: number = 0.08;
-  const SHIPPING_COST: number = 5.99;
-
   // Calculate subtotal
   const calculateSubtotal = (): number => {
-    return 100;
+    const productsCost = cart.reduce((acc, curr) => {
+      let oldTotal = acc;
+      const price = curr.discountedPrice || curr.realPrice;
+      let quantity = curr.quantity || 1;
+      oldTotal = oldTotal + Number(price) * quantity;
+      return oldTotal;
+    }, 0);
+    console.log('-- productsCost', productsCost);
+    return productsCost;
     // return cartItems.reduce((total, item) => total + (item.price || 0) * (item.quantity || 1), 0);
-  };
-
-  // Calculate tax
-  const calculateTax = (subtotal: number): number => {
-    return subtotal * TAX_RATE;
   };
 
   // Calculate total
   const calculateTotal = (): number => {
-    const subtotal = calculateSubtotal();
-    const tax = calculateTax(subtotal);
     // return subtotal + tax + (cartItems.length > 0 ? SHIPPING_COST : 0);
     return 100;
-  };
-
-  // Mock checkout function
-  const handleCheckout = (): void => {
-    setIsLoading(true);
-    alert(`Proceeding to checkout with total: ৳${calculateTotal()?.toFixed(2)}`);
-    // In a real application, you would navigate to a checkout page or trigger a checkout modal
-    setIsLoading(false);
   };
 
   // Display loading state
@@ -91,9 +80,6 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) =>
     );
   }
 
-  // Calculate values for summary
-  const subtotal = calculateSubtotal();
-  const tax = calculateTax(subtotal);
   const total = calculateTotal();
 
   return (
@@ -123,24 +109,19 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) =>
           <div className="flex justify-between">
             <span className="text-gray-600">Subtotal</span>
             <motion.span
-              key={subtotal}
+              key={calculateSubtotal()}
               initial={{ scale: 1 }}
               animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 0.3 }}
               className="font-medium"
             >
-              ৳{subtotal?.toFixed(2)}
+              ৳{calculateSubtotal()}
             </motion.span>
           </div>
 
           <div className="flex justify-between">
-            <span className="text-gray-600">Tax (8%)</span>
-            <span>৳{tax?.toFixed(2)}</span>
-          </div>
-
-          <div className="flex justify-between">
             <span className="text-gray-600">Shipping</span>
-            <span>৳{SHIPPING_COST.toFixed(2)}</span>
+            <span>৳{100}</span>
           </div>
 
           <div className="border-t border-gray-200 pt-3 flex justify-between">
@@ -156,15 +137,6 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) =>
             </motion.span>
           </div>
         </div>
-
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="w-full py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors"
-          onClick={handleCheckout}
-        >
-          Proceed to Checkout
-        </motion.button>
       </motion.div>
     </motion.div>
   );
