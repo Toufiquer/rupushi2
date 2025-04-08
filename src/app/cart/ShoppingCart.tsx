@@ -1,8 +1,7 @@
 // ShoppingCart.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import { ShoppingBag, X, AlertCircle, PlusCircle, MinusCircle } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react';
 import { IProduct } from '../components/ProductsCard';
 import { useStore } from '../utils/useStore';
 import { CartItemComponent } from './CartItemComponent';
@@ -28,7 +27,9 @@ const EmptyCart: React.FC = () => (
   >
     <ShoppingBag size={64} className="text-gray-300 mb-4" />
     <h3 className="text-xl font-medium text-gray-500 mb-2">Your cart is empty</h3>
-    <p className="text-gray-400 mb-6">Looks like you haven't added anything to your cart yet</p>
+    <p className="text-gray-400 mb-6">
+      Looks like you haven `&rsquo;`t added anything to your cart yet
+    </p>
     <button className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
       Start Shopping
     </button>
@@ -37,7 +38,7 @@ const EmptyCart: React.FC = () => (
 
 // Main ShoppingCart component
 const ShoppingCart: React.FC<ShoppingCartProps> = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading] = useState<boolean>(false);
   const { cart, deliveryCharge } = useStore();
 
   // Calculate subtotal
@@ -45,18 +46,16 @@ const ShoppingCart: React.FC<ShoppingCartProps> = () => {
     const productsCost = cart.reduce((acc, curr) => {
       let oldTotal = acc;
       const price = curr.discountedPrice || curr.realPrice;
-      let quantity = curr.quantity || 1;
+      const quantity = curr.quantity || 1;
       oldTotal = oldTotal + Number(price) * quantity;
       return oldTotal;
     }, 0);
     console.log('-- productsCost', productsCost);
     return productsCost;
-    // return cartItems.reduce((total, item) => total + (item.price || 0) * (item.quantity || 1), 0);
   };
 
   // Calculate total
   const calculateTotal = (): number => {
-    // return subtotal + tax + (cartItems.length > 0 ? SHIPPING_COST : 0);
     return 100;
   };
 

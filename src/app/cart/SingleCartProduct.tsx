@@ -7,7 +7,6 @@
 */
 // components/Checkout.tsx
 import { useState, ChangeEvent, FormEvent } from 'react';
-import Image from 'next/image';
 import { IProduct } from '@/app/components/ProductsCard';
 
 import { useToast } from '@/components/ui/use-toast';
@@ -32,27 +31,18 @@ const SingleCartProduct = ({ product }: { product: IProduct }) => {
   });
 
   // State for cart item quantity with type
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantity] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
 
   const { toast } = useToast();
   // Calculate totals
-  const subtotal: number = product?.discountedPrice
-    ? Number(product.discountedPrice) * quantity
-    : Number(product.realPrice) * quantity;
-  const deliveryCharge: number = parseInt(formData.deliveryOption);
-  const total: number = subtotal + deliveryCharge;
-
+  console.log('quantity : ', quantity);
   // Handle form input changes with type
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle quantity changes with type
-  const handleQuantityChange = (change: number): void => {
-    setQuantity(prev => Math.max(1, prev + change));
-  };
   interface OrderData {
     customerName: string;
     productName: string;

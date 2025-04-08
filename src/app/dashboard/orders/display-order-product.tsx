@@ -12,18 +12,43 @@ import {
 } from '@/components/ui/select';
 import { orderStatus } from '@/app/api/orders/orderModel';
 import { Button } from '@/components/ui/button';
+import { toast } from 'react-toastify';
 
 interface ProductOrderDisplayProps {
   order: OrderData;
 }
 
 const ProductOrderDisplay: React.FC<ProductOrderDisplayProps> = ({ order }) => {
+  const [isLoading, setLoading] = useState(false);
   console.log('product', order);
   const [status, setStatus] = useState('');
   useEffect(() => {
     setStatus(order.customerInfo.orderStatus || '');
   }, [order]);
   console.log('status', status);
+  const handleUpdate = async () => {
+    const newOrderData = order;
+    newOrderData.customerInfo.orderStatus = status;
+    setLoading(true);
+    try {
+      const response = await fetch('/api/orders', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newOrderData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to Update order');
+      }
+      toast.success('Order Update successful');
+    } catch (error) {
+      console.error('Error creating order:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
   const renderOrderDetails = () =>
     order && (
       <Card className="mt-6">
@@ -53,8 +78,13 @@ const ProductOrderDisplay: React.FC<ProductOrderDisplayProps> = ({ order }) => {
                   </SelectContent>
                 </Select>
                 <Button
+                  type="button"
+                  onClick={handleUpdate}
                   className={`${status.toLowerCase() === order.customerInfo.orderStatus?.toLowerCase() ? ' text-slate-100 cursor-text ' : ' cursor-pointer test-slate-500 '}`}
-                  disabled={status.toLowerCase() === order.customerInfo.orderStatus?.toLowerCase()}
+                  disabled={
+                    status.toLowerCase() === order.customerInfo.orderStatus?.toLowerCase() ||
+                    isLoading
+                  }
                   variant={'outline'}
                 >
                   Update

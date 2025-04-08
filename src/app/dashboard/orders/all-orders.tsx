@@ -3,7 +3,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { ColumnDef } from '@tanstack/react-table';
 import DataTable from '../table/data-table';
-import Image from 'next/image';
 
 import {
   Dialog,
@@ -14,7 +13,6 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
-import { IProduct } from '@/app/components/ProductsCard';
 import ProductOrderDisplay from './display-order-product';
 import { OrderData } from '@/app/cart/FormData';
 

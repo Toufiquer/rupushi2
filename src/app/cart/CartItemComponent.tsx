@@ -12,7 +12,7 @@ export const CartItemComponent: React.FC<CartItemComponentProps> = ({ item }) =>
   console.log('item : ', item);
   const price = item.discountedPrice || item.realPrice;
   const { cart, updateCart } = useStore();
-  let quantity = cart.filter(i => i.id === item.id)[0]?.quantity || 1;
+  const quantity = cart.filter(i => i.id === item.id)[0]?.quantity || 1;
   const handleRemove = (itemId: string) => {
     console.log(itemId);
     const othersCart = cart.filter(curr => curr.id !== itemId);
@@ -20,7 +20,7 @@ export const CartItemComponent: React.FC<CartItemComponentProps> = ({ item }) =>
   };
   const handleIncrease = () => {
     const newUpdateCart = cart.map(mainItem => {
-      let i = mainItem;
+      const i = mainItem;
       if (i.id === item.id) {
         i.quantity = quantity + 1;
       }
@@ -30,7 +30,7 @@ export const CartItemComponent: React.FC<CartItemComponentProps> = ({ item }) =>
   };
   const handleDecrease = () => {
     const newUpdateCart = cart.map(mainItem => {
-      let i = mainItem;
+      const i = mainItem;
       if (i.id === item.id) {
         if (quantity > 0) {
           i.quantity = quantity - 1;
@@ -69,7 +69,7 @@ export const CartItemComponent: React.FC<CartItemComponentProps> = ({ item }) =>
           onChange={e => {
             const newQuantity = parseInt(e.target.value) || 0;
             const newUpdateCart = cart.map(mainItem => {
-              let i = mainItem;
+              const i = mainItem;
               if (i.id === item.id) {
                 i.quantity = newQuantity;
               }

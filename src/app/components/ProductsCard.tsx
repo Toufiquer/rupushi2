@@ -62,7 +62,7 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
   const { cart, updateCart } = useStore();
   const handleAddToCart = () => {
     // Convert IProduct to CartItem format
-    let cartItem: IProduct = productData;
+    const cartItem: IProduct = productData;
 
     // ! update cart
     let newUpdateCart: typeof cart = [];

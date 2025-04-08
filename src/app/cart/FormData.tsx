@@ -85,7 +85,7 @@ const FormData = () => {
         cart.reduce((acc, curr) => {
           let oldTotal = acc;
           const price = curr.discountedPrice || curr.realPrice;
-          let quantity = curr.quantity || 1;
+          const quantity = curr.quantity || 1;
           oldTotal = oldTotal + Number(price) * quantity;
           return oldTotal;
         }, 0);

@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { IProduct } from '@/app/components/ProductsCard';
-import { useStore } from '@/app/utils/useStore';
 
 // Cart item component props
 interface CartItemComponentProps {
@@ -14,7 +13,7 @@ export const SingleProduct: React.FC<CartItemComponentProps> = ({
 }) => {
   console.log('item : ', item);
   const price = item.discountedPrice || item.realPrice;
-  let quantity = item.quantity || 1;
+  const quantity = item.quantity || 1;
 
   return (
     <div className="flex items-center justify-between p-4 shadow-lg my-2 w-full">
