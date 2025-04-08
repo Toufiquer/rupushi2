@@ -64,7 +64,7 @@ const CartItemComponent: React.FC<CartItemComponentProps> = ({
   updateQuantity,
   removeItem,
 }) => {
-  const [quantity, setQuantity] = useState(item.quantity);
+  const [quantity, setQuantity] = useState(item.quantity || 1);
 
   return (
     <div className="flex items-center justify-between p-4 border-b">
@@ -140,7 +140,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) =>
   }, []);
   // Calculate subtotal
   const calculateSubtotal = (): number => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cartItems.reduce((total, item) => total + (item.price || 0) * (item.quantity || 1), 0);
   };
 
   // Calculate tax
