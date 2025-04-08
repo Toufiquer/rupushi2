@@ -16,36 +16,7 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { IProduct } from '@/app/components/ProductsCard';
 import ProductOrderDisplay from './display-order-product';
-
-// Order type definition
-export type Order = {
-  _id: string;
-  name: string;
-  'product-code': string;
-  img: string;
-  realPrice: string;
-  discountedPrice?: string;
-  offer: string;
-  stock: string;
-  'description-top': string;
-  'description-bottom'?: string;
-  material?: string;
-  design?: string;
-  color?: string;
-  weight?: string;
-  'chain length'?: string;
-  style?: string;
-  createdAt: string;
-  phone: string;
-  updatedAt: string;
-  orderStatus: string; // Added orderStatus field
-  customerName: string;
-  price: number;
-  quantity: string;
-  productName: string;
-  totalPrice: number;
-  orderId: string;
-};
+import { OrderData } from '@/app/cart/FormData';
 
 interface ImageType {
   id: string;
@@ -55,23 +26,12 @@ interface ImageType {
 
 const AllOrders = () => {
   const { toast } = useToast();
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<OrderData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [viewDialogOpen, setViewDialogOpen] = useState<boolean>(false);
-  const [orderToView, setOrderToView] = useState<Order | null>(null);
+  const [orderToView, setOrderToView] = useState<OrderData | null>(null);
   const [, setImages] = useState<ImageType[]>([]);
-  const [allProducts, setAllProducts] = useState<IProduct[]>([]);
-  const [filterProduct, setFilterProduct] = useState<IProduct | null>(null);
 
-  useEffect(() => {
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(data => {
-        if (data.data.length > 0) {
-          setAllProducts(data.data);
-        }
-      });
-  }, []);
   // Function to fetch orders
   const fetchOrders = useCallback(async () => {
     setLoading(true);
@@ -129,22 +89,16 @@ const AllOrders = () => {
   };
 
   const handleOrderDetails = (orderId: string) => {
-    const findOrder = orders.find(order => order.orderId === orderId);
-    const productCode = findOrder ? findOrder['product-code'] : '';
-    const findProduct = allProducts.find(product => product['product-code'] === productCode);
-    if (findProduct) {
-      setFilterProduct(findProduct);
-    }
+    const findOrder = orders.find(order => order._id === orderId);
+
     if (findOrder) {
       setOrderToView(findOrder);
-    }
-    if (findOrder && findProduct) {
       setViewDialogOpen(true);
     }
   };
 
   // Column definitions
-  const columns: ColumnDef<Order>[] = [
+  const columns: ColumnDef<OrderData>[] = [
     {
       accessorKey: 'customerInfo.orderId',
       header: 'Order Id',
@@ -243,9 +197,7 @@ const AllOrders = () => {
             <DialogTitle>View Order</DialogTitle>
           </DialogHeader>
 
-          {orderToView && filterProduct && (
-            <ProductOrderDisplay order={orderToView} product={filterProduct} />
-          )}
+          {orderToView && <ProductOrderDisplay order={orderToView} />}
           <DialogFooter>
             <Button variant="outline" onClick={() => setViewDialogOpen(false)}>
               Close

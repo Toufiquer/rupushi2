@@ -3,19 +3,18 @@ import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ShoppingCart, Box, Palette, Weight, Ruler, DollarSign } from 'lucide-react';
-import { IProduct } from '@/app/components/ProductsCard';
-import { Order } from './all-orders';
+import { OrderData } from '@/app/cart/FormData';
 
 interface ProductOrderDisplayProps {
-  product: IProduct;
-  order?: Order;
+  order: OrderData;
 }
 
-const ProductOrderDisplay: React.FC<ProductOrderDisplayProps> = ({ product, order }) => {
+const ProductOrderDisplay: React.FC<ProductOrderDisplayProps> = ({ order }) => {
+  console.log('product', order);
   const calculateDiscount = () => {
     if (product.discountedPrice && product.realPrice) {
-      const original = parseFloat(product.realPrice.replace('$', ''));
-      const discounted = parseFloat(product.discountedPrice.replace('$', ''));
+      const original = parseFloat(product.realPrice);
+      const discounted = parseFloat(product.discountedPrice);
       return Math.round(((original - discounted) / original) * 100);
     }
     return 0;
@@ -92,37 +91,34 @@ const ProductOrderDisplay: React.FC<ProductOrderDisplayProps> = ({ product, orde
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
               <p className="font-semibold">Order ID</p>
-              <p>{order.orderId || 'N/A'}</p>
+              <p>{order.customerInfo.orderId || 'N/A'}</p>
             </div>
             <div>
               <p className="font-semibold">Customer</p>
-              <p>{order.customerName || 'N/A'}</p>
+              <p>{order.customerInfo.customerName || 'N/A'}</p>
             </div>
             <div>
               <p className="font-semibold">Mobile</p>
-              <p>{order.phone || 'N/A'}</p>
+              <p>{order.customerInfo.phone || 'N/A'}</p>
             </div>
-            <div>
-              <p className="font-semibold">Quantity</p>
-              <p>{order.quantity || 'N/A'}</p>
-            </div>
+
             <div>
               <p className="font-semibold">Total Price</p>
-              <p>{order.totalPrice ? `$${order.totalPrice}` : 'N/A'}</p>
+              <p>{order.customerInfo.totalPrice ? `$${order.customerInfo.totalPrice}` : 'N/A'}</p>
             </div>
             <div>
               <p className="font-semibold">Order Status</p>
-              <Badge variant={'outline'}>{order.orderStatus || 'N/A'}</Badge>
+              <Badge variant={'outline'}>{order.customerInfo.orderStatus || 'N/A'}</Badge>
             </div>
             <div>
               <p className="font-semibold">Ordered On</p>
-              <p>{new Date(order.createdAt).toLocaleDateString()}</p>
+              <p>{order.createdAt ? new Date(order.createdAt).toLocaleDateString() : 'N/A'}</p>
             </div>
           </div>
         </CardContent>
       </Card>
     );
-
+  const product = order.productInfo[0];
   return (
     <div className="max-w-4xl mx-auto p-4 md:p-8 bg-white shadow-lg rounded-xl">
       <div className="grid md:grid-cols-2 gap-8">

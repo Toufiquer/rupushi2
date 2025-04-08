@@ -19,6 +19,22 @@ interface FormData {
   note: string;
   deliveryOption: string;
 }
+export interface OrderData {
+  _id?: string;
+  createdAt?: string;
+  customerInfo: {
+    customerName: string;
+    orderId: number;
+    deliveryCharge: number;
+    totalPrice: number;
+    address: string;
+    phone: string;
+    shippingArea: 'inside Dhaka' | 'outside Dhaka';
+    note?: string;
+    orderStatus?: string;
+  };
+  productInfo: IProduct[];
+}
 
 const FormData = () => {
   const { cart, deliveryCharge, setDeliveryCharge } = useStore();
@@ -44,20 +60,6 @@ const FormData = () => {
     console.log({ name, value });
   };
 
-  interface OrderData {
-    customerInfo: {
-      customerName: string;
-      orderId: number;
-      deliveryCharge: number;
-      totalPrice: number;
-      address: string;
-      phone: string;
-      shippingArea: 'inside Dhaka' | 'outside Dhaka';
-      note?: string;
-      orderStatus?: string;
-    };
-    productInfo: IProduct[];
-  }
   // Form submission handler with type
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
