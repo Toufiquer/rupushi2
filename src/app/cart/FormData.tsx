@@ -8,8 +8,8 @@
 // components/Checkout.tsx
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { IProduct } from '@/app/components/ProductsCard';
+import { useStore } from '@/app/utils/useStore';
 
-import { useToast } from '@/components/ui/use-toast';
 // Define interfaces for form data and product
 interface FormData {
   name: string;
@@ -20,6 +20,7 @@ interface FormData {
 }
 
 const FormData = () => {
+  const { cart } = useStore();
   // State for form inputs with type
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -31,7 +32,6 @@ const FormData = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-
   // Handle form input changes with type
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
@@ -39,20 +39,18 @@ const FormData = () => {
   };
 
   interface OrderData {
-    customerName: string;
-    productName: string;
-    orderId: number;
-    'product-code': string;
-    img: string;
-    price: number;
-    quantity: number;
-    deliveryCharge: number;
-    totalPrice: number;
-    address: string;
-    phone: string;
-    shippingArea: 'inside Dhaka' | 'outside Dhaka';
-    note?: string;
-    orderStatus?: string;
+    customerInfo: {
+      customerName: string;
+      orderId: number;
+      deliveryCharge: number;
+      totalPrice: number;
+      address: string;
+      phone: string;
+      shippingArea: 'inside Dhaka' | 'outside Dhaka';
+      note?: string;
+      orderStatus?: string;
+    };
+    productInfo: IProduct[];
   }
   // Form submission handler with type
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -66,7 +64,7 @@ const FormData = () => {
 
       return millisecondsSince2000;
     };
-    function generateOrder(formData: FormData, productData: IProduct): OrderData {
+    function generateOrder(formData: FormData, productData: IProduct[]): OrderData {
       // Generate a simple order ID (you might want to use a more robust method in production)
       const orderId = getMillisecondsSince2000();
 
@@ -74,30 +72,24 @@ const FormData = () => {
       const deliveryCharge = formData.deliveryOption === '130' ? 130 : 60;
       const shippingArea = deliveryCharge === 130 ? 'inside Dhaka' : 'outside Dhaka';
 
-      // Calculate total price
-      const price = parseFloat(
-        productData.discountedPrice ? productData.discountedPrice : productData.realPrice,
-      );
-      const quantity = 1; // Assuming single item order
-      const totalPrice = price * quantity + deliveryCharge;
+      const totalPrice = 0;
 
       return {
-        customerName: formData.name,
-        productName: productData.name || '',
-        orderId,
-        'product-code': productData['product-code'],
-        img: productData.img || '',
-        price,
-        quantity,
-        deliveryCharge,
-        totalPrice,
-        address: formData.address,
-        phone: formData.mobile,
-        shippingArea,
-        note: formData.note || '',
-        orderStatus: 'pending', // Default initial status
+        customerInfo: {
+          customerName: formData.name,
+          orderId: orderId,
+          deliveryCharge: deliveryCharge,
+          totalPrice: totalPrice,
+          address: formData.address,
+          phone: formData.mobile,
+          shippingArea,
+          note: formData.note || '',
+          orderStatus: 'pending', // Default initial status
+        },
+        productInfo: productData,
       };
     }
+    console.log('generateOrder', generateOrder(formData, cart));
   };
 
   return (
