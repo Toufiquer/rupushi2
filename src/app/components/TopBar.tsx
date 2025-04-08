@@ -140,7 +140,7 @@ export default function TopBar() {
           <div className="flex items-center">
             <Link href="/" className="text-2xl font-bold text-[#f16514]">
               <div className="w-[160px] h-[30px] relative">
-                <div className="absolute top-[-15px] left-[-10px] md:left-0 w-full h-auto mb-4">
+                <div className="absolute top-[-15px] left-[-20px] md:left-0 w-full h-auto mb-4 ">
                   <Image
                     src="/rupushi-crop.png" // Replace with your actual logo path
                     alt="Rupush Logo"
@@ -196,22 +196,6 @@ export default function TopBar() {
           </div>
           {/* Desktop User Icons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link href="/wishlist" className="text-gray-700 hover:text-[#f16514]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                />
-              </svg>
-            </Link>
             <Link href="/cart" className="text-gray-700 hover:text-[#f16514] relative">
               <span className="absolute -top-2 -right-2 bg-[#f16514] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                 {`${cart.length || 0}`}
