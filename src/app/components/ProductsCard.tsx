@@ -3,10 +3,9 @@ import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useCartStore } from '@/app/utils/zustand';
+import { useStore } from '@/app/utils/useStore';
 
-export interface IProduct extends Document {
+export interface IProduct {
   id: string;
   name: string;
   'product-code': string;
@@ -29,24 +28,61 @@ export interface IProduct extends Document {
   isNew?: string;
   greenBox?: string;
   status: 'active' | 'inactive' | string;
+  quantity?: number;
 }
+export const defaultIProduct = {
+  id: 'default-product-id-123',
+  name: 'Sample Product Name',
+  'product-code': 'SKU-DEFAULT-001',
+  img: 'https://example.com/images/default-product.jpg', // Optional: Placeholder image URL
+  realPrice: '0.00',
+  discountedPrice: undefined, // Optional: Not set by default
+  offer: undefined, // Optional: No offer by default
+  stock: '0',
+  'description-top': 'Default top description text.', // Optional
+  'description-bottom': 'Default bottom description text.', // Optional
+  material: undefined, // Optional
+  design: undefined, // Optional
+  color: undefined, // Optional
+  weight: undefined, // Optional
+  category: undefined, // Optional
+  'chain length': undefined, // Optional
+  style: undefined, // Optional
+  isDeleted: false, // Optional: Assuming not deleted by default
+  isArrival: false, // Optional: Assuming not a new arrival by default
+  isNew: undefined, // Optional: String field, maybe "false" or empty?
+  greenBox: undefined, // Optional
+  status: 'active', // Required: Defaulting to 'active'
+  quantity: 0, // Optional: Defaulting quantity to 0
+};
 const ProductCard = ({ productData }: { productData: IProduct }) => {
-  const router = useRouter();
-  const addItem = useCartStore(state => state.addItem);
-
+  const { cart, updateCart } = useStore();
   const handleAddToCart = () => {
     // Convert IProduct to CartItem format
-    const cartItem = {
-      id: Number(productData.id),
-      name: productData.name,
-      price: Number(productData.discountedPrice || productData.realPrice),
-      quantity: 1,
-      image: productData.img,
-    };
-    console.log('cartItem : ', cartItem);
+    let cartItem: IProduct = productData;
+
+    // ! update cart
+    let newUpdateCart: typeof cart = [];
+    if (cart.length === 0) {
+      cartItem.quantity = !cartItem.quantity ? 1 : cartItem.quantity + 1;
+      newUpdateCart = [cartItem];
+    } else {
+      const isExist = cart.filter(curr => curr.id === productData.id);
+      if (isExist) {
+        // ! update quantity
+        const newCartItem = { ...cartItem };
+        newCartItem.quantity = !newCartItem.quantity ? 1 : newCartItem.quantity + 1;
+        const filteredCart = cart.filter(curr => curr.id !== newCartItem.id);
+        newUpdateCart = [...filteredCart, newCartItem];
+      } else {
+        newUpdateCart = [...cart, cartItem];
+      }
+    }
+    updateCart(newUpdateCart);
     // Add item to Zustand store
     // addItem(cartItem);
     // router.push('/cart');
+    console.log('cartItem : ', cartItem);
   };
 
   return (

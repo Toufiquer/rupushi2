@@ -9,7 +9,7 @@ import Image from 'next/image';
 import SearchBox from './SearchBox';
 import { categoryMenuItems } from './Footer';
 import CategoryMenu from './CategoryMenu';
-import { useCartStore } from '../utils/zustand';
+import { useStore } from '@/app/utils/useStore';
 
 // Add this above your component
 
@@ -21,6 +21,7 @@ export default function TopBar() {
   const [isDragging, setIsDragging] = useState(false);
   const [autoplayInterval, setAutoplayInterval] = useState<NodeJS.Timeout | null>(null);
   const [cartProductLength, setCartProductLength] = useState(0);
+  const { cart, updateCart } = useStore();
   console.log(autoplayInterval);
   useEffect(() => {
     const cartItem = localStorage.getItem('cart');
@@ -99,8 +100,6 @@ export default function TopBar() {
       startAutoplay();
     }
   }, [isDragging, startAutoplay, stopAutoplay]);
-  const { getTotalItems } = useCartStore();
-  const totalCount = getTotalItems();
   return (
     <>
       {/* Desktop navigation with TopMarquee */}
@@ -215,7 +214,7 @@ export default function TopBar() {
             </Link>
             <Link href="/cart" className="text-gray-700 hover:text-[#f16514] relative">
               <span className="absolute -top-2 -right-2 bg-[#f16514] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                {`${totalCount}`}
+                {`${cart.length || 0}`}
               </span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

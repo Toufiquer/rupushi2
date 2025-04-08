@@ -1,4 +1,5 @@
 import { IProduct } from '@/app/components/ProductsCard';
+
 import { create } from 'zustand';
 
 type Store = {
@@ -6,7 +7,7 @@ type Store = {
   updateCart: (payload: IProduct[]) => void;
 };
 
-const useStore = create<Store>()(set => ({
+export const useStore = create<Store>()(set => ({
   cart: [],
   updateCart: (updatedCart: IProduct[]) => set(() => ({ cart: updatedCart })),
 }));
