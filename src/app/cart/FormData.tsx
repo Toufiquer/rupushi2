@@ -9,7 +9,7 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { IProduct } from '@/app/components/ProductsCard';
 import { useStore } from '@/app/utils/useStore';
-import { Toast } from '@/components/ui/toast';
+import { toast } from 'react-toastify';
 
 // Define interfaces for form data and product
 interface FormData {
@@ -22,6 +22,10 @@ interface FormData {
 
 const FormData = () => {
   const { cart, deliveryCharge, setDeliveryCharge } = useStore();
+  const [messageText, setMessageText] = useState({
+    isFirst: true,
+    message: 'আপনার তথ্যাদি কনফার্ম করতে আপনার নাম, ঠিকানা, (মোবাইল নাম্বার) এবং কনফার্ম করুন',
+  });
   // State for form inputs with type
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -107,7 +111,12 @@ const FormData = () => {
       if (!response.ok) {
         throw new Error('Failed to create order');
       }
-
+      toast.success('Order Create successful');
+      setMessageText({
+        isFirst: false,
+        message: `Your order has been confirm, Thank you. Order id: ${newOrderData.customerInfo.orderId}`,
+      });
+      //
       // Reset form on success
       setFormData({
         name: '',
@@ -124,10 +133,10 @@ const FormData = () => {
   };
   return (
     <div className="w-full bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-lg font-semibold text-red-600 mb-4">
-        আপনার তথ্যাদি কনফার্ম করতে আপনার নাম, ঠিকানা, (মোবাইল নাম্বার) এবং কনফার্ম করুন
-        <br />
-        বাটনে ক্লিক করুন
+      <h2
+        className={`text-lg font-semibold mb-4  ${messageText.isFirst ? 'text-red-600' : 'text-green-600'}`}
+      >
+        {messageText.message}
       </h2>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div>
