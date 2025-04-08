@@ -1,9 +1,17 @@
-import React from 'react';
-import { Badge } from '@/components/ui/badge';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ShoppingCart } from 'lucide-react';
 import { OrderData } from '@/app/cart/FormData';
 import { SingleProduct } from './SingleProduct';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { orderStatus } from '@/app/api/orders/orderModel';
+import { Button } from '@/components/ui/button';
 
 interface ProductOrderDisplayProps {
   order: OrderData;
@@ -11,7 +19,11 @@ interface ProductOrderDisplayProps {
 
 const ProductOrderDisplay: React.FC<ProductOrderDisplayProps> = ({ order }) => {
   console.log('product', order);
-
+  const [status, setStatus] = useState('');
+  useEffect(() => {
+    setStatus(order.customerInfo.orderStatus || '');
+  }, [order]);
+  console.log('status', status);
   const renderOrderDetails = () =>
     order && (
       <Card className="mt-6">
@@ -23,8 +35,30 @@ const ProductOrderDisplay: React.FC<ProductOrderDisplayProps> = ({ order }) => {
                 Order Details
               </h2>
               <div className="flex items-center justify-end gap-2">
-                <p className="font-semibold"> Status</p>
-                <Badge variant={'outline'}>{order.customerInfo.orderStatus || 'N/A'}</Badge>
+                <Select>
+                  <SelectTrigger className="w-[180px] bg-slate-100">
+                    <SelectValue placeholder={order.customerInfo.orderStatus || 'N/A'} />
+                  </SelectTrigger>
+                  <SelectContent className="bt-slate-100">
+                    {orderStatus.map(i => (
+                      <SelectItem
+                        onClick={() => setStatus(i)}
+                        key={i}
+                        value={i}
+                        className="cursor-pointer hover:bg-slate-200"
+                      >
+                        {i}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Button
+                  className={`${status.toLowerCase() === order.customerInfo.orderStatus?.toLowerCase() ? ' text-slate-100 cursor-text ' : ' cursor-pointer test-slate-500 '}`}
+                  disabled={status.toLowerCase() === order.customerInfo.orderStatus?.toLowerCase()}
+                  variant={'outline'}
+                >
+                  Update
+                </Button>
               </div>
             </div>
             <div className="w-full pt-4 shadow-2xl p-2">
