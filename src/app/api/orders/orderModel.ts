@@ -40,7 +40,6 @@ const ProductInfoSchema = new Schema(
     weight: String,
     'chain length': String,
     style: String,
-    // --- Order specific product details ---
     quantity: {
       type: Number,
       required: true,

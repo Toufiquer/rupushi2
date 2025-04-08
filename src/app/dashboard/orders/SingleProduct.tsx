@@ -14,8 +14,7 @@ export const SingleProduct: React.FC<CartItemComponentProps> = ({
 }) => {
   console.log('item : ', item);
   const price = item.discountedPrice || item.realPrice;
-  const { cart } = useStore();
-  let quantity = cart.filter(i => i.id === item.id)[0]?.quantity || 1;
+  let quantity = item.quantity || 1;
 
   return (
     <div className="flex items-center justify-between p-4 shadow-lg my-2 w-full">

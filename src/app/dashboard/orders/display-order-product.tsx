@@ -16,37 +16,56 @@ const ProductOrderDisplay: React.FC<ProductOrderDisplayProps> = ({ order }) => {
     order && (
       <Card className="mt-6">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <ShoppingCart size={20} />
-            Order Details
+          <CardTitle className=" w-full flex flex-col">
+            <div className="flex items-center gap-2 justify-between w-full">
+              <h2 className="flex items-center justify-end gap-2">
+                <ShoppingCart size={20} />
+                Order Details
+              </h2>
+              <div className="flex items-center justify-end gap-2">
+                <p className="font-semibold"> Status</p>
+                <Badge variant={'outline'}>{order.customerInfo.orderStatus || 'N/A'}</Badge>
+              </div>
+            </div>
+            <div className="w-full pt-4 shadow-2xl p-2">
+              <div className="flex items-center justify-start gap-2">
+                <p className="font-semibold"> Delivery Charge</p>
+                <p className="text-xm font-normal">
+                  ৳ {order.customerInfo.deliveryCharge || 'N/A'} (
+                  {order.customerInfo.deliveryCharge === 130 ? 'ঢাকার বাইরে' : ' ঢাকার ভিতরে'})
+                </p>
+              </div>
+            </div>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <div>
-              <p className="font-semibold">Order ID</p>
-              <p>{order.customerInfo.orderId || 'N/A'}</p>
-            </div>
-            <div>
-              <p className="font-semibold">Customer</p>
-              <p>{order.customerInfo.customerName || 'N/A'}</p>
-            </div>
-            <div>
-              <p className="font-semibold">Mobile</p>
-              <p>{order.customerInfo.phone || 'N/A'}</p>
-            </div>
+          <div className="w-full flex flex-col">
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <p className="font-semibold">Order ID</p>
+                <p>{order.customerInfo.orderId || 'N/A'}</p>
+              </div>
+              <div>
+                <p className="font-semibold">Customer</p>
+                <p>{order.customerInfo.customerName || 'N/A'}</p>
+              </div>
+              <div>
+                <p className="font-semibold">Mobile</p>
+                <p>{order.customerInfo.phone || 'N/A'}</p>
+              </div>
 
-            <div>
-              <p className="font-semibold">Total Price</p>
-              <p>{order.customerInfo.totalPrice ? `$${order.customerInfo.totalPrice}` : 'N/A'}</p>
-            </div>
-            <div>
-              <p className="font-semibold">Order Status</p>
-              <Badge variant={'outline'}>{order.customerInfo.orderStatus || 'N/A'}</Badge>
-            </div>
-            <div>
-              <p className="font-semibold">Ordered On</p>
-              <p>{order.createdAt ? new Date(order.createdAt).toLocaleDateString() : 'N/A'}</p>
+              <div>
+                <p className="font-semibold">Total Price</p>
+                <p>{order.customerInfo.totalPrice ? `$${order.customerInfo.totalPrice}` : 'N/A'}</p>
+              </div>
+              <div>
+                <p className="font-semibold">address</p>
+                <p>{order.customerInfo.address || 'N/A'}</p>
+              </div>
+              <div>
+                <p className="font-semibold">Ordered On</p>
+                <p>{order.createdAt ? new Date(order.createdAt).toLocaleDateString() : 'N/A'}</p>
+              </div>
             </div>
           </div>
         </CardContent>
