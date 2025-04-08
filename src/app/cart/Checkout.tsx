@@ -1,5 +1,4 @@
 import { IProduct } from '@/app/components/ProductsCard';
-import SingleCartProduct from './SingleCartProduct';
 import FormData from './FormData';
 import ShoppingCart from './ShoppingCart';
 

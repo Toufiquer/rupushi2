@@ -38,7 +38,7 @@ const EmptyCart: React.FC = () => (
 // Main ShoppingCart component
 const ShoppingCart: React.FC<ShoppingCartProps> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { cart } = useStore();
+  const { cart, deliveryCharge } = useStore();
 
   // Calculate subtotal
   const calculateSubtotal = (): number => {
@@ -121,7 +121,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = () => {
 
           <div className="flex justify-between">
             <span className="text-gray-600">Shipping</span>
-            <span>৳{100}</span>
+            <span>৳{deliveryCharge}</span>
           </div>
 
           <div className="border-t border-gray-200 pt-3 flex justify-between">
@@ -133,7 +133,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = () => {
               transition={{ duration: 0.3 }}
               className="font-semibold text-lg"
             >
-              ৳{total?.toFixed(2)}
+              ৳{deliveryCharge + calculateSubtotal()}
             </motion.span>
           </div>
         </div>

@@ -20,14 +20,14 @@ interface FormData {
 }
 
 const FormData = () => {
-  const { cart } = useStore();
+  const { cart, deliveryCharge, setDeliveryCharge } = useStore();
   // State for form inputs with type
   const [formData, setFormData] = useState<FormData>({
     name: '',
     mobile: '',
     address: '',
     note: '',
-    deliveryOption: '130',
+    deliveryOption: deliveryCharge + '',
   });
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -36,6 +36,7 @@ const FormData = () => {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    console.log({ name, value });
   };
 
   interface OrderData {
@@ -91,7 +92,7 @@ const FormData = () => {
     }
     console.log('generateOrder', generateOrder(formData, cart));
   };
-
+  const handleDeliveryCharge = (cost: number) => {};
   return (
     <div className="w-full bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-lg font-semibold text-red-600 mb-4">
@@ -162,7 +163,10 @@ const FormData = () => {
               />
               <label
                 className="ml-2 text-sm text-gray-700 cursor-pointer"
-                onClick={() => setFormData({ ...formData, deliveryOption: '130' })}
+                onClick={() => {
+                  setFormData({ ...formData, deliveryOption: '130' });
+                  setDeliveryCharge(Number(130));
+                }}
               >
                 ঢাকার বাইরে ১৩০ টাকা
               </label>
@@ -178,7 +182,10 @@ const FormData = () => {
               />
               <label
                 className="ml-2 text-sm text-gray-700 cursor-pointer"
-                onClick={() => setFormData({ ...formData, deliveryOption: '60' })}
+                onClick={() => {
+                  setFormData({ ...formData, deliveryOption: '60' });
+                  setDeliveryCharge(Number(60));
+                }}
               >
                 ঢাকার ভিতরে ৬০ টাকা
               </label>
