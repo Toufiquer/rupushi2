@@ -1,4 +1,3 @@
-import { MinusCircle, PlusCircle, X } from 'lucide-react';
 import Image from 'next/image';
 import { IProduct } from '@/app/components/ProductsCard';
 import { useStore } from '@/app/utils/useStore';

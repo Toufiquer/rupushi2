@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useStore } from '@/app/utils/useStore';
+import { useRouter } from 'next/navigation';
 
 export interface IProduct {
   id: string;
@@ -57,6 +58,7 @@ export const defaultIProduct = {
   quantity: 0, // Optional: Defaulting quantity to 0
 };
 const ProductCard = ({ productData }: { productData: IProduct }) => {
+  const router = useRouter();
   const { cart, updateCart } = useStore();
   const handleAddToCart = () => {
     // Convert IProduct to CartItem format
@@ -82,7 +84,7 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
     updateCart(newUpdateCart);
     // Add item to Zustand store
     // addItem(cartItem);
-    // router.push('/cart');
+    router.push('/cart');
     console.log('cartItem : ', cartItem);
   };
 
