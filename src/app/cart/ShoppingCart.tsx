@@ -74,7 +74,7 @@ const CartItemComponent: React.FC<CartItemComponentProps> = ({
         </div>
         <div>
           <h3 className="font-medium">{item.name}</h3>
-          <p className="text-sm text-gray-500">${item.price?.toFixed(2)}</p>
+          <p className="text-sm text-gray-500">৳{item.price?.toFixed(2)}</p>
         </div>
       </div>
 
@@ -218,7 +218,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) =>
 
   // Mock checkout function
   const handleCheckout = (): void => {
-    alert(`Proceeding to checkout with total: $${calculateTotal()?.toFixed(2)}`);
+    alert(`Proceeding to checkout with total: ৳${calculateTotal()?.toFixed(2)}`);
     // In a real application, you would navigate to a checkout page or trigger a checkout modal
   };
 
@@ -303,18 +303,18 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) =>
               transition={{ duration: 0.3 }}
               className="font-medium"
             >
-              ${subtotal?.toFixed(2)}
+              ৳{subtotal?.toFixed(2)}
             </motion.span>
           </div>
 
           <div className="flex justify-between">
             <span className="text-gray-600">Tax (8%)</span>
-            <span>${tax?.toFixed(2)}</span>
+            <span>৳{tax?.toFixed(2)}</span>
           </div>
 
           <div className="flex justify-between">
             <span className="text-gray-600">Shipping</span>
-            <span>${SHIPPING_COST.toFixed(2)}</span>
+            <span>৳{SHIPPING_COST.toFixed(2)}</span>
           </div>
 
           <div className="border-t border-gray-200 pt-3 flex justify-between">
@@ -326,7 +326,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ initialCartItems = [] }) =>
               transition={{ duration: 0.3 }}
               className="font-semibold text-lg"
             >
-              ${total?.toFixed(2)}
+              ৳{total?.toFixed(2)}
             </motion.span>
           </div>
         </div>
