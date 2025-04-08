@@ -9,6 +9,9 @@ import Image from 'next/image';
 import SearchBox from './SearchBox';
 import { categoryMenuItems } from './Footer';
 import CategoryMenu from './CategoryMenu';
+import { useCartStore } from '../utils/zustand';
+
+// Add this above your component
 
 export default function TopBar() {
   const pathname = usePathname();
@@ -21,13 +24,13 @@ export default function TopBar() {
   console.log(autoplayInterval);
   useEffect(() => {
     const cartItem = localStorage.getItem('cart');
-    console.log('cartItem', cartItem);
+    console.log('---cartItem', cartItem);
     if (cartItem) {
       const products = JSON.parse(cartItem);
       console.log('products : ', products);
       setCartProductLength(products.length);
     }
-  }, []);
+  }, [setCartProductLength]);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -96,7 +99,8 @@ export default function TopBar() {
       startAutoplay();
     }
   }, [isDragging, startAutoplay, stopAutoplay]);
-
+  const { getTotalItems } = useCartStore();
+  const totalCount = getTotalItems();
   return (
     <>
       {/* Desktop navigation with TopMarquee */}
@@ -211,7 +215,7 @@ export default function TopBar() {
             </Link>
             <Link href="/cart" className="text-gray-700 hover:text-[#f16514] relative">
               <span className="absolute -top-2 -right-2 bg-[#f16514] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                {cartProductLength}
+                {`${totalCount}`}
               </span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

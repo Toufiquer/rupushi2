@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useCartStore } from '@/app/utils/zustand';
 
 export interface IProduct extends Document {
   id: string;
@@ -31,32 +32,21 @@ export interface IProduct extends Document {
 }
 const ProductCard = ({ productData }: { productData: IProduct }) => {
   const router = useRouter();
+  const addItem = useCartStore(state => state.addItem);
 
   const handleAddToCart = () => {
-    // Get existing cart items from localStorage
-    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
-
-    // Check if item already exists in cart
-    const isExistingIndex = existingCart.findIndex((item: IProduct) => item.id === productData.id);
-
-    let newCart: (IProduct & { quantity: number })[] = [...existingCart];
-
-    if (isExistingIndex > -1) {
-      // Item exists, increment quantity
-      newCart = newCart.map((item, index) =>
-        index === isExistingIndex ? { ...item, quantity: item.quantity + 1 } : item,
-      );
-    } else {
-      // Item doesn't exist, add it with quantity 1
-      newCart = [...existingCart, { ...productData, quantity: 1 }];
-    }
-
-    console.log('storage cart : ', newCart);
-    localStorage.setItem('cart', JSON.stringify(newCart));
-    console.log('handle log cart');
+    // Convert IProduct to CartItem format
+    const cartItem = {
+      id: Number(productData.id),
+      name: productData.name,
+      price: Number(productData.discountedPrice || productData.realPrice),
+      quantity: 1,
+      image: productData.img,
+    };
+    console.log('cartItem : ', cartItem);
+    // Add item to Zustand store
+    // addItem(cartItem);
     // router.push('/cart');
-    console.log('handle log cart');
-    router.push('/cart');
   };
 
   return (
