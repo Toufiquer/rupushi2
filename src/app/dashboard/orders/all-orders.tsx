@@ -164,6 +164,18 @@ const AllOrders = () => {
         );
       },
     },
+    {
+      accessorKey: 'customerInfo.phone',
+      header: 'Mobile Nnmber',
+      cell: info => {
+        const name = info.getValue() as string;
+        return (
+          <div className="inline-block min-w-[180px] font-semibold">
+            {name.length > 30 ? `${name.slice(0, 30)}...` : name}
+          </div>
+        );
+      },
+    },
 
     {
       accessorKey: 'customerInfo.totalPrice',
@@ -172,6 +184,13 @@ const AllOrders = () => {
         <span className="flex min-w-[80px] items-center">
           ৳ {(info.getValue() as number)?.toFixed(2)}
         </span>
+      ),
+    },
+    {
+      accessorKey: 'customerInfo.orderStatus',
+      header: 'Order Status',
+      cell: info => (
+        <span className="flex min-w-[80px] items-center">{info.getValue() as string}</span>
       ),
     },
     {
