@@ -199,7 +199,11 @@ const AllOrders = () => {
 
           {orderToView && <ProductOrderDisplay order={orderToView} />}
           <DialogFooter>
-            <Button variant="outline" onClick={() => setViewDialogOpen(false)}>
+            <Button
+              variant="outline"
+              onClick={() => setViewDialogOpen(false)}
+              className="cursor-pointer"
+            >
               Close
             </Button>
           </DialogFooter>
