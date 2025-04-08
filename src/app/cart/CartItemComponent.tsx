@@ -1,6 +1,5 @@
 import { MinusCircle, PlusCircle, X } from 'lucide-react';
 import Image from 'next/image';
-import { useState } from 'react';
 import { IProduct } from '../components/ProductsCard';
 import { useStore } from '../utils/useStore';
 

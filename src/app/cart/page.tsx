@@ -8,37 +8,29 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
-import { IProduct } from '../components/ProductsCard';
 import Checkout from './Checkout';
 import Link from 'next/link';
 import { useStore } from '@/app/utils/useStore';
 
 const AllProducts = () => {
-  const [showFilterProducts, setShowFilterProducts] = useState<IProduct[]>([]);
   const { cart } = useStore();
-  useEffect(() => {
-    if (cart.length > 0) {
-      setShowFilterProducts(cart);
-    }
-  }, []);
 
   let renderProducts = (
     <div className="text-center w-full h-screen flex items-center justify-center text-2xl">
       Loading...
     </div>
   );
-  if (showFilterProducts.length === 0) {
+  if (cart.length === 0) {
     renderProducts = (
       <div className="text-center w-full h-screen flex items-center justify-center text-2xl">
         No Products Found
       </div>
     );
   }
-  if (showFilterProducts.length > 0) {
+  if (cart.length > 0) {
     renderProducts = (
       <div className="w-full flex flex-col gap-4">
-        <Checkout allProducts={showFilterProducts} />
+        <Checkout allProducts={cart} />
         <Link href="/">
           <button className="w-full cursor-pointer mt-12 bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition">
             আরো প্রোডাক্ট দেখুন
