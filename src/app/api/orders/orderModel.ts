@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
+export const orderStatus = ['pending', 'processing', 'shipped', 'delivered', 'cancelled', 'failed'];
 // Define a sub-schema for the products within the order
 const ProductInfoSchema = new Schema(
   {
@@ -92,7 +93,7 @@ const OrderSchema = new Schema(
       orderStatus: {
         type: String,
         required: true,
-        enum: ['pending', 'processing', 'shipped', 'delivered', 'cancelled', 'failed'],
+        enum: orderStatus,
         default: 'pending',
       },
     },
