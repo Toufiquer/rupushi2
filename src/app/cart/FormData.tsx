@@ -9,6 +9,7 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { IProduct } from '@/app/components/ProductsCard';
 import { useStore } from '@/app/utils/useStore';
+import { Toast } from '@/components/ui/toast';
 
 // Define interfaces for form data and product
 interface FormData {
@@ -91,6 +92,35 @@ const FormData = () => {
       };
     }
     console.log('generateOrder', generateOrder(formData, cart));
+    const newOrderData = generateOrder(formData, cart);
+
+    setLoading(true);
+    try {
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newOrderData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create order');
+      }
+
+      // Reset form on success
+      setFormData({
+        name: '',
+        mobile: '',
+        address: '',
+        note: '',
+        deliveryOption: '130',
+      });
+    } catch (error) {
+      console.error('Error creating order:', error);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div className="w-full bg-white p-6 rounded-lg shadow-md">
