@@ -48,8 +48,8 @@ const AllProducts = () => {
     );
   }
   return (
-    <main className="w-full flex flex-col py-12 p-12">
-      <div className="w-full flex flex-col">
+    <main className="w-full flex flex-col py-12 items-center justify-center">
+      <div className="w-full flex flex-col max-w-7xl">
         <div className="w-full">{renderProducts}</div>
       </div>
     </main>
