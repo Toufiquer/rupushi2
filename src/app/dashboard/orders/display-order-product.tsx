@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ShoppingCart } from 'lucide-react';
 import { OrderData } from '@/app/cart/FormData';
-import SingleProduct from './SingleProduct';
+import { SingleProduct } from './SingleProduct';
 
 interface ProductOrderDisplayProps {
   order: OrderData;
