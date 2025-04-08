@@ -13,7 +13,7 @@ export const CartItemComponent: React.FC<CartItemComponentProps> = ({ item }) =>
   console.log('item : ', item);
   const price = item.discountedPrice || item.realPrice;
   const { cart, updateCart } = useStore();
-  let quantity = cart.filter(i => i.id === item.id)[0].quantity || 1;
+  let quantity = cart.filter(i => i.id === item.id)[0]?.quantity || 1;
   const handleRemove = (itemId: string) => {
     console.log(itemId);
     const othersCart = cart.filter(curr => curr.id !== itemId);
@@ -63,7 +63,22 @@ export const CartItemComponent: React.FC<CartItemComponentProps> = ({ item }) =>
         >
           <MinusCircle size={20} />
         </button>
-        <input type="number" value={quantity} className="w-12 text-center mx-2" />
+        <input
+          type="number"
+          value={quantity}
+          className="w-12 text-center mx-2"
+          onChange={e => {
+            const newQuantity = parseInt(e.target.value) || 0;
+            const newUpdateCart = cart.map(mainItem => {
+              let i = mainItem;
+              if (i.id === item.id) {
+                i.quantity = newQuantity;
+              }
+              return i;
+            });
+            updateCart(newUpdateCart);
+          }}
+        />
         <button className="cursor-pointer" onClick={handleIncrease}>
           <PlusCircle size={20} />
         </button>
