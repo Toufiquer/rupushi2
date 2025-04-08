@@ -54,12 +54,13 @@ const ProductOrderDisplay: React.FC<ProductOrderDisplayProps> = ({ order }) => {
     );
 
   return (
-    <div className="w-full mx-auto p-4 md:p-8 bg-white shadow-lg rounded-xl">
+    <div className="w-full mx-auto p-4 md:p-8 bg-white shadow-lg rounded-xl mb-12">
       {/* Optional Order Details */}
       <div className="pb-12">{order && renderOrderDetails()}</div>
       <div className="w-full flex flex-col items-center justify">
+        <div className="w-full text-xl">Total Product : {order.productInfo.length}</div>
         {order.productInfo.map((curr, idx) => (
-          <div className="" key={idx}>
+          <div className="w-full" key={idx}>
             <SingleProduct product={curr} />
           </div>
         ))}
