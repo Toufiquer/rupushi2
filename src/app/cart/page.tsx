@@ -13,17 +13,14 @@ import { IProduct } from '../components/ProductsCard';
 import Checkout from './Checkout';
 import Link from 'next/link';
 import { AiOutlineConsoleSql } from 'react-icons/ai';
+import { useStore } from '@/app/utils/useStore';
 
 const AllProducts = () => {
   const [showFilterProducts, setShowFilterProducts] = useState<IProduct[]>([]);
-
+  const { cart, updateCart } = useStore();
   useEffect(() => {
-    const cartItem = localStorage.getItem('cart');
-    console.log('cartItem', cartItem);
-    if (cartItem) {
-      const products = JSON.parse(cartItem);
-      console.log('products : ', products);
-      setShowFilterProducts([products]);
+    if (cart.length > 0) {
+      setShowFilterProducts(cart);
     }
   }, []);
 
