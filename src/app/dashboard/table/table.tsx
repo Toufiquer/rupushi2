@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from 'react'
-import DataTable from './data-table'
+import { useEffect, useState } from 'react';
+import DataTable from './data-table';
 
-import { columns } from './your-order-columns'
-import { yourOrdersType } from './your-order-type'
+import { columns } from './your-order-columns';
+import { yourOrdersType } from './your-order-type';
 
 const yourOrdersData: yourOrdersType[] = [
   {
@@ -217,31 +217,25 @@ const yourOrdersData: yourOrdersType[] = [
     quantity: 3,
     status: 'pending',
   },
-]
+];
 
-export default function DemoTable({
-  viewTotalCount,
-}: {
-  viewTotalCount: boolean
-}) {
-  const [dataTable, setDataTable] = useState<yourOrdersType[]>([])
+export default function DemoTable({ viewTotalCount }: { viewTotalCount: boolean }) {
+  const [dataTable, setDataTable] = useState<yourOrdersType[]>([]);
   useEffect(() => {
     setTimeout(() => {
-      setDataTable(yourOrdersData)
-    }, 2000)
-  }, [])
+      setDataTable(yourOrdersData);
+    }, 2000);
+  }, []);
   return (
     <div className="px-4">
       {dataTable.length > 0 ? (
         <div>
-          {viewTotalCount && (
-            <h2 className="text-xl">Total Orders: {dataTable.length}</h2>
-          )}
-          <DataTable columns={columns} data={dataTable} />
+          {viewTotalCount && <h2 className="text-xl">Total Orders: {dataTable.length}</h2>}
+          <DataTable columns={columns} data={dataTable} searchKey="id" />
         </div>
       ) : (
         <h2 className="text-center">Loading...</h2>
       )}
     </div>
-  )
+  );
 }

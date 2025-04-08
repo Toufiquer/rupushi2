@@ -54,7 +54,7 @@ const DataTable = <TData, TValue>({
   columns,
   data,
   loading = false,
-  searchKey = 'productName',
+  searchKey = '',
 }: DataTableProps<TData, TValue>) => {
   const [sorting, setSorting] = useState<ColumnSort[]>([]);
   const [filtering, setFiltering] = useState('');

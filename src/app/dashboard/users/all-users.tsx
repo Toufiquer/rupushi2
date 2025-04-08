@@ -288,7 +288,7 @@ const AllUsers = () => {
           <div className="animate-spin h-10 w-10 border-4 border-blue-500 rounded-full border-t-transparent"></div>
         </div>
       ) : (
-        <DataTable columns={columns} data={users} />
+        <DataTable columns={columns} data={users} searchKey="name" />
       )}
 
       {/* Create User Dialog */}

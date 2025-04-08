@@ -146,45 +146,14 @@ const AllOrders = () => {
   // Column definitions
   const columns: ColumnDef<Order>[] = [
     {
-      accessorKey: 'orderId',
-      header: 'Order ID',
-      cell: info => <span className="font-mono text-xs">{info.getValue() as string}</span>,
+      accessorKey: 'customerInfo.orderId',
+      header: 'Order Id',
+      cell: info => (
+        <span className="flex min-w-[80px] items-center"> {info.getValue() as string}</span>
+      ),
     },
     {
-      accessorKey: 'product-code',
-      header: 'Product Code',
-      cell: info => <span className="font-mono text-xs">{info.getValue() as string}</span>,
-    },
-    {
-      accessorKey: 'img',
-      header: 'Image',
-      cell: info => {
-        const imgUrl = info.getValue() as string;
-        const fallbackImg = 'https://i.ibb.co/ZfzRN83/product.png';
-
-        // Function to validate URL
-        const isValidUrl = (url: string) => {
-          try {
-            new URL(url);
-            return true;
-          } catch {
-            return false;
-          }
-        };
-
-        return (
-          <Image
-            className="h-[80px] min-h-[80px] w-[80px] min-w-[80px] object-cover rounded"
-            width={80}
-            height={80}
-            src={imgUrl && isValidUrl(imgUrl) ? imgUrl : fallbackImg}
-            alt="product"
-          />
-        );
-      },
-    },
-    {
-      accessorKey: 'customerName',
+      accessorKey: 'customerInfo.customerName',
       header: 'Customer Name',
       cell: info => {
         const name = info.getValue() as string;
@@ -195,61 +164,18 @@ const AllOrders = () => {
         );
       },
     },
+
     {
-      accessorKey: 'price',
-      header: 'Price',
-      cell: info => (
-        <span className="flex min-w-[80px] items-center">
-          ৳ {(info.getValue() as number).toFixed(2)}
-        </span>
-      ),
-    },
-    {
-      accessorKey: 'quantity',
-      header: 'Quantity',
-      cell: info => <span className="font-mono text-xs">{info.getValue() as string}</span>,
-    },
-    {
-      accessorKey: 'orderStatus',
-      header: 'Order Status',
-      cell: ({ row }) => {
-        const currentStatus = row.original.orderStatus || 'Pending';
-        return (
-          <select
-            value={currentStatus}
-            onChange={e => handleUpdateStatus(row.original._id, e.target.value)}
-            className="border rounded px-2 py-1"
-          >
-            <option value="pending">Pending</option>
-            <option value="processing">Processing</option>
-            <option value="shipped">Shipped</option>
-            <option value="delivered">Delivered</option>
-          </select>
-        );
-      },
-    },
-    {
-      accessorKey: 'productName',
-      header: 'Product Name',
-      cell: info => (
-        <span className="font-mono text-xs">
-          {(info.getValue() as string).length > 30
-            ? `${(info.getValue() as string).slice(0, 30)}...`
-            : (info.getValue() as string)}
-        </span>
-      ),
-    },
-    {
-      accessorKey: 'totalPrice',
+      accessorKey: 'customerInfo.totalPrice',
       header: 'Total Price',
       cell: info => (
         <span className="flex min-w-[80px] items-center">
-          ৳ {(info.getValue() as number).toFixed(2)}
+          ৳ {(info.getValue() as number)?.toFixed(2)}
         </span>
       ),
     },
     {
-      accessorKey: 'orderId',
+      accessorKey: '_id',
       header: 'View',
       cell: info => (
         <Button
@@ -287,12 +213,10 @@ const AllOrders = () => {
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Manage Orders</h2>
       </div>
-
       {/* Orders Table */}
       <div className=" rounded-lg  ">
-        <DataTable columns={columns} data={orders} loading={loading} searchKey="productName" />
+        <DataTable columns={columns} data={orders} loading={loading} searchKey="_id" />
       </div>
-
       {/* View Order Dialog */}
       <Dialog open={viewDialogOpen} onOpenChange={setViewDialogOpen}>
         <DialogContent className="sm:max-w-5xl max-h-[90vh] overflow-y-auto">
