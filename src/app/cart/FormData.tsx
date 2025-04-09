@@ -20,32 +20,17 @@ interface FormData {
   deliveryOption: string;
 }
 export interface IDBOrderData {
+  totalProduct: number;
+  orderId: number;
+  totalPrice: number;
+  deliveryCharge: number;
+  shippingArea: 'inside Dhaka' | 'outside Dhaka';
+  orderStatus?: string;
   customerInfo: {
     customerName: string;
-    orderId: number;
-    deliveryCharge: number;
-    totalPrice: number;
     address: string;
     phone: string;
-    shippingArea: 'inside Dhaka' | 'outside Dhaka';
     note?: string;
-    orderStatus?: string;
-  };
-  productInfo: IProduct[];
-}
-export interface OrderData {
-  _id?: string;
-  createdAt?: string;
-  customerInfo: {
-    customerName: string;
-    orderId: number;
-    deliveryCharge: number;
-    totalPrice: number;
-    address: string;
-    phone: string;
-    shippingArea: 'inside Dhaka' | 'outside Dhaka';
-    note?: string;
-    orderStatus?: string;
   };
   productInfo: IProduct[];
 }
@@ -103,21 +88,24 @@ const FormData = () => {
           oldTotal = oldTotal + Number(price) * quantity;
           return oldTotal;
         }, 0);
-
-      return {
+      const totalProduct = productData.length;
+      const result: IDBOrderData = {
+        totalProduct,
+        orderId: orderId,
+        totalPrice: totalPrice,
+        deliveryCharge: deliveryCharge,
+        shippingArea,
+        orderStatus: 'pending', // Default initial status
         customerInfo: {
           customerName: formData.name,
-          orderId: orderId,
-          deliveryCharge: deliveryCharge,
-          totalPrice: totalPrice,
           address: formData.address,
           phone: formData.mobile,
-          shippingArea,
           note: formData.note || '',
-          orderStatus: 'pending', // Default initial status
         },
         productInfo: productData,
       };
+      console.log('result', result);
+      return result;
     }
 
     const newOrderData = generateOrder(formData, cart);
@@ -138,7 +126,7 @@ const FormData = () => {
       toast.success('Order Create successful');
       setMessageText({
         isFirst: false,
-        message: `Your order has been confirm, Thank you. Order id: ${newOrderData.customerInfo.orderId}`,
+        message: `Your order has been confirm, Thank you. Order id: ${newOrderData.orderId}`,
       });
       //
       // Reset form on success

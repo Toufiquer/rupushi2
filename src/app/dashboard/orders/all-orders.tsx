@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
+// import ProductOrderDisplay from './display-order-product';
 import { IDBOrderData } from '@/app/cart/FormData';
 
 interface ImageType {
@@ -26,9 +27,9 @@ const AllOrders = () => {
   const [orders, setOrders] = useState<IDBOrderData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [viewDialogOpen, setViewDialogOpen] = useState<boolean>(false);
-  const [orderToView, setOrderToView] = useState<IDBOrderData | null>(null);
+  const [, setOrderToView] = useState<IDBOrderData | null>(null);
   const [, setImages] = useState<ImageType[]>([]);
-  console.log('orderToView', orderToView);
+
   // Function to fetch orders
   const fetchOrders = useCallback(async () => {
     setLoading(true);
@@ -52,7 +53,7 @@ const AllOrders = () => {
   }, [toast]);
 
   const handleOrderDetails = (orderId: string) => {
-    const findOrder = orders.find(order => order.customerInfo.orderId === Number(orderId));
+    const findOrder = orders.find(order => order.orderId === Number(orderId));
 
     if (findOrder) {
       setOrderToView(findOrder);
@@ -88,7 +89,7 @@ const AllOrders = () => {
     },
 
     {
-      accessorKey: 'customerInfo.totalPrice',
+      accessorKey: 'totalPrice',
       header: 'Total Price',
       cell: info => (
         <span className="flex min-w-[80px] items-center">
@@ -97,21 +98,21 @@ const AllOrders = () => {
       ),
     },
     {
-      accessorKey: 'customerInfo.orderStatus',
+      accessorKey: 'orderStatus',
       header: 'Order Status',
       cell: info => (
         <span className="flex min-w-[80px] items-center">{info.getValue() as string}</span>
       ),
     },
     {
-      accessorKey: 'customerInfo.orderId',
+      accessorKey: 'orderId',
       header: 'View',
       cell: info => (
         <Button
           className="hover:bg-slate-300 cursor-pointer"
           onClick={() => handleOrderDetails(info.getValue() as string)}
         >
-          View({info.getValue() as string})
+          View ({info.getValue() as string})
         </Button>
       ),
     },
@@ -146,14 +147,9 @@ const AllOrders = () => {
       <div className=" rounded-lg  ">
         <DataTable
           columns={columns}
-          data={orders.sort((a, b) => (a.customerInfo.orderId > b.customerInfo.orderId ? 1 : 0))}
-          // data={orders.sort((a, b) =>
-          //   a.createdAt && b.createdAt
-          //     ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          //     : 0,
-          // )}
+          data={orders.sort((a, b) => b.orderId - a.orderId)}
           loading={loading}
-          searchKey={''}
+          searchKey="orderId"
         />
       </div>
       {/* View Order Dialog */}
