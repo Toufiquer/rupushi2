@@ -54,7 +54,7 @@ const DataTable = <TData, TValue>({
   columns,
   data,
   loading = false,
-  searchKey = '',
+  searchKey = undefined,
 }: DataTableProps<TData, TValue>) => {
   const [sorting, setSorting] = useState<ColumnSort[]>([]);
   const [filtering, setFiltering] = useState('');
@@ -82,8 +82,8 @@ const DataTable = <TData, TValue>({
       <div className="py-4 flex w-full items-center justify-between">
         <Input
           placeholder="Filter..."
-          value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ''}
-          onChange={event => table.getColumn(searchKey)?.setFilterValue(event.target.value)}
+          value={(table.getColumn(searchKey || '')?.getFilterValue() as string) ?? ''}
+          onChange={event => table.getColumn(searchKey || '')?.setFilterValue(event.target.value)}
           className="max-w-sm bg-slate-200"
         />
         <DropdownMenu>

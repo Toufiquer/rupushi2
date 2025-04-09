@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 export const orderStatus = ['pending', 'processing', 'shipped', 'delivered', 'cancelled', 'failed'];
-// Define a sub-schema for the products within the order
+
 const ProductInfoSchema = new Schema(
   {
     productId: {
@@ -10,7 +10,6 @@ const ProductInfoSchema = new Schema(
     },
     name: {
       type: String,
-      required: true,
     },
     'product-code': {
       type: String,
@@ -23,7 +22,6 @@ const ProductInfoSchema = new Schema(
     },
     discountedPrice: {
       type: Number,
-      required: true,
     },
     offer: {
       type: String,
@@ -42,7 +40,6 @@ const ProductInfoSchema = new Schema(
     style: String,
     quantity: {
       type: Number,
-      required: true,
       min: 1,
     },
   },
@@ -51,49 +48,47 @@ const ProductInfoSchema = new Schema(
 
 const OrderSchema = new Schema(
   {
+    orderId: {
+      type: Number,
+      index: true,
+    },
+    totalProduct: {
+      type: Number,
+      index: true,
+    },
+    deliveryCharge: {
+      type: Number,
+      default: 0,
+    },
+    orderStatus: {
+      type: String,
+      enum: orderStatus,
+      default: 'pending',
+    },
+    totalPrice: {
+      type: Number,
+    },
+    shippingArea: {
+      type: String,
+    },
     customerInfo: {
       customerName: {
         type: String,
-        required: true,
         trim: true,
       },
-      orderId: {
-        type: Number,
-        required: true,
-        unique: true,
-        index: true,
-      },
-      deliveryCharge: {
-        type: Number,
-        required: true,
-        default: 0,
-      },
-      totalPrice: {
-        type: Number,
-        required: true,
-      },
+
       address: {
         type: String,
-        required: true,
         trim: true,
       },
       phone: {
         type: String,
-        required: true,
         trim: true,
       },
-      shippingArea: {
-        type: String,
-      },
+
       note: {
         type: String,
         trim: true,
-      },
-      orderStatus: {
-        type: String,
-        required: true,
-        enum: orderStatus,
-        default: 'pending',
       },
     },
     productInfo: [ProductInfoSchema],

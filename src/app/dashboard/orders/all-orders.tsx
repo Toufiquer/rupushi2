@@ -153,7 +153,7 @@ const AllOrders = () => {
           //     : 0,
           // )}
           loading={loading}
-          searchKey="_id"
+          searchKey={''}
         />
       </div>
       {/* View Order Dialog */}
