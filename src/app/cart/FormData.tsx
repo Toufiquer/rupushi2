@@ -19,6 +19,20 @@ interface FormData {
   note: string;
   deliveryOption: string;
 }
+export interface IDBOrderData {
+  customerInfo: {
+    customerName: string;
+    orderId: number;
+    deliveryCharge: number;
+    totalPrice: number;
+    address: string;
+    phone: string;
+    shippingArea: 'inside Dhaka' | 'outside Dhaka';
+    note?: string;
+    orderStatus?: string;
+  };
+  productInfo: IProduct[];
+}
 export interface OrderData {
   _id?: string;
   createdAt?: string;
@@ -72,7 +86,7 @@ const FormData = () => {
 
       return millisecondsSince2000;
     };
-    function generateOrder(formData: FormData, productData: IProduct[]): OrderData {
+    function generateOrder(formData: FormData, productData: IProduct[]): IDBOrderData {
       // Generate a simple order ID (you might want to use a more robust method in production)
       const orderId = getMillisecondsSince2000();
 

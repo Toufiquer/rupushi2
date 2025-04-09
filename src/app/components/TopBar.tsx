@@ -8,7 +8,6 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import SearchBox from './SearchBox';
 import { categoryMenuItems } from './Footer';
-import CategoryMenu from './CategoryMenu';
 import { useStore } from '@/app/utils/useStore';
 
 // Add this above your component
@@ -218,9 +217,6 @@ export default function TopBar() {
           </div>
         </div>
       </div>
-
-      {/* Category Slider Menu - visible on all devices */}
-      {!['/dashboard', '/login'].includes(pathname) && <CategoryMenu />}
 
       {/* Mobile Menu */}
       {isMenuOpen && (

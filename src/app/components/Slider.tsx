@@ -7,10 +7,16 @@ import Image from 'next/image';
 
 export function Slider() {
   const slidersImg = [
-    'https://kanerdul.com/public/664e5dc7d437f.jpg',
-    'https://kanerdul.com/public/664e5dc7d437f.jpg',
-    'https://kanerdul.com/public/664e5dc7d437f.jpg',
-    'https://kanerdul.com/public/664e5dc7d437f.jpg',
+    'https://i.ibb.co.com/qM0tdtXk/banner-1.jpg',
+    'https://i.ibb.co.com/VcP5bBLL/banner-2.jpg',
+    'https://i.ibb.co.com/qM0tdtXk/banner-1.jpg',
+    'https://i.ibb.co.com/VcP5bBLL/banner-2.jpg',
+    'https://i.ibb.co.com/qM0tdtXk/banner-1.jpg',
+    'https://i.ibb.co.com/VcP5bBLL/banner-2.jpg',
+    'https://i.ibb.co.com/qM0tdtXk/banner-1.jpg',
+    'https://i.ibb.co.com/VcP5bBLL/banner-2.jpg',
+    'https://i.ibb.co.com/qM0tdtXk/banner-1.jpg',
+    'https://i.ibb.co.com/VcP5bBLL/banner-2.jpg',
   ];
   return (
     <Carousel
@@ -37,13 +43,13 @@ export function Slider() {
           ...slidersImg,
         ].map((imgSrc, index) => (
           <CarouselItem key={index}>
-            <div className="p-1 w-full flex items-center justify-center h-[200px]">
+            <div className="p-1 w-full flex items-center justify-center h-[260px]">
               <Image
-                width={1920}
-                height={200}
+                width={1300}
+                height={260}
                 src={imgSrc}
                 alt={`Slide ${index + 1}`}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-fill"
               />
             </div>
           </CarouselItem>

@@ -14,7 +14,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import ProductOrderDisplay from './display-order-product';
-import { OrderData } from '@/app/cart/FormData';
+import { IDBOrderData } from '@/app/cart/FormData';
+import { AiOutlineConsoleSql } from 'react-icons/ai';
 
 interface ImageType {
   id: string;
@@ -24,10 +25,10 @@ interface ImageType {
 
 const AllOrders = () => {
   const { toast } = useToast();
-  const [orders, setOrders] = useState<OrderData[]>([]);
+  const [orders, setOrders] = useState<IDBOrderData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [viewDialogOpen, setViewDialogOpen] = useState<boolean>(false);
-  const [orderToView, setOrderToView] = useState<OrderData | null>(null);
+  const [orderToView, setOrderToView] = useState<IDBOrderData | null>(null);
   const [, setImages] = useState<ImageType[]>([]);
 
   // Function to fetch orders
@@ -53,7 +54,7 @@ const AllOrders = () => {
   }, [toast]);
 
   const handleOrderDetails = (orderId: string) => {
-    const findOrder = orders.find(order => order._id === orderId);
+    const findOrder = orders.find(order => order.customerInfo.orderId === Number(orderId));
 
     if (findOrder) {
       setOrderToView(findOrder);
@@ -62,14 +63,7 @@ const AllOrders = () => {
   };
 
   // Column definitions
-  const columns: ColumnDef<OrderData>[] = [
-    {
-      accessorKey: 'customerInfo.orderId',
-      header: 'Order Id',
-      cell: info => (
-        <span className="flex min-w-[80px] items-center"> {info.getValue() as string}</span>
-      ),
-    },
+  const columns: ColumnDef<IDBOrderData>[] = [
     {
       accessorKey: 'customerInfo.customerName',
       header: 'Customer Name',
@@ -112,14 +106,14 @@ const AllOrders = () => {
       ),
     },
     {
-      accessorKey: '_id',
+      accessorKey: 'customerInfo.orderId',
       header: 'View',
       cell: info => (
         <Button
           className="hover:bg-slate-300 cursor-pointer"
           onClick={() => handleOrderDetails(info.getValue() as string)}
         >
-          View
+          View({info.getValue() as string})
         </Button>
       ),
     },
@@ -144,7 +138,7 @@ const AllOrders = () => {
     };
     fetchImages();
   }, []);
-
+  console.log('columns', columns);
   return (
     <div className="w-full">
       <div className="flex justify-between items-center mb-6">
@@ -154,11 +148,12 @@ const AllOrders = () => {
       <div className=" rounded-lg  ">
         <DataTable
           columns={columns}
-          data={orders.sort((a, b) =>
-            a.createdAt && b.createdAt
-              ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-              : 0,
-          )}
+          data={orders.sort((a, b) => (a.customerInfo.orderId > b.customerInfo.orderId ? 1 : 0))}
+          // data={orders.sort((a, b) =>
+          //   a.createdAt && b.createdAt
+          //     ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          //     : 0,
+          // )}
           loading={loading}
           searchKey="_id"
         />
