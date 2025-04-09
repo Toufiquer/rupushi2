@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
+import ProductOrderDisplay from './display-order-product';
 import { IDBOrderData } from '@/app/cart/FormData';
 
 interface ImageType {
@@ -28,7 +29,7 @@ const AllOrders = () => {
   const [viewDialogOpen, setViewDialogOpen] = useState<boolean>(false);
   const [orderToView, setOrderToView] = useState<IDBOrderData | null>(null);
   const [, setImages] = useState<ImageType[]>([]);
-  console.log('orderToView', orderToView);
+
   // Function to fetch orders
   const fetchOrders = useCallback(async () => {
     setLoading(true);
@@ -163,7 +164,7 @@ const AllOrders = () => {
             <DialogTitle>View Order</DialogTitle>
           </DialogHeader>
 
-          {/* {orderToView && <ProductOrderDisplay order={orderToView} />} */}
+          {orderToView && <ProductOrderDisplay order={orderToView} />}
           <DialogFooter>
             <Button
               variant="outline"
