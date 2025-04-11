@@ -39,9 +39,7 @@ const DashboardPage = () => {
     verifyToken();
   }, [router]);
   return (
-    <div className="w-full bg-slate-300 min-h-screen">
-      {isLoading ? <Dashboard /> : <Loading />}
-    </div>
+    <div className="w-full bg-slate-50 min-h-screen">{isLoading ? <Dashboard /> : <Loading />}</div>
   );
 };
 

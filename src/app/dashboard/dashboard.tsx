@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/accordion';
 import AllUsers from './users/all-users';
 import AllProducts from './products/all-products';
-import AllOrders from './orders/all/page';
+import AllOrders from './orders/page';
 import AllPictures from './media/all-pictures';
 import TrashPictures from './media/trash-pictures';
 import { useRouter } from 'next/navigation';
@@ -33,9 +33,9 @@ const Dashboard = () => {
   };
   const router = useRouter();
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col md:flex-row border-t-1">
       {/* সাইডবার */}
-      <aside className="w-full md:max-w-[200px] bg-gray-200 p-4 md:min-h-screen relative">
+      <aside className="w-full md:max-w-[200px] bg-gray-50 p-4 md:min-h-screen relative border-r-1 border-r-slate-600">
         <h2 className="text-lg font-bold mb-4">ড্যাশবোর্ড</h2>
         <ul>
           <li>

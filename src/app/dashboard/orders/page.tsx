@@ -31,7 +31,7 @@ const Page = () => {
     return <div>Please try again.</div>;
   }
   return (
-    <div className="w-full flex items-center justify-center py-12">
+    <div className="w-full flex items-center justify-center py-12 bg-slate-50">
       <div className="w-full max-w-7xl">
         <div className="w-full text-sm py-4">
           Total Orders: {getResponseDataPagination?.data?.total}
