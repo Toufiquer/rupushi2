@@ -6,6 +6,9 @@ import TopBar from './components/TopBar';
 import { ToastContainer } from 'react-toastify';
 import Script from 'next/script'; // Import the Script component
 
+import NextAuthProvider from '@/provider/SessionProvider';
+
+import { ReduxProvider } from '@/redux/provider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -64,7 +67,9 @@ export default function RootLayout({
 
         {/* Your Existing Components */}
         <TopBar />
-        <main className="flex-grow ">{children}</main>
+        <NextAuthProvider>
+          <ReduxProvider>{children}</ReduxProvider>
+        </NextAuthProvider>
         <Footer />
         <ToastContainer />
       </body>
