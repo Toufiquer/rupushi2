@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 import { ChevronDown, ChevronUp, Search, ChevronLeft, ChevronRight } from 'lucide-react';
-import Image from 'next/image';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 
 // Types from the prompt
 export interface CustomerInfo {
@@ -332,18 +339,40 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
                   <td className="px-4 py-4 text-sm text-gray-900">{order.totalProduct}</td>
                   <td className="pr-2">
                     <div className="w-full flex items-center justify-end gap-2">
-                      <h2
-                        className="border-1 border-slate-400 rounded-lg px-4 py-1 text-sm"
-                        onClick={() => handleUpdateView(order._id, 'view')}
-                      >
-                        View
-                      </h2>
-                      <h2
-                        className="border-1 border-slate-400 rounded-lg px-4 py-1 text-sm"
-                        onClick={() => handleUpdateView(order._id, 'update')}
-                      >
-                        Update
-                      </h2>
+                      <Dialog>
+                        <DialogTrigger
+                          onClick={() => handleUpdateView(order._id, 'view')}
+                          className="border-1 border-slate-400 rounded-lg px-4 py-1 text-sm"
+                        >
+                          View
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Are you absolutely sure?</DialogTitle>
+                            <DialogDescription>
+                              This action cannot be undone. This will permanently delete your
+                              account and remove your data from our servers.
+                            </DialogDescription>
+                          </DialogHeader>
+                        </DialogContent>
+                      </Dialog>
+                      <Dialog>
+                        <DialogTrigger
+                          onClick={() => handleUpdateView(order._id, 'update')}
+                          className="border-1 border-slate-400 rounded-lg px-4 py-1 text-sm"
+                        >
+                          Update
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Are you absolutely sure?</DialogTitle>
+                            <DialogDescription>
+                              This action cannot be undone. This will permanently delete your
+                              account and remove your data from our servers.
+                            </DialogDescription>
+                          </DialogHeader>
+                        </DialogContent>
+                      </Dialog>
                     </div>
                   </td>
                 </motion.tr>
