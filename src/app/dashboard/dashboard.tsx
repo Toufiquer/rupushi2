@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/accordion';
 import AllUsers from './users/all-users';
 import AllProducts from './products/all-products';
-import AllOrders from './orders/all-orders';
+import AllOrders from './orders/all/page';
 import AllPictures from './media/all-pictures';
 import TrashPictures from './media/trash-pictures';
 import { useRouter } from 'next/navigation';
