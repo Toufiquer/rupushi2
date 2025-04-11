@@ -92,7 +92,6 @@ type SortField =
 
 const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error = null }) => {
   // State for expanded rows
-  const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
   // State for sorting
   const [sortField, setSortField] = useState<SortField>('orderId');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
@@ -109,17 +108,6 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
   useEffect(() => {
     setCurrentPage(1);
   }, [statusFilter, searchTerm]);
-
-  // Toggle expanded row
-  const toggleRowExpansion = (id: string) => {
-    const newExpandedRows = new Set(expandedRows);
-    if (newExpandedRows.has(id)) {
-      newExpandedRows.delete(id);
-    } else {
-      newExpandedRows.add(id);
-    }
-    setExpandedRows(newExpandedRows);
-  };
 
   // Handle sorting
   const handleSort = (field: SortField) => {

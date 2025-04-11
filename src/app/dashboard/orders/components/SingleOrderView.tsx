@@ -1,13 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useGetOrderByIdQuery } from '@/redux/features/orders/ordersApi';
-
-interface CustomerInfo {
-  customerName: string;
-  address: string;
-  phone: string;
-  note: string;
-}
 
 interface ProductInfo {
   name: string;
@@ -27,21 +20,6 @@ interface ProductInfo {
   'chain length': string;
   style: string;
   quantity: number;
-}
-
-interface ApiResponse {
-  customerInfo: CustomerInfo;
-  _id: string;
-  orderId: number;
-  totalProduct: number;
-  deliveryCharge: number;
-  orderStatus: string;
-  totalPrice: number;
-  shippingArea: string;
-  productInfo: ProductInfo[];
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
 }
 
 interface OrderDetailsProps {
