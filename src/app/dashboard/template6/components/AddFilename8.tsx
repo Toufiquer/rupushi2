@@ -1,7 +1,19 @@
 import React, { useEffect } from 'react';
 
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -16,7 +28,7 @@ import {
   __I_custom_selector_Type__,
   __custom_selector_arr__,
 } from '@/app/template6/store/filename7StoreConstants';
-import { handleError } from '@/app/template6/components/utils';
+import { handleError } from '@/app/dashboard/orders/components/utils';
 
 const InputField: React.FC<{
   id: string;
@@ -30,12 +42,26 @@ const InputField: React.FC<{
     <Label htmlFor={id} className="text-right">
       {label}
     </Label>
-    <Input id={id} name={name} type={type} value={value} onChange={onChange} className="col-span-3" />
+    <Input
+      id={id}
+      name={name}
+      type={type}
+      value={value}
+      onChange={onChange}
+      className="col-span-3"
+    />
   </div>
 );
 
 const Add_3_template_: React.FC = () => {
-  const { toggleAddModal, isAddModalOpen, _2_template_, new_3_template_, setNew_3_template_, set_1_template_ } = use_3_template_Store();
+  const {
+    toggleAddModal,
+    isAddModalOpen,
+    _2_template_,
+    new_3_template_,
+    setNew_3_template_,
+    set_1_template_,
+  } = use_3_template_Store();
   const [add_3_template_, { isLoading, isError, error }] = useAdd_3_template_Mutation();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,8 +113,21 @@ const Add_3_template_: React.FC = () => {
 
         <ScrollArea className="h-[400px] w-full rounded-md border p-4">
           <div className="grid gap-4 py-4">
-            <InputField id="name" name="name" label="Name" value={(new_3_template_.name as string) || ''} onChange={handleInputChange} />
-            <InputField id="email" name="email" label="Email" type="email" value={(new_3_template_.email as string) || ''} onChange={handleInputChange} />
+            <InputField
+              id="name"
+              name="name"
+              label="Name"
+              value={(new_3_template_.name as string) || ''}
+              onChange={handleInputChange}
+            />
+            <InputField
+              id="email"
+              name="email"
+              label="Email"
+              type="email"
+              value={(new_3_template_.email as string) || ''}
+              onChange={handleInputChange}
+            />
             <InputField
               id="passCode"
               name="passCode"
@@ -97,18 +136,31 @@ const Add_3_template_: React.FC = () => {
               value={(new_3_template_.passCode as string) || ''}
               onChange={handleInputChange}
             />
-            <InputField id="alias" name="alias" label="Alias" value={(new_3_template_.alias as string) || ''} onChange={handleInputChange} />
+            <InputField
+              id="alias"
+              name="alias"
+              label="Alias"
+              value={(new_3_template_.alias as string) || ''}
+              onChange={handleInputChange}
+            />
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="role" className="text-right">
                 Role
               </Label>
-              <Select onValueChange={handleRoleChange} defaultValue={(new_3_template_.role as string) || ''}>
+              <Select
+                onValueChange={handleRoleChange}
+                defaultValue={(new_3_template_.role as string) || ''}
+              >
                 <SelectTrigger className="col-span-3">
                   <SelectValue placeholder="Select a role" />
                 </SelectTrigger>
                 <SelectContent>
                   {__custom_selector_arr__?.map((i, index) => (
-                    <SelectItem key={i + index} className="cursor-pointer hover:bg-slate-200" value={i}>
+                    <SelectItem
+                      key={i + index}
+                      className="cursor-pointer hover:bg-slate-200"
+                      value={i}
+                    >
                       {i}
                     </SelectItem>
                   ))}
@@ -119,7 +171,11 @@ const Add_3_template_: React.FC = () => {
         </ScrollArea>
 
         <DialogFooter>
-          <Button variant="outline" className="border-slate-500 hover:border-slate-600 border-1 cursor-pointer" onClick={() => toggleAddModal(false)}>
+          <Button
+            variant="outline"
+            className="border-slate-500 hover:border-slate-600 border-1 cursor-pointer"
+            onClick={() => toggleAddModal(false)}
+          >
             Cancel
           </Button>
           <Button

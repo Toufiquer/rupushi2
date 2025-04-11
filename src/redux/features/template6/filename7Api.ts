@@ -9,7 +9,7 @@
 // This file is use for rest api
 import { apiSlice } from '@/redux/api/apiSlice';
 import { I_3_template_ } from '@/app/api/v1/template6/filename7Model';
-import { handleError, handleSuccess } from '@/app/template6/components/utils';
+import { handleError, handleSuccess } from '@/app/dashboard/orders/components/utils';
 
 export const _2_template_Api = apiSlice.injectEndpoints({
   endpoints: builder => ({

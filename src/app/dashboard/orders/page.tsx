@@ -10,34 +10,86 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import OrderTable, { ApiResponse, apiResponseData } from './components/OrderTable';
+import Pagination from '@/app/template6/components/Pagination';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
+import { useGetOrdersQuery } from '@/redux/features/orders/ordersApi';
 const Page = () => {
-  const [allOrders, setAllOrders] = useState<ApiResponse>(apiResponseData);
-  const [loading, setLoading] = useState(false);
-  const fetchOrders = useCallback(async () => {
-    setLoading(true);
-    try {
-      const response = await fetch('/api/v1/orders');
-      if (!response.ok) {
-        throw new Error('Failed to fetch orders');
-      }
-      const data = await response.json();
-      console.log('api data ; ', data);
-      setAllOrders(data);
-    } catch (error: unknown) {
-      console.error('Error fetching orders:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(2);
 
-  useEffect(() => {
-    fetchOrders();
-  }, []);
+  const { data: getResponseData, isLoading, error } = useGetOrdersQuery({ page, limit });
+  const { data: getResponseDataPagination } = useGetOrdersQuery({ page: 1, limit: 1 });
+  if (error) {
+    return <div>Please try again.</div>;
+  }
+  // const fetchOrders = useCallback(async () => {
+  //   setLoading(true);
+  //   try {
+  //     const response = await fetch('/api/v1/orders');
+  //     if (!response.ok) {
+  //       throw new Error('Failed to fetch orders');
+  //     }
+  //     const data = await response.json();
+  //     console.log('api data ; ', data);
+  //     setAllOrders(data);
+  //   } catch (error: unknown) {
+  //     console.error('Error fetching orders:', error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   fetchOrders();
+  // }, []);
   return (
     <div className="w-full flex items-center justify-center py-12">
       <div className="w-full max-w-7xl">
-        <OrderTable data={allOrders} isLoading={loading} />;
+        <div className="w-full text-sm py-4">
+          Total Orders: {getResponseDataPagination?.data?.total}
+        </div>
+        <OrderTable data={getResponseData} isLoading={isLoading} />
+        <Pagination
+          currentPage={page}
+          itemsPerPage={limit}
+          onPageChange={setPage}
+          totalItems={getResponseDataPagination?.data?.total || 10}
+        />{' '}
+        <div className="max-w-[380px] flex items-center justify-between pl-2 gap-4 rounded-xl w-full mx-auto mt-8">
+          <Label htmlFor="set-limit" className="pl-2 w-full">
+            <p className="text-right text-slate-600 font-normal ">Order per page</p>
+          </Label>
+          <Select
+            onValueChange={value => {
+              setLimit(Number(value));
+              setPage(1);
+            }}
+            defaultValue={limit.toString()}
+          >
+            <SelectTrigger className="col-span-4">
+              <SelectValue placeholder="Select a limit" />
+            </SelectTrigger>
+            <SelectContent className="bg-slate-50">
+              {[2, 5, 10, 25, 50, 100].map(i => (
+                <SelectItem
+                  key={i}
+                  value={i.toString()}
+                  className="cursor-pointer hover:bg-slate-200 bg-slate-50"
+                >
+                  {i}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,13 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-
-export const orderStatus = ['pending', 'processing', 'shipped', 'delivered', 'cancelled', 'failed'];
+export const orderStatus = [
+  'pending',
+  'processing',
+  'shipped',
+  'delivered',
+  'cancelled',
+  'failed',
+] as const; // Added 'as const' for type safety
 
 const ProductInfoSchema = new Schema(
   {
@@ -101,3 +107,47 @@ const OrderSchema = new Schema(
 const Order = mongoose.model('Order', OrderSchema);
 
 export default Order;
+
+import { Document } from 'mongoose';
+
+export interface IProductInfo {
+  productId: string;
+  name: string;
+  'product-code': string;
+  img: string;
+  realPrice: number;
+  discountedPrice: number;
+  offer: string;
+  stock: number;
+  'description-top'?: string; // Optional fields marked with ?
+  'description-bottom'?: string;
+  material?: string;
+  design?: string;
+  color?: string;
+  category?: string;
+  weight?: string;
+  'chain length'?: string;
+  style?: string;
+  quantity: number;
+}
+
+export interface ICustomerInfo {
+  customerName: string;
+  address: string;
+  phone: string;
+  note?: string;
+}
+
+export interface IOrder extends Document {
+  // Extends Document for Mongoose methods and properties
+  orderId: number;
+  totalProduct: number;
+  deliveryCharge: number;
+  orderStatus: (typeof orderStatus)[number]; // Using typeof to ensure type safety
+  totalPrice: number;
+  shippingArea: string;
+  customerInfo: ICustomerInfo;
+  productInfo: IProductInfo[];
+  createdAt: Date;
+  updatedAt: Date;
+}

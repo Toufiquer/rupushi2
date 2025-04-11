@@ -13,12 +13,12 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux';
 
 import { apiSlice } from '@/redux/api/apiSlice';
 
-import _2_template_Slice from '@/redux/features/template6/filename7Slice';
+import ordersSlice from '@/redux/features/orders/ordersSlice';
 
 export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
-    _3_template_: _2_template_Slice,
+    orders: ordersSlice,
   },
   devTools: process.env.NODE_ENV !== 'production',
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware),
