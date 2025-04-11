@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import OrderDetailsPage from './SingleOrderView';
 
 // Types from the prompt
 export interface CustomerInfo {
@@ -102,6 +103,7 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
   // State for pagination
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = data?.data?.limit || 10;
+  const [viewId, setViewId] = useState('');
 
   // Reset to first page when filter or search changes
   useEffect(() => {
@@ -207,7 +209,7 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
         animate={{ opacity: 1, y: 0 }}
         className="p-4 bg-red-100 text-red-700 rounded-md"
       >
-        <p>Error: {error}</p>
+        <span>Error: {error}</span>
       </motion.div>
     );
   }
@@ -220,7 +222,7 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
         animate={{ opacity: 1, y: 0 }}
         className="p-8 text-center text-gray-500"
       >
-        <p>No orders found.</p>
+        <span>No orders found.</span>
       </motion.div>
     );
   }
@@ -230,6 +232,7 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
   const handleUpdateView = (id: string, isUpdate: string) => {
     console.log(' id : ', id);
     console.log('isUpdate : ', isUpdate);
+    setViewId(id);
   };
   // Render table
   return (
@@ -348,11 +351,8 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
                         </DialogTrigger>
                         <DialogContent>
                           <DialogHeader>
-                            <DialogTitle>Are you absolutely sure?</DialogTitle>
-                            <DialogDescription>
-                              This action cannot be undone. This will permanently delete your
-                              account and remove your data from our servers.
-                            </DialogDescription>
+                            <DialogTitle>Order Details</DialogTitle>
+                            <OrderDetailsPage orderIdToFetch={viewId} />
                           </DialogHeader>
                         </DialogContent>
                       </Dialog>
