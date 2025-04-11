@@ -220,7 +220,10 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
 
   // Generate status options based on available data
   const statusOptions = Array.from(new Set(data.data._2_template_.map(item => item.orderStatus)));
-
+  const handleUpdateView = (id: string, isUpdate: string) => {
+    console.log(' id : ', id);
+    console.log('isUpdate : ', isUpdate);
+  };
   // Render table
   return (
     <div className="w-full">
@@ -266,13 +269,16 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
                 { key: 'totalPrice', label: 'Total Price' },
                 { key: 'createdAt', label: 'Date' },
                 { key: 'totalProduct', label: 'Products' },
+                { key: '_id', label: 'Actions' },
               ].map(column => (
                 <th
                   key={column.key}
                   className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                   onClick={() => handleSort(column.key as SortField)}
                 >
-                  <div className="flex items-center">
+                  <div
+                    className={`flex items-center ${column.label === 'Actions' && 'justify-end'}`}
+                  >
                     {column.label}
                     {sortField === column.key ? (
                       sortDirection === 'asc' ? (
@@ -324,64 +330,23 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
                     {format(new Date(order.createdAt), 'yyyy-MM-dd')}
                   </td>
                   <td className="px-4 py-4 text-sm text-gray-900">{order.totalProduct}</td>
+                  <td className="pr-2">
+                    <div className="w-full flex items-center justify-end gap-2">
+                      <h2
+                        className="border-1 border-slate-400 rounded-lg px-4 py-1 text-sm"
+                        onClick={() => handleUpdateView(order._id, 'view')}
+                      >
+                        View
+                      </h2>
+                      <h2
+                        className="border-1 border-slate-400 rounded-lg px-4 py-1 text-sm"
+                        onClick={() => handleUpdateView(order._id, 'update')}
+                      >
+                        Update
+                      </h2>
+                    </div>
+                  </td>
                 </motion.tr>
-                <AnimatePresence>
-                  {expandedRows.has(order._id) && (
-                    <motion.tr
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <td colSpan={7} className="px-4 py-4 bg-gray-50">
-                        <div className="px-4">
-                          <h4 className="text-lg font-medium mb-2">Order Products</h4>
-                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {order.productInfo.map((product, idx) => (
-                              <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                                className="flex border rounded-md overflow-hidden"
-                              >
-                                <div className="w-24 h-24 bg-gray-200 flex items-center justify-center">
-                                  {product.img ? (
-                                    <Image
-                                      src={product.img}
-                                      alt={product.name}
-                                      className="w-full h-full object-cover"
-                                    />
-                                  ) : (
-                                    <div className="text-gray-400 text-xs text-center">
-                                      No Image
-                                    </div>
-                                  )}
-                                </div>
-                                <div className="p-3 flex-1">
-                                  <h5 className="font-medium text-sm mb-1">{product.name}</h5>
-                                  <div className="text-xs text-gray-600">
-                                    Qty: {product.quantity}
-                                  </div>
-                                  <div className="flex items-center mt-1">
-                                    <span className="text-sm font-medium">
-                                      ${product.discountedPrice?.toFixed(2)}
-                                    </span>
-                                    {product.realPrice > product.discountedPrice && (
-                                      <span className="text-xs line-through text-gray-500 ml-2">
-                                        ${product.realPrice?.toFixed(2)}
-                                      </span>
-                                    )}
-                                  </div>
-                                </div>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </div>
-                      </td>
-                    </motion.tr>
-                  )}
-                </AnimatePresence>
               </React.Fragment>
             ))}
           </tbody>
