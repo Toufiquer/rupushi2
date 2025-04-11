@@ -37,19 +37,35 @@ const Filename8Table: React.FC = () => {
     },
   );
 
-  const modals = [AddFilename8, ViewFilename8, BulkDeleteFilename8, BulkEditFilename8, EditFilename8, DeleteFilename8];
+  const modals = [
+    AddFilename8,
+    ViewFilename8,
+    BulkDeleteFilename8,
+    BulkEditFilename8,
+    EditFilename8,
+    DeleteFilename8,
+  ];
   let renderUI = (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 max-w-7xl">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold w-full">
-          _3_template_ Management {isSuccess && <sup className="text-xs">(total:{getResponseData?.data?.total || '00'})</sup>}
+          _3_template_ Management{' '}
+          {isSuccess && (
+            <sup className="text-xs">(total:{getResponseData?.data?.total || '00'})</sup>
+          )}
         </h1>
         <div className="w-full flex gap-2 item-center justify-end">
-          <Button className="border-slate-500 hover:border-slate-600 border-1 cursor-pointer" onClick={() => router.push('/template6/all-template6')}>
+          <Button
+            className="border-slate-500 hover:border-slate-600 border-1 cursor-pointer"
+            onClick={() => router.push('/template6/all-template6')}
+          >
             View Grid
             <ArrowRightIcon className="w-4 h-4 mr-2" />
           </Button>
-          <Button className="border-slate-500 hover:border-slate-600 border-1 cursor-pointer" onClick={() => toggleAddModal(true)}>
+          <Button
+            className="border-slate-500 hover:border-slate-600 border-1 cursor-pointer"
+            onClick={() => toggleAddModal(true)}
+          >
             <PlusIcon className="w-4 h-4 mr-2" />
             Add _3_template_
           </Button>
