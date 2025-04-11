@@ -259,7 +259,6 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-12"></th>
               {[
                 { key: 'orderId', label: 'Order ID' },
                 { key: 'customerName', label: 'Customer Name' },
@@ -290,115 +289,101 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            <AnimatePresence>
-              {visibleData.map(order => (
-                <React.Fragment key={order._id}>
-                  <motion.tr
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    whileHover={{ backgroundColor: 'rgba(249, 250, 251, 1)' }}
-                    className="cursor-pointer"
-                  >
-                    <td className="px-4 py-4 text-sm text-gray-900">
-                      <button
-                        onClick={() => toggleRowExpansion(order._id)}
-                        className="focus:outline-none"
-                      >
-                        {expandedRows.has(order._id) ? (
-                          <ChevronUp size={16} />
-                        ) : (
-                          <ChevronDown size={16} />
-                        )}
-                      </button>
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-900">#{order.orderId}</td>
-                    <td className="px-4 py-4 text-sm text-gray-900">
-                      {order.customerInfo.customerName}
-                    </td>
-                    <td className="px-4 py-4 text-sm">
-                      <span
-                        className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                          order.orderStatus.toLowerCase() === 'delivered'
-                            ? 'bg-green-100 text-green-800'
-                            : order.orderStatus.toLowerCase() === 'pending'
-                              ? 'bg-yellow-100 text-yellow-800'
-                              : order.orderStatus.toLowerCase() === 'cancelled'
-                                ? 'bg-red-100 text-red-800'
-                                : 'bg-blue-100 text-blue-800'
-                        }`}
-                      >
-                        {order.orderStatus}
-                      </span>
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-900">
-                      ${order.totalPrice?.toFixed(2)}
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-900">
-                      {format(new Date(order.createdAt), 'yyyy-MM-dd')}
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-900">{order.totalProduct}</td>
-                  </motion.tr>
-                  <AnimatePresence>
-                    {expandedRows.has(order._id) && (
-                      <motion.tr
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <td colSpan={7} className="px-4 py-4 bg-gray-50">
-                          <div className="px-4">
-                            <h4 className="text-lg font-medium mb-2">Order Products</h4>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                              {order.productInfo.map((product, idx) => (
-                                <motion.div
-                                  key={idx}
-                                  initial={{ opacity: 0, y: 10 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{ delay: idx * 0.1 }}
-                                  className="flex border rounded-md overflow-hidden"
-                                >
-                                  <div className="w-24 h-24 bg-gray-200 flex items-center justify-center">
-                                    {product.img ? (
-                                      <Image
-                                        src={product.img}
-                                        alt={product.name}
-                                        className="w-full h-full object-cover"
-                                      />
-                                    ) : (
-                                      <div className="text-gray-400 text-xs text-center">
-                                        No Image
-                                      </div>
+            {visibleData.map(order => (
+              <React.Fragment key={order._id}>
+                <motion.tr
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  whileHover={{ backgroundColor: 'rgba(249, 250, 251, 1)' }}
+                  className="cursor-pointer"
+                >
+                  <td className="px-4 py-4 text-sm text-gray-900">{order.orderId}</td>
+                  <td className="px-4 py-4 text-sm text-gray-900">
+                    {order.customerInfo.customerName}
+                  </td>
+                  <td className="px-4 py-4 text-sm">
+                    <span
+                      className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                        order.orderStatus.toLowerCase() === 'delivered'
+                          ? 'bg-green-100 text-green-800'
+                          : order.orderStatus.toLowerCase() === 'pending'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : order.orderStatus.toLowerCase() === 'cancelled'
+                              ? 'bg-red-100 text-red-800'
+                              : 'bg-blue-100 text-blue-800'
+                      }`}
+                    >
+                      {order.orderStatus}
+                    </span>
+                  </td>
+                  <td className="px-4 py-4 text-sm text-gray-900">
+                    ${order.totalPrice?.toFixed(2)}
+                  </td>
+                  <td className="px-4 py-4 text-sm text-gray-900">
+                    {format(new Date(order.createdAt), 'yyyy-MM-dd')}
+                  </td>
+                  <td className="px-4 py-4 text-sm text-gray-900">{order.totalProduct}</td>
+                </motion.tr>
+                <AnimatePresence>
+                  {expandedRows.has(order._id) && (
+                    <motion.tr
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <td colSpan={7} className="px-4 py-4 bg-gray-50">
+                        <div className="px-4">
+                          <h4 className="text-lg font-medium mb-2">Order Products</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {order.productInfo.map((product, idx) => (
+                              <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: idx * 0.1 }}
+                                className="flex border rounded-md overflow-hidden"
+                              >
+                                <div className="w-24 h-24 bg-gray-200 flex items-center justify-center">
+                                  {product.img ? (
+                                    <Image
+                                      src={product.img}
+                                      alt={product.name}
+                                      className="w-full h-full object-cover"
+                                    />
+                                  ) : (
+                                    <div className="text-gray-400 text-xs text-center">
+                                      No Image
+                                    </div>
+                                  )}
+                                </div>
+                                <div className="p-3 flex-1">
+                                  <h5 className="font-medium text-sm mb-1">{product.name}</h5>
+                                  <div className="text-xs text-gray-600">
+                                    Qty: {product.quantity}
+                                  </div>
+                                  <div className="flex items-center mt-1">
+                                    <span className="text-sm font-medium">
+                                      ${product.discountedPrice?.toFixed(2)}
+                                    </span>
+                                    {product.realPrice > product.discountedPrice && (
+                                      <span className="text-xs line-through text-gray-500 ml-2">
+                                        ${product.realPrice?.toFixed(2)}
+                                      </span>
                                     )}
                                   </div>
-                                  <div className="p-3 flex-1">
-                                    <h5 className="font-medium text-sm mb-1">{product.name}</h5>
-                                    <div className="text-xs text-gray-600">
-                                      Qty: {product.quantity}
-                                    </div>
-                                    <div className="flex items-center mt-1">
-                                      <span className="text-sm font-medium">
-                                        ${product.discountedPrice?.toFixed(2)}
-                                      </span>
-                                      {product.realPrice > product.discountedPrice && (
-                                        <span className="text-xs line-through text-gray-500 ml-2">
-                                          ${product.realPrice?.toFixed(2)}
-                                        </span>
-                                      )}
-                                    </div>
-                                  </div>
-                                </motion.div>
-                              ))}
-                            </div>
+                                </div>
+                              </motion.div>
+                            ))}
                           </div>
-                        </td>
-                      </motion.tr>
-                    )}
-                  </AnimatePresence>
-                </React.Fragment>
-              ))}
-            </AnimatePresence>
+                        </div>
+                      </td>
+                    </motion.tr>
+                  )}
+                </AnimatePresence>
+              </React.Fragment>
+            ))}
           </tbody>
         </table>
       </div>
