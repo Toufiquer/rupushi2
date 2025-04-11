@@ -8,9 +8,8 @@
 
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-import OrderTable, { ApiResponse, apiResponseData } from './components/OrderTable';
-import Pagination from '@/app/template6/components/Pagination';
+import { useState } from 'react';
+import Pagination from '@/app/dashboard/orders/components/Pagination';
 import { Label } from '@/components/ui/label';
 import {
   Select,
@@ -21,6 +20,7 @@ import {
 } from '@/components/ui/select';
 
 import { useGetOrdersQuery } from '@/redux/features/orders/ordersApi';
+import OrderTable from './components/OrderTable';
 const Page = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(2);
@@ -30,26 +30,6 @@ const Page = () => {
   if (error) {
     return <div>Please try again.</div>;
   }
-  // const fetchOrders = useCallback(async () => {
-  //   setLoading(true);
-  //   try {
-  //     const response = await fetch('/api/v1/orders');
-  //     if (!response.ok) {
-  //       throw new Error('Failed to fetch orders');
-  //     }
-  //     const data = await response.json();
-  //     console.log('api data ; ', data);
-  //     setAllOrders(data);
-  //   } catch (error: unknown) {
-  //     console.error('Error fetching orders:', error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   fetchOrders();
-  // }, []);
   return (
     <div className="w-full flex items-center justify-center py-12">
       <div className="w-full max-w-7xl">

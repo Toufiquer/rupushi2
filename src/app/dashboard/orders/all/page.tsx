@@ -30,7 +30,7 @@ const AllOrders = () => {
 
   useEffect(() => {
     fetchOrders();
-  }, []);
+  }, [fetchOrders]);
   return (
     <main className="bg-slate-800 text-white flex items-center flex-col justify-center w-full h-screen">
       <h2>Coming soon</h2>

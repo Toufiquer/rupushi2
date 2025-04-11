@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { format } from 'date-fns';
 import { ChevronDown, ChevronUp, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
 // Types from the prompt
 export interface CustomerInfo {
@@ -146,8 +147,8 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
 
     // Apply sorting
     filteredData.sort((a, b) => {
-      let aValue: any;
-      let bValue: any;
+      let aValue: string | number;
+      let bValue: string | number;
 
       switch (sortField) {
         case 'customerName':
@@ -360,7 +361,7 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
                                 >
                                   <div className="w-24 h-24 bg-gray-200 flex items-center justify-center">
                                     {product.img ? (
-                                      <img
+                                      <Image
                                         src={product.img}
                                         alt={product.name}
                                         className="w-full h-full object-cover"
