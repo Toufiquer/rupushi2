@@ -11,26 +11,36 @@
 import { useEffect, useState } from 'react';
 import ProductCard, { IProduct } from './ProductsCard';
 import Link from 'next/link';
+import Loading from '../dashboard/loading';
+import LoadingComponent from '@/components/common/Loading';
 
 const NewArrival = () => {
   const [allProducts, setAllProducts] = useState<IProduct[]>([]);
   const [showAllProducts, setShowAllProducts] = useState<IProduct[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const productsPerPage = 4;
 
   // Fetch products on component mount
   useEffect(() => {
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(data => {
-        if (data.data.length > 0) {
-          setAllProducts(data.data);
-          // Initially show first 8 products
-          setShowAllProducts(
-            data.data.filter((i: IProduct) => i.isArrival).slice(0, productsPerPage),
-          );
-        }
-      });
+    setIsLoading(true);
+    try {
+      fetch('/api/products')
+        .then(res => res.json())
+        .then(data => {
+          if (data.data.length > 0) {
+            setAllProducts(data.data);
+            // Initially show first 8 products
+            setShowAllProducts(
+              data.data.filter((i: IProduct) => i.isArrival).slice(0, productsPerPage),
+            );
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
   allProducts.length = 4;
   // Calculate total number of pages
@@ -43,18 +53,7 @@ const NewArrival = () => {
   }
 
   const onClick = () => {};
-  let renderProducts = (
-    <div className="text-center w-full h-screen flex items-center justify-center text-2xl">
-      Loading...
-    </div>
-  );
-  if (showAllProducts.length === 0) {
-    renderProducts = (
-      <div className="text-center w-full h-screen flex items-center justify-center text-2xl">
-        No Products Found
-      </div>
-    );
-  }
+  let renderProducts = <LoadingComponent />;
   if (showAllProducts.length > 0) {
     renderProducts = (
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-4 gap-2">
@@ -65,6 +64,9 @@ const NewArrival = () => {
         ))}
       </div>
     );
+  }
+  if (isLoading) {
+    return <Loading />;
   }
   return (
     <main className="w-full flex flex-col pb-12">

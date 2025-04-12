@@ -13,6 +13,7 @@ import { IProduct } from '../../components/ProductsCard';
 import { useParams } from 'next/navigation';
 import Checkout from './Checkout';
 import Link from 'next/link';
+import LoadingComponent from '@/components/common/Loading';
 
 const AllProducts = () => {
   const [showAllProducts, setShowAllProducts] = useState<IProduct[]>([]);
@@ -40,18 +41,7 @@ const AllProducts = () => {
       });
   }, [productId]);
 
-  let renderProducts = (
-    <div className="text-center w-full h-screen flex items-center justify-center text-2xl">
-      Loading...
-    </div>
-  );
-  if (showAllProducts.length === 0) {
-    renderProducts = (
-      <div className="text-center w-full h-screen flex items-center justify-center text-2xl">
-        No Products Found
-      </div>
-    );
-  }
+  let renderProducts = <LoadingComponent />;
   if (showAllProducts.length > 0) {
     renderProducts = (
       <div className="w-full flex flex-col gap-4">

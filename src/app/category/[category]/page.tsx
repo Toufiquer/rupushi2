@@ -11,6 +11,7 @@
 import { useEffect, useState } from 'react';
 import ProductCard, { IProduct } from '../../components/ProductsCard';
 import { useParams } from 'next/navigation';
+import LoadingComponent from '@/components/common/Loading';
 
 const AllProducts = () => {
   const [allProducts, setAllProducts] = useState<IProduct[]>([]);
@@ -62,18 +63,7 @@ const AllProducts = () => {
     pageNumbers.push(i);
   }
 
-  let renderProducts = (
-    <div className="text-center w-full h-screen flex items-center justify-center text-2xl">
-      Loading...
-    </div>
-  );
-  if (showAllProducts.length === 0) {
-    renderProducts = (
-      <div className="text-center w-full h-screen flex items-center justify-center text-2xl">
-        No Products Found
-      </div>
-    );
-  }
+  let renderProducts = <LoadingComponent />;
   if (showAllProducts.length > 0) {
     renderProducts = (
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-4 gap-2">
