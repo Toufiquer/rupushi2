@@ -3,18 +3,25 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 type Store = {
+  textMessage: { isFirst: boolean; message: string };
   cart: IProduct[];
   deliveryCharge: number;
   setDeliveryCharge: (payload: number) => void;
   updateCart: (payload: IProduct[]) => void;
+  setTextMessage: (payload: { isFirst: boolean; message: string }) => void;
 };
 
 export const useStore = create<Store>()(
   persist(
     set => ({
+      textMessage: {
+        isFirst: true,
+        message: 'আপনার তথ্যাদি কনফার্ম করতে আপনার নাম, ঠিকানা, (মোবাইল নাম্বার) এবং কনফার্ম করুন',
+      },
       deliveryCharge: 130,
-      setDeliveryCharge: (updateCharge: number) =>
-        set(store => ({ ...store, deliveryCharge: updateCharge })),
+      setDeliveryCharge: (payload: number) => set(store => ({ ...store, deliveryCharge: payload })),
+      setTextMessage: (payload: { isFirst: boolean; message: string }) =>
+        set(store => ({ ...store, textMessage: payload })),
       cart: [],
       updateCart: (updatedCart: IProduct[]) => set(store => ({ ...store, cart: updatedCart })),
     }),

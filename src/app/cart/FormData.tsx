@@ -36,11 +36,8 @@ export interface IDBOrderData {
 }
 
 const FormData = () => {
-  const { cart, deliveryCharge, setDeliveryCharge } = useStore();
-  const [messageText, setMessageText] = useState({
-    isFirst: true,
-    message: 'আপনার তথ্যাদি কনফার্ম করতে আপনার নাম, ঠিকানা, (মোবাইল নাম্বার) এবং কনফার্ম করুন',
-  });
+  const { cart, deliveryCharge, setDeliveryCharge, setTextMessage } = useStore();
+
   // State for form inputs with type
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -124,7 +121,7 @@ const FormData = () => {
         throw new Error('Failed to create order');
       }
       toast.success('Order Create successful');
-      setMessageText({
+      setTextMessage({
         isFirst: false,
         message: `Your order has been confirm, Thank you. Order id: ${newOrderData.orderId}`,
       });
@@ -145,11 +142,6 @@ const FormData = () => {
   };
   return (
     <div className="w-full bg-white p-6 rounded-lg shadow-md">
-      <h2
-        className={`text-lg font-semibold mb-4  ${messageText.isFirst ? 'text-red-600' : 'text-green-600'}`}
-      >
-        {messageText.message}
-      </h2>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div>
           <label className="block text-sm font-medium text-gray-700">আপনার নাম *</label>
@@ -189,7 +181,7 @@ const FormData = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Note</label>
+          <label className="block text-sm font-medium text-gray-700">Order Note (Optional)</label>
           <textarea
             name="note"
             value={formData.note}
@@ -202,7 +194,9 @@ const FormData = () => {
         <div>
           <label className="block text-sm font-medium text-gray-700">ডেলিভারি</label>
           <div className="mt-2 space-y-2">
-            <div className="flex items-center">
+            <div
+              className={`flex items-center w-full p-2 rounded ${formData.deliveryOption === '130' ? ' bg-green-500 ' : 'bg-slate-200 '}`}
+            >
               <input
                 type="radio"
                 name="deliveryOption"
@@ -221,14 +215,16 @@ const FormData = () => {
                 ঢাকার বাইরে ১৩০ টাকা
               </label>
             </div>
-            <div className="flex items-center">
+            <div
+              className={`flex items-center w-full p-2 rounded ${formData.deliveryOption === '60' ? ' bg-green-500 ' : 'bg-slate-200 '}`}
+            >
               <input
                 type="radio"
                 name="deliveryOption"
                 value="60"
                 checked={formData.deliveryOption === '60'}
                 onChange={handleInputChange}
-                className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300"
+                className={`h-4 w-4 focus:ring-green-500 border-gray-300 `}
               />
               <label
                 className="ml-2 text-sm text-gray-700 cursor-pointer"
