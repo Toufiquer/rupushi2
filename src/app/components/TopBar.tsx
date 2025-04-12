@@ -9,6 +9,7 @@ import Image from 'next/image';
 import SearchBox from './SearchBox';
 import { categoryMenuItems } from './Footer';
 import { useStore } from '@/app/utils/useStore';
+import SearchBoxMobile from './SearchBoxMobile';
 
 // Add this above your component
 
@@ -153,6 +154,7 @@ export default function TopBar() {
 
           {/* Search Box */}
           <SearchBox />
+          <SearchBoxMobile />
           {/* Mobile Hamburger Menu */}
           <div className="md:hidden">
             {isMenuOpen ? (

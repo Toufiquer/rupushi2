@@ -1,8 +1,15 @@
+/*
+|-----------------------------------------
+| setting up SearchBarMobile for the App
+| @author: Toufiquer Rahman<toufiquer.0@gmail.com>
+| @copyright: Toufiquer, April, 2025
+|-----------------------------------------
+*/
 'use client';
 
 import { useState } from 'react';
 
-const SearchBox = () => {
+const SearchBoxMobile = () => {
   const [searchText, setSearchText] = useState('');
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -12,7 +19,7 @@ const SearchBox = () => {
   };
 
   return (
-    <main className="w-full hidden md:block">
+    <main className="w-full block md:hidden">
       <div className=" flex-grow mx-10">
         <div className="relative">
           <input
@@ -47,4 +54,4 @@ const SearchBox = () => {
     </main>
   );
 };
-export default SearchBox;
+export default SearchBoxMobile;
