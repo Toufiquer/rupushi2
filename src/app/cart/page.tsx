@@ -12,7 +12,6 @@ import Checkout from './Checkout';
 import Link from 'next/link';
 import { useStore } from '@/app/utils/useStore';
 import LoadingComponent from '@/components/common/Loading';
-import { useState } from 'react';
 import { Check } from 'lucide-react';
 
 const AllProducts = () => {
