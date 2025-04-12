@@ -9,7 +9,7 @@ export const categoryMenuItems = [
 ];
 const MobileLogoFooter = () => (
   <div className="relative flex flex-col w-[200px] h-[100px] items-start p-4 justify-start">
-    <div className="absolute top-0 left-0 w-[200px] h-[100px] mb-4">
+    <div className="absolute top-0 left-[-20px] w-[200px] h-[100px] mb-4 ">
       <Image
         src="/rupushi-crop.png" // Replace with your actual logo path
         alt="Rupush Logo"
@@ -17,18 +17,18 @@ const MobileLogoFooter = () => (
         height={100}
       />
     </div>
-    <div className="mt-[50px] mb-[20px]" />
-    <div className="text-center md:text-left">
+    <div className="mt-[50px] mb-[20px] relative" />
+    <div className=" md:text-left left-0 absolute top-[80px]">
       <div className="space-y-2 text-gray-200">
-        <div className="flex items-center justify-center md:justify-start gap-2">
+        <div className="flex items-center justify-start md:justify-start gap-2">
           <Truck className="text-red-500" size={20} />
           <span>Faster Delivery</span>
         </div>
-        <div className="flex items-center justify-center md:justify-start gap-2">
+        <div className="flex items-center justify-start md:justify-start gap-2">
           <Clock className="text-red-500" size={20} />
           <span>24/7 Support</span>
         </div>
-        <div className="flex items-center justify-center md:justify-start gap-2">
+        <div className="flex items-center justify-start md:justify-start gap-2">
           <Shield className="text-red-500" size={20} />
           <span>Trusted & Secure</span>
         </div>
@@ -47,7 +47,7 @@ const TabletLogoFooter = () => (
       />
     </div>
     <div className="mt-[50px] mb-[20px]" />
-    <div className="text-center md:text-left">
+    <div className=" md:text-left">
       <div className="space-y-2 text-gray-200">
         <div className="flex items-center justify-center md:justify-start gap-2">
           <Truck className="text-red-500" size={20} />
@@ -71,7 +71,7 @@ const LogoSection = () => (
       <TabletLogoFooter />
     </div>
     <div className="md:hidden flex">
-      <div className="h-[200px] w-full flex items-center justify-center mt-[-40px] mb-[60px]">
+      <div className="h-[200px] w-full flex items-center justify-start md:justify-center mt-[-40px] mb-[30px] md:mb-[60px]">
         <MobileLogoFooter />
       </div>
     </div>
@@ -79,8 +79,8 @@ const LogoSection = () => (
 );
 const InformationSection = () => (
   <div>
-    <h4 className="font-bold text-lg mb-4 text-center md:text-left">Information</h4>
-    <ul className="text-gray-200 text-center md:text-left space-y-2">
+    <h4 className="font-bold text-lg pb-1 lg:mt-8 md:text-left">Information</h4>
+    <ul className="text-gray-200  md:text-left space-y-2">
       <li>
         <Link href="/about" className="hover:text-red-500 transition">
           About Us
@@ -106,9 +106,9 @@ const InformationSection = () => (
 );
 const TopCategoriesSection = () => {
   return (
-    <div>
-      <h4 className="font-bold text-lg mb-4 text-center md:text-left">Top Categories</h4>
-      <ul className="text-gray-200 text-center md:text-left space-y-2">
+    <div className="md:px-4 md:mt-8">
+      <h4 className="font-bold text-lg pb-1  md:text-left">Top Categories</h4>
+      <ul className="text-gray-200  md:text-left space-y-2">
         {categoryMenuItems.map((item, index) => (
           <li key={index}>
             <Link href={item.href} className="hover:text-red-500 transition">
@@ -122,11 +122,11 @@ const TopCategoriesSection = () => {
 };
 const CustomerCareSection = () => (
   <div>
-    <h4 className="font-bold text-lg mb-4 text-center md:text-left">Customer Care</h4>
-    <div className="text-gray-200 text-center md:text-left space-y-2">
+    <h4 className="font-bold text-lg pb-1 md:mt-8 md:text-left">Customer Care</h4>
+    <div className="text-gray-200  md:text-left space-y-2">
       <p>📞 Call: +88 01560006643</p>
       <p>✉️ Email: support@rupush.com</p>
-      <div className="flex justify-center md:justify-start space-x-4 mt-4">
+      <div className="flex justify-start space-x-4 items-center mt-8">
         <Link
           href=" https://www.facebook.com/RupushiJewels"
           className="text-blue-600 hover:scale-110 transition"
@@ -149,33 +149,15 @@ const Footer = () => {
     <footer className="bg-slate-700 text-white pt-12 shadow-lg border-t-2 border-slate-900 shadow-stone-200 flex flex-col items-center justify-center">
       <div className="w-full flex flex-col container max-w-7xl">
         <div className="md:hidden block">
-          <div className="w-full grid grid-cols-1 py-8">
+          <div className="w-full grid grid-cols-1 py-8 px-4 md:px-0 gap-8">
             <LogoSection />
             <InformationSection />
             <TopCategoriesSection />
             <CustomerCareSection />
           </div>
         </div>
-        <div className="hidden md:block lg:hidden">
-          <div className="w-full grid grid-cols-3 py-8">
-            <div className="w-full">
-              <div className="w-full mb-8 pb-8">
-                <LogoSection />
-              </div>
-              <div className="w-full pl-6 mt-12 pt-4">
-                <InformationSection />
-              </div>
-            </div>
-            <div className="w-full">
-              <TopCategoriesSection />
-            </div>
-            <div className="w-full">
-              <CustomerCareSection />
-            </div>
-          </div>
-        </div>
-        <div className="hidden lg:block">
-          <div className="w-full grid grid-cols-4 py-8">
+        <div className="hidden md:block">
+          <div className="w-full grid grid-cols-2 lg:grid-cols-4 py-8 px-4 md:px-0 gap-8">
             <LogoSection />
             <InformationSection />
             <TopCategoriesSection />
@@ -184,7 +166,7 @@ const Footer = () => {
         </div>
       </div>
       {/* Bottom Bar */}
-      <div className="border-t-1 mt-12 border-slate-900 text-white text-center py-4 w-full">
+      <div className="border-t-1 mt-12 text-center border-slate-900 text-white  py-4 w-full">
         <p> Rupushi - All Rights Reserved &copy; {new Date().getFullYear()}</p>
       </div>
     </footer>
