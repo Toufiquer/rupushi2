@@ -6,10 +6,9 @@ export default function TopMarquee() {
   const [isPaused, setIsPaused] = useState(false);
   const [isLoaded, setIsLoaded] = useState(true);
   const othersText = [
-    'ফ্রি ডেলিভারি ৯৯৯ টাকা পারচেজ থেকে!',
-    ' ৩০ দিনের রিটার্ন পলিসি ',
-    ' ১০০% অরিজিনাল পণ্য গ্যারান্টি',
-    ' কাস্টমার সার্ভিস: ০১৭৫৫-৫৫৫৫৫৫ ',
+    '  Free delivery over 1499 taka purchase  ',
+    '  Free delivery over 1499 taka purchase  ',
+    '  Free delivery over 1499 taka purchase  ',
   ];
   useEffect(() => {
     // Mark as loaded after component mounts
