@@ -89,7 +89,7 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
   };
 
   return (
-    <Card className="w-full max-w-sm overflow-hidden shadow-lg rounded-lg py-0 border-0">
+    <Card className="w-full max-w-sm overflow-hidden shadow-lg rounded-lg py-0 border-0 hover:shadow-2xl duration-200">
       <CardContent className="p-0">
         {/* Product Image */}
         <div className="relative w-full  aspect-square">
@@ -116,17 +116,17 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
         </div>
 
         {/* Product Details */}
-        <div className="p-4">
-          <h2 className="text-xl font-bold mb-2">{productData.name}</h2>
-
-          {/* Price Section */}
-          <div className="flex items-center gap-2 mb-4">
-            <span className="text-lg font-semibold text-gray-900">
-              ৳{productData.discountedPrice}
-            </span>
-            <span className="text-sm text-gray-500 line-through">৳{productData.realPrice}</span>
+        <div className="p-4 ">
+          <div className=" ">
+            <h2 className="text-[16px] font-bold mb-2 min-h-[50px]">{productData.name}</h2>
+            {/* Price Section */}
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-lg font-semibold text-rose-500">
+                ৳{productData.discountedPrice}
+              </span>
+              <span className="text-sm text-gray-500 line-through">৳{productData.realPrice}</span>
+            </div>
           </div>
-
           {/* Order Button */}
           <Button
             onClick={handleAddToCart}

@@ -19,7 +19,7 @@ const NewArrival = () => {
   const [showAllProducts, setShowAllProducts] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const productsPerPage = 4;
+  const productsPerPage = 5;
 
   // Fetch products on component mount
   useEffect(() => {
@@ -42,7 +42,7 @@ const NewArrival = () => {
       setIsLoading(false);
     }
   }, []);
-  allProducts.length = 4;
+  allProducts.length = 5;
   // Calculate total number of pages
   const totalPages = Math.ceil(allProducts.length / productsPerPage);
 
@@ -56,7 +56,7 @@ const NewArrival = () => {
   let renderProducts = <LoadingComponent />;
   if (showAllProducts.length > 0) {
     renderProducts = (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-4 gap-2">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 md:gap-4 gap-2">
         {showAllProducts.map(product => (
           <div key={product['product-code']}>
             <ProductCard productData={product} />

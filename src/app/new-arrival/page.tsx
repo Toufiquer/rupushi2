@@ -67,7 +67,7 @@ const AllProducts = () => {
   let renderProducts = <LoadingComponent />;
   if (showAllProducts.length > 0) {
     renderProducts = (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-4 gap-2">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 md:gap-4 gap-2">
         {showAllProducts.map(product => (
           <div key={product['product-code']}>
             <ProductCard productData={product} />
