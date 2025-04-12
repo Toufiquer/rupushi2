@@ -3,9 +3,39 @@ import Image from 'next/image';
 import { ShoppingCart, PhoneCall } from 'lucide-react';
 import { IProduct } from '@/app/components/ProductsCard';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useStore } from '@/app/utils/useStore';
 
 const ProductDetailPage = ({ product }: { product: IProduct }) => {
-  const handleCreateOrder = () => {};
+  const router = useRouter();
+  const { cart, updateCart } = useStore();
+  const handleAddToCart = () => {
+    // Convert IProduct to CartItem format
+    const cartItem: IProduct = product;
+
+    // ! update cart
+    let newUpdateCart: typeof cart = [];
+    if (cart.length === 0) {
+      cartItem.quantity = !cartItem.quantity ? 1 : cartItem.quantity + 1;
+      newUpdateCart = [cartItem];
+    } else {
+      const isExist = cart.filter(curr => curr.id === product.id);
+      if (isExist) {
+        // ! update quantity
+        const newCartItem = { ...cartItem };
+        newCartItem.quantity = !newCartItem.quantity ? 1 : newCartItem.quantity + 1;
+        const filteredCart = cart.filter(curr => curr.id !== newCartItem.id);
+        newUpdateCart = [...filteredCart, newCartItem];
+      } else {
+        newUpdateCart = [...cart, cartItem];
+      }
+    }
+    updateCart(newUpdateCart);
+    // Add item to Zustand store
+    // addItem(cartItem);
+    router.push('/cart');
+    console.log('cartItem : ', cartItem);
+  };
   return (
     <div className="w-full flex items-center justify-center">
       <div className="container max-w-7xl flex flex-col gap-8">
@@ -44,35 +74,29 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
               <div className="flex space-x-4 mt-8">
                 <div className="w-full flex flex-col gap-4">
                   <div className="w-full flex flex-row gap-4">
-                    <Link
-                      href={`/order-now/${product.id}`}
-                      className="flex-1 cursor-pointer bg-[#e39366] font-semibold text-white py-3 rounded-lg flex items-center justify-center space-x-2 hover:bg-[hsl(22,40%,59%)] transition"
-                    >
+                    <div className="flex-1 cursor-pointer bg-[#e39366] font-semibold text-white py-3 rounded-lg flex items-center justify-center space-x-2 hover:bg-[hsl(22,40%,59%)] transition">
                       <button
-                        onClick={handleCreateOrder}
+                        onClick={handleAddToCart}
                         type="button"
                         className="flex items-center justify-center space-x-2 cursor-pointer"
                       >
                         <span>অর্ডার করুন</span>
                       </button>
-                    </Link>
+                    </div>
 
-                    <Link
-                      href={`/order-now/${product.id}`}
-                      className="flex-1 cursor-pointer bg-green-600 font-semibold text-white py-3 rounded-lg flex items-center justify-center space-x-2 hover:bg-green-700 transition"
-                    >
+                    <div className="flex-1 cursor-pointer bg-green-600 font-semibold text-white py-3 rounded-lg flex items-center justify-center space-x-2 hover:bg-green-700 transition">
                       <button
-                        onClick={handleCreateOrder}
+                        onClick={handleAddToCart}
                         type="button"
                         className="flex items-center justify-center space-x-2 cursor-pointer"
                       >
                         <ShoppingCart />
                         <span>Buy Now</span>
                       </button>
-                    </Link>
+                    </div>
                   </div>
                   <button
-                    onClick={handleCreateOrder}
+                    onClick={handleAddToCart}
                     type="button"
                     className="flex-1 cursor-pointer bg-blue-600 text-white py-3 rounded-lg flex items-center justify-center space-x-2 hover:bg-blue-700 transition"
                   >
