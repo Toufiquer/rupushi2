@@ -124,26 +124,20 @@ const CustomerCareSection = () => (
   <div>
     <h4 className="font-bold text-lg mb-4 text-center md:text-left">Customer Care</h4>
     <div className="text-gray-200 text-center md:text-left space-y-2">
-      <p>📞 Call: +1234567890</p>
+      <p>📞 Call: +88 01560006643</p>
       <p>✉️ Email: support@rupush.com</p>
       <div className="flex justify-center md:justify-start space-x-4 mt-4">
         <Link
-          href="https://facebook.com/rupush"
+          href=" https://www.facebook.com/RupushiJewels"
           className="text-blue-600 hover:scale-110 transition"
         >
           <Facebook size={24} />
         </Link>
         <Link
-          href="https://instagram.com/rupush"
+          href="https://www.instagram.com/rupushijewels"
           className="text-pink-600 hover:scale-110 transition"
         >
           <Instagram size={24} />
-        </Link>
-        <Link
-          href="https://twitter.com/rupush"
-          className="text-blue-400 hover:scale-110 transition"
-        >
-          <Twitter size={24} />
         </Link>
       </div>
     </div>
