@@ -37,10 +37,10 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
     console.log('cartItem : ', cartItem);
   };
   return (
-    <div className="w-full flex items-center justify-center">
+    <div className="w-full flex items-center justify-center px-2 md:px-0">
       <div className="container max-w-7xl flex flex-col gap-8">
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-8">
-          <div className="w-full">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-2 md:gap-8">
+          <div className="w-full lg:max-w-[440px]">
             {/* Product Image */}
             <div className="relative aspect-square w-full">
               <Image
@@ -54,17 +54,17 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
           <div className="w-full">
             {/* Product Details */}
             <div className="space-y-4">
-              <h1 className="text-2xl font-bold text-gray-800">{product.name}</h1>
+              <h1 className="text-xl lg:text-2xl font-bold text-gray-800">{product.name}</h1>
 
               {/* Product Code */}
               <p className="text-gray-600">Product Code: {product['product-code']}</p>
 
               {/* Pricing */}
-              <div className="flex items-center space-x-4 mt-8">
+              <div className="flex items-center space-x-4 lg:mt-8">
                 <span className="text-2xl font-bold text-red-600">৳ {product.discountedPrice}</span>
                 <span className="line-through text-gray-500">৳ {product.realPrice}</span>
                 {product.offer && (
-                  <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">
+                  <span className="bg-green-100 text-green-800 px-2 lg:py-1 rounded-full text-sm">
                     Save {product.offer} %
                   </span>
                 )}
@@ -104,14 +104,14 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
                       <span>অর্ডার করতে কল করুন</span>
                       <span className="flex items-center justify-center gap-2 mt-1">
                         <PhoneCall />
-                        <p>+880 111 1015 125</p>
+                        <p>+88 01560006643</p>
                       </span>
                     </div>
                   </button>
                 </div>
               </div>
             </div>
-            <div className="space-y-4 mt-8">
+            <div className="space-y-4 mt-8 hidden lg:block">
               <div className="flex w-full gap-8 flex-col md:mt-12 mt-4 font-semibold text-slate-500">
                 <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
                   <p className="font-normal">ঢাকায় ডেলিভারি খরচ </p>
@@ -125,33 +125,55 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
             </div>
           </div>
         </div>
-
+        <div className="space-y-4 block lg:hidden">
+          <div className="flex w-full gap-8 flex-col font-semibold text-slate-500">
+            <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
+              <p className="font-normal">ঢাকায় ডেলিভারি খরচ </p>
+              <p className="text-slate-700">৳ 60</p>
+            </div>
+            <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
+              <p className="font-normal">ঢাকার বাইরের ডেলিভারি খরচ</p>
+              <p className="text-slate-700">৳ 130</p>
+            </div>
+          </div>
+        </div>
         <div className="w-full">
-          {' '}
           {/* Product Details */}
-          <div className="border-t pt-4">
+          <div className="pt-1">
             <h2 className="mb-2 bg-[#e39366] font-bold text-3xl text-slate-100 rounded-sm p-2">
               Product Details
             </h2>
             <ul className="space-y-2 text-gray-700">
-              <li>
-                <strong>Material:</strong> {product.material}
-              </li>
-              <li>
-                <strong>Design:</strong> {product.design}
-              </li>
-              <li>
-                <strong>Color:</strong> {product.color}
-              </li>
-              <li>
-                <strong>Weight:</strong> {product.weight}
-              </li>
-              <li>
-                <strong>Chain Length:</strong> {product['chain length']}
-              </li>
-              <li>
-                <strong>Style:</strong> {product.style}
-              </li>
+              {product.material && (
+                <li>
+                  <strong>Material:</strong> {product.material}
+                </li>
+              )}
+              {product.design && (
+                <li>
+                  <strong>Design:</strong> {product.design}
+                </li>
+              )}
+              {product.color && (
+                <li>
+                  <strong>Color:</strong> {product.color}
+                </li>
+              )}
+              {product.weight && (
+                <li>
+                  <strong>Weight:</strong> {product.weight}
+                </li>
+              )}
+              {product['chain length'] && (
+                <li>
+                  <strong>Chain Length:</strong> {product['chain length']}
+                </li>
+              )}
+              {product.style && (
+                <li>
+                  <strong>Style:</strong> {product.style}
+                </li>
+              )}
             </ul>
           </div>
           {/* Description */}

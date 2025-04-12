@@ -74,7 +74,7 @@ const AllProducts = () => {
 
   if (showAllProducts.length > 0) {
     renderProducts = (
-      <div className="w-full flex flex-col gap-4">
+      <div className="w-full flex flex-col gap-4  px-1 lg:px-0">
         <ProductDetailPage product={showFilterProducts[0]} />
         <div className="w-full flex items-center justify-center">
           <div className="container max-w-7xl">

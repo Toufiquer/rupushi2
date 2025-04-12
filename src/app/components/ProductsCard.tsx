@@ -118,7 +118,9 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
         {/* Product Details */}
         <div className="p-4 ">
           <div className=" ">
-            <h2 className="text-[16px] font-bold mb-2 min-h-[50px]">{productData.name}</h2>
+            <h2 className="text-[16px] font-bold mb-2 min-h-[80px] md:min-h-[50px]">
+              {productData.name}
+            </h2>
             {/* Price Section */}
             <div className="flex items-center gap-2 mb-2">
               <span className="text-lg font-semibold text-rose-500">
