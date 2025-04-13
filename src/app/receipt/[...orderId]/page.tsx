@@ -9,11 +9,19 @@
 'use client';
 
 import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const Page = () => {
+  const [order, setOrder] = useState({});
   const params = useParams();
   const orderId = params?.orderId;
-
+  useEffect(() => {
+    if (orderId) {
+      fetch(`/api/v1/orders/receipt/${orderId}`)
+        .then(d => d.json())
+        .then(data => console.log('data : ', data));
+    }
+  }, [orderId]);
   return (
     <main className="bg-slate-800 text-white flex items-center justify-center w-full h-screen">
       {orderId && (

@@ -41,7 +41,11 @@ export async function createOrders(req: Request): Promise<IResponse> {
 // GET single Orders by OrderId
 export async function getOrdersByOrderId(req: Request) {
   return withDB(async () => {
-    const orderId = new URL(req.url).searchParams.get('OrderId');
+    // Extract orderId from the URL path
+    const url = new URL(req.url);
+    const pathParts = url.pathname.split('/');
+    const orderId = pathParts.pop();
+
     if (!orderId) return formatResponse(null, 'orderId is required', 400);
     const result = await Orders.findOne({ orderId: Number(orderId) });
     if (!result) return formatResponse(null, 'Order not found', 404);
