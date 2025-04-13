@@ -1,7 +1,16 @@
 // import Orders from './ordersModel';
 import Orders from '@/app/api/orders/orderModel';
-import connectDB from '@/lib/mongoose';
 import { IResponse } from '@/app/api/v1/orders/utils';
+import mongoose from 'mongoose';
+
+// Connect to MongoDB (keep connection details as needed)
+const connectDB = async () => {
+  if (mongoose.connection.readyState === 0) {
+    await mongoose.connect(
+      `mongodb+srv://${process.env.dbusername}:${process.env.dbpassword}@rupushiv1.aq2wh.mongodb.net/db_users?retryWrites=true&w=majority&appName=rupushiv1`,
+    );
+  }
+};
 
 // Helper to handle database connection and errors
 async function withDB(handler: () => Promise<IResponse>): Promise<IResponse> {
