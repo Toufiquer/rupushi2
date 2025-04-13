@@ -10,6 +10,7 @@ import { useState, ChangeEvent, FormEvent } from 'react';
 import { IProduct } from '@/app/components/ProductsCard';
 import { useStore } from '@/app/utils/useStore';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 // Define interfaces for form data and product
 interface FormData {
@@ -37,7 +38,7 @@ export interface IDBOrderData {
 
 const FormData = () => {
   const { cart, deliveryCharge, setDeliveryCharge, setTextMessage } = useStore();
-
+  const router = useRouter();
   // State for form inputs with type
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -134,6 +135,9 @@ const FormData = () => {
         note: '',
         deliveryOption: '130',
       });
+
+      // Redirect to the receipt page with the orderId
+      router.push(`/receipt/${newOrderData.orderId}`);
     } catch (error) {
       console.error('Error creating order:', error);
     } finally {
