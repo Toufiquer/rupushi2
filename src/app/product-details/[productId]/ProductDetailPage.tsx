@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import { ShoppingCart, PhoneCall } from 'lucide-react';
 import { IProduct } from '@/app/components/ProductsCard';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/app/utils/useStore';
 

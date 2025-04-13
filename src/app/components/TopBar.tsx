@@ -105,7 +105,7 @@ export default function TopBar() {
     <>
       {/* Desktop navigation with TopMarquee */}
       {!['/dashboard', '/login'].includes(pathname) ||
-        (pathname.split('/')[1] === 'receipt' && (
+        (!['receipt', 'receipt-print'].includes(pathname.split('/')[1]) && (
           <div className="bg-[#f16514] text-white py-2">
             <div className=" container max-w-7xl mx-auto flex justify-between items-center px-2">
               {/* TopMarquee - visible on all devices */}
@@ -136,7 +136,7 @@ export default function TopBar() {
         ))}
 
       {/* Search Bar - visible on all devices */}
-      {!(pathname.split('/')[1] === 'receipt') && (
+      {!['receipt', 'receipt-print'].includes(pathname.split('/')[1]) && (
         <div className="bg-white shadow-md py-3 md:px-4 px-1">
           <div className=" container max-w-7xl mx-auto flex items-center justify-between">
             {/* Logo */}

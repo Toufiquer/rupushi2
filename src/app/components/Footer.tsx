@@ -150,7 +150,7 @@ const Footer = () => {
   const pathname = usePathname();
   return (
     <>
-      {!(pathname.split('/')[1] === 'receipt') && (
+      {!['receipt', 'receipt-print'].includes(pathname.split('/')[1]) && (
         <footer className="bg-slate-700 text-white pt-12 shadow-lg border-t-2 border-slate-900 shadow-stone-200 flex flex-col items-center justify-center">
           <div className="w-full flex flex-col container max-w-7xl">
             <div className="md:hidden block">

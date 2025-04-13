@@ -5,7 +5,6 @@ import { Printer } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import Link from 'next/link';
 
 interface ProductInfo {
   name: string;
@@ -112,16 +111,7 @@ const OrderReceipt = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-4 md:p-8 flex flex-col items-center">
       <div className="bg-white rounded-lg shadow-md w-full max-w-3xl">
-        {/* Order Confirmation Header */}
-        <div className="border border-green-700 border-dashed rounded-lg p-4 m-4 text-center">
-          <h2 className="text-green-700 text-xl font-semibold">
-            Thank you. Your order has been received.
-          </h2>
-          <p className="text-gray-600 mt-2">
-            Order Status: <span className="font-medium capitalize">{order.orderStatus}</span>
-          </p>
-        </div>
-
+        <h3 className="font-bold text-lg pb-4 border-b border-gray-200 p-4">ORDER DETAILS</h3>
         {/* Order Summary */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4 text-sm border-b border-gray-200">
           <div>
@@ -142,14 +132,8 @@ const OrderReceipt = () => {
           </div>
         </div>
 
-        <div className="p-4">
-          <p className="text-gray-700">Pay with cash upon delivery.</p>
-        </div>
-
         {/* Order Details */}
         <div className="p-4">
-          <h3 className="font-bold text-lg pb-4 border-b border-gray-200">ORDER DETAILS</h3>
-
           <div className="mt-4 border-b border-gray-200">
             <div className="flex justify-between font-semibold pb-2">
               <span>PRODUCT</span>
@@ -157,10 +141,12 @@ const OrderReceipt = () => {
             </div>
 
             {order.productInfo.map((product, index) => (
-              <div key={index} className="py-4 border-t border-gray-100">
-                <div className="flex justify-between items-center">
+              <div key={index} className="py-1 border-t border-gray-100">
+                <div className="flex justify-between items-center text-xs">
                   <div className="flex justify-between items-center">
-                    <p className="font-medium">{product.name}</p>
+                    <p className="font-medium">
+                      {index + 1}. {product.name}
+                    </p>
                     <p className="text-sm text-gray-500 pl-2">
                       ( {product.quantity} × {product.discountedPrice}৳)
                     </p>
@@ -194,8 +180,8 @@ const OrderReceipt = () => {
           </div>
 
           {order.customerInfo.note && (
-            <div className="mt-4 border-t border-gray-200 pt-4">
-              <h3 className="font-bold mb-2">NOTE:</h3>
+            <div className="mt-4 border-t border-gray-200 pt-4 flex gap-2 text-sm items-center justify-start">
+              <h3 className="font-bold">NOTE:</h3>
               <p className="text-gray-700">{order.customerInfo.note}</p>
             </div>
           )}
@@ -219,15 +205,6 @@ const OrderReceipt = () => {
             <Printer className="mr-2 h-5 w-5" />
             Print Order
           </button>
-        </div>
-        {/* Print sort button */}
-        <div className="mb-8 flex justify-center">
-          <Link
-            href={`/receipt-print/${orderId}`}
-            className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-6 py-2 rounded-md flex items-center transition duration-200"
-          >
-            Short Receipt
-          </Link>
         </div>
       </div>
 
