@@ -1,6 +1,9 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Truck, Clock, Shield, Facebook, Instagram, Twitter } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 export const categoryMenuItems = [
   { name: 'Special Offer', href: '/category/special-offer' },
   { name: 'Earrings', href: '/category/earrings' },
@@ -143,33 +146,37 @@ const CustomerCareSection = () => (
     </div>
   </div>
 );
-
 const Footer = () => {
+  const pathname = usePathname();
   return (
-    <footer className="bg-slate-700 text-white pt-12 shadow-lg border-t-2 border-slate-900 shadow-stone-200 flex flex-col items-center justify-center">
-      <div className="w-full flex flex-col container max-w-7xl">
-        <div className="md:hidden block">
-          <div className="w-full grid grid-cols-1 py-8 px-4 md:px-0 gap-8">
-            <LogoSection />
-            <InformationSection />
-            <TopCategoriesSection />
-            <CustomerCareSection />
+    <>
+      {!(pathname.split('/')[1] === 'receipt') && (
+        <footer className="bg-slate-700 text-white pt-12 shadow-lg border-t-2 border-slate-900 shadow-stone-200 flex flex-col items-center justify-center">
+          <div className="w-full flex flex-col container max-w-7xl">
+            <div className="md:hidden block">
+              <div className="w-full grid grid-cols-1 py-8 px-4 md:px-0 gap-8">
+                <LogoSection />
+                <InformationSection />
+                <TopCategoriesSection />
+                <CustomerCareSection />
+              </div>
+            </div>
+            <div className="hidden md:block">
+              <div className="w-full grid grid-cols-2 lg:grid-cols-4 py-8 px-4 md:px-0 gap-8">
+                <LogoSection />
+                <InformationSection />
+                <TopCategoriesSection />
+                <CustomerCareSection />
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="hidden md:block">
-          <div className="w-full grid grid-cols-2 lg:grid-cols-4 py-8 px-4 md:px-0 gap-8">
-            <LogoSection />
-            <InformationSection />
-            <TopCategoriesSection />
-            <CustomerCareSection />
+          {/* Bottom Bar */}
+          <div className="border-t-1 mt-12 text-center border-slate-900 text-white  py-4 w-full">
+            <p> Rupushi - All Rights Reserved &copy; {new Date().getFullYear()}</p>
           </div>
-        </div>
-      </div>
-      {/* Bottom Bar */}
-      <div className="border-t-1 mt-12 text-center border-slate-900 text-white  py-4 w-full">
-        <p> Rupushi - All Rights Reserved &copy; {new Date().getFullYear()}</p>
-      </div>
-    </footer>
+        </footer>
+      )}
+    </>
   );
 };
 

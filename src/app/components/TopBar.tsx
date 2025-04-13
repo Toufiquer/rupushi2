@@ -100,125 +100,129 @@ export default function TopBar() {
       startAutoplay();
     }
   }, [isDragging, startAutoplay, stopAutoplay]);
+  console.log(' -- -- -- pathname', pathname.split('/')[1]);
   return (
     <>
       {/* Desktop navigation with TopMarquee */}
-      {!['/dashboard', '/login'].includes(pathname) && (
-        <div className="bg-[#f16514] text-white py-2">
-          <div className=" container max-w-7xl mx-auto flex justify-between items-center px-2">
-            {/* TopMarquee - visible on all devices */}
-            <div className="flex-grow md:flex-grow-0 md:w-2/4">
-              <TopMarquee />
+      {!['/dashboard', '/login'].includes(pathname) ||
+        (pathname.split('/')[1] === 'receipt' && (
+          <div className="bg-[#f16514] text-white py-2">
+            <div className=" container max-w-7xl mx-auto flex justify-between items-center px-2">
+              {/* TopMarquee - visible on all devices */}
+              <div className="flex-grow md:flex-grow-0 md:w-2/4">
+                <TopMarquee />
+              </div>
+
+              {/* Desktop Navigation Links - hidden on mobile */}
+              <div className="hidden md:flex items-center space-x-4 md:pl-1">
+                <Link href="/" className="hover:underline duration-200">
+                  Home
+                </Link>
+                <span>|</span>
+                <Link href="/about-us" className="hover:underline duration-200">
+                  About Us
+                </Link>
+                <span>|</span>
+                <Link href="/terms-condition" className="hover:underline duration-200">
+                  Terms & Condition
+                </Link>
+                <span>|</span>
+                <Link href="/privacy-policy" className="hover:underline duration-200">
+                  Privacy Policy
+                </Link>
+              </div>
+            </div>
+          </div>
+        ))}
+
+      {/* Search Bar - visible on all devices */}
+      {!(pathname.split('/')[1] === 'receipt') && (
+        <div className="bg-white shadow-md py-3 md:px-4 px-1">
+          <div className=" container max-w-7xl mx-auto flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center">
+              <Link href="/" className="text-2xl font-bold text-[#f16514]">
+                <div className="w-[160px] h-[30px] relative">
+                  <div className="absolute top-[-15px] left-[-20px] md:left-0 w-full h-auto mb-4 ">
+                    <Image
+                      src="/rupushi-crop.png" // Replace with your actual logo path
+                      alt="Rupush Logo"
+                      width={200}
+                      height={100}
+                    />
+                  </div>
+                </div>
+              </Link>
             </div>
 
-            {/* Desktop Navigation Links - hidden on mobile */}
-            <div className="hidden md:flex items-center space-x-4 md:pl-1">
-              <Link href="/" className="hover:underline duration-200">
-                Home
-              </Link>
-              <span>|</span>
-              <Link href="/about-us" className="hover:underline duration-200">
-                About Us
-              </Link>
-              <span>|</span>
-              <Link href="/terms-condition" className="hover:underline duration-200">
-                Terms & Condition
-              </Link>
-              <span>|</span>
-              <Link href="/privacy-policy" className="hover:underline duration-200">
-                Privacy Policy
+            {/* Search Box */}
+            <SearchBox />
+            <SearchBoxMobile />
+            {/* Mobile Hamburger Menu */}
+            <div className="md:hidden">
+              {isMenuOpen ? (
+                <button onClick={toggleMenu} className="text-[rgb(245,112,35)] focus:outline-none">
+                  {/* ক্রস আইকন */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              ) : (
+                <button onClick={toggleMenu} className="text-[#f16514] focus:outline-none">
+                  {/* হ্যামবার্গার আইকন */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  </svg>
+                </button>
+              )}
+            </div>
+            {/* Desktop User Icons */}
+            <div className="hidden md:flex items-center space-x-4">
+              <Link href="/cart" className="text-gray-700 hover:text-[#f16514] relative">
+                <span className="absolute -top-2 -right-2 bg-[#f16514] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                  {`${cart.length || 0}`}
+                </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
               </Link>
             </div>
           </div>
         </div>
       )}
-
-      {/* Search Bar - visible on all devices */}
-      <div className="bg-white shadow-md py-3 md:px-4 px-1">
-        <div className=" container max-w-7xl mx-auto flex items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center">
-            <Link href="/" className="text-2xl font-bold text-[#f16514]">
-              <div className="w-[160px] h-[30px] relative">
-                <div className="absolute top-[-15px] left-[-20px] md:left-0 w-full h-auto mb-4 ">
-                  <Image
-                    src="/rupushi-crop.png" // Replace with your actual logo path
-                    alt="Rupush Logo"
-                    width={200}
-                    height={100}
-                  />
-                </div>
-              </div>
-            </Link>
-          </div>
-
-          {/* Search Box */}
-          <SearchBox />
-          <SearchBoxMobile />
-          {/* Mobile Hamburger Menu */}
-          <div className="md:hidden">
-            {isMenuOpen ? (
-              <button onClick={toggleMenu} className="text-[rgb(245,112,35)] focus:outline-none">
-                {/* ক্রস আইকন */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            ) : (
-              <button onClick={toggleMenu} className="text-[#f16514] focus:outline-none">
-                {/* হ্যামবার্গার আইকন */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              </button>
-            )}
-          </div>
-          {/* Desktop User Icons */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Link href="/cart" className="text-gray-700 hover:text-[#f16514] relative">
-              <span className="absolute -top-2 -right-2 bg-[#f16514] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                {`${cart.length || 0}`}
-              </span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </div>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
