@@ -41,6 +41,8 @@ const AllProducts = () => {
             setAllProducts(data.data);
             // Initially show first 8 products
             setShowAllProducts(data.data.slice(0, productsPerPage));
+            
+          setIsFetchComplete(true);
           }
         });
     } catch (error) {

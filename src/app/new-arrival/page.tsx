@@ -38,6 +38,8 @@ const AllProducts = () => {
 
           // Initially show first 8 products
           setShowAllProducts(filteredProducts.slice(0, productsPerPage));
+
+          setIsFetchComplete(true);
         }
       });
   }, [category]);
