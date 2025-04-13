@@ -37,39 +37,43 @@ const Page = () => {
           Total Orders: {getResponseDataPagination?.data?.total}
         </div>
         <OrderTable data={getResponseData} isLoading={isLoading} />
-        <Pagination
-          currentPage={page}
-          itemsPerPage={limit}
-          onPageChange={setPage}
-          totalItems={getResponseDataPagination?.data?.total || 10}
-        />{' '}
-        <div className="max-w-[380px] flex items-center justify-between pl-2 gap-4 rounded-xl w-full mx-auto mt-8">
-          <Label htmlFor="set-limit" className="pl-2 w-full">
-            <p className="text-right text-slate-600 font-normal ">Order per page</p>
-          </Label>
-          <Select
-            onValueChange={value => {
-              setLimit(Number(value));
-              setPage(1);
-            }}
-            defaultValue={limit.toString()}
-          >
-            <SelectTrigger className="col-span-4">
-              <SelectValue placeholder="Select a limit" />
-            </SelectTrigger>
-            <SelectContent className="bg-slate-50">
-              {[2, 5, 10, 25, 50, 100].map(i => (
-                <SelectItem
-                  key={i}
-                  value={i.toString()}
-                  className="cursor-pointer hover:bg-slate-200 bg-slate-50"
-                >
-                  {i}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        {limit < getResponseDataPagination?.data?.total && (
+          <div>
+            <Pagination
+              currentPage={page}
+              itemsPerPage={limit}
+              onPageChange={setPage}
+              totalItems={getResponseDataPagination?.data?.total || 10}
+            />
+            <div className="max-w-[380px] flex items-center justify-between pl-2 gap-4 rounded-xl w-full mx-auto mt-8">
+              <Label htmlFor="set-limit" className="pl-2 w-full">
+                <p className="text-right text-slate-600 font-normal ">Order per page</p>
+              </Label>
+              <Select
+                onValueChange={value => {
+                  setLimit(Number(value));
+                  setPage(1);
+                }}
+                defaultValue={limit.toString()}
+              >
+                <SelectTrigger className="col-span-4">
+                  <SelectValue placeholder="Select a limit" />
+                </SelectTrigger>
+                <SelectContent className="bg-slate-50">
+                  {[2, 25, 50, 100].map(i => (
+                    <SelectItem
+                      key={i}
+                      value={i.toString()}
+                      className="cursor-pointer hover:bg-slate-200 bg-slate-50"
+                    >
+                      {i}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -288,7 +288,6 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  whileHover={{ backgroundColor: 'rgba(249, 250, 251, 1)' }}
                   className="cursor-pointer"
                 >
                   <td className="px-4 py-4 text-sm text-gray-900">{order.orderId}</td>
