@@ -178,10 +178,7 @@ const OrderReceipt = () => {
 
             <div className="flex justify-between">
               <span>Shipping:</span>
-              <span className="flex items-center">
-                {order.deliveryCharge}৳{' '}
-                <span className="text-xs text-gray-500 ml-1">via {order.shippingArea}</span>
-              </span>
+              <span className="flex items-center">{order.deliveryCharge}৳ </span>
             </div>
 
             <div className="flex justify-between">

@@ -35,7 +35,7 @@ interface OrderConfirmationProps {
   };
 }
 
-export default function OrderConfirmation({
+export default function OrderConfirmationReceipt({
   orderNumber = '6989',
   date = 'April 12, 2025',
   total = '700৳',

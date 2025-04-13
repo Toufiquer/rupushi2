@@ -75,7 +75,7 @@ const FormData = () => {
 
       // Determine delivery charge and shipping area based on delivery option
       const deliveryCharge = formData.deliveryOption === '130' ? 130 : 60;
-      const shippingArea = deliveryCharge === 130 ? 'inside Dhaka' : 'outside Dhaka';
+      const shippingArea = deliveryCharge === 60 ? 'inside Dhaka' : 'outside Dhaka';
 
       const totalPrice =
         deliveryCharge +

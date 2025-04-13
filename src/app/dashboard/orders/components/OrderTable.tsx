@@ -11,6 +11,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import OrderDetailsPage from './SingleOrderView';
+import Link from 'next/link';
 
 // Types from the prompt
 export interface CustomerInfo {
@@ -330,24 +331,18 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
                   <td className="px-4 py-4 text-sm text-gray-900">{order.totalProduct}</td>
                   <td className="pr-2">
                     <div className="w-full flex items-center justify-end gap-2">
-                      <Dialog>
-                        <DialogTrigger
-                          onClick={() => handleUpdateView(order._id, 'view')}
-                          className="border-1 border-slate-400 rounded-lg px-4 py-1 text-sm"
-                        >
-                          View
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>Order Details</DialogTitle>
-                            <OrderDetailsPage orderIdToFetch={viewId} />
-                          </DialogHeader>
-                        </DialogContent>
-                      </Dialog>
+                      <Link
+                        href={`/receipt/${order.orderId}`}
+                        target="_blank"
+                        className="border-1 border-slate-400 rounded-lg px-4 py-1 text-sm cursor-pointer"
+                      >
+                        Receipt
+                      </Link>
+
                       <Dialog>
                         <DialogTrigger
                           onClick={() => handleUpdateView(order._id, 'update')}
-                          className="border-1 border-slate-400 rounded-lg px-4 py-1 text-sm"
+                          className="border-1 border-slate-400 rounded-lg px-4 py-1 text-sm cursor-pointer"
                         >
                           Update
                         </DialogTrigger>
