@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,6 +7,33 @@ import { useToast } from '@/components/ui/use-toast';
 import Image from 'next/image';
 import { Switch } from '@/components/ui/switch';
 import UploadImg from './upload-img';
+
+interface ImageItem {
+  id: string;
+  url: string;
+  display_url: string;
+}
+
+interface FormData {
+  name: string;
+  'product-code': string;
+  img: string;
+  realPrice: string;
+  discountedPrice: string;
+  offer: string;
+  stock: string;
+  'description-top': string;
+  'description-bottom': string;
+  material: string;
+  design: string;
+  color: string;
+  weight: string;
+  category: string;
+  greenBox: string;
+  isArrival: boolean;
+  'chain length': string;
+  style: string;
+}
 
 const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
   const { toast } = useToast();
@@ -29,11 +54,11 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
     'chain-length': '',
     style: '',
   });
-  const [images, setImages] = useState<{ id: string; url: string; display_url: string }[]>([]);
+  const [images, setImages] = useState<ImageItem[]>([]);
   const [showMediaModal, setShowMediaModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isNewArrival, setIsNewArrival] = useState(true);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     'product-code': '',
     img: 'https://i.ibb.co/ZfzRN83/product.png',
@@ -54,10 +79,30 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
     style: '',
   });
   const [selectedImage, setSelectedImage] = useState('');
+
+  const calculateOffer = (realPrice: string, discountedPrice: string): number => {
+    const realPriceNum = parseFloat(realPrice);
+    const discountedPriceNum = parseFloat(discountedPrice);
+
+    if (!isNaN(realPriceNum) && !isNaN(discountedPriceNum) && realPriceNum > 0) {
+      const discount = ((realPriceNum - discountedPriceNum) / realPriceNum) * 100;
+      return Math.round(discount); // Round to the nearest whole number
+    }
+
+    return 0;
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    let updatedFormData: Partial<FormData> = { [name]: value };
+    setFormData(prev => ({ ...prev, ...updatedFormData }));
   };
+  useEffect(() => {
+    if (formData.realPrice && formData.discountedPrice) {
+      const discount = calculateOffer(formData.realPrice, formData.discountedPrice);
+      setFormData(pre => ({ ...pre, offer: discount.toString() }));
+    }
+  }, [formData.realPrice, formData.discountedPrice]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
