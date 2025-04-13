@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 import { ChevronDown, ChevronUp, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -173,11 +172,7 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
   if (isLoading) {
     return (
       <div className="flex justify-center items-center p-8">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-          className="w-12 h-12 border-4 border-gray-300 rounded-full border-t-blue-500"
-        />
+        <div className="w-12 h-12 border-4 border-gray-300 rounded-full border-t-blue-500 animate-spin" />
       </div>
     );
   }
@@ -185,26 +180,18 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
   // Render error state
   if (error) {
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="p-4 bg-red-100 text-red-700 rounded-md"
-      >
+      <div className="p-4 bg-red-100 text-red-700 rounded-md">
         <span>Error: {error}</span>
-      </motion.div>
+      </div>
     );
   }
 
   // Render empty state
   if (!data || !data.data || !data.data._2_template_ || data.data._2_template_.length === 0) {
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="p-8 text-center text-gray-500"
-      >
+      <div className="p-8 text-center text-gray-500">
         <span>No orders found.</span>
-      </motion.div>
+      </div>
     );
   }
 
@@ -250,6 +237,7 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
           <thead className="bg-gray-50">
             <tr>
               {[
+                { key: '_id', label: 'SL' },
                 { key: 'orderId', label: 'Order ID' },
                 { key: 'customerName', label: 'Customer Name' },
                 { key: 'orderStatus', label: 'Status' },
@@ -257,9 +245,9 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
                 { key: 'createdAt', label: 'Date' },
                 { key: 'totalProduct', label: 'Products' },
                 { key: '_id', label: 'Actions' },
-              ].map(column => (
+              ].map((column, idx) => (
                 <th
-                  key={column.key}
+                  key={column.key + idx}
                   className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                   onClick={() => handleSort(column.key as SortField)}
                 >
@@ -282,14 +270,10 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {visibleData.map(order => (
-              <React.Fragment key={order._id}>
-                <motion.tr
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="cursor-pointer"
-                >
+            {visibleData.map((order, idx) => (
+              <React.Fragment key={order._id + idx}>
+                <tr className="cursor-pointer hover:bg-slate-200">
+                  <td className="px-4 py-4 text-sm text-gray-900">{idx + 1}</td>
                   <td className="px-4 py-4 text-sm text-gray-900">{order.orderId}</td>
                   <td className="px-4 py-4 text-sm text-gray-900">
                     {order.customerInfo.customerName}
@@ -329,7 +313,7 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
                       <UpdateOrder order={order} />
                     </div>
                   </td>
-                </motion.tr>
+                </tr>
               </React.Fragment>
             ))}
           </tbody>

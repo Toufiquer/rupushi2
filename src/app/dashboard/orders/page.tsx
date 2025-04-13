@@ -23,7 +23,7 @@ import { useGetOrdersQuery } from '@/redux/features/orders/ordersApi';
 import OrderTable from './components/OrderTable';
 const Page = () => {
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(2);
+  const [limit, setLimit] = useState(15);
 
   const { data: getResponseData, isLoading, error } = useGetOrdersQuery({ page, limit });
   const { data: getResponseDataPagination } = useGetOrdersQuery({ page: 1, limit: 1 });
@@ -60,7 +60,7 @@ const Page = () => {
                   <SelectValue placeholder="Select a limit" />
                 </SelectTrigger>
                 <SelectContent className="bg-slate-50">
-                  {[2, 25, 50, 100].map(i => (
+                  {[15, 25, 50, 100].map(i => (
                     <SelectItem
                       key={i}
                       value={i.toString()}
