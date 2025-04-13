@@ -69,7 +69,7 @@ const NewArrival = () => {
     return <Loading />;
   }
   return (
-    <main className="w-full flex flex-col pb-12">
+    <main className="w-full flex flex-col pb-12 md:px-4 lg:mx-0">
       <div className="w-full flex items-center justify-between mb-6 py-3">
         <h2 className="text-xl md:text-3xl font-bold text-gray-900 tracking-tight w-full justify-center ">
           New Arrival

@@ -14,7 +14,7 @@ import { usePathname } from 'next/navigation';
 const PageCategory = () => {
   const pathname = usePathname();
   return (
-    <div>
+    <div className="md:px-4 lg:mx-0">
       {/* Category Slider Menu - visible on all devices */}
       {!['/dashboard', '/login'].includes(pathname) && <CategoryMenu />}
     </div>

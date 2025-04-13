@@ -79,7 +79,7 @@ const LogoSection = () => (
 );
 const InformationSection = () => (
   <div>
-    <h4 className="font-bold text-lg pb-1 lg:mt-8 md:text-left">Information</h4>
+    <h4 className="font-bold text-lg pb-1 md:mt-8 md:text-left">Information</h4>
     <ul className="text-gray-200  md:text-left space-y-2">
       <li>
         <Link href="/about" className="hover:text-red-500 transition">
