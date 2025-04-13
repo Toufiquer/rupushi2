@@ -2,16 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 import { ChevronDown, ChevronUp, Search, ChevronLeft, ChevronRight } from 'lucide-react';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import OrderDetailsPage from './SingleOrderView';
+
 import Link from 'next/link';
+import UpdateOrder from './UpdateOrder';
 
 // Types from the prompt
 export interface CustomerInfo {
@@ -103,7 +96,6 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
   // State for pagination
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = data?.data?.limit || 10;
-  const [viewId, setViewId] = useState('');
 
   // Reset to first page when filter or search changes
   useEffect(() => {
@@ -218,11 +210,7 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
 
   // Generate status options based on available data
   const statusOptions = Array.from(new Set(data.data._2_template_.map(item => item.orderStatus)));
-  const handleUpdateView = (id: string, isUpdate: string) => {
-    console.log(' id : ', id);
-    console.log('isUpdate : ', isUpdate);
-    setViewId(id);
-  };
+
   // Render table
   return (
     <div className="w-full">
@@ -339,23 +327,7 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
                         Receipt
                       </Link>
 
-                      <Dialog>
-                        <DialogTrigger
-                          onClick={() => handleUpdateView(order._id, 'update')}
-                          className="border-1 border-slate-400 rounded-lg px-4 py-1 text-sm cursor-pointer"
-                        >
-                          Update
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>Are you absolutely sure?</DialogTitle>
-                            <DialogDescription>
-                              This action cannot be undone. This will permanently delete your
-                              account and remove your data from our servers.
-                            </DialogDescription>
-                          </DialogHeader>
-                        </DialogContent>
-                      </Dialog>
+                      <UpdateOrder order={order} />
                     </div>
                   </td>
                 </motion.tr>
