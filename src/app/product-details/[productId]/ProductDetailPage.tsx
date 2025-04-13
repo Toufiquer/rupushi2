@@ -7,7 +7,7 @@ import { useStore } from '@/app/utils/useStore';
 
 const ProductDetailPage = ({ product }: { product: IProduct }) => {
   const router = useRouter();
-  const { cart, updateCart } = useStore();
+  const { cart, updateCart, setIsFetchingCartComplete } = useStore();
   const handleAddToCart = () => {
     // Convert IProduct to CartItem format
     const cartItem: IProduct = product;
@@ -30,6 +30,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
       }
     }
     updateCart(newUpdateCart);
+    setIsFetchingCartComplete(true);
     // Add item to Zustand store
     // addItem(cartItem);
     router.push('/cart');
@@ -76,9 +77,11 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
               <div className="flex space-x-4 mt-8">
                 <div className="w-full flex flex-col gap-4">
                   <div className="w-full flex flex-row gap-4">
-                    <div className="flex-1 cursor-pointer bg-[#e39366] font-semibold text-white py-3 rounded-lg flex items-center justify-center space-x-2 hover:bg-[hsl(22,40%,59%)] transition">
+                    <div
+                      onClick={handleAddToCart}
+                      className="flex-1 cursor-pointer bg-[#e39366] font-semibold text-white py-3 rounded-lg flex items-center justify-center space-x-2 hover:bg-[hsl(22,40%,59%)] transition"
+                    >
                       <button
-                        onClick={handleAddToCart}
                         type="button"
                         className="flex items-center justify-center space-x-2 cursor-pointer"
                       >

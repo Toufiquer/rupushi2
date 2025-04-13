@@ -15,7 +15,7 @@ import LoadingComponent from '@/components/common/Loading';
 import { Check } from 'lucide-react';
 
 const AllProducts = () => {
-  const { cart, textMessage } = useStore();
+  const { cart, textMessage, isFetchingCartComplete } = useStore();
 
   let renderProducts = <LoadingComponent />;
   const textFirstStyle = 'bg-green-400 text-black';
@@ -37,6 +37,12 @@ const AllProducts = () => {
             আরো প্রোডাক্ট দেখুন
           </button>
         </Link>
+      </div>
+    );
+  } else if (isFetchingCartComplete) {
+    renderProducts = (
+      <div className="text-center text-xl text-slate-400 min-h-[40vh] flex items-center justify-center">
+        Nothing was found.
       </div>
     );
   }

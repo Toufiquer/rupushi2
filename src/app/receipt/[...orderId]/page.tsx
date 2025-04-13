@@ -211,23 +211,26 @@ const OrderReceipt = () => {
         </div>
 
         {/* Print Button */}
-        <div className="p-4 flex justify-center">
-          <button
-            onClick={handlePrint}
-            className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-6 py-2 rounded-md flex items-center transition duration-200"
-          >
-            <Printer className="mr-2 h-5 w-5" />
-            Print Order
-          </button>
-        </div>
-        {/* Print sort button */}
-        <div className="mb-8 flex justify-center">
-          <Link
-            href={`/receipt-print/${orderId}`}
-            className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-6 py-2 rounded-md flex items-center transition duration-200"
-          >
-            Short Receipt
-          </Link>
+        <div className="w-full flex items-center justify-end gap-2 pr-4">
+          <div className="p-4 flex justify-center">
+            <button
+              onClick={handlePrint}
+              className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-6 py-2 rounded-md flex items-center transition duration-200"
+            >
+              <Printer className="mr-2 h-5 w-5" />
+              Print
+            </button>
+          </div>
+          {/* Print sort button */}
+          <div className="flex justify-center">
+            <Link
+              target="_blank"
+              href={`/receipt-print/${orderId}`}
+              className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-6 py-2 rounded-md flex items-center transition duration-200"
+            >
+              Short Receipt
+            </Link>
+          </div>
         </div>
       </div>
 

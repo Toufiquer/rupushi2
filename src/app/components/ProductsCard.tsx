@@ -59,7 +59,7 @@ export const defaultIProduct = {
 };
 const ProductCard = ({ productData }: { productData: IProduct }) => {
   const router = useRouter();
-  const { cart, updateCart } = useStore();
+  const { cart, updateCart, setIsFetchingCartComplete } = useStore();
   const handleAddToCart = () => {
     // Convert IProduct to CartItem format
     const cartItem: IProduct = productData;
@@ -82,6 +82,7 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
       }
     }
     updateCart(newUpdateCart);
+    setIsFetchingCartComplete(true);
     // Add item to Zustand store
     // addItem(cartItem);
     router.push('/cart');

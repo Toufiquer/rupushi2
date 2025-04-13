@@ -19,6 +19,7 @@ const AllProducts = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const productsPerPage = 8;
 
+  const [isFetchComplete, setIsFetchComplete] = useState(false);
   const filterProducts = (product: IProduct, searchText: string): boolean => {
     // Convert search text to lowercase for case-insensitive matching
     const normalizedSearchText = searchText.toLowerCase().trim();
@@ -78,6 +79,8 @@ const AllProducts = () => {
     // Update state
     setCurrentPage(pageNumber);
     setShowAllProducts(pageProducts);
+
+    setIsFetchComplete(true);
   };
 
   // Calculate total number of pages
@@ -98,6 +101,12 @@ const AllProducts = () => {
             <ProductCard productData={product} />
           </div>
         ))}
+      </div>
+    );
+  } else if (isFetchComplete) {
+    renderProducts = (
+      <div className="text-center text-xl text-slate-400 min-h-[40vh] flex items-center justify-center">
+        Nothing was found.
       </div>
     );
   }

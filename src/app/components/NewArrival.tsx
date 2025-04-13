@@ -19,6 +19,7 @@ const NewArrival = () => {
   const [showAllProducts, setShowAllProducts] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const [isFetchComplete, setIsFetchComplete] = useState(false);
   const productsPerPage = 5;
 
   // Fetch products on component mount
@@ -34,6 +35,8 @@ const NewArrival = () => {
             setShowAllProducts(
               data.data.filter((i: IProduct) => i.isArrival).slice(0, productsPerPage),
             );
+
+            setIsFetchComplete(true);
           }
         });
     } catch (error) {
@@ -62,6 +65,12 @@ const NewArrival = () => {
             <ProductCard productData={product} />
           </div>
         ))}
+      </div>
+    );
+  } else if (isFetchComplete) {
+    renderProducts = (
+      <div className="text-center text-xl text-slate-400 min-h-[40vh] flex items-center justify-center">
+        Nothing was found.
       </div>
     );
   }

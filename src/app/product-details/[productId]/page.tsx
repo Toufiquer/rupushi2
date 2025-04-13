@@ -21,6 +21,7 @@ const AllProducts = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const productsPerPage = 8;
 
+  const [isFetchComplete, setIsFetchComplete] = useState(false);
   // Get the productId from the URL
   const params = useParams();
   const productId = params?.productId as string;
@@ -59,6 +60,7 @@ const AllProducts = () => {
     // Update state
     setCurrentPage(pageNumber);
     setShowAllProducts(pageProducts);
+    setIsFetchComplete(true);
   };
 
   // Calculate total number of pages
@@ -95,6 +97,12 @@ const AllProducts = () => {
             </div>
           </div>
         </div>
+      </div>
+    );
+  } else if (isFetchComplete) {
+    renderProducts = (
+      <div className="text-center text-xl text-slate-400 min-h-[40vh] flex items-center justify-center">
+        Nothing was found.
       </div>
     );
   }

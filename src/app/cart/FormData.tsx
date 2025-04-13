@@ -137,7 +137,9 @@ const FormData = () => {
       });
 
       // Redirect to the receipt page with the orderId
-      router.push(`/receipt/${newOrderData.orderId}`);
+      // router.push(`/receipt/${newOrderData.orderId}`);
+      const receiptUrl = `/receipt/${newOrderData.orderId}`;
+      window.open(receiptUrl, '_blank');
     } catch (error) {
       console.error('Error creating order:', error);
     } finally {

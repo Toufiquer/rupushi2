@@ -11,12 +11,13 @@ interface CartItemComponentProps {
 export const CartItemComponent: React.FC<CartItemComponentProps> = ({ item }) => {
   console.log('item : ', item);
   const price = item.discountedPrice || item.realPrice;
-  const { cart, updateCart } = useStore();
+  const { cart, updateCart, setIsFetchingCartComplete } = useStore();
   const quantity = cart.filter(i => i.id === item.id)[0]?.quantity || 1;
   const handleRemove = (itemId: string) => {
     console.log(itemId);
     const othersCart = cart.filter(curr => curr.id !== itemId);
     updateCart(othersCart);
+    setIsFetchingCartComplete(true);
   };
   const handleIncrease = () => {
     const newUpdateCart = cart.map(mainItem => {
@@ -27,6 +28,7 @@ export const CartItemComponent: React.FC<CartItemComponentProps> = ({ item }) =>
       return i;
     });
     updateCart(newUpdateCart);
+    setIsFetchingCartComplete(true);
   };
   const handleDecrease = () => {
     const newUpdateCart = cart.map(mainItem => {
@@ -39,6 +41,7 @@ export const CartItemComponent: React.FC<CartItemComponentProps> = ({ item }) =>
       return i;
     });
     updateCart(newUpdateCart);
+    setIsFetchingCartComplete(true);
   };
   return (
     <div className="flex items-center justify-between p-4 border-b w-full">

@@ -100,43 +100,51 @@ export default function TopBar() {
       startAutoplay();
     }
   }, [isDragging, startAutoplay, stopAutoplay]);
-  console.log(' -- -- -- pathname', pathname.split('/')[1]);
+  console.log(
+    ' ** ** ** path : ',
+    pathname,
+    !['receipt', 'receipt-print'].includes(pathname.split('/')[1]),
+  );
+
+  const RenderTopMarquee = () => (
+    <div className="bg-[#f16514] text-white py-2">
+      <div className=" container max-w-7xl mx-auto flex justify-between items-center px-2">
+        {/* TopMarquee - visible on all devices */}
+        <div className="flex-grow md:flex-grow-0 md:w-2/4">
+          <TopMarquee />
+        </div>
+
+        {/* Desktop Navigation Links - hidden on mobile */}
+        <div className="hidden md:flex items-center space-x-4 md:pl-1">
+          <Link href="/" className="hover:underline duration-200">
+            Home
+          </Link>
+          <span>|</span>
+          <Link href="/about-us" className="hover:underline duration-200">
+            About Us
+          </Link>
+          <span>|</span>
+          <Link href="/terms-condition" className="hover:underline duration-200">
+            Terms & Condition
+          </Link>
+          <span>|</span>
+          <Link href="/privacy-policy" className="hover:underline duration-200">
+            Privacy Policy
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <>
       {/* Desktop navigation with TopMarquee */}
-      {!['/dashboard', '/login'].includes(pathname) ||
-        (!['receipt', 'receipt-print'].includes(pathname.split('/')[1]) && (
-          <div className="bg-[#f16514] text-white py-2">
-            <div className=" container max-w-7xl mx-auto flex justify-between items-center px-2">
-              {/* TopMarquee - visible on all devices */}
-              <div className="flex-grow md:flex-grow-0 md:w-2/4">
-                <TopMarquee />
-              </div>
-
-              {/* Desktop Navigation Links - hidden on mobile */}
-              <div className="hidden md:flex items-center space-x-4 md:pl-1">
-                <Link href="/" className="hover:underline duration-200">
-                  Home
-                </Link>
-                <span>|</span>
-                <Link href="/about-us" className="hover:underline duration-200">
-                  About Us
-                </Link>
-                <span>|</span>
-                <Link href="/terms-condition" className="hover:underline duration-200">
-                  Terms & Condition
-                </Link>
-                <span>|</span>
-                <Link href="/privacy-policy" className="hover:underline duration-200">
-                  Privacy Policy
-                </Link>
-              </div>
-            </div>
-          </div>
-        ))}
+      {!['receipt', 'receipt-print', 'login', 'dashboard'].includes(pathname.split('/')[1]) && (
+        <RenderTopMarquee />
+      )}
 
       {/* Search Bar - visible on all devices */}
-      {!['receipt', 'receipt-print'].includes(pathname.split('/')[1]) && (
+      {!['receipt', 'receipt-print', 'login', 'dashboard'].includes(pathname.split('/')[1]) && (
         <div className="bg-white shadow-md py-3 md:px-4 px-1">
           <div className=" container max-w-7xl mx-auto flex items-center justify-between">
             {/* Logo */}

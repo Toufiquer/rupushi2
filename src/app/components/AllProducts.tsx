@@ -11,7 +11,6 @@
 import { useEffect, useState } from 'react';
 import ProductCard, { IProduct } from '../components/ProductsCard';
 import Link from 'next/link';
-import Loading from '../dashboard/loading';
 import LoadingComponent from '@/components/common/Loading';
 
 const AllProducts = () => {
@@ -19,6 +18,8 @@ const AllProducts = () => {
   const [showAllProducts, setShowAllProducts] = useState<IProduct[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const productsPerPage = 20;
+
+  const [isFetchComplete, setIsFetchComplete] = useState(false);
 
   // Fetch products on component mount
   useEffect(() => {
@@ -49,6 +50,8 @@ const AllProducts = () => {
     // Update state
     setCurrentPage(pageNumber);
     setShowAllProducts(pageProducts);
+
+    setIsFetchComplete(true);
   };
 
   // Calculate total number of pages
@@ -70,6 +73,12 @@ const AllProducts = () => {
             <ProductCard productData={product} />
           </div>
         ))}
+      </div>
+    );
+  } else if (isFetchComplete) {
+    renderProducts = (
+      <div className="text-center text-xl text-slate-400 min-h-[40vh] flex items-center justify-center">
+        Nothing was found.
       </div>
     );
   }
