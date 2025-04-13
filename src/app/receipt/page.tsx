@@ -11,58 +11,36 @@
 import React from 'react';
 import { Printer } from 'lucide-react';
 
-interface OrderConfirmationProps {
-  orderNumber: string;
-  date: string;
-  total: string;
-  paymentMethod: string;
-  products: Array<{
-    name: string;
-    details?: string;
-    price: string;
-  }>;
-  subtotal: string;
-  shipping: {
-    cost: string;
-    method: string;
-  };
-  note?: string;
-  billingAddress: {
-    name: string;
-    address: string;
-    city: string;
-    phone: string;
-  };
-}
-
-export default function OrderConfirmation({
-  orderNumber = '6989',
-  date = 'April 12, 2025',
-  total = '700৳',
-  paymentMethod = 'Cash on delivery',
-  products = [
-    {
-      name: "EID SPECIAL MEN'S PREMIUM PAJAMA - M × 1",
-      details: 'Select Pajama Size: M',
-      price: '580৳',
-    },
-  ],
-  subtotal = '580৳',
-  shipping = {
-    cost: '120৳',
-    method: 'via Outside Dhaka',
-  },
-  note = '',
-  billingAddress = {
-    name: 'Arafat Sunny',
-    address: 'Jafarganj, Debidwar',
-    city: 'Cumilla',
-    phone: '01560006643',
-  },
-}: OrderConfirmationProps) {
+const Page = () => {
   const handlePrint = () => {
     window.print();
   };
+
+  const {
+    orderNumber = '6989',
+    date = 'April 12, 2025',
+    total = '700৳',
+    paymentMethod = 'Cash on delivery',
+    products = [
+      {
+        name: "EID SPECIAL MEN'S PREMIUM PAJAMA - M × 1",
+        details: 'Select Pajama Size: M',
+        price: '580৳',
+      },
+    ],
+    subtotal = '580৳',
+    shipping = {
+      cost: '120৳',
+      method: 'via Outside Dhaka',
+    },
+    note = '',
+    billingAddress = {
+      name: 'Arafat Sunny',
+      address: 'Jafarganj, Debidwar',
+      city: 'Cumilla',
+      phone: '01560006643',
+    },
+  } = {};
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 md:p-8 flex flex-col items-center">
@@ -188,4 +166,6 @@ export default function OrderConfirmation({
       `}</style>
     </div>
   );
-}
+};
+
+export default Page;

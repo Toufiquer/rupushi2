@@ -94,7 +94,7 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    let updatedFormData: Partial<FormData> = { [name]: value };
+    const updatedFormData: Partial<FormData> = { [name]: value };
     setFormData(prev => ({ ...prev, ...updatedFormData }));
   };
   useEffect(() => {

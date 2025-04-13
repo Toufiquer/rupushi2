@@ -1,19 +1,8 @@
-import { get_1_template_, getOrdersByOrderId } from '../../ordersController';
+import { getOrdersByOrderId } from '../../ordersController';
 
 import { formatResponse, handleRateLimit, IResponse } from '../../utils';
 
 // // GET all _1_template_
-// export async function GET(req: Request) {
-//   const rateLimitResponse = handleRateLimit(req);
-//   if (rateLimitResponse) return rateLimitResponse;
-
-//   const orderId = new URL(req.url).searchParams.get('orderId');
-//   console.log('orderId', orderId);
-//   const result: IResponse = orderId ? await getOrdersByOrderId(req) : await get_1_template_(req);
-//   return formatResponse(result.data, result.message, result.status);
-// }
-
-// GET order receipt by orderId
 export async function GET(req: Request) {
   const rateLimitResponse = handleRateLimit(req);
   if (rateLimitResponse) return rateLimitResponse;
@@ -41,8 +30,10 @@ export async function GET(req: Request) {
       // Fallback if no specific endpoint matches
       return formatResponse(null, 'Not Found', 404);
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error processing request:', error);
-    return formatResponse(null, `Internal Server Error: ${error.message || error.toString()}`, 500);
+
+    const err = error as { keyValue?: Record<string, unknown> };
+    return formatResponse(null, `Internal Server Error: ${JSON.stringify(err.keyValue)}`, 500);
   }
 }

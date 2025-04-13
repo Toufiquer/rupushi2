@@ -10,7 +10,6 @@ import { useState, ChangeEvent, FormEvent } from 'react';
 import { IProduct } from '@/app/components/ProductsCard';
 import { useStore } from '@/app/utils/useStore';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
 
 // Define interfaces for form data and product
 interface FormData {
@@ -38,7 +37,7 @@ export interface IDBOrderData {
 
 const FormData = () => {
   const { cart, deliveryCharge, setDeliveryCharge, setTextMessage } = useStore();
-  const router = useRouter();
+
   // State for form inputs with type
   const [formData, setFormData] = useState<FormData>({
     name: '',

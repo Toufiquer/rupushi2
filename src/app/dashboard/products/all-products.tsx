@@ -374,7 +374,7 @@ const AllProducts = () => {
     };
     fetchImages();
   }, []);
-  let renderTableData = products;
+  const renderTableData = products;
   renderTableData.sort((a, b) =>
     a.updatedAt && b.updatedAt
       ? new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()

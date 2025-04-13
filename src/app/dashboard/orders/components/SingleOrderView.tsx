@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useGetOrderByIdQuery } from '@/redux/features/orders/ordersApi';
+import Image from 'next/image';
 
 interface ProductInfo {
   name: string;
@@ -70,7 +71,11 @@ const OrderDetailsPage: React.FC<OrderDetailsProps> = ({ orderIdToFetch }) => {
       {products.map((product, index) => (
         <motion.li key={index} variants={itemVariants} className="py-2 border-b last:border-b-0">
           <div className="flex items-center space-x-4">
-            <img src={product.img} alt={product.name} className="w-16 h-16 object-cover rounded" />
+            <Image
+              src={product.img}
+              alt={product.name}
+              className="w-16 h-16 object-cover rounded"
+            />
             <div>
               <h6 className="font-semibold">{product.name}</h6>
               <span className="text-sm text-gray-500">Code: {product['product-code']}</span>

@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Truck, Clock, Shield, Facebook, Instagram, Twitter } from 'lucide-react';
+import { Truck, Clock, Shield, Facebook, Instagram } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 export const categoryMenuItems = [
   { name: 'Special Offer', href: '/category/special-offer' },
