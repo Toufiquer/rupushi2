@@ -4,6 +4,7 @@ import React from 'react';
 import { Printer } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface ProductInfo {
   name: string;
@@ -156,12 +157,11 @@ const OrderReceipt = () => {
 
             {order.productInfo.map((product, index) => (
               <div key={index} className="py-4 border-t border-gray-100">
-                <div className="flex justify-between">
-                  <div className="flex-1">
+                <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center">
                     <p className="font-medium">{product.name}</p>
-                    <p className="text-sm text-gray-500">Code: {product['product-code']}</p>
-                    <p className="text-sm text-gray-500">
-                      Quantity: {product.quantity} × {product.discountedPrice}৳
+                    <p className="text-sm text-gray-500 pl-2">
+                      ( {product.quantity} × {product.discountedPrice}৳)
                     </p>
                   </div>
                   <p className="font-medium">{product.quantity * product.discountedPrice}৳</p>
