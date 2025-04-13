@@ -165,7 +165,12 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
           </div>
         ) : (
           <div className="w-full h-48 border rounded-md flex items-center justify-center bg-gray-100">
-            <p className="text-gray-500">No image selected</p>
+            <Button
+              onClick={() => setShowMediaModal(true)}
+              className="bg-blue-500 cursor-pointer text-white hover:bg-blue-600"
+            >
+              Select Image
+            </Button>
           </div>
         )}
       </div>

@@ -374,6 +374,13 @@ const AllProducts = () => {
     };
     fetchImages();
   }, []);
+  let renderTableData = products;
+  renderTableData.sort((a, b) =>
+    a.updatedAt && b.updatedAt
+      ? new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+      : 0,
+  );
+  console.log('render table data : ', renderTableData);
   return (
     <div className="w-full">
       <div className="flex justify-between items-center mb-6">
@@ -389,16 +396,7 @@ const AllProducts = () => {
 
       {/* Products Table */}
       <div className=" rounded-lg  ">
-        <DataTable
-          columns={columns}
-          data={products.sort((a, b) =>
-            a.createdAt && b.createdAt
-              ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-              : 0,
-          )}
-          loading={loading}
-          searchKey="name"
-        />
+        <DataTable columns={columns} data={renderTableData} loading={loading} searchKey="name" />
       </div>
 
       {/* Add Product Dialog */}
