@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import Image from 'next/image';
 import { Switch } from '@/components/ui/switch';
+import UploadImg from './upload-img';
 
 const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
   const { toast } = useToast();
@@ -182,9 +183,7 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
             <div className="flex justify-between items-center mb-4 border-b-1 pb-2">
               <h3 className="text-lg font-semibold w-full">Select an Image</h3>
               <div className="w-full flex items-center justify-end gap-2">
-                <Button className="bg-green-200 text-slate-800 hover:bg-green-300 cursor-pointer">
-                  Upload
-                </Button>
+                <UploadImg images={images} setImages={setImages} />
                 <Button
                   onClick={() => setShowMediaModal(false)}
                   className="bg-gray-200 text-gray-800 hover:bg-gray-300 cursor-pointer"
