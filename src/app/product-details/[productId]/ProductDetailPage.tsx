@@ -36,6 +36,9 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
     router.push('/cart');
     console.log('cartItem : ', cartItem);
   };
+  const handleCall = () => {
+    window.location.href = `tel:01560006643`; // Replace spaces in number for dial pad compatibility
+  };
   return (
     <div className="w-full flex items-center justify-center px-2 md:px-0">
       <div className="container max-w-7xl flex flex-col gap-8">
@@ -96,7 +99,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
                     </div>
                   </div>
                   <button
-                    onClick={handleAddToCart}
+                    onClick={handleCall}
                     type="button"
                     className="flex-1 cursor-pointer bg-blue-600 text-white py-3 rounded-lg flex items-center justify-center space-x-2 hover:bg-blue-700 transition"
                   >
