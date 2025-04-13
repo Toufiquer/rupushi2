@@ -179,14 +179,19 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
       {showMediaModal && (
         <div className="fixed inset-0 backdrop-blur-lg bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-4 rounded-lg w-3/4 max-h-[80vh] overflow-y-auto">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold">Select an Image</h3>
-              <Button
-                onClick={() => setShowMediaModal(false)}
-                className="bg-gray-200 text-gray-800 hover:bg-gray-300"
-              >
-                Cancel
-              </Button>
+            <div className="flex justify-between items-center mb-4 border-b-1 pb-2">
+              <h3 className="text-lg font-semibold w-full">Select an Image</h3>
+              <div className="w-full flex items-center justify-end gap-2">
+                <Button className="bg-green-200 text-slate-800 hover:bg-green-300 cursor-pointer">
+                  Upload
+                </Button>
+                <Button
+                  onClick={() => setShowMediaModal(false)}
+                  className="bg-gray-200 text-gray-800 hover:bg-gray-300 cursor-pointer"
+                >
+                  Cancel
+                </Button>
+              </div>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -208,8 +213,8 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
                       height={128}
                       className="rounded-md border hover:border-blue-500 hover:shadow-lg"
                     />
-                    <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-20 flex items-center justify-center rounded-md">
-                      <Button className="opacity-0 group-hover:opacity-100 bg-blue-500 text-white">
+                    <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-20  rounded-md left-0">
+                      <Button className="opacity-0 group-hover:opacity-100 backdrop-blur-lg text-white">
                         Select
                       </Button>
                     </div>
