@@ -38,6 +38,17 @@ export async function createOrders(req: Request): Promise<IResponse> {
   });
 }
 
+// GET single Orders by OrderId
+export async function getOrdersByOrderId(req: Request) {
+  return withDB(async () => {
+    const orderId = new URL(req.url).searchParams.get('OrderId');
+    if (!orderId) return formatResponse(null, 'orderId is required', 400);
+    const result = await Orders.findOne({ orderId: Number(orderId) });
+    if (!result) return formatResponse(null, 'Order not found', 404);
+    return formatResponse(result, 'Order fetched successfully', 200);
+  });
+}
+
 // GET single Orders by ID
 export async function getOrdersById(req: Request) {
   return withDB(async () => {
