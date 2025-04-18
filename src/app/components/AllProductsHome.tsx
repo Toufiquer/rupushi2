@@ -8,8 +8,8 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
-import ProductCard, { IProduct } from './ProductsCard';
+import { useState } from 'react';
+import ProductCard from './ProductsCard';
 import Link from 'next/link';
 import LoadingComponent from '@/components/common/Loading';
 import { rawData } from './data';
@@ -46,11 +46,11 @@ const AllProductsHome = () => {
   // Pagination handler
   const handlePageChange = (pageNumber: number) => {
     // Calculate start and end indices for the current page
-    const startIndex = (pageNumber - 1) * productsPerPage;
-    const endIndex = startIndex + productsPerPage;
+    // const startIndex = (pageNumber - 1) * productsPerPage;
+    // const endIndex = startIndex + productsPerPage;
 
     // Slice the products for the current page
-    const pageProducts = allProducts.slice(startIndex, endIndex);
+    // const pageProducts = allProducts.slice(startIndex, endIndex);
 
     // Update state
     setCurrentPage(pageNumber);
