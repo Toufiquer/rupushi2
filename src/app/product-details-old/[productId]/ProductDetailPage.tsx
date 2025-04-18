@@ -42,8 +42,8 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
     window.location.href = `tel:01560006643`; // Replace spaces in number for dial pad compatibility
   };
   return (
-    <div className="w-full flex items-center justify-center px-2 md:px-4">
-      <div className="container max-w-7xl flex flex-col gap-8 px-4">
+    <div className="w-full flex items-center justify-center px-2 md:px-0">
+      <div className="container max-w-7xl flex flex-col gap-8">
         <div className="w-full flex flex-col md:flex-row items-center justify-between gap-2 md:gap-8">
           <div className="w-full lg:max-w-[440px]">
             {/* Product Image */}
