@@ -1,7 +1,9 @@
-import AllProducts from './components/AllProducts';
-import NewArrival from './components/NewArrival';
+// import AllProducts from './components/AllProducts';
+// import NewArrival from './components/NewArrival';
 import { Slider } from './components/Slider';
 import PageCategory from './components/PageCategory';
+import NewArrivalHome from './components/NewArrivalHome';
+import AllProductsHome from './components/AllProductsHome';
 
 export default function Home() {
   return (
@@ -9,8 +11,10 @@ export default function Home() {
       <div className="container mx-auto max-w-7xl px-1 lg:px-0">
         <Slider />
         <PageCategory />
-        <NewArrival />
-        <AllProducts />
+        {/* <NewArrival /> */}
+        {/* <AllProducts /> */}
+        <NewArrivalHome />
+        <AllProductsHome />
       </div>
     </main>
   );
