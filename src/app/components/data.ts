@@ -124,7 +124,7 @@ export const rawData: IProduct[] = [
     'product-code': 'RJ104',
     img: 'https://i.ibb.co/zVCnFXzy/O1-CN01ey-WNt11w-TZo-WAr-Do-E-2217540066309-0-cib.jpg',
     realPrice: '990',
-    discountedPrice: '450',
+    discountedPrice: '490',
     offer: '54',
     stock: '60',
     'description-top':
