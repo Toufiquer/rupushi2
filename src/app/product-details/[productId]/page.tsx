@@ -5,9 +5,7 @@ import AllProductsHome from '@/app/components/AllProductsHome';
 
 const backendUrl = 'https://www.rupushi.com/api/products';
 async function getPost(id: string) {
-  const res = await fetch(backendUrl, {
-    cache: 'force-cache',
-  });
+  const res = await fetch(backendUrl, { next: { revalidate: 60 } });
   const allProducts: { data: IProduct[] } = await res.json();
   console.log('allProducts', allProducts.data.length);
   const post = allProducts.data.filter((p: IProduct) => {
@@ -16,16 +14,6 @@ async function getPost(id: string) {
   console.log(' -- post : ', post?.name);
   if (!post) notFound();
   return post;
-}
-
-export async function generateStaticParams() {
-  const posts = await fetch('https://api.vercel.app/blog', {
-    cache: 'force-cache',
-  }).then(res => res.json());
-
-  return posts.map((post: IProduct) => ({
-    productId: String(post.id),
-  }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ productId: string }> }) {
