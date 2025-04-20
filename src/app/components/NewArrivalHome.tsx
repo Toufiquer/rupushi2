@@ -6,102 +6,62 @@
 |-----------------------------------------
 */
 
-'use client';
+// Split into separate server and client components
 
-import { useState } from 'react';
-import ProductCard, { IProduct } from './ProductsCard';
+// This file: app/components/NewArrivalHome.tsx (Server Component)
+import { IProduct } from './ProductsCard';
+import ProductsList from './ProductList'; // We'll create this client component
 import Link from 'next/link';
-import Loading from '../dashboard/loading';
-import LoadingComponent from '@/components/common/Loading';
-import { rawData } from './data';
+import { notFound } from 'next/navigation';
 
-const NewArrivalHome = () => {
-  // const [allProducts, setAllProducts] = useState<IProduct[]>([]);
-  // const [showAllProducts, setShowAllProducts] = useState<IProduct[]>([]);
-  const [isLoading] = useState<boolean>(false);
-
-  const [isFetchComplete] = useState(false);
+// Server Component - handles data fetching
+const NewArrivalHome = async () => {
   const productsPerPage = 5;
-  // Fetch products on component mount
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   try {
-  //     fetch('/api/products')
-  //       .then(res => res.json())
-  //       .then(data => {
-  //         if (data.data.length > 0) {
-  //           setAllProducts(data.data);
-  //           // Initially show first 8 products
-  //           setShowAllProducts(
-  //             data.data.filter((i: IProduct) => i.isArrival).slice(0, productsPerPage),
-  //           );
 
-  //           setIsFetchComplete(true);
-  //         }
-  //       });
-  //   } catch (error) {
-  //     console.log(error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }, []);
-  const allProducts = [...rawData];
-  const showAllProducts = [
-    ...rawData.filter((i: IProduct) => i.isArrival).slice(0, productsPerPage),
-  ];
-  allProducts.length = 5;
-  // Calculate total number of pages
-  const totalPages = Math.ceil(allProducts.length / productsPerPage);
+  // Server-side data fetching
+  const getAllPosts = async (): Promise<IProduct[]> => {
+    const backendUrl = 'https://www.rupushi.com/api/products';
+    try {
+      const res = await fetch(backendUrl, { next: { revalidate: 3600 } }); // 60 minutes (3600 seconds)
+      const responseData: { data: IProduct[] } = await res.json();
+      const data = responseData.data;
+      if (!data) notFound();
+      return data;
+    } catch (error) {
+      console.error('Failed to fetch products:', error);
+      return [];
+    }
+  };
 
-  // Generate page numbers
-  const pageNumbers = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
+  // Get data server-side
+  const allProducts = await getAllPosts();
 
-  const onClick = () => {};
-  let renderProducts = <LoadingComponent />;
-  if (showAllProducts.length > 0) {
-    renderProducts = (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 md:gap-4 gap-2">
-        {showAllProducts.map(product => (
-          <div key={product['product-code']}>
-            <ProductCard productData={product} />
-          </div>
-        ))}
-      </div>
-    );
-  } else if (isFetchComplete) {
-    renderProducts = (
-      <div className="text-center text-xl text-slate-400 min-h-[40vh] flex items-center justify-center">
-        Nothing was found.
-      </div>
-    );
-  }
-  if (isLoading) {
-    return <Loading />;
-  }
+  // Filter new arrivals and limit to productsPerPage
+  const newArrivalProducts = allProducts
+    .filter((product: IProduct) => product.isArrival)
+    .slice(0, productsPerPage);
+
   return (
     <main className="w-full flex flex-col pb-12 md:px-4 lg:mx-0">
       <div className="w-full flex items-center justify-between mb-6 py-3">
-        <h2 className="text-xl md:text-3xl font-bold text-gray-900 tracking-tight w-full justify-center ">
+        <h2 className="text-xl md:text-3xl font-bold text-gray-900 tracking-tight w-full justify-center">
           New Arrival
         </h2>
         <div className="w-full flex items-center justify-end">
           <Link href="/new-arrival">
-            <button
-              onClick={onClick}
-              className={`px-4 py-2 text-green-600 border border-green-600 rounded-md hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-200 transition-colors duration-200 cursor-pointer`}
-            >
+            <button className="px-4 py-2 text-green-600 border border-green-600 rounded-md hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-200 transition-colors duration-200 cursor-pointer">
               See More
             </button>
           </Link>
         </div>
       </div>
       <div className="w-full flex flex-col">
-        <div className="w-full">{renderProducts}</div>
+        <div className="w-full">
+          <ProductsList products={newArrivalProducts} />
+        </div>
       </div>
     </main>
   );
 };
+
 export default NewArrivalHome;
