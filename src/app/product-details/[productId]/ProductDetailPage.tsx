@@ -6,11 +6,17 @@ import { ShoppingCart, PhoneCall } from 'lucide-react';
 import { IProduct } from '@/app/components/ProductsCard';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/app/utils/useStore';
+import { toast } from 'react-toastify';
 
 const ProductDetailPage = ({ product }: { product: IProduct }) => {
+  const productsCods = ['RJ110', 'RJ111'];
   const router = useRouter();
   const { cart, updateCart, setIsFetchingCartComplete } = useStore();
   const handleAddToCart = () => {
+    if (productsCods.includes(product['product-code'])) {
+      toast.warn('Product is not available at this moment, please order later.');
+      return;
+    }
     // Convert IProduct to CartItem format
     const cartItem: IProduct = product;
 
@@ -39,8 +45,14 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
     console.log('cartItem : ', cartItem);
   };
   const handleCall = () => {
+    if (productsCods.includes(product['product-code'])) {
+      toast.warn('Product is not available at this moment, please order later.');
+      return;
+    }
     window.location.href = `tel:01560006643`; // Replace spaces in number for dial pad compatibility
   };
+  const isStockOut = productsCods.includes(product['product-code']);
+  console.log('isStockOut : ', isStockOut);
   return (
     <div className="w-full flex items-center justify-center px-2 md:px-4">
       <div className="container max-w-7xl flex flex-col gap-8 px-4">
