@@ -5,7 +5,14 @@
 | @copyright: rupushi2, May, 2025
 |-----------------------------------------
 */
+
+import PromotionTable from './PromotionTable';
+
 const PromotionPage = () => {
-  return <main>Promotion 20 PromotionPage</main>;
+  return (
+    <main>
+      <PromotionTable />
+    </main>
+  );
 };
 export default PromotionPage;
