@@ -8,6 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 |----------------------------------------- */
 
 import { useState, useEffect, FormEvent } from 'react';
+import SimpleImageUpload from './ImageSection';
 
 // interfaces
 export interface PromotionData {
@@ -42,6 +43,10 @@ interface ApiResponse {
 const API_URL = 'http://localhost:3000/api/v1/promotion';
 
 const UpdatePromotion = ({ id }: { id: string }) => {
+  const [selectedImage1, setSelectedImage1] = useState('');
+  const [selectedImage2, setSelectedImage2] = useState('');
+  const [selectedImage3, setSelectedImage3] = useState('');
+  const [selectedImage4, setSelectedImage4] = useState('');
   const [formData, setFormData] = useState<PromotionData>({
     mainPageTitle: '',
     mainPageImage1: '',
@@ -95,6 +100,10 @@ const UpdatePromotion = ({ id }: { id: string }) => {
             productPageText1: promotion.productPageText1 || '',
             productPageText2: promotion.productPageText2 || '',
           });
+          setSelectedImage1(promotion.mainPageImage1 || '');
+          setSelectedImage2(promotion.mainPageImage2 || '');
+          setSelectedImage3(promotion.productPageBannerImage1);
+          setSelectedImage4(promotion.productPageBannerImage2);
           setPromotionFound(true);
         } else {
           setError(`Promotion with ID ${id} not found`);
@@ -128,14 +137,27 @@ const UpdatePromotion = ({ id }: { id: string }) => {
     setIsSaving(true);
     setError(null);
     setSuccess(null);
-    console.log('  formData', formData);
+    const updateData = { ...formData, id: id };
+
+    if (selectedImage1) {
+      updateData.mainPageImage1 = selectedImage1;
+    }
+    if (selectedImage2) {
+      updateData.mainPageImage2 = selectedImage2;
+    }
+    if (selectedImage3) {
+      updateData.productPageBannerImage1 = selectedImage3;
+    }
+    if (selectedImage4) {
+      updateData.productPageBannerImage2 = selectedImage4;
+    }
     try {
       const response = await fetch(`${API_URL}`, {
         method: 'PUT', // Use PUT for updating
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id: id, ...formData }),
+        body: JSON.stringify(updateData),
       });
 
       const result: ApiResponse = await response.json();
@@ -196,28 +218,20 @@ const UpdatePromotion = ({ id }: { id: string }) => {
             <label htmlFor="mainPageImage1" className="block text-sm font-medium text-gray-700">
               Main Page Image 1 URL:
             </label>
-            <input
-              type="text"
-              id="mainPageImage1"
-              name="mainPageImage1"
-              value={formData.mainPageImage1}
-              onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-              required
+
+            <SimpleImageUpload
+              selectedImage={selectedImage1}
+              setSelectedImage={setSelectedImage1}
             />
           </div>
           <div>
             <label htmlFor="mainPageImage2" className="block text-sm font-medium text-gray-700">
               Main Page Image 2 URL:
             </label>
-            <input
-              type="text"
-              id="mainPageImage2"
-              name="mainPageImage2"
-              value={formData.mainPageImage2}
-              onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-              required
+
+            <SimpleImageUpload
+              selectedImage={selectedImage2}
+              setSelectedImage={setSelectedImage2}
             />
           </div>
           <div>
@@ -269,14 +283,10 @@ const UpdatePromotion = ({ id }: { id: string }) => {
             >
               Product Page Banner Image 1 URL:
             </label>
-            <input
-              type="text"
-              id="productPageBannerImage1"
-              name="productPageBannerImage1"
-              value={formData.productPageBannerImage1}
-              onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-              required
+
+            <SimpleImageUpload
+              selectedImage={selectedImage3}
+              setSelectedImage={setSelectedImage3}
             />
           </div>
           <div>
@@ -286,14 +296,10 @@ const UpdatePromotion = ({ id }: { id: string }) => {
             >
               Product Page Banner Image 2 URL:
             </label>
-            <input
-              type="text"
-              id="productPageBannerImage2"
-              name="productPageBannerImage2"
-              value={formData.productPageBannerImage2}
-              onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-              required
+
+            <SimpleImageUpload
+              selectedImage={selectedImage4}
+              setSelectedImage={setSelectedImage4}
             />
           </div>
           <div>

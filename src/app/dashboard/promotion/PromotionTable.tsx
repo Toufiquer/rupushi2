@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dialog';
 import UpdatePromotion from './UpdatePromotion';
 import { Button } from '@/components/ui/button';
+import ViewPromotion from './VeiwPromotion';
 
 // Define the interface for a single promotion item
 interface Promotion {
@@ -127,7 +128,23 @@ const PromotionTable: React.FC = () => {
                   <td className="py-3 px-6 text-left max-w-xs truncate">
                     {promotion.mainPageText2}
                   </td>
-                  <td>
+                  <td className="flex items-center justify-end gap-4 pt-2 pr-1">
+                    <Dialog>
+                      <DialogTrigger>
+                        <div className="cursor-pointer hover:bg-slate-300 border-1 rounded px-2">
+                          View
+                        </div>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-7xl w-full border">
+                        <DialogHeader>
+                          <DialogTitle></DialogTitle>
+                          <div className="w-full border p-2">
+                            <ViewPromotion id={promotion._id} />
+                          </div>
+                          <DialogDescription></DialogDescription>
+                        </DialogHeader>
+                      </DialogContent>
+                    </Dialog>
                     <Dialog>
                       <DialogTrigger>
                         <div className="cursor-pointer hover:bg-slate-300 border-1 rounded px-2">

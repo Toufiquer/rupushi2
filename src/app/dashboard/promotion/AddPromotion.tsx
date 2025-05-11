@@ -18,10 +18,15 @@ export interface PromotionData {
 }
 
 import { useState, FormEvent } from 'react';
+import SimpleImageUpload from './ImageSection';
 
 const API_URL = 'http://localhost:3000/api/v1/promotion';
 
 const AddPromotionForm: React.FC = () => {
+  const [selectedImage1, setSelectedImage1] = useState('');
+  const [selectedImage2, setSelectedImage2] = useState('');
+  const [selectedImage3, setSelectedImage3] = useState('');
+  const [selectedImage4, setSelectedImage4] = useState('');
   const [formData, setFormData] = useState<PromotionData>({
     mainPageTitle: '',
     mainPageImage1: '',
@@ -55,17 +60,31 @@ const AddPromotionForm: React.FC = () => {
     setSuccess(null);
 
     try {
+      const updateData = { ...formData };
+
+      if (selectedImage1) {
+        updateData.mainPageImage1 = selectedImage1;
+      }
+      if (selectedImage2) {
+        updateData.mainPageImage2 = selectedImage2;
+      }
+      if (selectedImage3) {
+        updateData.productPageBannerImage1 = selectedImage3;
+      }
+      if (selectedImage4) {
+        updateData.productPageBannerImage2 = selectedImage4;
+      }
       const response = await fetch(API_URL, {
         method: 'POST', // Always use POST for adding
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(updateData),
       });
 
-      if (response.ok) {
+      const result = await response.json();
+      if (result) {
         // Assuming a successful POST might return the created resource or a success indicator
-        const result = await response.json();
         setSuccess('Promotion data successfully added!');
         // Optionally clear the form after successful submission for a new entry
         setFormData({
@@ -116,7 +135,7 @@ const AddPromotionForm: React.FC = () => {
           <label htmlFor="mainPageImage1" className="block text-sm font-medium text-gray-700">
             Main Page Image 1 URL:
           </label>
-          <input
+          {/* <input
             type="text"
             id="mainPageImage1"
             name="mainPageImage1"
@@ -124,13 +143,14 @@ const AddPromotionForm: React.FC = () => {
             onChange={handleChange}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
             required
-          />
+          /> */}
+          <SimpleImageUpload selectedImage={selectedImage1} setSelectedImage={setSelectedImage1} />
         </div>
         <div>
           <label htmlFor="mainPageImage2" className="block text-sm font-medium text-gray-700">
             Main Page Image 2 URL:
           </label>
-          <input
+          {/* <input
             type="text"
             id="mainPageImage2"
             name="mainPageImage2"
@@ -138,7 +158,9 @@ const AddPromotionForm: React.FC = () => {
             onChange={handleChange}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
             required
-          />
+          /> */}
+
+          <SimpleImageUpload selectedImage={selectedImage2} setSelectedImage={setSelectedImage2} />
         </div>
         <div>
           <label htmlFor="mainPagePriceText" className="block text-sm font-medium text-gray-700">
@@ -189,7 +211,7 @@ const AddPromotionForm: React.FC = () => {
           >
             Product Page Banner Image 1 URL:
           </label>
-          <input
+          {/* <input
             type="text"
             id="productPageBannerImage1"
             name="productPageBannerImage1"
@@ -197,7 +219,9 @@ const AddPromotionForm: React.FC = () => {
             onChange={handleChange}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
             required
-          />
+          /> */}
+
+          <SimpleImageUpload selectedImage={selectedImage3} setSelectedImage={setSelectedImage3} />
         </div>
         <div>
           <label
@@ -206,7 +230,7 @@ const AddPromotionForm: React.FC = () => {
           >
             Product Page Banner Image 2 URL:
           </label>
-          <input
+          {/* <input
             type="text"
             id="productPageBannerImage2"
             name="productPageBannerImage2"
@@ -214,7 +238,9 @@ const AddPromotionForm: React.FC = () => {
             onChange={handleChange}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
             required
-          />
+          /> */}
+
+          <SimpleImageUpload selectedImage={selectedImage4} setSelectedImage={setSelectedImage4} />
         </div>
         <div>
           <label htmlFor="productPageTitle1" className="block text-sm font-medium text-gray-700">
