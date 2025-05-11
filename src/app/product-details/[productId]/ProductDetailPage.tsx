@@ -19,7 +19,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
     }
     // Convert IProduct to CartItem format
     const cartItem: IProduct = product;
-
+ 
     // ! update cart
     let newUpdateCart: typeof cart = [];
     if (cart.length === 0) {
