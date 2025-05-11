@@ -26,6 +26,30 @@ const promotionSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    productPageBannerImage1: {
+      type: String,
+      trim: true,
+    },
+    productPageBannerImage2: {
+      type: String,
+      trim: true,
+    },
+    productPageTitle1: {
+      type: String,
+      trim: true,
+    },
+    productPageTitle2: {
+      type: String,
+      trim: true,
+    },
+    productPageText1: {
+      type: String,
+      trim: true,
+    },
+    productPageText2: {
+      type: String,
+      trim: true,
+    },
   },
   {
     timestamps: true,
