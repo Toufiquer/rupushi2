@@ -50,6 +50,14 @@ const promotionSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    activeStatus: {
+      type: Boolean,
+      default: true,
+    },
+    productCode: {
+      type: String,
+      default: true,
+    },
   },
   {
     timestamps: true,

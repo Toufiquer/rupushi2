@@ -25,6 +25,8 @@ interface PromotionData {
   productPageEndTime: string;
   productPageText1: string;
   productPageText2: string;
+  productCode: string;
+  activeStatus: boolean;
 }
 
 interface Promotion extends PromotionData {
@@ -77,6 +79,8 @@ const ViewPromotion = ({ id }: { id: string }) => {
             productPageEndTime: promotion.productPageEndTime || '',
             productPageText1: promotion.productPageText1 || '',
             productPageText2: promotion.productPageText2 || '',
+            productCode: promotion.productCode || '',
+            activeStatus: promotion.activeStatus || false,
           });
         } else {
           setError(`Promotion with ID ${id} not found`);
@@ -146,6 +150,10 @@ const ViewPromotion = ({ id }: { id: string }) => {
         <h1 className="text-2xl font-bold">Promotion Details</h1>
         <p className="text-gray-600">ID: {id}</p>
       </div>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Promotion Status</h1>
+        <p className="text-gray-600">{promotionData.activeStatus ? 'Active' : 'Inactive'}</p>
+      </div>
 
       <ScrollArea className="w-full p-4 h-[600px] pr-4">
         <div className="space-y-4">
@@ -176,6 +184,10 @@ const ViewPromotion = ({ id }: { id: string }) => {
             <InfoItem
               label="Main Page Text 2"
               value={<p className="whitespace-pre-line">{promotionData.mainPageText2}</p>}
+            />
+            <InfoItem
+              label="Main Page Text 2"
+              value={<p className="whitespace-pre-line">{promotionData.productCode}</p>}
             />
           </div>
 

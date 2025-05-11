@@ -9,6 +9,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 import { useState, useEffect, FormEvent } from 'react';
 import SimpleImageUpload from './ImageSection';
+import { Switch } from '@/components/ui/switch';
 
 // interfaces
 export interface PromotionData {
@@ -25,6 +26,9 @@ export interface PromotionData {
   productPageEndTime: string;
   productPageText1: string;
   productPageText2: string;
+  productCode: string;
+
+  activeStatus: boolean;
 }
 
 interface Promotion extends PromotionData {
@@ -33,6 +37,7 @@ interface Promotion extends PromotionData {
   createdAt: string;
   updatedAt: string;
   __v: number;
+  active: boolean;
 }
 
 interface ApiResponse {
@@ -61,8 +66,11 @@ const UpdatePromotion = ({ id }: { id: string }) => {
     productPageEndTime: '',
     productPageText1: '',
     productPageText2: '',
+    productCode: '',
+    activeStatus: false,
   });
 
+  const [active, SetIsActive] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -99,11 +107,15 @@ const UpdatePromotion = ({ id }: { id: string }) => {
             productPageEndTime: promotion.productPageEndTime || '',
             productPageText1: promotion.productPageText1 || '',
             productPageText2: promotion.productPageText2 || '',
+            productCode: promotion.productCode || '',
+
+            activeStatus: promotion.active || false,
           });
           setSelectedImage1(promotion.mainPageImage1 || '');
           setSelectedImage2(promotion.mainPageImage2 || '');
           setSelectedImage3(promotion.productPageBannerImage1);
           setSelectedImage4(promotion.productPageBannerImage2);
+
           setPromotionFound(true);
         } else {
           setError(`Promotion with ID ${id} not found`);
@@ -131,7 +143,6 @@ const UpdatePromotion = ({ id }: { id: string }) => {
     setError(null); // Clear previous errors on input change
     setSuccess(null); // Clear previous success messages on input change
   };
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSaving(true);
@@ -150,6 +161,9 @@ const UpdatePromotion = ({ id }: { id: string }) => {
     }
     if (selectedImage4) {
       updateData.productPageBannerImage2 = selectedImage4;
+    }
+    if (active) {
+      updateData.activeStatus = active;
     }
     try {
       const response = await fetch(`${API_URL}`, {
@@ -193,10 +207,26 @@ const UpdatePromotion = ({ id }: { id: string }) => {
       </div>
     );
   }
-
+  const handleSwitchChange = (newActiveState: boolean) => {
+    SetIsActive(newActiveState);
+  };
   return (
     <div className="max-w-7xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Update Promotion</h1>
+      <div className="w-full flex items-center justify-between">
+        {/* Display the active status based on the 'active' state */}
+        <p>Active Status : {active ? 'Active' : 'Inactive'}</p>
+        {/* The Switch is controlled by the 'checked' and toggles via 'onChange' */}
+        {/* Note: The exact prop for handling the change might be 'onCheckedChange'
+             or similar depending on your specific Switch component library */}
+        <Switch
+          className="border-2 shadow cursor-pointer"
+          checked={active}
+          onCheckedChange={handleSwitchChange} // Pass the handler to the switch
+          // Or if the handler just toggles:
+          // onChange={() => SetIsActive(prev => !prev)}
+        />
+      </div>
       <p className="text-gray-600 mb-4">ID: {id}</p>
       <ScrollArea className="w-full p-4 h-[600px] pr-4">
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -243,6 +273,20 @@ const UpdatePromotion = ({ id }: { id: string }) => {
               id="mainPagePriceText"
               name="mainPagePriceText"
               value={formData.mainPagePriceText}
+              onChange={handleChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              required
+            />
+          </div>{' '}
+          <div>
+            <label htmlFor="productCode" className="block text-sm font-medium text-gray-700">
+              Product Code
+            </label>
+            <input
+              type="text"
+              id="productCode"
+              name="productCode"
+              value={formData.productCode}
               onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
               required
@@ -373,7 +417,6 @@ const UpdatePromotion = ({ id }: { id: string }) => {
               required
             ></textarea>
           </div>
-
           <button
             type="submit"
             className={`w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${

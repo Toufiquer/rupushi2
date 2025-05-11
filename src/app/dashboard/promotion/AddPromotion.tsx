@@ -1,5 +1,7 @@
 'use client';
 
+import { Switch } from '@/components/ui/switch';
+
 // interfaces.ts
 export interface PromotionData {
   mainPageTitle: string;
@@ -15,6 +17,8 @@ export interface PromotionData {
   productPageEndTime: string;
   productPageText1: string;
   productPageText2: string;
+  productCode: string;
+  activeStatus: boolean;
 }
 
 import { useState, FormEvent } from 'react';
@@ -23,6 +27,7 @@ import SimpleImageUpload from './ImageSection';
 const API_URL = 'http://localhost:3000/api/v1/promotion';
 
 const AddPromotionForm: React.FC = () => {
+  const [active, SetIsActive] = useState(false);
   const [selectedImage1, setSelectedImage1] = useState('');
   const [selectedImage2, setSelectedImage2] = useState('');
   const [selectedImage3, setSelectedImage3] = useState('');
@@ -41,6 +46,8 @@ const AddPromotionForm: React.FC = () => {
     productPageEndTime: '',
     productPageText1: '',
     productPageText2: '',
+    productCode: '',
+    activeStatus: false,
   });
 
   const [isSaving, setIsSaving] = useState(false);
@@ -52,7 +59,9 @@ const AddPromotionForm: React.FC = () => {
     setError(null); // Clear previous errors on input change
     setSuccess(null); // Clear previous success messages on input change
   };
-
+  const handleSwitchChange = (newActiveState: boolean) => {
+    SetIsActive(newActiveState);
+  };
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSaving(true);
@@ -74,6 +83,10 @@ const AddPromotionForm: React.FC = () => {
       if (selectedImage4) {
         updateData.productPageBannerImage2 = selectedImage4;
       }
+      if (active) {
+        updateData.activeStatus = active;
+      }
+
       const response = await fetch(API_URL, {
         method: 'POST', // Always use POST for adding
         headers: {
@@ -101,6 +114,8 @@ const AddPromotionForm: React.FC = () => {
           productPageEndTime: '',
           productPageText1: '',
           productPageText2: '',
+          productCode: '',
+          activeStatus: false,
         });
       } else {
         const errorData = await response.json();
@@ -116,6 +131,20 @@ const AddPromotionForm: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Add New Promotion Data</h1>
+      <div className="w-full flex items-center justify-between">
+        {/* Display the active status based on the 'active' state */}
+        <p>Active Status : {active ? 'Active' : 'Inactive'}</p>
+        {/* The Switch is controlled by the 'checked' and toggles via 'onChange' */}
+        {/* Note: The exact prop for handling the change might be 'onCheckedChange'
+             or similar depending on your specific Switch component library */}
+        <Switch
+          className="border-2 shadow cursor-pointer"
+          checked={active}
+          onCheckedChange={handleSwitchChange} // Pass the handler to the switch
+          // Or if the handler just toggles:
+          // onChange={() => SetIsActive(prev => !prev)}
+        />
+      </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="mainPageTitle" className="block text-sm font-medium text-gray-700">
@@ -241,6 +270,20 @@ const AddPromotionForm: React.FC = () => {
           /> */}
 
           <SimpleImageUpload selectedImage={selectedImage4} setSelectedImage={setSelectedImage4} />
+        </div>
+        <div>
+          <label htmlFor="productCode" className="block text-sm font-medium text-gray-700">
+            Product Code
+          </label>
+          <input
+            type="text"
+            id="productCode"
+            name="productCode"
+            value={formData.productCode}
+            onChange={handleChange}
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+            required
+          />
         </div>
         <div>
           <label htmlFor="productPageTitle1" className="block text-sm font-medium text-gray-700">

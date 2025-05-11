@@ -13,7 +13,6 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import UpdatePromotion from './UpdatePromotion';
-import { Button } from '@/components/ui/button';
 import ViewPromotion from './VeiwPromotion';
 
 // Define the interface for a single promotion item
