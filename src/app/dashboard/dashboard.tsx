@@ -13,12 +13,16 @@ import AllOrders from './orders/page';
 import AllPictures from './media/all-pictures';
 import TrashPictures from './media/trash-pictures';
 import { useRouter } from 'next/navigation';
+import PromotionPage from './promotion/page';
+import WinnerPage from './winner/page';
 
 const lstItemStyle = 'w-full ml-4 font-semibold py-1 hover:text-pink-500 cursor-pointer';
 const accordionData = {
   users: [{ title: 'All Users', componentName: 'all-users' }],
   products: [{ title: 'All Products', componentName: 'all-products' }],
   orders: [{ title: 'All Orders', componentName: 'all-orders' }],
+  promotion: [{ title: 'All Promotions', componentName: 'all-promotion' }],
+  winner: [{ title: 'All Winners', componentName: 'all-winner' }],
   media: [
     { title: 'All Pictures', componentName: 'all-pictures' },
     { title: 'Trash', componentName: 'trash-pictures' },
@@ -115,6 +119,54 @@ const Dashboard = () => {
               <AccordionItem value="item-1">
                 <AccordionTrigger>
                   <div
+                    className={`hover:text-pink-500 ${accordionData.promotion.map(i => i.componentName).includes(statusMessage) ? ' text-pink-500 ' : ' text-slate-500 '}`}
+                  >
+                    Promotions
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  {accordionData.promotion.map(i => (
+                    <div
+                      key={i.componentName}
+                      onClick={() => handleRoute(i.componentName)}
+                      className={`${lstItemStyle} ${statusMessage === i.componentName ? ' text-pink-500 ' : ' text-slate-500 '}`}
+                    >
+                      {i.title}
+                    </div>
+                  ))}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </li>
+          <li>
+            <Accordion type="single" collapsible>
+              <AccordionItem value="item-1">
+                <AccordionTrigger>
+                  <div
+                    className={`hover:text-pink-500 ${accordionData.winner.map(i => i.componentName).includes(statusMessage) ? ' text-pink-500 ' : ' text-slate-500 '}`}
+                  >
+                    Winner
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  {accordionData.winner.map(i => (
+                    <div
+                      key={i.componentName}
+                      onClick={() => handleRoute(i.componentName)}
+                      className={`${lstItemStyle} ${statusMessage === i.componentName ? ' text-pink-500 ' : ' text-slate-500 '}`}
+                    >
+                      {i.title}
+                    </div>
+                  ))}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </li>
+          <li>
+            <Accordion type="single" collapsible>
+              <AccordionItem value="item-1">
+                <AccordionTrigger>
+                  <div
                     className={`hover:text-pink-500 ${accordionData.media.map(i => i.componentName).includes(statusMessage) ? ' text-pink-500 ' : ' text-slate-500 '}`}
                   >
                     Media
@@ -154,6 +206,8 @@ const Dashboard = () => {
         {statusMessage === 'all-orders' && <AllOrders />}
         {statusMessage === 'all-pictures' && <AllPictures />}
         {statusMessage === 'trash-pictures' && <TrashPictures />}
+        {statusMessage === 'all-promotion' && <PromotionPage />}
+        {statusMessage === 'all-winner' && <WinnerPage />}
       </main>
     </div>
   );
