@@ -34,6 +34,10 @@ const winnersSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    productCode: {
+      type: String,
+      trim: true,
+    },
   },
   {
     timestamps: true,
