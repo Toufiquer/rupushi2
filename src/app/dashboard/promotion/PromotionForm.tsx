@@ -59,8 +59,10 @@ const PromotionForm: React.FC = () => {
         } else {
           setError(`Error fetching data: ${response.statusText}`);
         }
-      } catch (err: any) {
-        setError(`Error fetching data: ${err.message}`);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(`Error ${dataExists ? 'updating' : 'adding'} data: ${err.message}`);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -93,7 +95,6 @@ const PromotionForm: React.FC = () => {
       });
 
       if (response.ok) {
-        const result = await response.json();
         setSuccess(`Data successfully ${dataExists ? 'updated' : 'added'}!`);
         // If adding, the server might return the newly created data,
         // which could potentially include an ID if the API supported it.
@@ -105,8 +106,10 @@ const PromotionForm: React.FC = () => {
           `Error ${dataExists ? 'updating' : 'adding'} data: ${errorData.message || response.statusText}`,
         );
       }
-    } catch (err: any) {
-      setError(`Error ${dataExists ? 'updating' : 'adding'} data: ${err.message}`);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(`Error ${dataExists ? 'updating' : 'adding'} data: ${err.message}`);
+      }
     } finally {
       setIsSaving(false);
     }

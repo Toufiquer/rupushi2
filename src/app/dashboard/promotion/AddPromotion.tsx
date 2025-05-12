@@ -121,8 +121,12 @@ const AddPromotionForm: React.FC = () => {
         const errorData = await response.json();
         setError(`Error adding data: ${errorData.message || response.statusText}`);
       }
-    } catch (err: any) {
-      setError(`Error adding data: ${err.message}`);
+    } catch (err: unknown) {
+      let errorMessage = 'An unknown error occurred.';
+      if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+      setError(`Error adding data: ${errorMessage}`);
     } finally {
       setIsSaving(false);
     }

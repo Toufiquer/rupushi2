@@ -181,8 +181,10 @@ const UpdatePromotion = ({ id }: { id: string }) => {
         const errorData = await response.json();
         setError(`Error updating data: ${errorData.message || response.statusText}`);
       }
-    } catch (err: any) {
-      setError(`Error updating data: ${err.message}`);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(`Error updating data: ${err.message}`);
+      }
     } finally {
       setIsSaving(false);
     }
