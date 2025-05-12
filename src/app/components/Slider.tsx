@@ -8,15 +8,10 @@ import Image from 'next/image';
 export function Slider() {
   const slidersImg = [
     'https://i.ibb.co.com/qM0tdtXk/banner-1.jpg',
-    'https://i.ibb.co.com/VcP5bBLL/banner-2.jpg',
     'https://i.ibb.co.com/qM0tdtXk/banner-1.jpg',
-    'https://i.ibb.co.com/VcP5bBLL/banner-2.jpg',
     'https://i.ibb.co.com/qM0tdtXk/banner-1.jpg',
-    'https://i.ibb.co.com/VcP5bBLL/banner-2.jpg',
     'https://i.ibb.co.com/qM0tdtXk/banner-1.jpg',
-    'https://i.ibb.co.com/VcP5bBLL/banner-2.jpg',
     'https://i.ibb.co.com/qM0tdtXk/banner-1.jpg',
-    'https://i.ibb.co.com/VcP5bBLL/banner-2.jpg',
   ];
 
   return (
