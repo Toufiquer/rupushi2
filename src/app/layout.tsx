@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -68,7 +69,12 @@ export default function RootLayout({
         {/* Your Existing Components */}
         <TopBar />
         <NextAuthProvider>
-          <ReduxProvider>{children}</ReduxProvider>
+          <ReduxProvider>
+            <>
+              {children}
+              <Analytics />
+            </>
+          </ReduxProvider>
         </NextAuthProvider>
         <Footer />
         <ToastContainer />
