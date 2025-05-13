@@ -15,7 +15,7 @@ export function Slider() {
   ];
 
   return (
-    <div className="w-full mx-auto max-w-screen-2xl px-4">
+    <div className="w-full mx-auto max-w-screen-2xl md:px-4">
       <Carousel
         plugins={[
           Autoplay({
@@ -31,13 +31,13 @@ export function Slider() {
           align: 'center',
         }}
       >
-        <CarouselContent>
+        <CarouselContent className=" ">
           {slidersImg.map((imgSrc, index) => (
             <CarouselItem key={index}>
               <div className="w-full flex items-center justify-center">
-                <div className="relative w-full h-auto overflow-hidden rounded-lg">
+                <div className="relative w-full h-auto">
                   {/* Fixed height container that adjusts by screen size */}
-                  <div className="h-[100px] xs:h-[140px] md:h-[260px] lg:h-96 w-full flex items-center justify-center">
+                  <div className="mt-2 md:mt-0 xs:h-[140px] md:h-[260px] lg:h-96 w-full flex items-center justify-center">
                     <Image
                       src={imgSrc}
                       alt={`Slide ${index + 1}`}
