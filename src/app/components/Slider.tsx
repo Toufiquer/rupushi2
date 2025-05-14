@@ -34,7 +34,7 @@ export function Slider() {
         <CarouselContent className=" ">
           {slidersImg.map((imgSrc, index) => (
             <CarouselItem key={index}>
-              <div className="w-full flex items-center justify-center">
+              <div className="w-full flex items-center justify-center p-1 md:p-0">
                 <div className="relative w-full h-auto">
                   {/* Fixed height container that adjusts by screen size */}
                   <div className="mt-2 md:mt-0 xs:h-[140px] md:h-[260px] lg:h-96 w-full flex items-center justify-center">
