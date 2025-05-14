@@ -10,7 +10,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { IProduct } from './ProductsCard';
 
-interface Promotion {
+export interface Promotion {
   mainPageTitle: string;
   mainPageImage1: string;
   mainPageImage2: string;
