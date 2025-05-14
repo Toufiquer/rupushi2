@@ -151,7 +151,7 @@ export default function TopBar() {
             <div className="flex items-center">
               <Link href="/" className="text-2xl font-bold text-[#f16514]">
                 <div className="w-[160px] h-[30px] relative">
-                  <div className="absolute top-[-15px] left-[-20px] md:left-0 w-full h-auto mb-4 ">
+                  <div className="absolute top-[-15px] left-[-20px] md:left-0 w-full h-auto mb-4 pl-2 md:pl-0">
                     <Image
                       src="/rupushi-crop.png" // Replace with your actual logo path
                       alt="Rupush Logo"
