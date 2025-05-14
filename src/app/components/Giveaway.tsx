@@ -51,13 +51,18 @@ async function getProductIdByCode(code: string): Promise<string> {
 
 function PromotionItem({ promotion, productId }: { promotion: Promotion; productId: string }) {
   return (
-    <main className="w-full max-w-7xl md:px-4 md:max-h-[400px] md:h-[300px] my-2">
-      <div className="w-full flex md:flex-row flex-col justify-between border-slate-200 h-full gap-4 items-stretch">
+    <main className="w-full max-w-7xl md:px-4 lg:max-h-[400px] lg:h-[300px] my-2">
+      <div className="w-full flex lg:flex-row flex-col justify-between border-slate-200 h-full gap-4 items-stretch">
         <div className="w-full lg:w-3/5 md:border-1 border-slate-200 md:shadow hover:shadow-2xl md:p-4">
           <div className="w-full flex items-center justify-center gap-4 md:flex-row flex-col ">
-            <div className="w-full flex items-center justify-center px-8 md:px-0">
-              <div className="w-full flex items-center justify-between relative md:shadow-lg md:border-1 border-slate-200 h-[260px]">
-                <Image fill src={promotion.mainPageImage1} alt={promotion.mainPageTitle} />
+            <div className="w-full mx-auto max-w-sm overflow-hidden shadow-lg rounded-lg py-0 border-0 hover:shadow-2xl duration-200">
+              <div className="relative w-full  aspect-square">
+                <Image
+                  fill
+                  src={promotion.mainPageImage1}
+                  alt={promotion.mainPageTitle}
+                  className="object-cover"
+                />
               </div>
             </div>
             <div className="w-full flex items-center justify-center flex-col gap-4">
@@ -88,11 +93,14 @@ function PromotionItem({ promotion, productId }: { promotion: Promotion; product
               {promotion.mainPageTitle}
             </h2>
 
-            <div className="w-full flex items-center justify-between relative max-h-[300px] h-[230px] md:shadow-lg border-slate-200">
-              <div className="w-full flex items-center justify-center px-8 md:px-0 pb-4 md:pb-0">
-                <div className="w-full flex items-center justify-between relative max-h-[300px] h-[230px] md:shadow-lg border-slate-200">
-                  <Image fill src={promotion.mainPageImage2} alt={promotion.mainPageTitle} />
-                </div>
+            <div className="w-full mx-auto max-w-sm overflow-hidden shadow-lg rounded-lg py-0 border-0 hover:shadow-2xl duration-200">
+              <div className="relative w-full  aspect-square">
+                <Image
+                  src={promotion.mainPageImage2 || '/placeholder.jpg'}
+                  alt={promotion.mainPageTitle}
+                  fill
+                  className="object-cover"
+                />
               </div>
             </div>
           </div>
@@ -136,7 +144,7 @@ async function Giveaway() {
   return (
     <div className="w-full flex flex-col gap-2 px-1 md:-px-0">
       {promotionsWithProductIds.length > 0 && (
-        <h2 className="text-xl md:text-3xl font-bold text-gray-900 tracking-tight w-full justify-center md:px-4 mb-2 text-center">
+        <h2 className="text-xl md:text-3xl font-bold text-gray-900 tracking-tight w-full justify-center md:px-4 text-center">
           Giveaway Campaign - Win Big
         </h2>
       )}
