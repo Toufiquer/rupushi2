@@ -112,7 +112,7 @@ export default function CountdownTimer() {
     <div className="w-full max-w-4xl mx-auto my-4">
       {/* Header */}
       <div className="bg-orange-400 p-4 rounded-t-lg text-center text-xl font-bold">
-        AWⴙ Ki "b cj ¯ᵂi ᶶRZb!
+        The Big offer
       </div>
 
       {/* Countdown Timer */}
