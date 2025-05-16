@@ -51,59 +51,54 @@ async function getProductIdByCode(code: string): Promise<string> {
 
 function PromotionItem({ promotion, productId }: { promotion: Promotion; productId: string }) {
   return (
-    <main className="w-full max-w-7xl md:px-4 lg:max-h-[400px] lg:h-[300px] my-2">
+    <main className="w-full max-w-7xl md:px-4">
       <div className="w-full flex lg:flex-row flex-col justify-between border-slate-200 h-full gap-4 items-stretch">
-        <div className="w-full lg:w-3/5 md:border-1 border-slate-200 md:shadow hover:shadow-2xl md:p-4">
-          <div className="w-full flex items-center justify-center gap-4 md:flex-row flex-col ">
-            <div className="w-full mx-auto max-w-sm lg:max-w-[400px] lg:w-[500px] overflow-hidden shadow-lg rounded-lg py-0 border-0 hover:shadow-2xl duration-200">
-              <div className="relative w-full aspect-square">
-                <Image
-                  fill
-                  src={promotion.mainPageImage1}
-                  alt={promotion.mainPageTitle}
-                  className="object-cover"
-                />
-              </div>
-            </div>
-            <div className="w-full flex items-center justify-center flex-col gap-4">
-              {/* Red button */}
-              <Link href={`/product-details/${productId}`} className="w-full">
-                <Button
-                  variant={'default'}
-                  className="bg-rose-500 h-[60px] md:h-[80px] hover:bg-rose-600 text-bold text-white text-3xl cursor-pointer w-full"
-                >
-                  <span className="p-4">{promotion.mainPagePriceText}</span>
-                </Button>
-              </Link>
-              {/* Orange button */}
-              <Link href={`/product-details/${productId}`} className="w-full">
-                <Button
-                  variant={'default'}
-                  className="bg-[#fbc79a] hover:bg-[#e39366] text-bold text-black h-[60px] md:h-[80px] text-3xl cursor-pointer w-full"
-                >
-                  <span className="p-4">{promotion.mainPageText2}</span>
-                </Button>
-              </Link>
-            </div>
+        <div className="w-3/5 flex items-center justify-center gap-4 md:flex-row flex-col ">
+          <div
+            className={`relative w-3/5 h-[300px] max-w-[900px] max-h-[400px] overflow-hidden shadow-lg rounded-md`}
+          >
+            <Image
+              src={promotion.mainPageImage1}
+              alt={promotion.mainPageTitle}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              style={{ objectFit: 'contain' }}
+              className="block"
+            />
+          </div>
+          <div className="w-2/5 flex items-center justify-center flex-col gap-4">
+            {/* Red button */}
+            <Link href={`/product-details/${productId}`} className="w-full">
+              <Button
+                variant={'default'}
+                className="bg-rose-500 h-[60px] md:h-[60px] hover:bg-rose-600 text-bold text-white text-3xl cursor-pointer w-full"
+              >
+                <span className="p-4">{promotion.mainPagePriceText}</span>
+              </Button>
+            </Link>
+            {/* Orange button */}
+            <Link href={`/product-details/${productId}`} className="w-full">
+              <Button
+                variant={'default'}
+                className="bg-[#fbc79a] hover:bg-[#e39366] text-bold text-black h-[60px] md:h-[60px] text-3xl cursor-pointer w-full"
+              >
+                <span className="p-4">{promotion.mainPageText2}</span>
+              </Button>
+            </Link>
           </div>
         </div>
-        <div className="w-full lg:w-2/5 md:border-1 border-slate-200 h-full flex flex-col items-center justify-center md:p-4 md:shadow hover:shadow-2xl">
-          <div className="w-full flex flex-col gap-2">
-            <h2 className="text-xl md:text-2xl font-bold text-gray-900 tracking-tight w-full justify-center md:px-4 px-2 py-2 text-center lg:text-start">
-              {promotion.mainPageTitle}
-            </h2>
 
-            <div className="w-full mx-auto max-w-sm overflow-hidden shadow-lg rounded-lg py-0 border-0 hover:shadow-2xl duration-200 lg:max-h-[300px]">
-              <div className="relative w-full lg:max-h-[220px] aspect-square">
-                <Image
-                  src={promotion.mainPageImage2 || '/placeholder.jpg'}
-                  alt={promotion.mainPageTitle}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          </div>
+        <div
+          className={`relative w-2/5 h-[300px] max-w-[900px] max-h-[400px] overflow-hidden shadow-lg rounded-md`}
+        >
+          <Image
+            src={promotion.mainPageImage2 || '/placeholder.jpg'}
+            alt={promotion.mainPageTitle}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{ objectFit: 'contain' }}
+            className="block"
+          />
         </div>
       </div>
     </main>
