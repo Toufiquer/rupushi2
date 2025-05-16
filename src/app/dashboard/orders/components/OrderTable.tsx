@@ -240,6 +240,7 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
                 { key: '_id', label: 'SL' },
                 { key: 'orderId', label: 'Order ID' },
                 { key: 'customerName', label: 'Customer Name' },
+                { key: 'customerMobile', label: 'Customer Mobile' },
                 { key: 'orderStatus', label: 'Status' },
                 { key: 'totalPrice', label: 'Total Price' },
                 { key: 'createdAt', label: 'Date' },
@@ -277,6 +278,9 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
                   <td className="px-4 py-4 text-sm text-gray-900">{order.orderId}</td>
                   <td className="px-4 py-4 text-sm text-gray-900">
                     {order.customerInfo.customerName}
+                  </td>
+                  <td className="py-4 text-sm min-w-[120px] text-gray-900">
+                    {order.customerInfo.phone}
                   </td>
                   <td className="px-4 py-4 text-sm">
                     <span
