@@ -90,3 +90,29 @@ body {
 .animate-pulse {
   animation: pulse 1.5s ease-in-out infinite;
 }
+
+/* styles/fonts.css or styles/globals.css */
+
+@font-face {
+  font-family: 'Kalpurush'; /* A descriptive name for the regular font */
+  src: url('/fonts/kalpurush.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Optimizes font loading */
+}
+
+@font-face {
+  font-family: 'Kalpurush ANSI'; /* A descriptive name for the ANSI font */
+  src: url('/fonts/kalpurush ANSI.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Optimizes font loading */
+}
+
+.my-kalpurush-text {
+  font-family: 'Kalpurush', sans-serif; /* Fallback to a generic sans-serif */
+}
+
+.my-kalpurush-ansi-text {
+  font-family: 'Kalpurush ANSI', sans-serif;
+}

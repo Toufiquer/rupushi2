@@ -163,7 +163,7 @@ const DesktopViewCampaignBox = ({
             variant={'default'}
             className="bg-rose-500 h-[60px] md:h-[60px] hover:bg-rose-600 text-bold text-white text-3xl cursor-pointer w-full"
           >
-            <span className="p-4">মাত্র ৯৯৯ টাকা!</span>
+            <span className="p-4 my-kalpurush-text">মাত্র ৯৯৯ টাকা!</span>
           </Button>
         </Link>
         {/* Orange button */}
@@ -172,7 +172,7 @@ const DesktopViewCampaignBox = ({
             variant={'default'}
             className="bg-[#fbc79a] hover:bg-[#e39366] text-bold text-black h-[90px] md:h-[90px] text-3xl cursor-pointer w-full"
           >
-            <span className="p-4">
+            <span className="p-4 my-kalpurush-text">
               অর্ডার করুন <br /> পুরস্কার জিতুন
             </span>
           </Button>

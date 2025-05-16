@@ -19,7 +19,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
     }
     // Convert IProduct to CartItem format
     const cartItem: IProduct = product;
- 
+
     // ! update cart
     let newUpdateCart: typeof cart = [];
     if (cart.length === 0) {
@@ -99,7 +99,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
                         type="button"
                         className="flex items-center justify-center space-x-2 cursor-pointer"
                       >
-                        <span>অর্ডার করুন</span>
+                        <span className=" my-kalpurush-text text-xl font-normal">অর্ডার করুন</span>
                       </button>
                     </div>
 
@@ -120,7 +120,9 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
                     className="flex-1 cursor-pointer bg-blue-600 text-white py-3 rounded-lg flex items-center justify-center space-x-2 hover:bg-blue-700 transition"
                   >
                     <div className="flex flex-col items-center">
-                      <span>অর্ডার করতে কল করুন</span>
+                      <span className=" my-kalpurush-text text-2xl font-normal">
+                        অর্ডার করতে কল করুন
+                      </span>
                       <span className="flex items-center justify-center gap-2 mt-1">
                         <PhoneCall />
                         <p>+88 01560006643</p>
@@ -133,11 +135,13 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
             <div className="space-y-4 mt-8 hidden lg:block">
               <div className="flex w-full gap-8 flex-col md:mt-12 mt-4 font-semibold text-slate-500">
                 <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
-                  <p className="font-normal">ঢাকায় ডেলিভারি খরচ </p>
+                  <p className="font-normal my-kalpurush-text text-xl">ঢাকায় ডেলিভারি খরচ </p>
                   <p className="text-slate-700">৳ 60</p>
                 </div>
                 <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
-                  <p className="font-normal">ঢাকার বাইরের ডেলিভারি খরচ</p>
+                  <p className="font-normal  my-kalpurush-text text-xl">
+                    ঢাকার বাইরের ডেলিভারি খরচ
+                  </p>
                   <p className="text-slate-700">৳ 130</p>
                 </div>
               </div>
@@ -147,11 +151,11 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
         <div className="space-y-4 block lg:hidden">
           <div className="flex w-full gap-8 flex-col font-semibold text-slate-500">
             <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
-              <p className="font-normal">ঢাকায় ডেলিভারি খরচ </p>
+              <p className="font-normal  my-kalpurush-text text-xl">ঢাকায় ডেলিভারি খরচ </p>
               <p className="text-slate-700">৳ 60</p>
             </div>
             <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
-              <p className="font-normal">ঢাকার বাইরের ডেলিভারি খরচ</p>
+              <p className="font-normal  my-kalpurush-text text-xl">ঢাকার বাইরের ডেলিভারি খরচ</p>
               <p className="text-slate-700">৳ 130</p>
             </div>
           </div>

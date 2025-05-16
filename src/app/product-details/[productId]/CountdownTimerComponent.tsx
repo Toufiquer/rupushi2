@@ -103,7 +103,7 @@ export default function CountdownTimer() {
   return (
     <div className="w-full max-w-6xl md:max-w-7xl mx-auto my-8">
       {/* Header */}
-      <div className="bg-[#e39366] p-4 rounded-t-lg text-center text-xl font-bold">
+      <div className="bg-[#e39366] p-4 rounded-t-lg text-center font-bold my-kalpurush-text text-2xl">
         অর্ডার করুন পুরস্কার জিতুন!
       </div>
 
@@ -143,7 +143,7 @@ export default function CountdownTimer() {
       </div>
 
       {/* Footer */}
-      <div className="bg-[#e39366] p-4 rounded-b-lg text-center text-xl font-bold">
+      <div className="bg-[#e39366] p-4 rounded-b-lg text-center font-bold  my-kalpurush-text text-2xl">
         কে হবে বিজয়ী? <br />
         জানতে যুক্ত থাকুন আমাদের ফেসবুক পেইজে
       </div>

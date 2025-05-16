@@ -21,7 +21,7 @@ const SearchBox = () => {
             onChange={e => setSearchText(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="আপনার পছন্দের পণ্য খুঁজুন..."
-            className="w-full text-gray-800 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500"
+            className=" my-kalpurush-text text-xl w-full text-gray-800 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500"
           />
           <button
             className="absolute right-0 top-0 h-full px-4 bg-[#f16514] text-white rounded-r-full hover:bg-[#f16514b0]"

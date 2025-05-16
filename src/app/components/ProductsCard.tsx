@@ -137,7 +137,7 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
           {/* Order Button */}
           <Button
             onClick={handleAddToCart}
-            className="w-full font-semibold bg-[#fbc79a] hover:bg-[#e39366] text-black cursor-pointer"
+            className="w-full font-semibold bg-[#fbc79a] hover:bg-[#e39366] text-black cursor-pointer my-kalpurush-text text-xl"
           >
             অর্ডার করুন
           </Button>
