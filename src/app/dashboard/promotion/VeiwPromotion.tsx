@@ -145,17 +145,17 @@ const ViewPromotion = ({ id }: { id: string }) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-4">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Promotion Details</h1>
-        <p className="text-gray-600">ID: {id}</p>
-      </div>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Promotion Status</h1>
-        <p className="text-gray-600">{promotionData.activeStatus ? 'Active' : 'Inactive'}</p>
-      </div>
+    <div className="max-w-7xl mx-auto">
+      <ScrollArea className="w-full p-1 h-[600px] pr-2">
+        <div className="mb-6">
+          <h1 className="text-2xl font-semibold">Promotion Details</h1>
+          <p className="text-gray-600">ID: {id}</p>
+        </div>
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold">Promotion Status</h1>
+          <p className="text-gray-600">{promotionData.activeStatus ? 'Active' : 'Inactive'}</p>
+        </div>
 
-      <ScrollArea className="w-full p-4 h-[600px] pr-4">
         <div className="space-y-4">
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h2 className="text-xl font-semibold mb-4 text-blue-600 border-b pb-2">
