@@ -105,7 +105,7 @@ function PromotionItem({ promotion, productId }: { promotion: Promotion; product
   );
 }
 
-async function getAllPromotions(): Promise<Promotion[]> {
+export async function getAllPromotions(): Promise<Promotion[]> {
   const backendUrl = 'http://localhost:3000/api/v1/promotion';
   try {
     const res = await fetch(backendUrl, { next: { revalidate: 3600 } }); // 60 minutes (3600 seconds)

@@ -5,6 +5,7 @@ import AllProductsHome from '@/app/components/AllProductsHome';
 import { Promotion } from '@/app/components/Giveaway';
 import { Slider } from '@/app/components/Slider';
 import CountdownTimer from './CountdownTimerComponent';
+import Image from 'next/image';
 
 const backendUrl = 'https://www.rupushi.com/api/products';
 async function getPost(id: string) {
@@ -51,17 +52,35 @@ export default async function Page({ params }: { params: Promise<{ productId: st
   const isCurrentProductInPromotion = allPromotions.some(
     p => p.productCode === post['product-code'],
   );
+
   return (
     <div className="py-12 flex flex-col w-full">
-      {isCurrentProductInPromotion && <Slider />}
-      <ProductDetailPage product={post} />
-      {isCurrentProductInPromotion && <CountdownTimer />}
-
-      <div className="w-full flex items-center justify-center md:px-0">
-        <div className="container max-w-7xl flex flex-col gap-8 ">
-          <AllProductsHome />
+      {isCurrentProductInPromotion && (
+        <div className="w-full flex items-center justify-center">
+          <div
+            className={`relative w-full h-[300px] max-w-[1245px] mb-4 max-h-[400px] overflow-hidden shadow-lg rounded-md`}
+          >
+            <Image
+              src={allPromotions[0].productPageBannerImage1 || '/placeholder.jpg'}
+              alt={'promotion banner'}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              style={{ objectFit: 'contain' }}
+              className="block"
+            />
+          </div>
         </div>
-      </div>
+      )}
+      <ProductDetailPage product={post} />
+      {isCurrentProductInPromotion ? (
+        <CountdownTimer />
+      ) : (
+        <div className="w-full flex items-center justify-center md:px-0">
+          <div className="container max-w-7xl flex flex-col gap-8 ">
+            <AllProductsHome />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

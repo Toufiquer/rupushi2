@@ -6,14 +6,6 @@
 |-----------------------------------------
 */
 
-/*
-|-----------------------------------------
-| setting up CountdownTimerComponent for the App
-| @author: Toufiquer Rahman<toufiquer.0@gmail.com>
-| @copyright: rupushi2, May, 2025
-|-----------------------------------------
-*/
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -109,23 +101,22 @@ export default function CountdownTimer() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto my-4">
+    <div className="w-full max-w-7xl mx-auto my-8">
       {/* Header */}
-      <div className="bg-orange-400 p-4 rounded-t-lg text-center text-xl font-bold">
+      <div className="bg-[#e39366] p-4 rounded-t-lg text-center text-xl font-bold">
         The Big offer
       </div>
 
       {/* Countdown Timer */}
       <div className="bg-white p-4 flex flex-col items-center">
-        <div className="border-2 border-red-600 rounded-md p-2 mb-6">
+        <div className="border-1 border-red-600 rounded-md p-2 mb-6">
           <div className="text-red-600 text-2xl font-bold text-center">
             {timeRemaining.isComplete ? 'COUNTDOWN COMPLETE!' : 'TIME REMAINING'}
           </div>
         </div>
 
         {!timeRemaining.isComplete && (
-          <div className="flex flex-row justify-center items-center w-full space-x-1 sm:space-x-2">
-            {' '}
+          <div className="flex flex-row justify-center items-center w-full space-x-1 sm:space-x-2 gap-6 mt-2 mb-8">
             {/* Adjusted space for 4 items */}
             {/* Days */}
             <div className="flex flex-col items-center">
@@ -152,21 +143,40 @@ export default function CountdownTimer() {
       </div>
 
       {/* Footer */}
-      <div className="bg-orange-400 p-4 rounded-b-lg text-center text-xl font-bold">
-        ↑K n↑e ᵐeRqᵏ?
+      <div className="bg-[#e39366] p-4 rounded-b-lg text-center text-xl font-bold">
+        Who is the winner?
       </div>
 
       {/* Circular Buttons */}
-      <div className="mt-8 flex flex-wrap justify-center gap-4">
+      <div className="mt-8 flex flex-wrap justify-center gap-8">
         {[
           { name: 'Cumilla' },
           { name: 'Dhaka' },
           { name: 'Sylhet' },
-          { name: 'Cumilla' },
-          { name: 'Cumilla' },
+          { name: 'Khulna' },
+          { name: 'Barishal' },
         ].map((location, index) => (
           <div key={index} className="flex flex-col items-center">
-            <div className="bg-orange-400 rounded-full w-24 h-24 flex items-center justify-center text-4xl font-bold">
+            <div className="bg-[#e39366] rounded-full w-24 h-24 flex items-center justify-center text-4xl font-bold">
+              ?
+            </div>
+            <div className="mt-2 text-center">
+              <div className="font-semibold">Name</div>
+              <div>{location.name}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-8 flex flex-wrap justify-center gap-8">
+        {[
+          { name: 'Cumilla' },
+          { name: 'Dhaka' },
+          { name: 'Sylhet' },
+          { name: 'Khulna' },
+          { name: 'Barishal' },
+        ].map((location, index) => (
+          <div key={index} className="flex flex-col items-center">
+            <div className="bg-[#e39366] rounded-full w-24 h-24 flex items-center justify-center text-4xl font-bold">
               ?
             </div>
             <div className="mt-2 text-center">
