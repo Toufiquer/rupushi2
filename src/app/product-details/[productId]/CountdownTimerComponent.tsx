@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react';
 
 // Define the target date: December 31, 2025, at 23:59:59
 // Or, more simply, the very beginning of January 1, 2026
-const TARGET_DATE_STRING = '2026-01-01T00:00:00'; // Counts down to the end of Dec 31, 2025
+const TARGET_DATE_STRING = '2025-08-08T00:00:00'; // Counts down to the end of Dec 31, 2025
 
 function calculateTimeRemaining(targetDateString: string) {
   const targetTime = new Date(targetDateString).getTime();
@@ -101,10 +101,10 @@ export default function CountdownTimer() {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto my-8">
+    <div className="w-full max-w-6xl md:max-w-7xl mx-auto my-8">
       {/* Header */}
       <div className="bg-[#e39366] p-4 rounded-t-lg text-center text-xl font-bold">
-        The Big offer
+        অর্ডার করুন পুরস্কার জিতুন!
       </div>
 
       {/* Countdown Timer */}
@@ -134,22 +134,28 @@ export default function CountdownTimer() {
               <div className="flex">{renderDigit(timeRemaining.minutes)}</div>
             </div>
             {/* Seconds */}
-            <div className="flex flex-col items-center">
+            {/* <div className="flex flex-col items-center">
               <div className="text-gray-800 font-semibold mb-2 text-xs sm:text-base">SECONDS</div>
               <div className="flex">{renderDigit(timeRemaining.seconds)}</div>
-            </div>
+            </div> */}
           </div>
         )}
       </div>
 
       {/* Footer */}
       <div className="bg-[#e39366] p-4 rounded-b-lg text-center text-xl font-bold">
-        Who is the winner?
+        কে হবে বিজয়ী? <br />
+        জানতে যুক্ত থাকুন আমাদের ফেসবুক পেইজে
       </div>
 
       {/* Circular Buttons */}
-      <div className="mt-8 flex flex-wrap justify-center gap-8">
+      <div className="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-center gap-8 mx-auto">
         {[
+          { name: 'Cumilla' },
+          { name: 'Dhaka' },
+          { name: 'Sylhet' },
+          { name: 'Khulna' },
+          { name: 'Barishal' },
           { name: 'Cumilla' },
           { name: 'Dhaka' },
           { name: 'Sylhet' },
@@ -157,26 +163,7 @@ export default function CountdownTimer() {
           { name: 'Barishal' },
         ].map((location, index) => (
           <div key={index} className="flex flex-col items-center">
-            <div className="bg-[#e39366] rounded-full w-24 h-24 flex items-center justify-center text-4xl font-bold">
-              ?
-            </div>
-            <div className="mt-2 text-center">
-              <div className="font-semibold">Name</div>
-              <div>{location.name}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="mt-8 flex flex-wrap justify-center gap-8">
-        {[
-          { name: 'Cumilla' },
-          { name: 'Dhaka' },
-          { name: 'Sylhet' },
-          { name: 'Khulna' },
-          { name: 'Barishal' },
-        ].map((location, index) => (
-          <div key={index} className="flex flex-col items-center">
-            <div className="bg-[#e39366] rounded-full w-24 h-24 flex items-center justify-center text-4xl font-bold">
+            <div className="bg-[#e39366] rounded-full w-[120px] h-[120px] flex items-center justify-center text-4xl font-bold">
               ?
             </div>
             <div className="mt-2 text-center">

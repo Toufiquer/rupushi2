@@ -49,47 +49,154 @@ async function getProductIdByCode(code: string): Promise<string> {
   }
 }
 
+const MobileViewCampaignBox = ({
+  promotion,
+  productId,
+}: {
+  promotion: Promotion;
+  productId: string;
+}) => {
+  return (
+    <div className="w-full flex items-center justify-between gap-4 flex-col ">
+      <div className={`relative h-[400px] w-[400px] overflow-hidden shadow-lg rounded-md`}>
+        <Image
+          src={promotion.mainPageImage1}
+          alt={promotion.mainPageTitle}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          style={{ objectFit: 'contain' }}
+          className="block"
+        />
+      </div>
+      <div className="w-[80%] flex items-center justify-center flex-col gap-4">
+        {/* Red button */}
+        <Link href={`/product-details/${productId}`} className="w-full">
+          <Button
+            variant={'default'}
+            className="bg-rose-500 h-[40px] md:h-[40px] hover:bg-rose-600 text-bold text-white text-xl cursor-pointer w-full"
+          >
+            <span className="p-4">মাত্র ৯৯৯ টাকা!</span>
+          </Button>
+        </Link>
+        {/* Orange button */}
+        <Link href={`/product-details/${productId}`} className="w-full">
+          <Button
+            variant={'default'}
+            className="bg-[#fbc79a] hover:bg-[#e39366] text-bold text-black h-[70px] md:h-[70px] text-xl cursor-pointer w-full"
+          >
+            <span className="p-4">
+              অর্ডার করুন <br /> পুরস্কার জিতুন
+            </span>
+          </Button>
+        </Link>
+      </div>
+    </div>
+  );
+};
+const TabletViewCampaignBox = ({
+  promotion,
+  productId,
+}: {
+  promotion: Promotion;
+  productId: string;
+}) => {
+  return (
+    <div className="w-full flex items-center justify-center gap-4 flex-row">
+      <div className={`relative h-[400px] w-[400px] overflow-hidden shadow-lg rounded-md`}>
+        <Image
+          src={promotion.mainPageImage1}
+          alt={promotion.mainPageTitle}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          style={{ objectFit: 'contain' }}
+          className="block"
+        />
+      </div>
+      <div className="w-2/5 flex items-center justify-center flex-col gap-4 ">
+        {/* Red button */}
+        <Link href={`/product-details/${productId}`} className="w-full">
+          <Button
+            variant={'default'}
+            className="bg-rose-500 h-[60px] md:h-[60px] hover:bg-rose-600 text-bold text-white text-3xl cursor-pointer w-full"
+          >
+            <span className="p-4">মাত্র ৯৯৯ টাকা!</span>
+          </Button>
+        </Link>
+        {/* Orange button */}
+        <Link href={`/product-details/${productId}`} className="w-full">
+          <Button
+            variant={'default'}
+            className="bg-[#fbc79a] hover:bg-[#e39366] text-bold text-black h-[90px] md:h-[90px] text-3xl cursor-pointer w-full"
+          >
+            <span className="p-4">
+              অর্ডার করুন <br /> পুরস্কার জিতুন
+            </span>
+          </Button>
+        </Link>
+      </div>
+    </div>
+  );
+};
+const DesktopViewCampaignBox = ({
+  promotion,
+  productId,
+}: {
+  promotion: Promotion;
+  productId: string;
+}) => {
+  return (
+    <div className="w-full flex items-center justify-start gap-4 flex-row">
+      <div className={`relative h-[400px] w-[400px] overflow-hidden shadow-lg rounded-md`}>
+        <Image
+          src={promotion.mainPageImage1}
+          alt={promotion.mainPageTitle}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          style={{ objectFit: 'contain' }}
+          className="block"
+        />
+      </div>
+      <div className="w-2/5 flex items-center justify-center flex-col gap-4 ">
+        {/* Red button */}
+        <Link href={`/product-details/${productId}`} className="w-full">
+          <Button
+            variant={'default'}
+            className="bg-rose-500 h-[60px] md:h-[60px] hover:bg-rose-600 text-bold text-white text-3xl cursor-pointer w-full"
+          >
+            <span className="p-4">মাত্র ৯৯৯ টাকা!</span>
+          </Button>
+        </Link>
+        {/* Orange button */}
+        <Link href={`/product-details/${productId}`} className="w-full">
+          <Button
+            variant={'default'}
+            className="bg-[#fbc79a] hover:bg-[#e39366] text-bold text-black h-[90px] md:h-[90px] text-3xl cursor-pointer w-full"
+          >
+            <span className="p-4">
+              অর্ডার করুন <br /> পুরস্কার জিতুন
+            </span>
+          </Button>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
 function PromotionItem({ promotion, productId }: { promotion: Promotion; productId: string }) {
   return (
     <main className="w-full max-w-7xl md:px-4">
       <div className="w-full flex lg:flex-row flex-col justify-between border-slate-200 h-full gap-4 items-stretch">
-        <div className="w-3/5 flex items-center justify-center gap-4 md:flex-row flex-col ">
-          <div
-            className={`relative w-3/5 h-[300px] max-w-[900px] max-h-[400px] overflow-hidden shadow-lg rounded-md`}
-          >
-            <Image
-              src={promotion.mainPageImage1}
-              alt={promotion.mainPageTitle}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              style={{ objectFit: 'contain' }}
-              className="block"
-            />
-          </div>
-          <div className="w-2/5 flex items-center justify-center flex-col gap-4">
-            {/* Red button */}
-            <Link href={`/product-details/${productId}`} className="w-full">
-              <Button
-                variant={'default'}
-                className="bg-rose-500 h-[60px] md:h-[60px] hover:bg-rose-600 text-bold text-white text-3xl cursor-pointer w-full"
-              >
-                <span className="p-4">{promotion.mainPagePriceText}</span>
-              </Button>
-            </Link>
-            {/* Orange button */}
-            <Link href={`/product-details/${productId}`} className="w-full">
-              <Button
-                variant={'default'}
-                className="bg-[#fbc79a] hover:bg-[#e39366] text-bold text-black h-[60px] md:h-[60px] text-3xl cursor-pointer w-full"
-              >
-                <span className="p-4">{promotion.mainPageText2}</span>
-              </Button>
-            </Link>
-          </div>
+        <div className="w-full md:hidden block">
+          <MobileViewCampaignBox productId={productId} promotion={promotion} />
         </div>
-
-        <div
-          className={`relative w-2/5 h-[300px] max-w-[900px] max-h-[400px] overflow-hidden shadow-lg rounded-md`}
+        <div className="w-full hidden md:block lg:hidden">
+          <TabletViewCampaignBox productId={productId} promotion={promotion} />
+        </div>
+        <div className="w-full hidden lg:block">
+          <DesktopViewCampaignBox productId={productId} promotion={promotion} />
+        </div>
+        {/* <div
+          className={`relative w-full md:w-2/5 h-[300px] max-w-[900px] max-h-[400px] overflow-hidden shadow-lg rounded-md block md:hidden lg:block`}
         >
           <Image
             src={promotion.mainPageImage2 || '/placeholder.jpg'}
@@ -99,7 +206,7 @@ function PromotionItem({ promotion, productId }: { promotion: Promotion; product
             style={{ objectFit: 'contain' }}
             className="block"
           />
-        </div>
+        </div> */}
       </div>
     </main>
   );
@@ -139,8 +246,8 @@ async function Giveaway() {
   return (
     <div className="w-full flex flex-col gap-2 px-1 md:-px-0">
       {promotionsWithProductIds.length > 0 && (
-        <h2 className="text-xl md:text-3xl font-bold text-gray-900 tracking-tight w-full justify-center md:px-4 text-center lg:text-start">
-          Giveaway Campaign - Win Big
+        <h2 className="text-xl md:text-3xl font-bold text-gray-900 tracking-tight w-full justify-center md:px-4 lg:text-start">
+          Lucky Gifts Campaign
         </h2>
       )}
       {promotionsWithProductIds.map(({ promotion, productId }) => (

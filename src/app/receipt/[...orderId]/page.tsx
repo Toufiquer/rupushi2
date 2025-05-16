@@ -3,7 +3,7 @@
 import React from 'react';
 import { Printer } from 'lucide-react';
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react'; 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 interface ProductInfo {
@@ -228,6 +228,16 @@ const OrderReceipt = () => {
               className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-6 py-2 rounded-md flex items-center transition duration-200"
             >
               Short Receipt
+            </Link>
+          </div>
+          {/* Print sort button */}
+          <div className="flex justify-center">
+            <Link
+              target="_blank"
+              href={`/receipt-memo/${orderId}`}
+              className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-6 py-2 rounded-md flex items-center transition duration-200"
+            >
+              Memo
             </Link>
           </div>
         </div>

@@ -306,6 +306,7 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
                   <td className="px-4 py-4 text-sm text-gray-900">{order.totalProduct}</td>
                   <td className="pr-2">
                     <div className="w-full flex items-center justify-end gap-2">
+                      <UpdateOrder order={order} />
                       <Link
                         href={`/receipt/${order.orderId}`}
                         target="_blank"
@@ -313,8 +314,13 @@ const OrderTable: React.FC<OrderTableProps> = ({ data, isLoading = false, error 
                       >
                         Receipt
                       </Link>
-
-                      <UpdateOrder order={order} />
+                      <Link
+                        target="_blank"
+                        href={`/receipt-memo/${order.orderId}`}
+                        className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-4 py-1 rounded-md flex items-center transition duration-200 text-sm"
+                      >
+                        Memo
+                      </Link>
                     </div>
                   </td>
                 </tr>
