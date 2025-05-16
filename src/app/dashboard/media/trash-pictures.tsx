@@ -20,7 +20,6 @@ const Media = () => {
     const fetchImages = async () => {
       const response = await fetch('/api/media');
       const data = await response.json();
-      console.log('data : ', data);
       setImgFiles(
         data.data.filter(
           (i: { delete_url: string; url: string; display_url: string; status: string }) =>
@@ -91,7 +90,6 @@ const Media = () => {
 
       const data = await response.json();
       if (data.success) {
-        console.log('data : ', data);
 
         // Save image data to our server
         const saveResponse = await fetch('/api/media', {
@@ -127,7 +125,6 @@ const Media = () => {
 
   const handleRecover = async (id: string) => {
     try {
-      console.log('id : ', id);
       const response = await fetch(`/api/media`, {
         method: 'PUT',
         headers: {

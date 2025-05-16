@@ -36,7 +36,6 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
     // Add item to Zustand store
     // addItem(cartItem);
     router.push('/cart');
-    console.log('cartItem : ', cartItem);
   };
   const handleCall = () => {
     window.location.href = `tel:01560006643`; // Replace spaces in number for dial pad compatibility

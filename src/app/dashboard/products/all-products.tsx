@@ -163,16 +163,13 @@ const AllProducts = () => {
   const handleEditChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setEditForm(prev => ({ ...prev, [name]: value }));
-    console.log('');
-    console.log(' -- name : ', name, value);
-    console.log('');
+
     // setSelectedImage();
   };
 
   // Save edit changes
   const handleSaveEdit = async () => {
     if (!productToEdit) return;
-    console.log('---productToEdit : ', productToEdit);
     editForm.img = selectedImage;
     try {
       const response = await fetch(`/api/products/`, {
@@ -380,7 +377,6 @@ const AllProducts = () => {
       ? new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
       : 0,
   );
-  console.log('render table data : ', renderTableData);
   return (
     <div className="w-full">
       <div className="flex justify-between items-center mb-6">

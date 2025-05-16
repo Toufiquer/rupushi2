@@ -42,7 +42,6 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
     // Add item to Zustand store
     // addItem(cartItem);
     router.push('/cart');
-    console.log('cartItem : ', cartItem);
   };
   const handleCall = () => {
     if (productsCods.includes(product['product-code'])) {
@@ -51,8 +50,6 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
     }
     window.location.href = `tel:01560006643`; // Replace spaces in number for dial pad compatibility
   };
-  const isStockOut = productsCods.includes(product['product-code']);
-  console.log('isStockOut : ', isStockOut);
   return (
     <div className="w-full flex items-center justify-center px-2 md:px-4">
       <div className="container max-w-7xl flex flex-col gap-8 px-4">

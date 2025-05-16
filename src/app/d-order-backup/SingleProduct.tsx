@@ -11,7 +11,6 @@ export const SingleProduct: React.FC<CartItemComponentProps> = ({
 }: {
   product: IProduct;
 }) => {
-  console.log('item : ', item);
   const price = item.discountedPrice || item.realPrice;
   const quantity = item.quantity || 1;
 

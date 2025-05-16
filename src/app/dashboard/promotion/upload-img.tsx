@@ -53,7 +53,6 @@ const UploadImg = ({
 
       const data = await response.json();
       if (data.success) {
-        console.log('data : ', data);
 
         // Save image data to our server
         const saveResponse = await fetch('/api/media', {
@@ -71,7 +70,6 @@ const UploadImg = ({
         if (!saveResponse.ok) {
           throw new Error('সার্ভারে ছবি সেভ করতে সমস্যা হয়েছে');
         }
-        console.log('data ', data.data);
         const newImage = { id: data.data?.id, url: data.data?.url, display_url: data.data?.url };
         setImages([newImage, ...images]);
         toast.success('ছবি সফলভাবে আপলোড হয়েছে!');

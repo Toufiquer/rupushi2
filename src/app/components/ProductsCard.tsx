@@ -88,7 +88,6 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
     // Add item to Zustand store
     // addItem(cartItem);
     router.push('/cart');
-    console.log('cartItem : ', cartItem);
   };
 
   return (

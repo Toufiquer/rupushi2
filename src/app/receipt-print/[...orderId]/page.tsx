@@ -64,7 +64,6 @@ const OrderReceipt = () => {
           return response.json();
         })
         .then(data => {
-          console.log('Order data loaded:', data.data);
           setOrder(data.data);
           setLoading(false);
         })

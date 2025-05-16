@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import ProductDetailPage from './ProductDetailPage';
 import AllProductsHome from '@/app/components/AllProductsHome';
 import { Promotion } from '@/app/components/Giveaway';
-import { Slider } from '@/app/components/Slider';
 import CountdownTimer from './CountdownTimerComponent';
 import Image from 'next/image';
 
@@ -11,11 +10,9 @@ const backendUrl = 'https://www.rupushi.com/api/products';
 async function getPost(id: string) {
   const res = await fetch(backendUrl, { next: { revalidate: 60 } });
   const allProducts: { data: IProduct[] } = await res.json();
-  console.log('allProducts', allProducts.data.length);
   const post = allProducts.data.filter((p: IProduct) => {
     return p.id === id;
   })[0];
-  console.log(' -- post : ', post?.name);
   if (!post) notFound();
   return post;
 }

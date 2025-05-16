@@ -21,7 +21,6 @@ const AddNewUser = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // এখানে পণ্য যোগ করার লজিক যুক্ত করুন
-    console.log('Product added:', productData);
   };
 
   return (

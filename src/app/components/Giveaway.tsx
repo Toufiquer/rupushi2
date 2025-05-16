@@ -39,7 +39,6 @@ async function getProductIdByCode(code: string): Promise<string> {
     if (!data) return '';
 
     const product = data.find(p => {
-      console.log(' ---         ---------- -          -----------', p['product-code'], code);
       return p['product-code'] === code;
     });
     return product?.id || '';

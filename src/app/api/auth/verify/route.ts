@@ -6,10 +6,8 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 export async function POST(request: Request) {
   try {
     const { tokenType, token } = await request.json();
-    console.log('4 token  ', token);
     if (tokenType === 'google') {
       try {
-        console.log('-- -- verifyIdToken', token);
         const ticket = await client.verifyIdToken({
           idToken: token,
           audience: process.env.GOOGLE_CLIENT_ID,

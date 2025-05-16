@@ -20,7 +20,6 @@ interface FormData {
 }
 
 const SingleCartProduct = ({ product }: { product: IProduct }) => {
-  console.log('product : ', product);
   // State for form inputs with type
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -31,12 +30,10 @@ const SingleCartProduct = ({ product }: { product: IProduct }) => {
   });
 
   // State for cart item quantity with type
-  const [quantity] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
 
   const { toast } = useToast();
   // Calculate totals
-  console.log('quantity : ', quantity);
   // Handle form input changes with type
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
@@ -104,11 +101,8 @@ const SingleCartProduct = ({ product }: { product: IProduct }) => {
       };
     }
 
-    console.log('form data : ', formData);
-    console.log('product : ', product);
     // Add your form submission logic here
     const generateOrders = generateOrder(formData, product);
-    console.log('generateOrders : ', generateOrders);
     setLoading(true);
 
     try {

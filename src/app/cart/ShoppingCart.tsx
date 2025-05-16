@@ -50,7 +50,6 @@ const ShoppingCart: React.FC<ShoppingCartProps> = () => {
       oldTotal = oldTotal + Number(price) * quantity;
       return oldTotal;
     }, 0);
-    console.log('-- productsCost', productsCost);
     return productsCost;
   };
 

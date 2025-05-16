@@ -14,24 +14,7 @@ const handler = NextAuth({
   pages: {
     signIn: '/login', // Redirect to custom login page
   },
-  callbacks: {
-    async jwt({ token, account }) {
-      console.log('JWT Callback - Account:', account);
-      console.log('JWT Callback - Token  :', token);
-      return token;
-    },
-    async session({ session, token }) {
-      console.log('Session Callback - Session:', session);
-      console.log('Session Callback - Token  :', token);
-      return session;
-    },
-    async signIn({ user, account, profile }) {
-      console.log('SignIn Callback - User   :', user);
-      console.log('SignIn Callback - Account:', account);
-      console.log('SignIn Callback - Profile:', profile);
-      return true;
-    },
-  },
+  callbacks: {},
 });
 
 // Export handler for API routes

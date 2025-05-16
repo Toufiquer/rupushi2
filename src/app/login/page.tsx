@@ -28,7 +28,6 @@ const Login = () => {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
-      console.log(' -- data ', data);
       if (data.data) {
         localStorage.setItem('token', data.data);
         window.location.href = '/dashboard';

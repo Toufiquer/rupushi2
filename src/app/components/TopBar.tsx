@@ -25,10 +25,8 @@ export default function TopBar() {
   console.log(autoplayInterval);
   useEffect(() => {
     const cartItem = localStorage.getItem('cart');
-    console.log('---cartItem', cartItem);
     if (cartItem) {
       const products = JSON.parse(cartItem);
-      console.log('products : ', products);
       setCartProductLength(products.length);
     }
   }, [setCartProductLength]);
@@ -100,11 +98,6 @@ export default function TopBar() {
       startAutoplay();
     }
   }, [isDragging, startAutoplay, stopAutoplay]);
-  console.log(
-    ' ** ** ** path : ',
-    pathname,
-    !['receipt', 'receipt-print'].includes(pathname.split('/')[1]),
-  );
 
   const RenderTopMarquee = () => (
     <div className="bg-[#f16514] text-white py-2">

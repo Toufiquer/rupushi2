@@ -53,7 +53,7 @@ const FormData = () => {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log({ name, value });
+ 
   };
 
   // Form submission handler with type
@@ -101,12 +101,10 @@ const FormData = () => {
         },
         productInfo: productData,
       };
-      console.log('result', result);
       return result;
     }
 
     const newOrderData = generateOrder(formData, cart);
-    console.log('newOrderData', newOrderData);
     setLoading(true);
     try {
       const response = await fetch('/api/orders', {

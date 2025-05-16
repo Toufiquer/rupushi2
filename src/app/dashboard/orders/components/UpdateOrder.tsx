@@ -25,7 +25,6 @@ const UpdateOrder = ({ order }: { order: OrderItem }) => {
   const handleUpdate = () => {
     const newOrder = { ...order };
     newOrder.orderStatus = statusFilter;
-    console.log('new Order : ', newOrder);
     updateOrder({ id: order._id, ...newOrder }); 
   };
   return (

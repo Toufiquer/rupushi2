@@ -29,7 +29,7 @@ const AllOrders = () => {
   const [viewDialogOpen, setViewDialogOpen] = useState<boolean>(false);
   const [orderToView, setOrderToView] = useState<IDBOrderData | null>(null);
   const [, setImages] = useState<ImageType[]>([]);
-  console.log('orderToView', orderToView);
+
   // Function to fetch orders
   const fetchOrders = useCallback(async () => {
     setLoading(true);
@@ -137,7 +137,6 @@ const AllOrders = () => {
     };
     fetchImages();
   }, []);
-  console.log('columns', columns);
   return (
     <div className="w-full">
       <div className="flex justify-between items-center mb-6">

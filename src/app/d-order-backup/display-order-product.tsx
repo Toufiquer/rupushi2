@@ -20,12 +20,11 @@ interface ProductOrderDisplayProps {
 
 const ProductOrderDisplay: React.FC<ProductOrderDisplayProps> = ({ order }) => {
   const [isLoading, setLoading] = useState(false);
-  console.log('--==--product', order);
+
   const [status, setStatus] = useState('');
   useEffect(() => {
     setStatus(order.orderStatus || '');
   }, [order]);
-  console.log('status', status);
   const handleUpdate = async () => {
     const newOrderData = order;
     newOrderData.orderStatus = status;
