@@ -45,7 +45,7 @@ interface ApiResponse {
   message: string;
 }
 
-const API_URL = 'http://localhost:3000/api/v1/promotion';
+const API_URL = 'https://www.rupushi.com/api/v1/promotion';
 
 const UpdatePromotion = ({ id }: { id: string }) => {
   const [selectedImage1, setSelectedImage1] = useState('');

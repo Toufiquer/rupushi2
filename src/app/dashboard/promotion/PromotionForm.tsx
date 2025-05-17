@@ -19,7 +19,7 @@ export interface PromotionData {
 
 import { useState, useEffect, FormEvent } from 'react';
 
-const API_URL = 'http://localhost:3000/api/v1/promotion';
+const API_URL = 'https://www.rupushi.com/api/v1/promotion';
 
 const PromotionForm: React.FC = () => {
   const [formData, setFormData] = useState<PromotionData>({

@@ -18,7 +18,7 @@ async function getPost(id: string) {
 }
 
 async function getAllPromotions(): Promise<Promotion[]> {
-  const backendUrl = 'http://localhost:3000/api/v1/promotion';
+  const backendUrl = 'https://www.rupushi.com/api/v1/promotion';
   try {
     const res = await fetch(backendUrl, { next: { revalidate: 3600 } }); // 60 minutes (3600 seconds)
     const responseData: { data: Promotion[] } = await res.json();

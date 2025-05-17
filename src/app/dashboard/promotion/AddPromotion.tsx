@@ -24,7 +24,7 @@ export interface PromotionData {
 import { useState, FormEvent } from 'react';
 import SimpleImageUpload from './ImageSection';
 
-const API_URL = 'http://localhost:3000/api/v1/promotion';
+const API_URL = 'https://www.rupushi.com/api/v1/promotion';
 
 const AddPromotionForm: React.FC = () => {
   const [active, SetIsActive] = useState(false);

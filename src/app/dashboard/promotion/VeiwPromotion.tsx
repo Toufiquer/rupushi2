@@ -42,7 +42,7 @@ interface ApiResponse {
   message: string;
 }
 
-const API_URL = 'http://localhost:3000/api/v1/promotion';
+const API_URL = 'https://www.rupushi.com/api/v1/promotion';
 
 const ViewPromotion = ({ id }: { id: string }) => {
   const [promotionData, setPromotionData] = useState<PromotionData | null>(null);
