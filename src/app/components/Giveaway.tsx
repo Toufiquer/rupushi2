@@ -81,7 +81,7 @@ const MobileViewCampaignBox = ({
             <span className="my-kalpurush-text font-extrabold">ক্যাম্পেইন</span>
           </h2>
           <h2 className="text-[18px] font-normal  my-kalpurush-text  text-gray-900 tracking-tight w-full justify-center lg:text-start">
-            মোট দশ লক্ষ টাকার ১০ টি পুরষ্কার জিতুন
+            মোট ২ লক্ষ টাকার ১০টি পুরস্কার জিতার সুযোগ!
           </h2>
           <h2 className="text-[38px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">
             মাত্র ৯৯৯ টাকা
@@ -131,7 +131,7 @@ const TabletViewCampaignBox = ({
             <span className="my-kalpurush-text font-extrabold">ক্যাম্পেইন</span>
           </h2>
           <h2 className="text-[18px] font-normal  my-kalpurush-text  text-gray-900 tracking-tight w-full justify-center lg:text-start">
-            মোট দশ লক্ষ টাকার ১০ টি পুরষ্কার জিতুন
+            মোট ২ লক্ষ টাকার ১০টি পুরস্কার জিতার সুযোগ!
           </h2>
           <h2 className="text-[38px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">
             মাত্র ৯৯৯ টাকা
