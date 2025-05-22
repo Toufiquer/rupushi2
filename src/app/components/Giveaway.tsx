@@ -56,8 +56,10 @@ const MobileViewCampaignBox = ({
   productId: string;
 }) => {
   return (
-    <div className="w-full flex items-center justify-between gap-4 flex-col ">
-      <div className={`relative h-[400px] w-[400px] overflow-hidden shadow-lg rounded-md`}>
+    <div className="w-full flex items-center justify-start gap-4 flex-col bg-[#EEEAE7]">
+      <div
+        className={`relative h-[400px] min-w-[400px] w-[400px] overflow-hidden shadow-lg rounded-md`}
+      >
         <Image
           src={promotion.mainPageImage1}
           alt={promotion.mainPageTitle}
@@ -67,27 +69,26 @@ const MobileViewCampaignBox = ({
           className="block"
         />
       </div>
-      <div className="w-[80%] flex items-center justify-center flex-col gap-4">
-        {/* Red button */}
-        <Link href={`/product-details/${productId}`} className="w-full">
-          <Button
-            variant={'default'}
-            className="bg-rose-500 h-[40px] md:h-[40px] hover:bg-rose-600 text-bold text-white text-xl cursor-pointer w-full"
-          >
-            <span className="p-4">মাত্র ৯৯৯ টাকা!</span>
-          </Button>
-        </Link>
-        {/* Orange button */}
-        <Link href={`/product-details/${productId}`} className="w-full">
-          <Button
-            variant={'default'}
-            className="bg-[#fbc79a] hover:bg-[#e39366] text-bold text-black h-[70px] md:h-[70px] text-xl cursor-pointer w-full"
-          >
-            <span className="p-4">
-              অর্ডার করুন <br /> পুরস্কার জিতুন
-            </span>
-          </Button>
-        </Link>
+      <div className="w-full flex items-start justify-start flex-col gap-2">
+        <div className="w-full h-auto pb-10 pl-[10px] flex items-start justify-start text-center flex-col gap-2">
+          <h2 className="text-[38px] font-extrabold text-gray-900 tracking-tight w-full justify-center lg:text-start">
+            Lucky Gifts <span className="p-4 my-kalpurush-text font-extrabold">ক্যাম্পেইন</span>
+          </h2>
+          <h2 className="text-[18px] font-normal  my-kalpurush-text  text-gray-900 tracking-tight w-full justify-center lg:text-start">
+            মোট দশ লক্ষ টাকার ১০ টি পুরষ্কার জিতুন
+          </h2>
+          <h2 className="text-[38px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">
+            মাত্র ৯৯৯ টাকা
+          </h2>
+          <Link href={`/product-details/${productId}`} className="w-full">
+            <Button
+              variant={'default'}
+              className="bg-[#fbc79a] border-1 border-slate-300 hover:border-slate-400 shadow-lg hover:shadow-slate-900 shadow-slate-700 text-bold text-black h-[70px] text-3xl max-w-[250px] cursor-pointer w-full"
+            >
+              <span className="text-[20px] my-kalpurush-text font-extrabold">অর্ডার করুন</span>
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );
@@ -100,8 +101,10 @@ const TabletViewCampaignBox = ({
   productId: string;
 }) => {
   return (
-    <div className="w-full flex items-center justify-center gap-4 flex-row">
-      <div className={`relative h-[400px] w-[400px] overflow-hidden shadow-lg rounded-md`}>
+    <div className="w-full flex items-center justify-start gap-4 flex-row bg-[#EEEAE7]">
+      <div
+        className={`relative h-[300px] min-w-[300px] w-[300px] overflow-hidden shadow-lg rounded-md`}
+      >
         <Image
           src={promotion.mainPageImage1}
           alt={promotion.mainPageTitle}
@@ -111,27 +114,26 @@ const TabletViewCampaignBox = ({
           className="block"
         />
       </div>
-      <div className="w-2/5 flex items-center justify-center flex-col gap-4 ">
-        {/* Red button */}
-        <Link href={`/product-details/${productId}`} className="w-full">
-          <Button
-            variant={'default'}
-            className="bg-rose-500 h-[60px] md:h-[60px] hover:bg-rose-600 text-bold text-white text-3xl cursor-pointer w-full"
-          >
-            <span className="p-4">মাত্র ৯৯৯ টাকা!</span>
-          </Button>
-        </Link>
-        {/* Orange button */}
-        <Link href={`/product-details/${productId}`} className="w-full">
-          <Button
-            variant={'default'}
-            className="bg-[#fbc79a] hover:bg-[#e39366] text-bold text-black h-[90px] md:h-[90px] text-3xl cursor-pointer w-full"
-          >
-            <span className="p-4">
-              অর্ডার করুন <br /> পুরস্কার জিতুন
-            </span>
-          </Button>
-        </Link>
+      <div className="w-full flex items-start justify-start flex-col gap-2">
+        <div className="w-full h-[300px] pl-[10px] flex items-start justify-start flex-col gap-2 pt-[15px]">
+          <h2 className="text-[38px] font-extrabold text-gray-900 tracking-tight w-full justify-center lg:text-start">
+            Lucky Gifts <span className="p-4 my-kalpurush-text font-extrabold">ক্যাম্পেইন</span>
+          </h2>
+          <h2 className="text-[18px] font-normal  my-kalpurush-text  text-gray-900 tracking-tight w-full justify-center lg:text-start">
+            মোট দশ লক্ষ টাকার ১০ টি পুরষ্কার জিতুন
+          </h2>
+          <h2 className="text-[38px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">
+            মাত্র ৯৯৯ টাকা
+          </h2>
+          <Link href={`/product-details/${productId}`} className="w-full">
+            <Button
+              variant={'default'}
+              className="bg-[#fbc79a] border-1 border-slate-300 hover:border-slate-400 shadow-lg hover:shadow-slate-900 shadow-slate-700 text-bold text-black h-[70px] text-3xl max-w-[250px] cursor-pointer w-full"
+            >
+              <span className="text-[20px] my-kalpurush-text font-extrabold">অর্ডার করুন</span>
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );
@@ -144,8 +146,10 @@ const DesktopViewCampaignBox = ({
   productId: string;
 }) => {
   return (
-    <div className="w-full flex items-center justify-start gap-4 flex-row">
-      <div className={`relative h-[400px] w-[400px] overflow-hidden shadow-lg rounded-md`}>
+    <div className="w-full flex items-center justify-start gap-4 flex-row bg-[#EEEAE7]">
+      <div
+        className={`relative h-[400px] min-w-[400px] w-[400px] overflow-hidden shadow-lg rounded-md`}
+      >
         <Image
           src={promotion.mainPageImage1}
           alt={promotion.mainPageTitle}
@@ -155,18 +159,37 @@ const DesktopViewCampaignBox = ({
           className="block"
         />
       </div>
-      <div className="w-2/5 flex items-center justify-center flex-col gap-4 ">
+      <div className="w-full flex items-start justify-start flex-col gap-8">
+        <div className="w-full h-[400px] pl-[100px] flex items-start justify-start flex-col gap-4 pt-8">
+          <h2 className="text-[48px] font-extrabold text-gray-900 tracking-tight w-full justify-center lg:text-start">
+            Lucky Gifts <span className="p-4 my-kalpurush-text font-extrabold">ক্যাম্পেইন</span>
+          </h2>
+          <h2 className="text-[28px] font-normal  my-kalpurush-text  text-gray-900 tracking-tight w-full justify-center lg:text-start">
+            মোট দশ লক্ষ টাকার ১০ টি পুরষ্কার জিতুন
+          </h2>
+          <h2 className="text-[48px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">
+            মাত্র ৯৯৯ টাকা
+          </h2>
+          <Link href={`/product-details/${productId}`} className="w-full">
+            <Button
+              variant={'default'}
+              className="bg-[#fbc79a] border-1 border-slate-300 hover:border-slate-400 shadow-lg hover:shadow-slate-900 shadow-slate-700 text-bold text-black h-[70px] text-3xl max-w-[250px] cursor-pointer w-full"
+            >
+              <span className="text-[30px] my-kalpurush-text font-extrabold">অর্ডার করুন</span>
+            </Button>
+          </Link>
+        </div>
         {/* Red button */}
-        <Link href={`/product-details/${productId}`} className="w-full">
+        {/* <Link href={`/product-details/${productId}`} className="w-full">
           <Button
             variant={'default'}
             className="bg-rose-500 h-[60px] md:h-[60px] hover:bg-rose-600 text-bold text-white text-3xl cursor-pointer w-full"
           >
             <span className="p-4 my-kalpurush-text">মাত্র ৯৯৯ টাকা!</span>
           </Button>
-        </Link>
+        </Link> */}
         {/* Orange button */}
-        <Link href={`/product-details/${productId}`} className="w-full">
+        {/* <Link href={`/product-details/${productId}`} className="w-full">
           <Button
             variant={'default'}
             className="bg-[#fbc79a] hover:bg-[#e39366] text-bold text-black h-[90px] md:h-[90px] text-3xl cursor-pointer w-full"
@@ -175,7 +198,7 @@ const DesktopViewCampaignBox = ({
               অর্ডার করুন <br /> পুরস্কার জিতুন
             </span>
           </Button>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );
@@ -244,11 +267,11 @@ async function Giveaway() {
 
   return (
     <div className="w-full flex flex-col gap-2 px-1 md:-px-0">
-      {promotionsWithProductIds.length > 0 && (
+      {/* {promotionsWithProductIds.length > 0 && (
         <h2 className="text-xl md:text-3xl font-bold text-gray-900 tracking-tight w-full justify-center md:px-4 lg:text-start">
           Lucky Gifts Campaign
         </h2>
-      )}
+      )} */}
       {promotionsWithProductIds.map(({ promotion, productId }) => (
         <PromotionItem key={promotion.id} promotion={promotion} productId={productId} />
       ))}
