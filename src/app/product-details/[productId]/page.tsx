@@ -55,7 +55,7 @@ export default async function Page({ params }: { params: Promise<{ productId: st
       {isCurrentProductInPromotion && (
         <div className="w-full flex items-center justify-center">
           <div
-            className={`relative w-full h-[90px] md:h-[194px] max-w-[1275px] max-h-[400px] overflow-hidden shadow-lg rounded-md`}
+            className={`relative w-full px-2 xl:px-0 h-[80px] md:h-[120px] lg:h-[155px] xl:h-[200px] max-w-[1275px] max-h-[400px] overflow-hidden rounded-md`}
           >
             <Image
               src={allPromotions[0].productPageBannerImage1 || '/placeholder.jpg'}

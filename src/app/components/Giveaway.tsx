@@ -76,11 +76,11 @@ const MobileViewCampaignBox = ({
       </div>
       <div className="w-full flex items-start justify-start flex-col gap-2">
         <div className="w-full h-auto pb-10 pl-[10px] flex items-start justify-start text-center flex-col gap-2">
-          <h2 className="text-[38px] font-normal text-gray-900 tracking-tight w-full justify-center lg:text-start">
+          <h2 className="text-[40px] font-bold text-gray-900 tracking-tight w-full justify-center lg:text-start">
             <span>Lucky Gifts </span>
             <span className="my-kalpurush-text font-extrabold">ক্যাম্পেইন</span>
           </h2>
-          <h2 className="text-[18px] font-normal  my-kalpurush-text  text-gray-900 tracking-tight w-full justify-center lg:text-start">
+          <h2 className="text-[22px] font-normal  my-kalpurush-text  text-gray-900 tracking-tight w-full justify-center lg:text-start">
             মোট ২ লক্ষ টাকার ১০টি পুরস্কার জিতার সুযোগ!
           </h2>
           <h2 className="text-[38px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">
@@ -126,11 +126,11 @@ const TabletViewCampaignBox = ({
       </div>
       <div className="w-full flex items-start justify-start flex-col gap-2">
         <div className="w-full h-[300px] pl-[10px] flex items-start justify-start flex-col gap-2 pt-[15px]">
-          <h2 className="text-[38px] font-normal text-gray-900 tracking-tight w-full justify-center lg:text-start">
-            {/* <span className="font-thin">Lucky Gifts </span> */}
+          <h2 className="text-[40px] font-bold text-gray-900 tracking-tight w-full justify-center lg:text-start">
+            <span>Lucky Gifts </span>
             <span className="my-kalpurush-text font-extrabold">ক্যাম্পেইন</span>
           </h2>
-          <h2 className="text-[18px] font-normal  my-kalpurush-text  text-gray-900 tracking-tight w-full justify-center lg:text-start">
+          <h2 className="text-[22px] font-normal  my-kalpurush-text  text-gray-900 tracking-tight w-full justify-center lg:text-start">
             মোট ২ লক্ষ টাকার ১০টি পুরস্কার জিতার সুযোগ!
           </h2>
           <h2 className="text-[38px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">

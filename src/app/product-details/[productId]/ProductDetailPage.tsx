@@ -56,9 +56,9 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
   };
   return (
     <div className="w-full flex items-center justify-center px-2 mt-[-10px]">
-      <div className="container max-w-7xl flex flex-col gap-8">
+      <div className="container max-w-7xl flex flex-col gap-8 pt-4">
         <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-2 md:gap-8">
-          <div className="w-full lg:max-w-[440px]">
+          <div className="w-full lg:max-w-[440px] xl:pl-[2px]">
             {product.allImages?.length > 0 ? (
               <ImageNextComponents allImages={product.allImages} />
             ) : (

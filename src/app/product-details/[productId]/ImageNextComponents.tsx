@@ -37,8 +37,8 @@ const ImageNextComponents = ({ allImages }: { allImages: string[] }) => {
               <CarouselItem
                 key={index}
                 className="pl-1
-              basis-1/3       // Mobile: 4 items per view (100% / 4 = 25%)
-              md:basis-1/4    // Tablet: 8 items per view (100% / 8 = 12.5%)
+              basis-1/4       // Mobile: 4 items per view (100% / 4 = 25%)
+              md:basis-1/8    // Tablet: 8 items per view (100% / 8 = 12.5%)
               lg:basis-1/5   // Desktop: 12 items per view (100% / 12 = 8.33%)
             "
               >
