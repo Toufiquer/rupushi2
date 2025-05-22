@@ -7,6 +7,9 @@ import { useToast } from '@/components/ui/use-toast';
 import Image from 'next/image';
 import { Switch } from '@/components/ui/switch';
 import UploadImg from './upload-img';
+import DataSelect from './DataSelect';
+import ImagesSelect from './ImagesSelect';
+import RichTextEditor from './rich-text-editor';
 
 interface ImageItem {
   id: string;
@@ -33,9 +36,13 @@ interface FormData {
   isArrival: boolean;
   'chain length': string;
   style: string;
+  allImages: string[];
+  descriptionData: string;
 }
 
 const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
+  const [newItemTags, setNewItemTags] = useState<string[]>([]);
+  const [newImages, setNewImages] = useState<string[]>([]);
   const { toast } = useToast();
   const [productData, setProductData] = useState({
     name: '',
@@ -54,6 +61,8 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
     'chain-length': '',
     style: '',
   });
+
+  const [descriptions, setDescriptions] = useState('');
   const [images, setImages] = useState<ImageItem[]>([]);
   const [showMediaModal, setShowMediaModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -77,6 +86,8 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
     isArrival: true,
     'chain length': '',
     style: '',
+    allImages: [],
+    descriptionData: '',
   });
   const [selectedImage, setSelectedImage] = useState('');
 
@@ -109,6 +120,10 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
     setLoading(true);
 
     try {
+      const newData = { ...formData };
+      newData.allImages = newImages;
+      newData.descriptionData = descriptions;
+      console.log('new Data', newData);
       const response = await fetch('/api/products', {
         method: 'POST',
         headers: {
@@ -146,6 +161,8 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
         weight: '',
         'chain length': '',
         style: '',
+        allImages: [],
+        descriptionData: '',
       });
 
       // Notify parent component
@@ -182,6 +199,10 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
     };
     fetchImages();
   }, []);
+  const onRichTextChange = (content: string) => {
+    setDescriptions(content);
+    console.log(content);
+  };
   return (
     <div className="w-full max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-6">Add New Product</h2>
@@ -430,6 +451,10 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
           />
         </div>
 
+        <DataSelect newItemTags={newItemTags as string[]} setNewItemTags={setNewItemTags} />
+        <ImagesSelect newImages={newImages as string[]} setNewImages={setNewImages} />
+        <h2>Description</h2>
+        <RichTextEditor content={descriptions} onChange={onRichTextChange} />
         <div className="flex justify-end">
           <Button
             type="submit"

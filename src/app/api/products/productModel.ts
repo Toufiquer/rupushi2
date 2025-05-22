@@ -103,6 +103,8 @@ const productSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
+    allImages: [{ type: String, require: false }],
+    descriptionsData: { type: String, require: false },
   },
   {
     timestamps: true,
