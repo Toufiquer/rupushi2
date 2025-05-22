@@ -11,7 +11,7 @@ async function getPost(id: string) {
   const res = await fetch(backendUrl, { next: { revalidate: 60 } });
   const allProducts: { data: IProduct[] } = await res.json();
   const post = allProducts.data.filter((p: IProduct) => {
-    return p.id === id;
+    return p.id === id || p._id === id;
   })[0];
   if (!post) notFound();
   return post;
@@ -51,11 +51,11 @@ export default async function Page({ params }: { params: Promise<{ productId: st
   );
 
   return (
-    <div className="py-12 flex flex-col w-full">
+    <div className="py-2 flex flex-col w-full">
       {isCurrentProductInPromotion && (
         <div className="w-full flex items-center justify-center">
           <div
-            className={`relative w-full h-[194px] max-w-[1245px] mb-4 max-h-[400px] overflow-hidden shadow-lg rounded-md`}
+            className={`relative w-full h-[90px] md:h-[194px] max-w-[1275px] max-h-[400px] overflow-hidden shadow-lg rounded-md`}
           >
             <Image
               src={allPromotions[0].productPageBannerImage1 || '/placeholder.jpg'}

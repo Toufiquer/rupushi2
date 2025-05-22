@@ -10,6 +10,9 @@ import ImageNextComponents from './ImageNextComponents';
 
 const ProductDetailPage = ({ product }: { product: IProduct }) => {
   const productsCods = ['RJ110', 'RJ111'];
+  const productPromoCods = ['LUCKY001'];
+  const isPromotionCode = productPromoCods.includes(product['product-code']);
+  console.log('isDisabled ; :', isPromotionCode);
   const router = useRouter();
   const { cart, updateCart, setIsFetchingCartComplete } = useStore();
   const handleAddToCart = () => {
@@ -51,9 +54,9 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
     window.location.href = `tel:01560006643`; // Replace spaces in number for dial pad compatibility
   };
   return (
-    <div className="w-full flex items-center justify-center px-2 md:px-4">
-      <div className="container max-w-7xl flex flex-col gap-8 px-4">
-        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-2 md:gap-8">
+    <div className="w-full flex items-center justify-center px-2 mt-[-10px]">
+      <div className="container max-w-7xl flex flex-col gap-8">
+        <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-2 md:gap-8">
           <div className="w-full lg:max-w-[440px]">
             {product.allImages?.length > 0 && <ImageNextComponents allImages={product.allImages} />}
             {/* Product Image */}
@@ -69,7 +72,9 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
           <div className="w-full">
             {/* Product Details */}
             <div className="space-y-4">
-              <h1 className="text-xl lg:text-2xl font-bold text-gray-800">{product.name}</h1>
+              <h1 className="text-xl lg:text-2xl font-bold text-gray-800">
+                <span className="mt-2 lg:mt-[52px] xl:mt-[44px] block">{product.name}</span>
+              </h1>
 
               {/* Product Code */}
               <p className="text-gray-600">Product Code: {product['product-code']}</p>
@@ -77,10 +82,16 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
               {/* Pricing */}
               <div className="flex items-center space-x-4 lg:mt-8">
                 <span className="text-2xl font-bold text-red-600">৳ {product.discountedPrice}</span>
-                <span className="line-through text-gray-500">৳ {product.realPrice}</span>
-                {product.offer && (
+                {!isPromotionCode && (
+                  <span className="line-through text-gray-500">৳ {product.realPrice}</span>
+                )}
+                {product.offer && !isPromotionCode ? (
                   <span className="bg-green-100 text-green-800 px-2 lg:py-1 rounded-full text-sm">
                     Save {product.offer} %
+                  </span>
+                ) : (
+                  <span className="bg-green-100 text-green-800 px-2 lg:py-1 rounded-full text-sm">
+                    In Stock
                   </span>
                 )}
               </div>
@@ -161,7 +172,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
         <div className="w-full">
           {/* Product Details */}
           <div className="pt-1">
-            <h2 className="mb-2 bg-[#e39366] font-bold text-3xl text-slate-100 rounded-sm p-2">
+            <h2 className="mb-2 bg-[#e39366] font-bold text-2xl text-slate-800 rounded-sm p-2">
               Product Details
             </h2>
             <ul className="space-y-2 text-gray-700">
@@ -215,7 +226,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
             />
           ) : (
             <div className="border-t pt-4">
-              <h2 className="font-semibold mb-2">Description</h2>
+              <h2 className="font-semibold text-black">Description</h2>
               <p>{product['description-top']}</p>
               <p className="mt-2">{product['description-bottom']}</p>
             </div>

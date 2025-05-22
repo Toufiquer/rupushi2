@@ -61,19 +61,22 @@ const MobileViewCampaignBox = ({
       <div
         className={`relative h-[400px] min-w-[400px] w-[400px] overflow-hidden shadow-lg rounded-md`}
       >
-        <Image
-          src={promotion.mainPageImage1}
-          alt={promotion.mainPageTitle}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          style={{ objectFit: 'contain' }}
-          className="block"
-        />
+        <Link href={`/product-details/${productId}`}>
+          <Image
+            src={promotion.mainPageImage1}
+            alt={promotion.mainPageTitle}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{ objectFit: 'contain' }}
+            className="block"
+          />
+        </Link>
       </div>
       <div className="w-full flex items-start justify-start flex-col gap-2">
         <div className="w-full h-auto pb-10 pl-[10px] flex items-start justify-start text-center flex-col gap-2">
-          <h2 className="text-[38px] font-extrabold text-gray-900 tracking-tight w-full justify-center lg:text-start">
-            Lucky Gifts <span className="p-4 my-kalpurush-text font-extrabold">ক্যাম্পেইন</span>
+          <h2 className="text-[38px] font-normal text-gray-900 tracking-tight w-full justify-center lg:text-start">
+            <span>Lucky Gifts </span>
+            <span className="my-kalpurush-text font-extrabold">ক্যাম্পেইন</span>
           </h2>
           <h2 className="text-[18px] font-normal  my-kalpurush-text  text-gray-900 tracking-tight w-full justify-center lg:text-start">
             মোট দশ লক্ষ টাকার ১০ টি পুরষ্কার জিতুন
@@ -106,19 +109,22 @@ const TabletViewCampaignBox = ({
       <div
         className={`relative h-[300px] min-w-[300px] w-[300px] overflow-hidden shadow-lg rounded-md`}
       >
-        <Image
-          src={promotion.mainPageImage1}
-          alt={promotion.mainPageTitle}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          style={{ objectFit: 'contain' }}
-          className="block"
-        />
+        <Link href={`/product-details/${productId}`}>
+          <Image
+            src={promotion.mainPageImage1}
+            alt={promotion.mainPageTitle}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{ objectFit: 'contain' }}
+            className="block"
+          />
+        </Link>
       </div>
       <div className="w-full flex items-start justify-start flex-col gap-2">
         <div className="w-full h-[300px] pl-[10px] flex items-start justify-start flex-col gap-2 pt-[15px]">
-          <h2 className="text-[38px] font-extrabold text-gray-900 tracking-tight w-full justify-center lg:text-start">
-            Lucky Gifts <span className="p-4 my-kalpurush-text font-extrabold">ক্যাম্পেইন</span>
+          <h2 className="text-[38px] font-normal text-gray-900 tracking-tight w-full justify-center lg:text-start">
+            {/* <span className="font-thin">Lucky Gifts </span> */}
+            <span className="my-kalpurush-text font-extrabold">ক্যাম্পেইন</span>
           </h2>
           <h2 className="text-[18px] font-normal  my-kalpurush-text  text-gray-900 tracking-tight w-full justify-center lg:text-start">
             মোট দশ লক্ষ টাকার ১০ টি পুরষ্কার জিতুন
@@ -151,22 +157,25 @@ const DesktopViewCampaignBox = ({
       <div
         className={`relative h-[400px] min-w-[400px] w-[400px] overflow-hidden shadow-lg rounded-md`}
       >
-        <Image
-          src={promotion.mainPageImage1}
-          alt={promotion.mainPageTitle}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          style={{ objectFit: 'contain' }}
-          className="block"
-        />
+        <Link href={`/product-details/${productId}`}>
+          <Image
+            src={promotion.mainPageImage1}
+            alt={promotion.mainPageTitle}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{ objectFit: 'contain' }}
+            className="block"
+          />
+        </Link>
       </div>
       <div className="w-full flex items-start justify-start flex-col gap-8">
         <div className="w-full h-[400px] pl-[100px] flex items-start justify-start flex-col gap-4 pt-8">
-          <h2 className="text-[48px] font-extrabold text-gray-900 tracking-tight w-full justify-center lg:text-start">
-            Lucky Gifts <span className="p-4 my-kalpurush-text font-extrabold">ক্যাম্পেইন</span>
+          <h2 className="text-[48px] font-bold text-gray-900 tracking-tight w-full justify-center lg:text-start">
+            <span>Lucky Gifts </span>
+            <span className="my-kalpurush-text font-extrabold">ক্যাম্পেইন</span>
           </h2>
-          <h2 className="text-[28px] font-normal  my-kalpurush-text  text-gray-900 tracking-tight w-full justify-center lg:text-start">
-            মোট দশ লক্ষ টাকার ১০ টি পুরষ্কার জিতুন
+          <h2 className="text-[26px] font-normal  my-kalpurush-text  text-gray-900 tracking-tight w-full justify-center lg:text-start">
+            মোট ২ লক্ষ টাকার ১০টি পুরস্কার জিতার সুযোগ!
           </h2>
           <h2 className="text-[48px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">
             মাত্র ৯৯৯ টাকা
@@ -174,7 +183,7 @@ const DesktopViewCampaignBox = ({
           <Link href={`/product-details/${productId}`} className="w-full">
             <Button
               variant={'default'}
-              className="bg-[#fbc79a] border-1 border-slate-300 hover:border-slate-400 shadow-lg hover:shadow-slate-900 shadow-slate-700 text-bold text-black h-[70px] text-3xl max-w-[250px] cursor-pointer w-full"
+              className="bg-[#fbc79a] border-1 border-slate-300 hover:border-slate-300 shadow-md hover:shadow-slate-600 shadow-slate-700 text-bold text-black h-[70px] text-3xl max-w-[250px] cursor-pointer w-full"
             >
               <span className="text-[30px] my-kalpurush-text font-extrabold">অর্ডার করুন</span>
             </Button>

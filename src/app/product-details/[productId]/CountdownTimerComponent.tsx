@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react';
 
 // Define the target date: December 31, 2025, at 23:59:59
 // Or, more simply, the very beginning of January 1, 2026
-const TARGET_DATE_STRING = '2025-08-08T00:00:00'; // Counts down to the end of Dec 31, 2025
+const TARGET_DATE_STRING = '2025-06-30T00:14:00'; // Counts down to the end of Dec 31, 2025
 
 function calculateTimeRemaining(targetDateString: string) {
   const targetTime = new Date(targetDateString).getTime();
@@ -103,9 +103,9 @@ export default function CountdownTimer() {
   return (
     <div className="w-full max-w-6xl md:max-w-7xl mx-auto my-8">
       {/* Header */}
-      <div className="bg-[#e39366] p-4 rounded-t-lg text-center font-bold my-kalpurush-text text-2xl">
+      <h2 className="mb-2 bg-[#e39366] font-bold text-2xl text-center text-slate-800 rounded-sm p-2">
         অর্ডার করুন পুরস্কার জিতুন!
-      </div>
+      </h2>
 
       {/* Countdown Timer */}
       <div className="bg-white p-4 flex flex-col items-center">
@@ -143,10 +143,13 @@ export default function CountdownTimer() {
       </div>
 
       {/* Footer */}
-      <div className="bg-[#e39366] p-4 rounded-b-lg text-center font-bold  my-kalpurush-text text-2xl">
+      <h2 className="mb-2 bg-[#e39366] font-bold text-center text-2xl text-slate-800 rounded-sm p-2">
+        কে হবে বিজয়ী? জানতে যুক্ত থাকুন আমাদের ফেসবুক পেইজে
+      </h2>
+      {/* <div className="bg-[#e39366] p-4 rounded-b-lg text-center font-bold  my-kalpurush-text text-2xl">
         কে হবে বিজয়ী? <br />
         জানতে যুক্ত থাকুন আমাদের ফেসবুক পেইজে
-      </div>
+      </div> */}
 
       {/* Circular Buttons */}
       <div className="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-center gap-8 mx-auto">
