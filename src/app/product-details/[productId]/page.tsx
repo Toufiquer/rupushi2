@@ -55,13 +55,13 @@ export default async function Page({ params }: { params: Promise<{ productId: st
       {isCurrentProductInPromotion && (
         <div className="w-full flex items-center justify-center">
           <div
-            className={`relative w-full h-[300px] max-w-[1245px] mb-4 max-h-[400px] overflow-hidden shadow-lg rounded-md`}
+            className={`relative w-full h-[194px] max-w-[1245px] mb-4 max-h-[400px] overflow-hidden shadow-lg rounded-md`}
           >
             <Image
               src={allPromotions[0].productPageBannerImage1 || '/placeholder.jpg'}
               alt={'promotion banner'}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              width={1400}
+              height={600}
               style={{ objectFit: 'contain' }}
               className="block"
             />

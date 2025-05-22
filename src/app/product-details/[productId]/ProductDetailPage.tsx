@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { ShoppingCart, PhoneCall } from 'lucide-react';
 import { IProduct } from '@/app/components/ProductsCard';
 import { useRouter } from 'next/navigation';
@@ -23,7 +22,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
 
     // ! update cart
     let newUpdateCart: typeof cart = [];
-    if (cart.length === 0) {
+    if (cart?.length === 0) {
       cartItem.quantity = !cartItem.quantity ? 1 : cartItem.quantity + 1;
       newUpdateCart = [cartItem];
     } else {
@@ -56,7 +55,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
       <div className="container max-w-7xl flex flex-col gap-8 px-4">
         <div className="w-full flex flex-col md:flex-row items-center justify-between gap-2 md:gap-8">
           <div className="w-full lg:max-w-[440px]">
-            {product.allImages.length > 0 && <ImageNextComponents allImages={product.allImages} />}
+            {product.allImages?.length > 0 && <ImageNextComponents allImages={product.allImages} />}
             {/* Product Image */}
             {/* <div className="relative aspect-square w-full">
               <Image
@@ -199,11 +198,28 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
             </ul>
           </div>
           {/* Description */}
-          <div className="border-t pt-4">
-            <h2 className="font-semibold mb-2">Description</h2>
-            <p>{product['description-top']}</p>
-            <p className="mt-2">{product['description-bottom']}</p>
-          </div>
+          {product.descriptionData ? (
+            <main
+              className="rich-text-content 
+              [&_s]:line-through [&_del]:line-through 
+              [&_u]:underline 
+              [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:pl-2 
+              [&_ol]:list-decimal [&_ol]:ml-6 [&_ol]:pl-2 
+              [&_li]:mb-2 
+              [&_mark]:bg-yellow-200 [&_mark]:px-0.5 [&_mark]:rounded-sm
+              [&_.text-left]:text-left 
+              [&_.text-center]:text-center 
+              [&_.text-right]:text-right 
+              [&_.text-justify]:text-justify"
+              dangerouslySetInnerHTML={{ __html: product.descriptionData }}
+            />
+          ) : (
+            <div className="border-t pt-4">
+              <h2 className="font-semibold mb-2">Description</h2>
+              <p>{product['description-top']}</p>
+              <p className="mt-2">{product['description-bottom']}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
