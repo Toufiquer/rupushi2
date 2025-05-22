@@ -7,7 +7,6 @@ import { useToast } from '@/components/ui/use-toast';
 import Image from 'next/image';
 import { Switch } from '@/components/ui/switch';
 import UploadImg from './upload-img';
-import DataSelect from './DataSelect';
 import ImagesSelect from './ImagesSelect';
 import RichTextEditor from './rich-text-editor';
 
@@ -41,7 +40,6 @@ interface FormData {
 }
 
 const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
-  const [newItemTags, setNewItemTags] = useState<string[]>([]);
   const [newImages, setNewImages] = useState<string[]>([]);
   const { toast } = useToast();
   const [productData, setProductData] = useState({
@@ -129,7 +127,7 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(newData),
       });
 
       if (!response.ok) {
@@ -451,7 +449,6 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
           />
         </div>
 
-        <DataSelect newItemTags={newItemTags as string[]} setNewItemTags={setNewItemTags} />
         <ImagesSelect newImages={newImages as string[]} setNewImages={setNewImages} />
         <h2>Description</h2>
         <RichTextEditor content={descriptions} onChange={onRichTextChange} />

@@ -103,13 +103,11 @@ const productSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
-    allImages: [{ type: String, require: false }],
-    descriptionsData: { type: String, require: false },
+    allImages: [{ type: String, required: false }],
+    descriptionData: { type: String, required: false },
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
   },
 );
 

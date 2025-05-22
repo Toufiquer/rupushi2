@@ -21,6 +21,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import AddProduct from './add-product';
+import ImagesSelect from './ImagesSelect';
+import RichTextEditor from './rich-text-editor';
 
 // Product type definition
 type Product = {
@@ -42,6 +44,9 @@ type Product = {
   style?: string;
   createdAt: string;
   updatedAt: string;
+
+  allImages: string[];
+  descriptionData: string;
 };
 
 const AllProducts = () => {
@@ -69,7 +74,12 @@ const AllProducts = () => {
     weight: '',
     'chain length': '',
     style: '',
+    allImages: [] as string[],
+    descriptionData: '',
   });
+
+  const [descriptions, setDescriptions] = useState('');
+  const [newImages, setNewImages] = useState<string[]>([]);
   const [images, setImages] = useState<{ id: string; url: string; display_url: string }[]>([]);
   const [productData, setProductData] = useState({
     name: '',
@@ -148,9 +158,15 @@ const AllProducts = () => {
       weight: product.weight || '',
       'chain length': product['chain length'] || '',
       style: product.style || '',
+      allImages: product.allImages || [],
+      descriptionData: product.descriptionData || '',
     });
     setSelectedImage(product.img);
     setEditDialogOpen(true);
+    console.log('');
+    console.log('product', product);
+    setNewImages(product.allImages || []);
+    setDescriptions(product.descriptionData || '');
   };
 
   // Handle delete product
@@ -172,6 +188,10 @@ const AllProducts = () => {
     if (!productToEdit) return;
     editForm.img = selectedImage;
     try {
+      const newData = { ...editForm };
+      newData.allImages = newImages;
+      newData.descriptionData = descriptions;
+      console.log('new Data', newData);
       const response = await fetch(`/api/products/`, {
         method: 'PUT',
         headers: {
@@ -179,7 +199,7 @@ const AllProducts = () => {
         },
         body: JSON.stringify({
           id: productToEdit._id,
-          ...editForm,
+          ...newData,
         }),
       });
 
@@ -377,6 +397,10 @@ const AllProducts = () => {
       ? new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
       : 0,
   );
+  const onRichTextChange = (content: string) => {
+    setDescriptions(content);
+    console.log(content);
+  };
   return (
     <div className="w-full">
       <div className="flex justify-between items-center mb-6">
@@ -645,6 +669,9 @@ const AllProducts = () => {
             </div>
           </div>
 
+          <ImagesSelect newImages={newImages as string[]} setNewImages={setNewImages} />
+          <h2>Description</h2>
+          <RichTextEditor content={descriptions} onChange={onRichTextChange} />
           <DialogFooter>
             <Button variant="outline" onClick={() => setEditDialogOpen(false)}>
               Cancel
