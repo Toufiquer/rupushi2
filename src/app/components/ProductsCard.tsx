@@ -33,6 +33,8 @@ export interface IProduct {
   status: 'active' | 'inactive' | string;
   quantity?: number;
   price?: number;
+  allImages: string[];
+  descriptionData: string;
 }
 export const defaultIProduct = {
   id: 'default-product-id-123',

@@ -7,6 +7,7 @@ import { IProduct } from '@/app/components/ProductsCard';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/app/utils/useStore';
 import { toast } from 'react-toastify';
+import ImageNextComponents from './ImageNextComponents';
 
 const ProductDetailPage = ({ product }: { product: IProduct }) => {
   const productsCods = ['RJ110', 'RJ111'];
@@ -55,15 +56,16 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
       <div className="container max-w-7xl flex flex-col gap-8 px-4">
         <div className="w-full flex flex-col md:flex-row items-center justify-between gap-2 md:gap-8">
           <div className="w-full lg:max-w-[440px]">
+            {product.allImages.length > 0 && <ImageNextComponents allImages={product.allImages} />}
             {/* Product Image */}
-            <div className="relative aspect-square w-full">
+            {/* <div className="relative aspect-square w-full">
               <Image
                 src={product.img || '/placeholder.jpg'}
                 alt={product.name}
                 fill
                 className="object-cover rounded-lg shadow-md"
               />
-            </div>
+            </div> */}
           </div>
           <div className="w-full">
             {/* Product Details */}
