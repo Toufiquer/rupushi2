@@ -42,7 +42,7 @@ async function getProductIdByCode(code: string): Promise<string> {
     const product = data.find(p => {
       return p['product-code'] === code;
     });
-    return product?.id || '';
+    return product?.id || product?._id || '';
   } catch (error) {
     console.error('Failed to fetch products:', error);
     return '';
@@ -56,12 +56,14 @@ const MobileViewCampaignBox = ({
   promotion: Promotion;
   productId: string;
 }) => {
+  const newProductId = productId || promotion.id || (promotion._id as string);
+  console.log(newProductId);
   return (
     <div className="w-full flex items-center justify-start gap-4 flex-col bg-[#EEEAE7]">
       <div
         className={`relative h-[400px] min-w-[400px] w-[400px] overflow-hidden shadow-lg rounded-md`}
       >
-        <Link href={`/product-details/${productId}`}>
+        <Link href={`/product-details/${newProductId}`}>
           <Image
             src={promotion.mainPageImage1}
             alt={promotion.mainPageTitle}
@@ -84,7 +86,7 @@ const MobileViewCampaignBox = ({
           <h2 className="text-[38px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">
             মাত্র ৯৯৯ টাকা
           </h2>
-          <Link href={`/product-details/${productId}`} className="w-full">
+          <Link href={`/product-details/${newProductId}`} className="w-full">
             <Button
               variant={'default'}
               className="bg-[#fbc79a] border-1 border-slate-300 hover:border-slate-400 shadow-lg hover:shadow-slate-900 shadow-slate-700 text-bold text-black h-[70px] text-3xl max-w-[250px] cursor-pointer w-full"
@@ -104,12 +106,14 @@ const TabletViewCampaignBox = ({
   promotion: Promotion;
   productId: string;
 }) => {
+  const newProductId = productId || promotion.id || (promotion._id as string);
+  console.log(newProductId);
   return (
     <div className="w-full flex items-center justify-start gap-4 flex-row bg-[#EEEAE7]">
       <div
         className={`relative h-[300px] min-w-[300px] w-[300px] overflow-hidden shadow-lg rounded-md`}
       >
-        <Link href={`/product-details/${productId}`}>
+        <Link href={`/product-details/${newProductId}`}>
           <Image
             src={promotion.mainPageImage1}
             alt={promotion.mainPageTitle}
@@ -132,7 +136,7 @@ const TabletViewCampaignBox = ({
           <h2 className="text-[38px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">
             মাত্র ৯৯৯ টাকা
           </h2>
-          <Link href={`/product-details/${productId}`} className="w-full">
+          <Link href={`/product-details/${newProductId}`} className="w-full">
             <Button
               variant={'default'}
               className="bg-[#fbc79a] border-1 border-slate-300 hover:border-slate-400 shadow-lg hover:shadow-slate-900 shadow-slate-700 text-bold text-black h-[70px] text-3xl max-w-[250px] cursor-pointer w-full"
@@ -152,12 +156,14 @@ const DesktopViewCampaignBox = ({
   promotion: Promotion;
   productId: string;
 }) => {
+  const newProductId = productId || promotion.id || (promotion._id as string);
+  console.log(newProductId);
   return (
     <div className="w-full flex items-center justify-start gap-4 flex-row bg-[#EEEAE7]">
       <div
         className={`relative h-[400px] min-w-[400px] w-[400px] overflow-hidden shadow-lg rounded-md`}
       >
-        <Link href={`/product-details/${productId}`}>
+        <Link href={`/product-details/${newProductId}`}>
           <Image
             src={promotion.mainPageImage1}
             alt={promotion.mainPageTitle}
@@ -180,7 +186,7 @@ const DesktopViewCampaignBox = ({
           <h2 className="text-[48px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">
             মাত্র ৯৯৯ টাকা
           </h2>
-          <Link href={`/product-details/${productId}`} className="w-full">
+          <Link href={`/product-details/${newProductId}`} className="w-full">
             <Button
               variant={'default'}
               className="bg-[#fbc79a] border-1 border-slate-300 hover:border-slate-300 shadow-md hover:shadow-slate-600 shadow-slate-700 text-bold text-black h-[70px] text-3xl max-w-[250px] cursor-pointer w-full"
@@ -189,32 +195,14 @@ const DesktopViewCampaignBox = ({
             </Button>
           </Link>
         </div>
-        {/* Red button */}
-        {/* <Link href={`/product-details/${productId}`} className="w-full">
-          <Button
-            variant={'default'}
-            className="bg-rose-500 h-[60px] md:h-[60px] hover:bg-rose-600 text-bold text-white text-3xl cursor-pointer w-full"
-          >
-            <span className="p-4 my-kalpurush-text">মাত্র ৯৯৯ টাকা!</span>
-          </Button>
-        </Link> */}
-        {/* Orange button */}
-        {/* <Link href={`/product-details/${productId}`} className="w-full">
-          <Button
-            variant={'default'}
-            className="bg-[#fbc79a] hover:bg-[#e39366] text-bold text-black h-[90px] md:h-[90px] text-3xl cursor-pointer w-full"
-          >
-            <span className="p-4 my-kalpurush-text">
-              অর্ডার করুন <br /> পুরস্কার জিতুন
-            </span>
-          </Button>
-        </Link> */}
       </div>
     </div>
   );
 };
 
 function PromotionItem({ promotion, productId }: { promotion: Promotion; productId: string }) {
+  const newProductId = productId || promotion.id || (promotion._id as string);
+  console.log(newProductId);
   return (
     <main className="w-full max-w-7xl md:px-4">
       <div className="w-full flex lg:flex-row flex-col justify-between border-slate-200 h-full gap-4 items-stretch">
@@ -236,18 +224,6 @@ function PromotionItem({ promotion, productId }: { promotion: Promotion; product
             promotion={promotion}
           />
         </div>
-        {/* <div
-          className={`relative w-full md:w-2/5 h-[300px] max-w-[900px] max-h-[400px] overflow-hidden shadow-lg rounded-md block md:hidden lg:block`}
-        >
-          <Image
-            src={promotion.mainPageImage2 || '/placeholder.jpg'}
-            alt={promotion.mainPageTitle}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            style={{ objectFit: 'contain' }}
-            className="block"
-          />
-        </div> */}
       </div>
     </main>
   );
