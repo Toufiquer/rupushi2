@@ -28,6 +28,7 @@ export interface Promotion {
   activeStatus: boolean;
   productCode: string;
   id: string;
+  _id?: string;
 }
 
 async function getProductIdByCode(code: string): Promise<string> {
@@ -209,13 +210,22 @@ function PromotionItem({ promotion, productId }: { promotion: Promotion; product
     <main className="w-full max-w-7xl md:px-4">
       <div className="w-full flex lg:flex-row flex-col justify-between border-slate-200 h-full gap-4 items-stretch">
         <div className="w-full md:hidden block">
-          <MobileViewCampaignBox productId={productId} promotion={promotion} />
+          <MobileViewCampaignBox
+            productId={productId || promotion.id || (promotion._id as string)}
+            promotion={promotion}
+          />
         </div>
         <div className="w-full hidden md:block lg:hidden">
-          <TabletViewCampaignBox productId={productId} promotion={promotion} />
+          <TabletViewCampaignBox
+            productId={productId || promotion.id || (promotion._id as string)}
+            promotion={promotion}
+          />
         </div>
         <div className="w-full hidden lg:block">
-          <DesktopViewCampaignBox productId={productId} promotion={promotion} />
+          <DesktopViewCampaignBox
+            productId={productId || promotion.id || (promotion._id as string)}
+            promotion={promotion}
+          />
         </div>
         {/* <div
           className={`relative w-full md:w-2/5 h-[300px] max-w-[900px] max-h-[400px] overflow-hidden shadow-lg rounded-md block md:hidden lg:block`}

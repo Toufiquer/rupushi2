@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 
 export interface IProduct {
   id: string;
+  _id?: string;
   name: string;
   'product-code': string;
   img?: string;
@@ -74,7 +75,9 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
       cartItem.quantity = !cartItem.quantity ? 1 : cartItem.quantity + 1;
       newUpdateCart = [cartItem];
     } else {
-      const isExist = cart.filter(curr => curr.id === productData.id);
+      const isExist = cart.filter(
+        curr => curr.id === productData.id || curr.id === productData._id,
+      );
       if (isExist) {
         // ! update quantity
         const newCartItem = { ...cartItem };
@@ -97,7 +100,7 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
       <CardContent className="p-0">
         {/* Product Image */}
         <div className="relative w-full  aspect-square">
-          <Link href={`/product-details/${productData.id}`}>
+          <Link href={`/product-details/${productData.id || productData._id}`}>
             <Image
               src={productData.img || '/placeholder.jpg'}
               alt={productData.name}
