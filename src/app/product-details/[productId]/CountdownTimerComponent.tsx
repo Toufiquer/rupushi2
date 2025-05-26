@@ -8,6 +8,7 @@
 
 'use client';
 
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 // Define the target date: December 31, 2025, at 23:59:59
@@ -88,17 +89,17 @@ export default function CountdownTimer() {
   }, [timeRemaining.isComplete]); // Re-run effect if isComplete changes (e.g., to stop interval)
 
   // Helper function to render two-digit numbers
-  const renderDigit = (digit: number) => {
-    const displayDigit = digit.toString().padStart(2, '0');
-    return displayDigit.split('').map((num, index) => (
-      <div
-        key={index}
-        className="bg-gradient-to-b from-red-800 to-red-900 text-white text-5xl sm:text-6xl md:text-7xl font-bold flex items-center justify-center w-12 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 rounded-md shadow-lg mx-1"
-      >
-        {num}
-      </div>
-    ));
-  };
+  // const renderDigit = (digit: number) => {
+  //   const displayDigit = digit.toString().padStart(2, '0');
+  //   return displayDigit.split('').map((num, index) => (
+  //     <div
+  //       key={index}
+  //       className="bg-gradient-to-b from-red-800 to-red-900 text-white text-5xl sm:text-6xl md:text-7xl font-bold flex items-center justify-center w-12 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 rounded-md shadow-lg mx-1"
+  //     >
+  //       {num}
+  //     </div>
+  //   ));
+  // };
 
   return (
     <div className="w-full max-w-6xl md:max-w-7xl mx-auto my-8 px-2">
@@ -106,33 +107,42 @@ export default function CountdownTimer() {
       <h2 className="mb-2 bg-[#e39366] font-bold text-2xl text-center text-slate-800 rounded-sm p-2">
         অর্ডার করুন পুরস্কার জিতুন!
       </h2>
-
+      <Link
+        target="_blank"
+        href=" https://www.facebook.com/RupushiJewels"
+        className="text-blue-600 hover:scale-110 transition"
+        title="Go to facebook page"
+      >
+        <h2 className="mb-2 bg-[#e39366] flex items-center justify-center gap-4 font-bold text-center text-2xl text-slate-800 rounded-sm p-2">
+          কে হবে বিজয়ী? জানতে যুক্ত থাকুন আমাদের ফেসবুক পেইজে
+        </h2>
+      </Link>
       {/* Countdown Timer */}
       <div className="bg-white p-4 flex flex-col items-center">
-        <div className="border-1 border-red-600 rounded-md p-2 mb-6">
+        {/* <div className="border-1 border-red-600 rounded-md p-2 mb-6">
           <div className="text-red-600 text-2xl font-bold text-center">
             {timeRemaining.isComplete ? 'COUNTDOWN COMPLETE!' : 'TIME REMAINING'}
           </div>
-        </div>
+        </div> */}
 
         {!timeRemaining.isComplete && (
           <div className="flex flex-row justify-center items-center w-full space-x-1 sm:space-x-2 gap-6 mt-2 mb-8">
             {/* Adjusted space for 4 items */}
             {/* Days */}
-            <div className="flex flex-col items-center">
+            {/* <div className="flex flex-col items-center">
               <div className="text-gray-800 font-semibold mb-2 text-xs sm:text-base">DAYS</div>
               <div className="flex">{renderDigit(timeRemaining.days)}</div>
-            </div>
+            </div> */}
             {/* Hours */}
-            <div className="flex flex-col items-center">
+            {/* <div className="flex flex-col items-center">
               <div className="text-gray-800 font-semibold mb-2 text-xs sm:text-base">HOURS</div>
               <div className="flex">{renderDigit(timeRemaining.hours)}</div>
-            </div>
+            </div> */}
             {/* Minutes */}
-            <div className="flex flex-col items-center">
+            {/* <div className="flex flex-col items-center">
               <div className="text-gray-800 font-semibold mb-2 text-xs sm:text-base">MINUTES</div>
               <div className="flex">{renderDigit(timeRemaining.minutes)}</div>
-            </div>
+            </div> */}
             {/* Seconds */}
             {/* <div className="flex flex-col items-center">
               <div className="text-gray-800 font-semibold mb-2 text-xs sm:text-base">SECONDS</div>
@@ -143,9 +153,9 @@ export default function CountdownTimer() {
       </div>
 
       {/* Footer */}
-      <h2 className="mb-2 bg-[#e39366] font-bold text-center text-2xl text-slate-800 rounded-sm p-2">
+      {/* <h2 className="mb-2 bg-[#e39366] font-bold text-center text-2xl text-slate-800 rounded-sm p-2">
         কে হবে বিজয়ী? জানতে যুক্ত থাকুন আমাদের ফেসবুক পেইজে
-      </h2>
+      </h2> */}
       {/* <div className="bg-[#e39366] p-4 rounded-b-lg text-center font-bold  my-kalpurush-text text-2xl">
         কে হবে বিজয়ী? <br />
         জানতে যুক্ত থাকুন আমাদের ফেসবুক পেইজে
