@@ -102,7 +102,7 @@ export default function CountdownTimer() {
   // };
 
   return (
-    <div className="w-full max-w-6xl md:max-w-7xl mx-auto my-8 px-2">
+    <div className="w-full max-w-6xl md:max-w-7xl mx-auto my-6 px-2">
       {/* Header */}
       <h2 className="mb-2 bg-[#e39366] font-bold text-2xl text-center text-slate-800 rounded-sm p-2">
         অর্ডার করুন পুরস্কার জিতুন!
