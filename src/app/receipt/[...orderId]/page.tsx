@@ -5,6 +5,7 @@ import { Printer } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { sendGTMEvent } from '@next/third-parties/google';
 
 interface ProductInfo {
   name: string;
@@ -66,6 +67,18 @@ const OrderReceipt = () => {
         })
         .then(data => {
           setOrder(data.data);
+          const fireGTMEvent = (order: OrderData) => {
+            console.log('++++++++++++++++++++++++++order', order);
+            console.log('++++++++++++++++++++++++++++++++');
+            sendGTMEvent({
+              event: 'purchase',
+              currency: 'BDT',
+              products: [...order?.productInfo],
+              orderDetails: { ...order },
+              orderId: orderId,
+            });
+          };
+          fireGTMEvent(data.data);
           setLoading(false);
         })
         .catch(err => {

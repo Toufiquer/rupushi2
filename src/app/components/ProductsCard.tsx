@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useStore } from '@/app/utils/useStore';
 import { useRouter } from 'next/navigation';
+import { sendGTMEvent } from '@next/third-parties/google';
 
 export interface IProduct {
   id: string;
@@ -66,6 +67,16 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
   const router = useRouter();
   const { cart, updateCart, setIsFetchingCartComplete } = useStore();
   const handleAddToCart = () => {
+    console.log(' tr- : ', productData);
+    const fireGTMEvent = (data: IProduct) => {
+      console.log('Calling sendGTMEvent with cart:', data);
+      sendGTMEvent({
+        event: 'add_to_cart',
+        currency: 'BDT',
+        product: { ...data },
+      });
+    };
+    fireGTMEvent(productData);
     // Convert IProduct to CartItem format
     const cartItem: IProduct = productData;
 
@@ -91,7 +102,6 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
     updateCart(newUpdateCart);
     setIsFetchingCartComplete(true);
     // Add item to Zustand store
-    // addItem(cartItem);
     router.push('/cart');
   };
 

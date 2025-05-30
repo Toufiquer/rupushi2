@@ -8,6 +8,7 @@ import { useStore } from '@/app/utils/useStore';
 import { toast } from 'react-toastify';
 import ImageNextComponents from './ImageNextComponents';
 import Image from 'next/image';
+import { sendGTMEvent } from '@next/third-parties/google';
 
 const ProductDetailPage = ({ product }: { product: IProduct }) => {
   const productsCods = ['RJ110', 'RJ111'];
@@ -17,6 +18,15 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
   const router = useRouter();
   const { cart, updateCart, setIsFetchingCartComplete } = useStore();
   const handleAddToCart = () => {
+    const fireGTMEvent = (currentCartValue: IProduct) => {
+      console.log('Calling sendGTMEvent with cart:', currentCartValue);
+      sendGTMEvent({
+        event: 'add_to_cart',
+        currency: 'BDT',
+        product: { ...currentCartValue },
+      });
+    };
+    fireGTMEvent(product);
     if (productsCods.includes(product['product-code'])) {
       toast.warn('Product is not available at this moment, please order later.');
       return;

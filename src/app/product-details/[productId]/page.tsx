@@ -5,6 +5,7 @@ import AllProductsHome from '@/app/components/AllProductsHome';
 import { Promotion } from '@/app/components/Giveaway';
 import CountdownTimer from './CountdownTimerComponent';
 import Image from 'next/image';
+import DataLayerNextComponentCartPage from './data-layer';
 
 const backendUrl = 'https://www.rupushi.com/api/products';
 async function getPost(id: string) {
@@ -52,6 +53,8 @@ export default async function Page({ params }: { params: Promise<{ productId: st
 
   return (
     <div className="py-2 flex flex-col w-full">
+      {/* <DataLayerNextComponentProductDetails id={productId} /> */}
+      <DataLayerNextComponentCartPage product={post} />
       {isCurrentProductInPromotion && (
         <div className="w-full flex items-center justify-center">
           <div

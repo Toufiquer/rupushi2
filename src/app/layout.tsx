@@ -6,12 +6,13 @@ import './globals.css';
 import Footer from './components/Footer';
 import TopBar from './components/TopBar';
 import { ToastContainer } from 'react-toastify';
-import Script from 'next/script'; // Import the Script component
 
 import NextAuthProvider from '@/provider/SessionProvider';
 
 import { ReduxProvider } from '@/redux/provider';
 const inter = Inter({ subsets: ['latin'] });
+
+import { GoogleTagManager } from '@next/third-parties/google';
 
 export const metadata: Metadata = {
   title: 'রূপশী',
@@ -23,13 +24,13 @@ export const metadata: Metadata = {
 };
 
 // Your Google Tag Manager ID
-const GTM_ID = 'GTM-K8FG9RCH';
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  console.log('process.env.GTM_ID', process.env.GTM_ID);
   return (
     <html lang="bn" className="light">
       {/*
@@ -38,7 +39,7 @@ export default function RootLayout({
         - `strategy="afterInteractive"` is recommended for GTM by Next.js.
           It loads the script after the page becomes interactive but before main hydration.
       */}
-      <Script id="google-tag-manager" strategy="afterInteractive">
+      {/* <Script id="google-tag-manager" strategy="afterInteractive">
         {`
           (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -46,7 +47,7 @@ export default function RootLayout({
           'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','${GTM_ID}');
         `}
-      </Script>
+      </Script> */}
       {/* Note: The <head> tag is managed by Next.js via the `metadata` export and `Head` component (if used).
           The `next/script` component handles placing the script appropriately based on the strategy.
           While Google says "as high in the <head>", placing the next/script component here in the layout
@@ -57,14 +58,14 @@ export default function RootLayout({
       >
         {/* Google Tag Manager (noscript) - Fallback for users with JavaScript disabled */}
         {/* Placed immediately after the opening <body> tag as recommended */}
-        <noscript>
+        {/* <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
           ></iframe>
-        </noscript>
+        </noscript> */}
         {/* End Google Tag Manager (noscript) */}
 
         {/* Your Existing Components */}
@@ -79,6 +80,7 @@ export default function RootLayout({
           </ReduxProvider>
         </NextAuthProvider>
         <Footer />
+        <GoogleTagManager gtmId={process.env.GTM_ID as string} />
         <ToastContainer />
       </body>
     </html>

@@ -13,10 +13,16 @@ import Link from 'next/link';
 import { useStore } from '@/app/utils/useStore';
 import LoadingComponent from '@/components/common/Loading';
 import { Check } from 'lucide-react';
+import { fireGTMEvent } from './data-layer';
+import { useEffect } from 'react';
 
 const AllProducts = () => {
   const { cart, textMessage, isFetchingCartComplete } = useStore();
-
+  useEffect(() => {
+    if (cart && window !== undefined) {
+      fireGTMEvent(cart);
+    }
+  }, [cart]);
   let renderProducts = <LoadingComponent />;
   const textFirstStyle = 'bg-green-400 text-black';
   const textConfirmStyle = 'bg-green-600 text-white';
@@ -49,6 +55,7 @@ const AllProducts = () => {
   return (
     <main className="w-full flex flex-col py-12 items-center justify-center">
       <div className="w-full flex flex-col max-w-7xl">
+        {/* <DataLayerNextComponentCartPage cart={cart} /> */}
         <div className="w-full">{renderProducts}</div>
       </div>
     </main>
