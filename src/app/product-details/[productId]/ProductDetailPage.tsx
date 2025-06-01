@@ -154,34 +154,46 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
                 </div>
               </div>
             </div>
-            <div className="space-y-4 mt-8 hidden lg:block">
-              <div className="flex w-full gap-8 flex-col md:mt-12 mt-4 font-semibold text-slate-500">
-                <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
-                  <p className="font-normal my-kalpurush-text text-xl">ঢাকায় ডেলিভারি খরচ </p>
-                  <p className="text-slate-700">৳ 60</p>
+            {isPromotionCode ? (
+              <div className="font-semibold  my-kalpurush-text text-xl w-full bg-rose-600 text-white p-4 rounded-md mt-4 hidden lg:block">
+                <p>পুরো বাংলাদেশে ডেলিভারি চার্জ ফ্রি</p>
+              </div>
+            ) : (
+              <div className="space-y-4 mt-8 hidden lg:block">
+                <div className="flex w-full gap-8 flex-col md:mt-12 mt-4 font-semibold text-slate-500">
+                  <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
+                    <p className="font-normal my-kalpurush-text text-xl">ঢাকায় ডেলিভারি খরচ </p>
+                    <p className="text-slate-700">৳ 60</p>
+                  </div>
+                  <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
+                    <p className="font-normal  my-kalpurush-text text-xl">
+                      ঢাকার বাইরের ডেলিভারি খরচ
+                    </p>
+                    <p className="text-slate-700">৳ 130</p>
+                  </div>
                 </div>
-                <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
-                  <p className="font-normal  my-kalpurush-text text-xl">
-                    ঢাকার বাইরের ডেলিভারি খরচ
-                  </p>
-                  <p className="text-slate-700">৳ 130</p>
-                </div>
+              </div>
+            )}
+          </div>
+        </div>
+        {isPromotionCode ? (
+          <div className="font-semibold  my-kalpurush-text text-xl w-full bg-rose-600 text-white p-4 rounded-md -mt-4 block lg:hidden">
+            <p>পুরো বাংলাদেশে ডেলিভারি চার্জ ফ্রি</p>
+          </div>
+        ) : (
+          <div className="space-y-4 block lg:hidden">
+            <div className="flex w-full gap-8 flex-col font-semibold text-slate-500">
+              <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
+                <p className="font-normal  my-kalpurush-text text-xl">ঢাকায় ডেলিভারি খরচ </p>
+                <p className="text-slate-700">৳ 60</p>
+              </div>
+              <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
+                <p className="font-normal  my-kalpurush-text text-xl">ঢাকার বাইরের ডেলিভারি খরচ</p>
+                <p className="text-slate-700">৳ 130</p>
               </div>
             </div>
           </div>
-        </div>
-        <div className="space-y-4 block lg:hidden">
-          <div className="flex w-full gap-8 flex-col font-semibold text-slate-500">
-            <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
-              <p className="font-normal  my-kalpurush-text text-xl">ঢাকায় ডেলিভারি খরচ </p>
-              <p className="text-slate-700">৳ 60</p>
-            </div>
-            <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
-              <p className="font-normal  my-kalpurush-text text-xl">ঢাকার বাইরের ডেলিভারি খরচ</p>
-              <p className="text-slate-700">৳ 130</p>
-            </div>
-          </div>
-        </div>
+        )}
         <div className="w-full">
           {/* Product Details */}
           <div className="pt-1">
