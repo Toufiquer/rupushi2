@@ -86,6 +86,9 @@ const MobileViewCampaignBox = ({
           <h2 className="text-[38px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">
             মাত্র ৯৯৯ টাকা
           </h2>
+          <p className="text-[21px] font-semibold mt-[-10px] my-kalpurush-text  text-rose-500 tracking-tight w-full justify-center lg:text-start ">
+            পুরো বাংলাদেশে ডেলিভারি চার্জ ফ্রি
+          </p>
           <Link href={`/product-details/${newProductId}`} className="w-full">
             <Button
               variant={'default'}
@@ -136,6 +139,10 @@ const TabletViewCampaignBox = ({
           <h2 className="text-[38px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">
             মাত্র ৯৯৯ টাকা
           </h2>
+          <p className="text-[20px] font-semibold mt-[-18px] my-kalpurush-text  text-rose-500 tracking-tight w-full justify-center lg:text-start ">
+            পুরো বাংলাদেশে ডেলিভারি চার্জ ফ্রি
+          </p>
+
           <Link href={`/product-details/${newProductId}`} className="w-full">
             <Button
               variant={'default'}
@@ -186,6 +193,9 @@ const DesktopViewCampaignBox = ({
           <h2 className="text-[48px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">
             মাত্র ৯৯৯ টাকা
           </h2>
+          <p className="text-[21px] font-semibold mt-[-20px] my-kalpurush-text  text-rose-500 tracking-tight w-full justify-center lg:text-start ">
+            পুরো বাংলাদেশে ডেলিভারি চার্জ ফ্রি
+          </p>
           <Link href={`/product-details/${newProductId}`} className="w-full">
             <Button
               variant={'default'}

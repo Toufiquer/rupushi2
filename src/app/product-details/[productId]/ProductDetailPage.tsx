@@ -112,6 +112,11 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
               {/* Action Buttons */}
               <div className="flex space-x-4 mt-8">
                 <div className="w-full flex flex-col gap-4">
+                  {isPromotionCode && (
+                    <div className="font-semibold  my-kalpurush-text text-xl w-full bg-rose-600 text-white p-4 rounded-md mt-[-10px] hidden lg:block">
+                      <p>পুরো বাংলাদেশে ডেলিভারি চার্জ ফ্রি</p>
+                    </div>
+                  )}
                   <div className="w-full flex flex-row gap-4">
                     <div
                       onClick={handleAddToCart}
@@ -155,7 +160,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
               </div>
             </div>
             {isPromotionCode ? (
-              <div className="font-semibold  my-kalpurush-text text-xl w-full bg-rose-600 text-white p-4 rounded-md mt-4 hidden lg:block">
+              <div className="font-semibold  my-kalpurush-text text-xl w-full bg-rose-600 text-white p-4 rounded-md mt-4 hidden">
                 <p>পুরো বাংলাদেশে ডেলিভারি চার্জ ফ্রি</p>
               </div>
             ) : (
