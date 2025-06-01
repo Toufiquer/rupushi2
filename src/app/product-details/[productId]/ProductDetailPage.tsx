@@ -82,7 +82,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
               </div>
             )}
           </div>
-          <div className="w-full">
+          <div className="w-full md:mt-[-140px]">
             {/* Product Details */}
             <div className="space-y-4">
               <h1 className="text-xl lg:text-2xl font-bold text-gray-800">
