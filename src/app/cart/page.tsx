@@ -18,12 +18,14 @@ import { useEffect } from 'react';
 
 const AllProducts = () => {
   const { cart, textMessage, isFetchingCartComplete } = useStore();
+
   useEffect(() => {
     if (cart && window !== undefined) {
       fireGTMEvent(cart);
     }
   }, [cart]);
   let renderProducts = <LoadingComponent />;
+
   const textFirstStyle = 'bg-green-400 text-black';
   const textConfirmStyle = 'bg-green-600 text-white';
   if (cart.length > 0) {

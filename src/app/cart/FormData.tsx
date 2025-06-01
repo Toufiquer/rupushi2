@@ -53,8 +53,9 @@ const FormData = () => {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
- 
   };
+
+  const isFreeDelivery = () => (cart.find(i => i['product-code'] === 'LUCKY001') ? true : false);
 
   // Form submission handler with type
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -196,50 +197,97 @@ const FormData = () => {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">ডেলিভারি</label>
-          <div className="mt-2 space-y-2">
-            <div
-              className={`flex items-center w-full p-2 rounded ${formData.deliveryOption === '130' ? ' bg-green-500 ' : 'bg-slate-200 '}`}
-            >
-              <input
-                type="radio"
-                name="deliveryOption"
-                value="130"
-                checked={formData.deliveryOption === '130'}
-                onChange={handleInputChange}
-                className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300"
-              />
-              <label
-                className="ml-2 text-sm text-gray-700 cursor-pointer"
-                onClick={() => {
-                  setFormData({ ...formData, deliveryOption: '130' });
-                  setDeliveryCharge(Number(130));
-                }}
+          {isFreeDelivery() ? (
+            <div className="mt-2 space-y-2">
+              <div
+                className={`flex items-center w-full p-2 rounded ${formData.deliveryOption === '0' ? ' bg-green-500 ' : 'bg-slate-200 '}`}
               >
-                ঢাকার বাইরে ১৩০ টাকা
-              </label>
-            </div>
-            <div
-              className={`flex items-center w-full p-2 rounded ${formData.deliveryOption === '60' ? ' bg-green-500 ' : 'bg-slate-200 '}`}
-            >
-              <input
-                type="radio"
-                name="deliveryOption"
-                value="60"
-                checked={formData.deliveryOption === '60'}
-                onChange={handleInputChange}
-                className={`h-4 w-4 focus:ring-green-500 border-gray-300 `}
-              />
-              <label
-                className="ml-2 text-sm text-gray-700 cursor-pointer"
-                onClick={() => {
-                  setFormData({ ...formData, deliveryOption: '60' });
-                  setDeliveryCharge(Number(60));
-                }}
+                <input
+                  type="radio"
+                  name="deliveryOption"
+                  value="0"
+                  checked={formData.deliveryOption === '0'}
+                  onChange={handleInputChange}
+                  className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300"
+                />
+                <label
+                  className="ml-2 text-sm text-gray-700 cursor-pointer"
+                  onClick={() => {
+                    setFormData({ ...formData, deliveryOption: '0' });
+                    setDeliveryCharge(Number(0));
+                  }}
+                >
+                  ঢাকার বাইরে ডেলিভারি চার্জ ফ্রি
+                </label>
+              </div>
+              <div
+                className={`flex items-center w-full p-2 rounded ${formData.deliveryOption === '0.0' ? ' bg-green-500 ' : 'bg-slate-200 '}`}
               >
-                ঢাকার ভিতরে ৬০ টাকা
-              </label>
+                <input
+                  type="radio"
+                  name="deliveryOption"
+                  value="0.0"
+                  checked={formData.deliveryOption === '0.0'}
+                  onChange={handleInputChange}
+                  className={`h-4 w-4 focus:ring-green-500 border-gray-300 `}
+                />
+                <label
+                  className="ml-2 text-sm text-gray-700 cursor-pointer"
+                  onClick={() => {
+                    setFormData({ ...formData, deliveryOption: '0.0' });
+                    setDeliveryCharge(Number(0.0));
+                  }}
+                >
+                  ঢাকার ভিতরে ডেলিভারি চার্জ ফ্রি
+                </label>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="mt-2 space-y-2">
+              <div
+                className={`flex items-center w-full p-2 rounded ${formData.deliveryOption === '130' ? ' bg-green-500 ' : 'bg-slate-200 '}`}
+              >
+                <input
+                  type="radio"
+                  name="deliveryOption"
+                  value="130"
+                  checked={formData.deliveryOption === '130'}
+                  onChange={handleInputChange}
+                  className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300"
+                />
+                <label
+                  className="ml-2 text-sm text-gray-700 cursor-pointer"
+                  onClick={() => {
+                    setFormData({ ...formData, deliveryOption: '130' });
+                    setDeliveryCharge(Number(130));
+                  }}
+                >
+                  ঢাকার বাইরে ১৩০ টাকা
+                </label>
+              </div>
+              <div
+                className={`flex items-center w-full p-2 rounded ${formData.deliveryOption === '60' ? ' bg-green-500 ' : 'bg-slate-200 '}`}
+              >
+                <input
+                  type="radio"
+                  name="deliveryOption"
+                  value="60"
+                  checked={formData.deliveryOption === '60'}
+                  onChange={handleInputChange}
+                  className={`h-4 w-4 focus:ring-green-500 border-gray-300 `}
+                />
+                <label
+                  className="ml-2 text-sm text-gray-700 cursor-pointer"
+                  onClick={() => {
+                    setFormData({ ...formData, deliveryOption: '60' });
+                    setDeliveryCharge(Number(60));
+                  }}
+                >
+                  ঢাকার ভিতরে ৬০ টাকা
+                </label>
+              </div>
+            </div>
+          )}
         </div>
         <button
           disabled={loading}
