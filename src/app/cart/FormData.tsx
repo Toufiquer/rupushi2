@@ -10,6 +10,7 @@ import { useState, ChangeEvent, FormEvent } from 'react';
 import { IProduct } from '@/app/components/ProductsCard';
 import { useStore } from '@/app/utils/useStore';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 // Define interfaces for form data and product
 interface FormData {
@@ -24,7 +25,7 @@ export interface IDBOrderData {
   orderId: number;
   totalPrice: number;
   deliveryCharge: number;
-  shippingArea: 'inside Dhaka' | 'outside Dhaka';
+  shippingArea: string;
   orderStatus?: string;
   customerInfo: {
     customerName: string;
@@ -36,6 +37,7 @@ export interface IDBOrderData {
 }
 
 const FormData = () => {
+  const [customShippingArea, setCustomShippingArea] = useState('outside Dhaka');
   const { cart, deliveryCharge, setDeliveryCharge, setTextMessage } = useStore();
 
   // State for form inputs with type
@@ -48,7 +50,7 @@ const FormData = () => {
   });
 
   const [loading, setLoading] = useState<boolean>(false);
-
+  const router = useRouter();
   // Handle form input changes with type
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
@@ -75,7 +77,7 @@ const FormData = () => {
 
       // Determine delivery charge and shipping area based on delivery option
       const deliveryCharge = formData.deliveryOption === '130' ? 130 : 60;
-      const shippingArea = deliveryCharge === 60 ? 'inside Dhaka' : 'outside Dhaka';
+      const shippingArea: string = deliveryCharge === 60 ? 'inside Dhaka' : 'outside Dhaka';
 
       const totalPrice =
         deliveryCharge +
@@ -92,7 +94,7 @@ const FormData = () => {
         orderId: orderId,
         totalPrice: totalPrice,
         deliveryCharge: deliveryCharge,
-        shippingArea,
+        shippingArea: shippingArea,
         orderStatus: 'pending', // Default initial status
         customerInfo: {
           customerName: formData.name,
@@ -106,6 +108,14 @@ const FormData = () => {
     }
 
     const newOrderData = generateOrder(formData, cart);
+    if (isFreeDelivery()) {
+      newOrderData.deliveryCharge = 0;
+      newOrderData.shippingArea = customShippingArea || 'outside Dhaka';
+    }
+    console.log('');
+    console.log('');
+    console.log('');
+    console.log('newOrderData :', newOrderData);
     setLoading(true);
     try {
       const response = await fetch('/api/orders', {
@@ -135,7 +145,7 @@ const FormData = () => {
       });
 
       // Redirect to the receipt page with the orderId
-      // router.push(`/receipt/${newOrderData.orderId}`);
+      router.push(`/receipt/${newOrderData.orderId}`);
       const receiptUrl = `/receipt/${newOrderData.orderId}`;
       window.open(receiptUrl, '_blank');
     } catch (error) {
@@ -215,6 +225,7 @@ const FormData = () => {
                   onClick={() => {
                     setFormData({ ...formData, deliveryOption: '0' });
                     setDeliveryCharge(Number(0));
+                    setCustomShippingArea('ঢাকার বাইরে');
                   }}
                 >
                   ঢাকার বাইরে ডেলিভারি চার্জ ফ্রি
@@ -236,6 +247,7 @@ const FormData = () => {
                   onClick={() => {
                     setFormData({ ...formData, deliveryOption: '0.0' });
                     setDeliveryCharge(Number(0.0));
+                    setCustomShippingArea('ঢাকার ভিতরে');
                   }}
                 >
                   ঢাকার ভিতরে ডেলিভারি চার্জ ফ্রি
@@ -260,6 +272,7 @@ const FormData = () => {
                   onClick={() => {
                     setFormData({ ...formData, deliveryOption: '130' });
                     setDeliveryCharge(Number(130));
+                    setCustomShippingArea('ঢাকার বাইরে');
                   }}
                 >
                   ঢাকার বাইরে ১৩০ টাকা
@@ -281,6 +294,7 @@ const FormData = () => {
                   onClick={() => {
                     setFormData({ ...formData, deliveryOption: '60' });
                     setDeliveryCharge(Number(60));
+                    setCustomShippingArea('ঢাকার ভিতরে');
                   }}
                 >
                   ঢাকার ভিতরে ৬০ টাকা
