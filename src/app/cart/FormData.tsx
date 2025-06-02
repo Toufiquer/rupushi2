@@ -111,11 +111,9 @@ const FormData = () => {
     if (isFreeDelivery()) {
       newOrderData.deliveryCharge = 0;
       newOrderData.shippingArea = customShippingArea || 'outside Dhaka';
+      newOrderData.totalPrice = 999;
+      
     }
-    console.log('');
-    console.log('');
-    console.log('');
-    console.log('newOrderData :', newOrderData);
     setLoading(true);
     try {
       const response = await fetch('/api/orders', {
