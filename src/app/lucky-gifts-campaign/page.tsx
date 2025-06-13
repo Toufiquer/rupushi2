@@ -7,6 +7,7 @@
 */
 
 import LogoComponent from './components/logo';
+import OrderButton from './components/order-button';
 import TopTextComponents from './components/top-text-components';
 
 const Page = () => {
@@ -14,6 +15,13 @@ const Page = () => {
     <main className="w-full flex flex-col max-w-6xl mx-auto">
       <LogoComponent />
       <TopTextComponents />
+      <OrderButton />
+      <div className="w-full h-screen border"></div>
+      <div className="w-full h-screen border"></div>
+      <div className="w-full h-screen border"></div>
+      <div className="w-full h-screen border text-white" id="order-form">
+        order form
+      </div>
     </main>
   );
 };
