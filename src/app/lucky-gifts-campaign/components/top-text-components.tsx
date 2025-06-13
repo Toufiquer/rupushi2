@@ -10,7 +10,7 @@ const TopTextComponents = () => {
   return (
     <main className="">
       <div className="w-full bg-slate-50 rounded-lg">
-        <h2 className="my-kalpurush-text font-normal text-2xl p-8 text-center leading-10 md:leading-15">
+        <h2 className="my-kalpurush-text font-normal text-2xl p-4 text-center leading-10 md:leading-13">
           মাত্র ৬৯৯ টাকায় দারুন ডিজাইনের <span className={textRed}>জুয়েলারি সেট! </span> স্টাইলিশ
           <span className={textRed}> কাঠের বক্স,</span> সাথে
           <span className={textRed}> ১০ লক্ষ টাকা পুরস্কার</span> জেতার সুযোগ! <br />
