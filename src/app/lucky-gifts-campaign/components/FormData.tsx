@@ -39,9 +39,31 @@ export interface IDBOrderData {
 }
 
 const FormDataComponent = () => {
-  const [customShippingArea, setCustomShippingArea] = useState('outside Dhaka');
-  const { cart, deliveryCharge, setDeliveryCharge, setTextMessage } = useStore();
-
+  const { cart, updateCart, deliveryCharge, setDeliveryCharge, setTextMessage } = useStore();
+  const luckyProduct: IProduct = {
+    name: 'Luxurious Pendant & Earring Set',
+    'product-code': 'LUCKY001',
+    img: 'https://i.ibb.co/jkSRXfDN/O1-CN01bq-KKK21t-Vut-VO951u-2216839565908-0-cib.jpg',
+    realPrice: '1175',
+    discountedPrice: '699',
+    offer: '15',
+    stock: '500',
+    'description-top': '',
+    'description-bottom': '',
+    material: '',
+    design: '',
+    color: '',
+    category: '',
+    weight: '',
+    'chain length': '',
+    style: '',
+    quantity: 1,
+    id: '',
+    status: '',
+    allImages: [],
+    descriptionData: '',
+  };
+  updateCart([luckyProduct]);
   // State for form inputs with type
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -59,7 +81,7 @@ const FormDataComponent = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const isFreeDelivery = () => (cart.find(i => i['product-code'] === 'LUCKY001') ? true : false);
+  const isFreeDelivery = () => false;
 
   // Form submission handler with type
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -110,11 +132,8 @@ const FormDataComponent = () => {
     }
 
     const newOrderData = generateOrder(formData, cart);
-    if (isFreeDelivery()) {
-      newOrderData.deliveryCharge = 0;
-      newOrderData.shippingArea = customShippingArea || 'outside Dhaka';
-      newOrderData.totalPrice = 999;
-    }
+    newOrderData.totalPrice = 999;
+
     setLoading(true);
     try {
       const response = await fetch('/api/orders', {
@@ -214,7 +233,6 @@ const FormDataComponent = () => {
                   onClick={() => {
                     setFormData({ ...formData, deliveryOption: '0' });
                     setDeliveryCharge(Number(0));
-                    setCustomShippingArea('ঢাকার বাইরে');
                   }}
                 >
                   ঢাকার বাইরে ডেলিভারি চার্জ ফ্রি
@@ -236,7 +254,6 @@ const FormDataComponent = () => {
                   onClick={() => {
                     setFormData({ ...formData, deliveryOption: '0.0' });
                     setDeliveryCharge(Number(0.0));
-                    setCustomShippingArea('ঢাকার ভিতরে');
                   }}
                 >
                   ঢাকার ভিতরে ডেলিভারি চার্জ ফ্রি
@@ -261,7 +278,6 @@ const FormDataComponent = () => {
                   onClick={() => {
                     setFormData({ ...formData, deliveryOption: '130' });
                     setDeliveryCharge(Number(130));
-                    setCustomShippingArea('ঢাকার বাইরে');
                   }}
                 >
                   ঢাকার বাইরে ১৩০ টাকা
@@ -283,7 +299,6 @@ const FormDataComponent = () => {
                   onClick={() => {
                     setFormData({ ...formData, deliveryOption: '60' });
                     setDeliveryCharge(Number(60));
-                    setCustomShippingArea('ঢাকার ভিতরে');
                   }}
                 >
                   ঢাকার ভিতরে ৬০ টাকা

@@ -15,7 +15,7 @@ const BoxImagesComponent = () => {
       <div className={boxStyle}>
         <div className="absolute top-0 left-0">
           <Image
-            src="/3.jpg" // Replace with your actual logo path
+            src="/3.JPG" // Replace with your actual logo path
             alt="Rupush main products"
             width={1400}
             height={1400}
@@ -25,7 +25,7 @@ const BoxImagesComponent = () => {
       <div className={boxStyle}>
         <div className="absolute top-0 left-0">
           <Image
-            src="/4.jpg" // Replace with your actual logo path
+            src="/4.JPG" // Replace with your actual logo path
             alt="Rupush main products"
             width={1400}
             height={1400}
@@ -35,7 +35,7 @@ const BoxImagesComponent = () => {
       <div className={boxStyle}>
         <div className="absolute top-0 left-0">
           <Image
-            src="/5.jpg" // Replace with your actual logo path
+            src="/5.JPG" // Replace with your actual logo path
             alt="Rupush main products"
             width={1400}
             height={1400}
@@ -45,7 +45,7 @@ const BoxImagesComponent = () => {
       <div className={boxStyle}>
         <div className="absolute top-0 left-0">
           <Image
-            src="/6.jpg" // Replace with your actual logo path
+            src="/6.JPG" // Replace with your actual logo path
             alt="Rupush main products"
             width={1400}
             height={1400}
