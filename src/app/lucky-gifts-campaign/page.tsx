@@ -6,6 +6,7 @@
 |-----------------------------------------
 */
 
+import BottomHeadingComponent from './components/bottom-heading';
 import BottomTextComponents from './components/bottom-text-components';
 import BoxImagesComponent from './components/box-images';
 import CampagnImagesComponent from './components/campagn-images';
@@ -25,6 +26,7 @@ const Page = () => {
       <OrderButton />
       <BoxImagesComponent />
       <BottomTextComponents />
+      <BottomHeadingComponent />
       <div className="w-full h-screen border"></div>
       <div className="w-full h-screen border"></div>
       <div className="w-full h-screen border"></div>
