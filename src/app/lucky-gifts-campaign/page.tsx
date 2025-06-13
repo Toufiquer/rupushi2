@@ -20,6 +20,7 @@ const Page = () => {
       <OrderButton />
       <MainProductImages />
       <CampagnImagesComponent />
+      <OrderButton />
       <div className="w-full h-screen border"></div>
       <div className="w-full h-screen border"></div>
       <div className="w-full h-screen border"></div>

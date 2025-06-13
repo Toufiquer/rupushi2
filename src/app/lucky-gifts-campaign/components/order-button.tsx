@@ -20,7 +20,7 @@ const OrderButton = () => {
     }
   };
   return (
-    <main className="w-full flex items-center justify-center p-4">
+    <main className="w-full flex items-center justify-center p-4 mt-2">
       <Link
         onClick={scrollToOrderForm} // Use a button for the action
         href="#order-form"
