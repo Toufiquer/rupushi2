@@ -39,7 +39,7 @@ export interface IDBOrderData {
 }
 
 const FormDataComponent = () => {
-  const { cart, updateCart, deliveryCharge, setDeliveryCharge, setTextMessage } = useStore();
+  const { deliveryCharge, setDeliveryCharge, setTextMessage } = useStore();
   const luckyProduct: IProduct = {
     name: 'Luxurious Pendant & Earring Set',
     'product-code': 'LUCKY001',
@@ -63,7 +63,7 @@ const FormDataComponent = () => {
     allImages: [],
     descriptionData: '',
   };
-  updateCart([luckyProduct]);
+
   // State for form inputs with type
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -103,15 +103,7 @@ const FormDataComponent = () => {
       const deliveryCharge = formData.deliveryOption === '130' ? 130 : 60;
       const shippingArea: string = deliveryCharge === 60 ? 'inside Dhaka' : 'outside Dhaka';
 
-      const totalPrice =
-        deliveryCharge +
-        cart.reduce((acc, curr) => {
-          let oldTotal = acc;
-          const price = curr.discountedPrice || curr.realPrice;
-          const quantity = curr.quantity || 1;
-          oldTotal = oldTotal + Number(price) * quantity;
-          return oldTotal;
-        }, 0);
+      const totalPrice = deliveryCharge + 699;
       const totalProduct = productData.length;
       const result: IDBOrderData = {
         totalProduct,
@@ -131,8 +123,7 @@ const FormDataComponent = () => {
       return result;
     }
 
-    const newOrderData = generateOrder(formData, cart);
-    newOrderData.totalPrice = 999;
+    const newOrderData = generateOrder(formData, [luckyProduct]);
 
     setLoading(true);
     try {

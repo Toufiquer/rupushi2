@@ -102,7 +102,11 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
     updateCart(newUpdateCart);
     setIsFetchingCartComplete(true);
     // Add item to Zustand store
-    router.push('/cart');
+    if (productData['product-code'] === 'LUCKY001') {
+      router.push('/lucky-gifts-campaign');
+    } else {
+      router.push('/cart');
+    }
   };
 
   return (
@@ -110,14 +114,33 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
       <CardContent className="p-0">
         {/* Product Image */}
         <div className="relative w-full  aspect-square">
-          <Link href={`/product-details/${productData.id || productData._id}`}>
+          {productData['product-code'] === 'LUCKY001' ? (
+            <Link href={`/lucky-gifts-campaign`}>
+              <Image
+                src={productData.img || '/placeholder.jpg'}
+                alt={productData.name}
+                fill
+                className="object-cover"
+              />
+            </Link>
+          ) : (
+            <Link href={`/product-details/${productData.id || productData._id}`}>
+              <Image
+                src={productData.img || '/placeholder.jpg'}
+                alt={productData.name}
+                fill
+                className="object-cover"
+              />
+            </Link>
+          )}
+          {/* <Link href={`/product-details/${productData.id || productData._id}`}>
             <Image
               src={productData.img || '/placeholder.jpg'}
               alt={productData.name}
               fill
               className="object-cover"
             />
-          </Link>
+          </Link> */}
           {/* Offer Badge */}
           {productData.offer && (
             <div className="absolute top-2 left-2 bg-rose-600 font-semibold text-white px-2 py-1 rounded-[6px] text-xs">

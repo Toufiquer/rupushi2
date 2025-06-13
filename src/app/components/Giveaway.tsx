@@ -188,15 +188,15 @@ const DesktopViewCampaignBox = ({
             <span className="my-kalpurush-text font-extrabold">ক্যাম্পেইন</span>
           </h2>
           <h2 className="text-[26px] font-normal  my-kalpurush-text  text-gray-900 tracking-tight w-full justify-center lg:text-start">
-            মোট ২ লক্ষ টাকার ১০টি পুরস্কার জিতার সুযোগ!
+            মোট ১০ লক্ষ টাকার ১১০ টি পুরস্কার জিতার সুযোগ!
           </h2>
           <h2 className="text-[48px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">
-            মাত্র ৯৯৯ টাকা
+            মাত্র ৬৯৯ টাকা
           </h2>
-          <p className="text-[21px] font-semibold mt-[-20px] my-kalpurush-text  text-rose-500 tracking-tight w-full justify-center lg:text-start ">
+          {/* <p className="text-[21px] font-semibold mt-[-20px] my-kalpurush-text  text-rose-500 tracking-tight w-full justify-center lg:text-start ">
             পুরো বাংলাদেশে ডেলিভারি চার্জ ফ্রি
-          </p>
-          <Link href={`/product-details/${newProductId}`} className="w-full">
+          </p> */}
+          <Link href={`/lucky-gifts-campaign`} className="w-full">
             <Button
               variant={'default'}
               className="bg-[#fbc79a] border-1 border-slate-300 hover:border-slate-300 shadow-md hover:shadow-slate-600 shadow-slate-700 text-bold text-black h-[70px] text-3xl max-w-[250px] cursor-pointer w-full"
