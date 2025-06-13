@@ -10,7 +10,7 @@ import Image from 'next/image';
 
 const MainProductImages = () => {
   return (
-    <div className="w-full h-[430px] md:h-[800px] lg:h-[1024px] xl:h-[1024px] relative mx-auto my-4">
+    <div className="w-full h-[430px] md:h-[800px] lg:h-[1024px] xl:h-[1024px] relative mx-auto">
       <div className="absolute top-0 left-0">
         <Image
           src="/mian-product-image.jpg" // Replace with your actual logo path
