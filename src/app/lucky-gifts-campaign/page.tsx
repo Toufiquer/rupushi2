@@ -5,7 +5,14 @@
 | @copyright: rupushi2, June, 2025
 |-----------------------------------------
 */
+
+import LogoComponent from './components/logo';
+
 const Page = () => {
-  return <main>lucky gifts campaign Page</main>;
+  return (
+    <main className="w-full flex flex-col">
+      <LogoComponent />
+    </main>
+  );
 };
 export default Page;
