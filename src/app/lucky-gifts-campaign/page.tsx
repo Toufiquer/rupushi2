@@ -6,6 +6,7 @@
 |-----------------------------------------
 */
 
+import BoxImagesComponent from './components/box-images';
 import CampagnImagesComponent from './components/campagn-images';
 import LogoComponent from './components/logo';
 import MainProductImages from './components/main-product-images';
@@ -21,6 +22,7 @@ const Page = () => {
       <MainProductImages />
       <CampagnImagesComponent />
       <OrderButton />
+      <BoxImagesComponent />
       <div className="w-full h-screen border"></div>
       <div className="w-full h-screen border"></div>
       <div className="w-full h-screen border"></div>
