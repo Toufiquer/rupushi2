@@ -6,6 +6,7 @@
 |-----------------------------------------
 */
 
+import CampagnImagesComponent from './components/campagn-images';
 import LogoComponent from './components/logo';
 import MainProductImages from './components/main-product-images';
 import OrderButton from './components/order-button';
@@ -18,6 +19,7 @@ const Page = () => {
       <TopTextComponents />
       <OrderButton />
       <MainProductImages />
+      <CampagnImagesComponent />
       <div className="w-full h-screen border"></div>
       <div className="w-full h-screen border"></div>
       <div className="w-full h-screen border"></div>
