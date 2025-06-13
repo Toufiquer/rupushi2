@@ -7,11 +7,13 @@
 */
 
 import LogoComponent from './components/logo';
+import TopTextComponents from './components/top-text-components';
 
 const Page = () => {
   return (
-    <main className="w-full flex flex-col">
+    <main className="w-full flex flex-col max-w-6xl mx-auto">
       <LogoComponent />
+      <TopTextComponents />
     </main>
   );
 };
