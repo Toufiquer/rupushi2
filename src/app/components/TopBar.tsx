@@ -132,12 +132,14 @@ export default function TopBar() {
   return (
     <>
       {/* Desktop navigation with TopMarquee */}
-      {!['receipt', 'receipt-print', 'login', 'dashboard'].includes(pathname.split('/')[1]) && (
-        <RenderTopMarquee />
-      )}
+      {!['receipt', 'receipt-print', 'login', 'dashboard', 'lucky-gifts-campaign'].includes(
+        pathname.split('/')[1],
+      ) && <RenderTopMarquee />}
 
       {/* Search Bar - visible on all devices */}
-      {!['receipt', 'receipt-print', 'login', 'dashboard'].includes(pathname.split('/')[1]) && (
+      {!['receipt', 'receipt-print', 'login', 'dashboard', 'lucky-gifts-campaign'].includes(
+        pathname.split('/')[1],
+      ) && (
         <div className="bg-white shadow-md py-3 md:px-4 px-1">
           <div className=" container max-w-7xl mx-auto flex items-center justify-between">
             {/* Logo */}
