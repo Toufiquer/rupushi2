@@ -5,10 +5,10 @@
 | @copyright: rupushi2, May, 2025
 |-----------------------------------------
 */
-import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { IProduct } from './ProductsCard';
+import OrderNowButton from './Order-Now-Button';
 
 export interface Promotion {
   mainPageTitle: string;
@@ -58,6 +58,7 @@ const MobileViewCampaignBox = ({
 }) => {
   const newProductId = productId || promotion.id || (promotion._id as string);
   console.log(newProductId);
+
   return (
     <div className="w-full flex items-center justify-start gap-4 flex-col bg-[#EEEAE7]">
       <div
@@ -90,12 +91,7 @@ const MobileViewCampaignBox = ({
             পুরো বাংলাদেশে ডেলিভারি চার্জ ফ্রি
           </p>
           <Link href={`/product-details/${newProductId}`} className="w-full">
-            <Button
-              variant={'default'}
-              className="bg-[#fbc79a] border-1 border-slate-300 hover:border-slate-400 shadow-lg hover:shadow-slate-900 shadow-slate-700 text-bold text-black h-[70px] text-3xl max-w-[250px] cursor-pointer w-full"
-            >
-              <span className="text-[20px] my-kalpurush-text font-extrabold">অর্ডার করুন</span>
-            </Button>
+            <OrderNowButton />
           </Link>
         </div>
       </div>
@@ -111,6 +107,7 @@ const TabletViewCampaignBox = ({
 }) => {
   const newProductId = productId || promotion.id || (promotion._id as string);
   console.log(newProductId);
+
   return (
     <div className="w-full flex items-center justify-start gap-4 flex-row bg-[#EEEAE7]">
       <div
@@ -144,12 +141,7 @@ const TabletViewCampaignBox = ({
           </p>
 
           <Link href={`/product-details/${newProductId}`} className="w-full">
-            <Button
-              variant={'default'}
-              className="bg-[#fbc79a] border-1 border-slate-300 hover:border-slate-400 shadow-lg hover:shadow-slate-900 shadow-slate-700 text-bold text-black h-[70px] text-3xl max-w-[250px] cursor-pointer w-full"
-            >
-              <span className="text-[20px] my-kalpurush-text font-extrabold">অর্ডার করুন</span>
-            </Button>
+            <OrderNowButton />
           </Link>
         </div>
       </div>
@@ -165,6 +157,7 @@ const DesktopViewCampaignBox = ({
 }) => {
   const newProductId = productId || promotion.id || (promotion._id as string);
   console.log(newProductId);
+
   return (
     <div className="w-full flex items-center justify-start gap-4 flex-row bg-[#EEEAE7]">
       <div
@@ -197,12 +190,7 @@ const DesktopViewCampaignBox = ({
             পুরো বাংলাদেশে ডেলিভারি চার্জ ফ্রি
           </p> */}
           <Link href={`/lucky-gifts-campaign`} className="w-full">
-            <Button
-              variant={'default'}
-              className="bg-[#fbc79a] border-1 border-slate-300 hover:border-slate-300 shadow-md hover:shadow-slate-600 shadow-slate-700 text-bold text-black h-[70px] text-3xl max-w-[250px] cursor-pointer w-full"
-            >
-              <span className="text-[30px] my-kalpurush-text font-extrabold">অর্ডার করুন</span>
-            </Button>
+            <OrderNowButton />
           </Link>
         </div>
       </div>

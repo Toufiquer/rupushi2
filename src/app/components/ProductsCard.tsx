@@ -67,7 +67,7 @@ const ProductCard = ({ productData }: { productData: IProduct }) => {
   const router = useRouter();
   const { cart, updateCart, setIsFetchingCartComplete } = useStore();
   const handleAddToCart = () => {
-    console.log(' tr- : ', productData);
+    // console.log(' tr- : ', productData);
     const fireGTMEvent = (data: IProduct) => {
       console.log('Calling sendGTMEvent with cart:', data);
       sendGTMEvent({

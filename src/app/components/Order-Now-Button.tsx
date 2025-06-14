@@ -1,6 +1,6 @@
 /*
 |-----------------------------------------
-| setting up OrderButton for the App
+| setting up OrderNowButton for the App
 | @author: Toufiquer Rahman<toufiquer.0@gmail.com>
 | @copyright: rupushi2, June, 2025
 |-----------------------------------------
@@ -8,11 +8,11 @@
 
 'use client';
 
-import { IProduct } from '@/app/components/ProductsCard';
+import { Button } from '@/components/ui/button';
+import { IProduct } from './ProductsCard';
 import { sendGTMEvent } from '@next/third-parties/google';
-import Link from 'next/link';
 
-const OrderButton = () => {
+const OrderNowButton = () => {
   const productData: IProduct = {
     name: 'Luxurious Pendant & Earring Set',
     'product-code': 'LUCKY001',
@@ -37,32 +37,20 @@ const OrderButton = () => {
     descriptionData: '',
   };
   const fireGTMEvent = (data: IProduct) => {
-    console.log('Calling sendGTMEvent with cart:', data);
     sendGTMEvent({
       event: 'add_to_cart',
       currency: 'BDT',
       product: { ...data },
     });
   };
-  const scrollToOrderForm = () => {
-    const element = document.getElementById('order-form');
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-      });
-    }
-    fireGTMEvent(productData);
-  };
   return (
-    <main className="w-full flex items-center justify-center p-4">
-      <Link
-        onClick={scrollToOrderForm} // Use a button for the action
-        href="#order-form"
-        className="text-black bg-slate-50 p-4 rounded-lg my-kalpurush-text font-bold text-3xl hover:bg-slate-200 duration-200"
-      >
-        অর্ডার করতে চাই
-      </Link>
-    </main>
+    <Button
+      onClick={() => fireGTMEvent(productData)}
+      variant={'default'}
+      className="bg-[#fbc79a] border-1 border-slate-300 hover:border-slate-400 shadow-lg hover:shadow-slate-900 shadow-slate-700 text-bold text-black h-[70px] text-3xl max-w-[250px] cursor-pointer w-full"
+    >
+      <span className="text-[20px] my-kalpurush-text font-extrabold">অর্ডার করুন</span>
+    </Button>
   );
 };
-export default OrderButton;
+export default OrderNowButton;
