@@ -10,11 +10,11 @@ const BottomHeadingComponent = () => {
     <main className="w-full flex flex-col gap-4 mt-8">
       <div>
         <h2 className="line-through my-kalpurush-text font-normal text-5xl text-center leading-10 text-slate-50">
-          মূল্য ১৫০০ টাকা
+          মূল্য ৯৯৯ টাকা
         </h2>
       </div>
       <div>
-        <h2 className="my-kalpurush-text font-normal text-5xl text-center leading-10 text-slate-800 bg-slate-50 rounded-lg p-4 max-w-[460px] mx-auto">
+        <h2 className="my-kalpurush-text font-normal text-5xl text-center leading-10 text-red-50 bg-red-500 rounded-lg p-4 max-w-[460px] mx-auto">
           অফার মূল্য ৬৯৯ টাকা
         </h2>
       </div>

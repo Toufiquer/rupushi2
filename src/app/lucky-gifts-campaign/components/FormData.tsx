@@ -167,7 +167,7 @@ const FormDataComponent = () => {
     <div className="w-full py-6 rounded-lg my-kalpurush-text ">
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div>
-          <label className="block text-sm font-medium text-gray-50">আপনার নাম *</label>
+          <label className="block text-xl font-medium text-gray-50">আপনার নাম *</label>
           <input
             type="text"
             name="name"
@@ -179,7 +179,7 @@ const FormDataComponent = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-50">আপনার মোবাইল নাম্বার *</label>
+          <label className="block text-xl font-medium text-gray-50">আপনার মোবাইল নাম্বার *</label>
           <input
             type="text"
             name="mobile"
@@ -193,7 +193,7 @@ const FormDataComponent = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-50">আপনার সম্পূর্ণ ঠিকানা</label>
+          <label className="block text-xl font-medium text-gray-50">আপনার সম্পূর্ণ ঠিকানা</label>
           <textarea
             name="address"
             value={formData.address}
@@ -205,7 +205,7 @@ const FormDataComponent = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-50">ডেলিভারি</label>
+          <label className="block text-xl font-medium text-gray-50">ডেলিভারি</label>
           {isFreeDelivery() ? (
             <div className="mt-2 space-y-2">
               <div
@@ -220,7 +220,7 @@ const FormDataComponent = () => {
                   className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300"
                 />
                 <label
-                  className="ml-2 text-sm text-gray-900 cursor-pointer"
+                  className="ml-2 text-xl text-gray-900 cursor-pointer"
                   onClick={() => {
                     setFormData({ ...formData, deliveryOption: '0' });
                     setDeliveryCharge(Number(0));
@@ -241,7 +241,7 @@ const FormDataComponent = () => {
                   className={`h-4 w-4 focus:ring-green-500 border-gray-300 `}
                 />
                 <label
-                  className="ml-2 text-sm text-gray-900 cursor-pointer"
+                  className="ml-2 text-xl text-gray-900 cursor-pointer"
                   onClick={() => {
                     setFormData({ ...formData, deliveryOption: '0.0' });
                     setDeliveryCharge(Number(0.0));
@@ -265,7 +265,7 @@ const FormDataComponent = () => {
                   className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300"
                 />
                 <label
-                  className="ml-2 text-sm text-gray-900 cursor-pointer"
+                  className="ml-2 text-xl text-gray-900 cursor-pointer"
                   onClick={() => {
                     setFormData({ ...formData, deliveryOption: '130' });
                     setDeliveryCharge(Number(130));
@@ -286,7 +286,7 @@ const FormDataComponent = () => {
                   className={`h-4 w-4 focus:ring-green-500 border-gray-300 `}
                 />
                 <label
-                  className="ml-2 text-sm text-gray-900 cursor-pointer"
+                  className="ml-2 text-xl text-gray-900 cursor-pointer"
                   onClick={() => {
                     setFormData({ ...formData, deliveryOption: '60' });
                     setDeliveryCharge(Number(60));

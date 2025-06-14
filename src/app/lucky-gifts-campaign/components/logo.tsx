@@ -10,7 +10,7 @@ import Image from 'next/image';
 
 const LogoComponent = () => {
   return (
-    <div className="w-sm h-40 relative mx-auto my-4">
+    <div className="w-xs md:w-sm h-40 relative mx-auto my-4">
       <div className="absolute top-0 left-0">
         <Image
           src="/rupushi-logo-white.png" // Replace with your actual logo path

@@ -25,7 +25,7 @@ const Page = () => {
       <OrderButton />
       <MainProductImages />
       <CampagnImagesComponent />
-      <div className="w-full mt-[-40px]">
+      <div className="w-full md:mt-[-40px]">
         <OrderButton />
       </div>
       <BoxImagesComponent />

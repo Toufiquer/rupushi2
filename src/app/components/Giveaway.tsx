@@ -64,7 +64,7 @@ const MobileViewCampaignBox = ({
       <div
         className={`relative h-[400px] min-w-[400px] w-[400px] overflow-hidden shadow-lg rounded-md`}
       >
-        <Link href={`/product-details/${newProductId}`}>
+        <Link href={`/lucky-gifts-campaign`}>
           <Image
             src={promotion.mainPageImage1}
             alt={promotion.mainPageTitle}
@@ -90,7 +90,7 @@ const MobileViewCampaignBox = ({
           <p className="text-[21px] font-semibold mt-[-10px] my-kalpurush-text  text-rose-500 tracking-tight w-full justify-center lg:text-start ">
             পুরো বাংলাদেশে ডেলিভারি চার্জ ফ্রি
           </p>
-          <Link href={`/product-details/${newProductId}`} className="w-full">
+          <Link href={`/lucky-gifts-campaign`} className="w-full">
             <OrderNowButton />
           </Link>
         </div>
@@ -113,7 +113,7 @@ const TabletViewCampaignBox = ({
       <div
         className={`relative h-[300px] min-w-[300px] w-[300px] overflow-hidden shadow-lg rounded-md`}
       >
-        <Link href={`/product-details/${newProductId}`}>
+        <Link href={`/lucky-gifts-campaign`}>
           <Image
             src={promotion.mainPageImage1}
             alt={promotion.mainPageTitle}
@@ -140,7 +140,7 @@ const TabletViewCampaignBox = ({
             পুরো বাংলাদেশে ডেলিভারি চার্জ ফ্রি
           </p>
 
-          <Link href={`/product-details/${newProductId}`} className="w-full">
+          <Link href={`/lucky-gifts-campaign`} className="w-full">
             <OrderNowButton />
           </Link>
         </div>
@@ -163,7 +163,7 @@ const DesktopViewCampaignBox = ({
       <div
         className={`relative h-[400px] min-w-[400px] w-[400px] overflow-hidden shadow-lg rounded-md`}
       >
-        <Link href={`/product-details/${newProductId}`}>
+        <Link href={`/lucky-gifts-campaign`}>
           <Image
             src={promotion.mainPageImage1}
             alt={promotion.mainPageTitle}
