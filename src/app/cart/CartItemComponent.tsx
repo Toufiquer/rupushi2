@@ -9,12 +9,10 @@ interface CartItemComponentProps {
 }
 // CartItem component
 export const CartItemComponent: React.FC<CartItemComponentProps> = ({ item }) => {
-
   const price = item.discountedPrice || item.realPrice;
   const { cart, updateCart, setIsFetchingCartComplete } = useStore();
   const quantity = cart.filter(i => i.id === item.id)[0]?.quantity || 1;
   const handleRemove = (itemId: string) => {
-   
     const othersCart = cart.filter(curr => curr.id !== itemId);
     updateCart(othersCart);
     setIsFetchingCartComplete(true);

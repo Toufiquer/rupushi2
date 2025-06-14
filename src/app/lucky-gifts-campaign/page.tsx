@@ -24,14 +24,16 @@ const Page = () => {
       <TopTextComponents />
       <OrderButton />
       <MainProductImages />
-      <CampagnImagesComponent />
-      <div className="w-full md:mt-[-40px]">
+      <div className="w-full md:mt-[-45px] lg:mt-[-10px]">
+        <CampagnImagesComponent />
+      </div>
+      <div className="w-full mt-[-35px] md:mt-[-65px] lg:mt-[-35px]">
         <OrderButton />
       </div>
       <BoxImagesComponent />
       <BottomTextComponents />
       <BottomHeadingComponent />
-      <div id="order-form" className="w-full">
+      <div id="order-form" className="w-full flex justify-between items-stretch">
         <FormDataComponent />
       </div>
       <FooterTextComponent />

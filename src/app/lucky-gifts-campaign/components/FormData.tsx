@@ -13,6 +13,7 @@ import { IProduct } from '@/app/components/ProductsCard';
 import { useStore } from '@/app/utils/useStore';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 // Define interfaces for form data and product
 interface FormData {
@@ -306,6 +307,22 @@ const FormDataComponent = () => {
           </div>
         </div>
         <div className="font-medium bg-slate-50 p-3 px-6 gap-2 flex flex-col my-1">
+          <div className="flex items-center">
+            <div className="relative h-16 w-16 mr-4">
+              <Image
+                src="https://i.ibb.co/jkSRXfDN/O1-CN01bq-KKK21t-Vut-VO951u-2216839565908-0-cib.jpg"
+                alt="lucky-gifts-campaign-product-images"
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
+            <div>
+              <h3 className="font-medium">{luckyProduct.name}</h3>
+              <p className="text-sm text-gray-500">
+                ৳{699} x {1} = {Number(699) * 1}
+              </p>
+            </div>
+          </div>
           <div className="w-full flex items-center justify-between">
             <h2>মোট</h2>
             <h2>699TK</h2>
