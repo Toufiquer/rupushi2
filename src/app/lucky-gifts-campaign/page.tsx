@@ -6,6 +6,8 @@
 |-----------------------------------------
 */
 
+import { IProduct } from '../components/ProductsCard';
+import DataLayerNextComponentCartPage from '../product-details/[productId]/data-layer';
 import BottomHeadingComponent from './components/bottom-heading';
 import BottomTextComponents from './components/bottom-text-components';
 import BoxImagesComponent from './components/box-images';
@@ -16,10 +18,36 @@ import LogoComponent from './components/logo';
 import MainProductImages from './components/main-product-images';
 import OrderButton from './components/order-button';
 import TopTextComponents from './components/top-text-components';
+import ViewItemDataLayerComponent from './components/view-item-data-layer-component';
 
 const Page = () => {
+  const post: IProduct = {
+    name: 'Luxurious Pendant & Earring Set',
+    'product-code': 'LUCKY001',
+    img: 'https://i.ibb.co/jkSRXfDN/O1-CN01bq-KKK21t-Vut-VO951u-2216839565908-0-cib.jpg',
+    realPrice: '1175',
+    discountedPrice: '699',
+    offer: '15',
+    stock: '500',
+    'description-top': '',
+    'description-bottom': '',
+    material: '',
+    design: '',
+    color: '',
+    category: '',
+    weight: '',
+    'chain length': '',
+    style: '',
+    quantity: 1,
+    id: '',
+    status: '',
+    allImages: [],
+    descriptionData: '',
+  };
   return (
     <main className="w-full flex flex-col max-w-5xl mx-auto p-2">
+      <DataLayerNextComponentCartPage product={post} />
+      <ViewItemDataLayerComponent />
       <LogoComponent />
       <TopTextComponents />
       <OrderButton />
