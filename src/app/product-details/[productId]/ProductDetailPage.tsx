@@ -84,7 +84,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
           </div>
           <div className="w-full lg:mt-[-140px]">
             {/* Product Details */}
-            <div className="space-y-4">
+            <div className="space-y-4 lg:mt-[140px]">
               <h1 className="text-xl lg:text-2xl font-bold text-gray-800">
                 <span className="mt-2 lg:mt-[52px] xl:mt-[44px] block">{product.name}</span>
               </h1>
@@ -93,7 +93,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
               <p className="text-gray-600">Product Code: {product['product-code']}</p>
 
               {/* Pricing */}
-              <div className="flex items-center space-x-4 lg:mt-8">
+              <div className="flex items-center space-x-4 ">
                 <span className="text-2xl font-bold text-red-600">৳ {product.discountedPrice}</span>
                 {!isPromotionCode && (
                   <span className="line-through text-gray-500">৳ {product.realPrice}</span>
@@ -110,7 +110,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex space-x-4 mt-8">
+              <div className="flex space-x-4 ">
                 <div className="w-full flex flex-col gap-4">
                   {isPromotionCode && (
                     <div className="font-semibold  my-kalpurush-text text-xl w-full bg-rose-600 text-white p-4 rounded-md mt-[-10px] hidden lg:block">
@@ -164,7 +164,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
                 <p>পুরো বাংলাদেশে ডেলিভারি চার্জ ফ্রি</p>
               </div>
             ) : (
-              <div className="space-y-4 mt-8 hidden lg:block">
+              <div className="space-y-4 mt-[-20px] hidden lg:block">
                 <div className="flex w-full gap-8 flex-col md:mt-12 mt-4 font-semibold text-slate-500">
                   <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
                     <p className="font-normal my-kalpurush-text text-xl">ঢাকায় ডেলিভারি খরচ </p>
@@ -186,7 +186,7 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
             <p>পুরো বাংলাদেশে ডেলিভারি চার্জ ফ্রি</p>
           </div>
         ) : (
-          <div className="space-y-4 block lg:hidden">
+          <div className="space-y-2 block lg:hidden">
             <div className="flex w-full gap-8 flex-col font-semibold text-slate-500">
               <div className="w-full flex items-center justify-between border-b-1 border-slate-400">
                 <p className="font-normal  my-kalpurush-text text-xl">ঢাকায় ডেলিভারি খরচ </p>
