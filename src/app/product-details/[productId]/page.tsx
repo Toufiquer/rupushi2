@@ -50,7 +50,6 @@ export default async function Page({ params }: { params: Promise<{ productId: st
   const isCurrentProductInPromotion = allPromotions.some(
     p => p.productCode === post['product-code'],
   );
-
   return (
     <div className="py-2 flex flex-col w-full">
       {/* <DataLayerNextComponentProductDetails id={productId} /> */}

@@ -18,10 +18,7 @@ const DataLayerNextComponentCartPage = ({ product }: { product: IProduct }) => {
       return;
     }
 
-    console.log('DataLayerNextComponentCartPage useEffect triggered. Current cart prop:', product);
-
     const fireGTMEvent = (currentCartValue: IProduct) => {
-      console.log('Calling sendGTMEvent with cart:', currentCartValue);
       sendGTMEvent({
         event: 'view_item',
         currency: 'BDT',
@@ -31,7 +28,7 @@ const DataLayerNextComponentCartPage = ({ product }: { product: IProduct }) => {
         newHistoryState: null,
       });
     };
-    fireGTMEvent(product);
+    product && fireGTMEvent(product);
   }, [product]);
 
   return null;

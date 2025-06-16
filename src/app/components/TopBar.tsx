@@ -22,7 +22,6 @@ export default function TopBar() {
   const [autoplayInterval, setAutoplayInterval] = useState<NodeJS.Timeout | null>(null);
   const [cartProductLength, setCartProductLength] = useState(0);
   const { cart } = useStore();
-  console.log(autoplayInterval);
   useEffect(() => {
     const cartItem = localStorage.getItem('cart');
     if (cartItem) {

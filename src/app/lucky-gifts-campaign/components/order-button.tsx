@@ -37,7 +37,6 @@ const OrderButton = () => {
     descriptionData: '',
   };
   const fireGTMEvent = (data: IProduct) => {
-    console.log('Calling sendGTMEvent with cart:', data);
     sendGTMEvent({
       event: 'add_to_cart',
       currency: 'BDT',

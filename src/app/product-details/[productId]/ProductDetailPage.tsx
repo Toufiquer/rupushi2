@@ -14,12 +14,10 @@ const ProductDetailPage = ({ product }: { product: IProduct }) => {
   const productsCods = ['RJ110', 'RJ111'];
   const productPromoCods = ['LUCKY001'];
   const isPromotionCode = productPromoCods.includes(product['product-code']);
-  console.log('isDisabled ; :', isPromotionCode);
   const router = useRouter();
   const { cart, updateCart, setIsFetchingCartComplete } = useStore();
   const handleAddToCart = () => {
     const fireGTMEvent = (currentCartValue: IProduct) => {
-      console.log('Calling sendGTMEvent with cart:', currentCartValue);
       sendGTMEvent({
         event: 'add_to_cart',
         currency: 'BDT',

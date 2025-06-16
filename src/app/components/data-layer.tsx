@@ -18,11 +18,7 @@ const DataLayerNextComponentCartPage = ({ data }: { data: string }) => {
     if (typeof window === 'undefined') {
       return;
     }
-
-    console.log('DataLayerNextComponentCartPage useEffect triggered. Current cart prop:', data);
-
     const fireGTMEvent = (currentCartValue: string) => {
-      console.log('Calling sendGTMEvent with cart:', currentCartValue);
       sendGTMEvent({
         event: 'begin_checkout',
         currency: 'BDT',

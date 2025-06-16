@@ -1,0 +1,4 @@
+3. event: 'view_item',
+2. event: 'add_to_cart',
+4. event: 'begin_checkout',
+1. event: 'purchase',

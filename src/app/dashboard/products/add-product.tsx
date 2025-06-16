@@ -121,7 +121,6 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
       const newData = { ...formData };
       newData.allImages = newImages;
       newData.descriptionData = descriptions;
-      console.log('new Data', newData);
       const response = await fetch('/api/products', {
         method: 'POST',
         headers: {
@@ -199,7 +198,6 @@ const AddProduct = ({ onSuccess }: { onSuccess: () => void }) => {
   }, []);
   const onRichTextChange = (content: string) => {
     setDescriptions(content);
-    console.log(content);
   };
   return (
     <div className="w-full max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">

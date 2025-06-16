@@ -30,7 +30,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log('process.env.GTM_ID', process.env.GTM_ID);
   return (
     <html lang="bn" className="light">
       {/*

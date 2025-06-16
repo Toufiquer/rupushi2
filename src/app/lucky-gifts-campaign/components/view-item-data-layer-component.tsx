@@ -44,7 +44,7 @@ const ViewItemDataLayerComponent = () => {
     console.log('DataLayerNextComponentCartPage useEffect triggered. Current cart prop:', product);
 
     const fireGTMEvent = (currentCartValue: IProduct) => {
-      console.log('Calling sendGTMEvent with cart:', currentCartValue);
+      // console.log('Calling sendGTMEvent with cart:', currentCartValue);
       sendGTMEvent({
         event: 'view_item',
         currency: 'BDT',

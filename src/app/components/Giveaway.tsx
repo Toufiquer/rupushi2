@@ -57,7 +57,7 @@ const MobileViewCampaignBox = ({
   productId: string;
 }) => {
   const newProductId = productId || promotion.id || (promotion._id as string);
-  console.log(newProductId);
+
 
   return (
     <div className="w-full flex items-center justify-start gap-4 flex-col bg-[#EEEAE7]">
@@ -106,7 +106,7 @@ const TabletViewCampaignBox = ({
   productId: string;
 }) => {
   const newProductId = productId || promotion.id || (promotion._id as string);
-  console.log(newProductId);
+
 
   return (
     <div className="w-full flex items-center justify-start gap-4 flex-row bg-[#EEEAE7]">
@@ -156,7 +156,7 @@ const DesktopViewCampaignBox = ({
   productId: string;
 }) => {
   const newProductId = productId || promotion.id || (promotion._id as string);
-  console.log(newProductId);
+
 
   return (
     <div className="w-full flex items-center justify-start gap-4 flex-row bg-[#EEEAE7]">
@@ -200,7 +200,7 @@ const DesktopViewCampaignBox = ({
 
 function PromotionItem({ promotion, productId }: { promotion: Promotion; productId: string }) {
   const newProductId = productId || promotion.id || (promotion._id as string);
-  console.log(newProductId);
+
   return (
     <main className="w-full max-w-7xl md:px-4">
       <div className="w-full flex lg:flex-row flex-col justify-between border-slate-200 h-full gap-4 items-stretch">

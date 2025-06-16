@@ -29,12 +29,7 @@ export async function POST(req: Request) {
     await connectDB();
     const productData: Record<string, unknown> = await req.json();
     const newProduct = await Product.create(productData);
-    console.log('');
-    console.log('');
-    console.log('');
-    console.log(JSON.stringify(productData));
-    console.log('');
-    console.log(JSON.stringify(newProduct));
+
     return NextResponse.json(
       { data: newProduct, message: 'Product created successfully' },
       { status: 201 },
@@ -49,11 +44,6 @@ export async function PUT(req: Request) {
   try {
     await connectDB();
     const { id, ...updateData }: { id: string; [key: string]: unknown } = await req.json();
-
-    console.log('');
-    console.log('');
-    console.log('');
-    console.log(JSON.stringify(updateData));
     const updatedProduct = await Product.findByIdAndUpdate(id, updateData, {
       new: true,
       runValidators: true,

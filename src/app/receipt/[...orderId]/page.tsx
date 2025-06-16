@@ -68,8 +68,6 @@ const OrderReceipt = () => {
         .then(data => {
           setOrder(data.data);
           const fireGTMEvent = (order: OrderData) => {
-            console.log('++++++++++++++++++++++++++order', order);
-            console.log('++++++++++++++++++++++++++++++++');
             sendGTMEvent({
               event: 'purchase',
               currency: 'BDT',

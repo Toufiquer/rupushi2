@@ -163,8 +163,6 @@ const AllProducts = () => {
     });
     setSelectedImage(product.img);
     setEditDialogOpen(true);
-    console.log('');
-    console.log('product', product);
     setNewImages(product.allImages || []);
     setDescriptions(product.descriptionData || '');
   };
@@ -191,7 +189,6 @@ const AllProducts = () => {
       const newData = { ...editForm };
       newData.allImages = newImages;
       newData.descriptionData = descriptions;
-      console.log('new Data', newData);
       const response = await fetch(`/api/products/`, {
         method: 'PUT',
         headers: {
@@ -399,7 +396,6 @@ const AllProducts = () => {
   );
   const onRichTextChange = (content: string) => {
     setDescriptions(content);
-    console.log(content);
   };
   return (
     <div className="w-full">
