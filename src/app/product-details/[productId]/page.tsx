@@ -53,7 +53,7 @@ export default async function Page({ params }: { params: Promise<{ productId: st
   return (
     <div className="py-2 flex flex-col w-full">
       {/* <DataLayerNextComponentProductDetails id={productId} /> */}
-      <DataLayerNextComponentCartPage product={post} />
+      <DataLayerNextComponentCartPage key={Math.random()} product={post} />
       {isCurrentProductInPromotion && (
         <div className="w-full flex items-center justify-center">
           <div
