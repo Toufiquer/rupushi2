@@ -49,16 +49,7 @@ async function getProductIdByCode(code: string): Promise<string> {
   }
 }
 
-const MobileViewCampaignBox = ({
-  promotion,
-  productId,
-}: {
-  promotion: Promotion;
-  productId: string;
-}) => {
-  const newProductId = productId || promotion.id || (promotion._id as string);
-
-
+const MobileViewCampaignBox = ({ promotion }: { promotion: Promotion }) => {
   return (
     <div className="w-full flex items-center justify-start gap-4 flex-col bg-[#EEEAE7]">
       <div
@@ -98,16 +89,7 @@ const MobileViewCampaignBox = ({
     </div>
   );
 };
-const TabletViewCampaignBox = ({
-  promotion,
-  productId,
-}: {
-  promotion: Promotion;
-  productId: string;
-}) => {
-  const newProductId = productId || promotion.id || (promotion._id as string);
-
-
+const TabletViewCampaignBox = ({ promotion }: { promotion: Promotion }) => {
   return (
     <div className="w-full flex items-center justify-start gap-4 flex-row bg-[#EEEAE7]">
       <div
@@ -148,16 +130,7 @@ const TabletViewCampaignBox = ({
     </div>
   );
 };
-const DesktopViewCampaignBox = ({
-  promotion,
-  productId,
-}: {
-  promotion: Promotion;
-  productId: string;
-}) => {
-  const newProductId = productId || promotion.id || (promotion._id as string);
-
-
+const DesktopViewCampaignBox = ({ promotion }: { promotion: Promotion }) => {
   return (
     <div className="w-full flex items-center justify-start gap-4 flex-row bg-[#EEEAE7]">
       <div
@@ -198,29 +171,18 @@ const DesktopViewCampaignBox = ({
   );
 };
 
-function PromotionItem({ promotion, productId }: { promotion: Promotion; productId: string }) {
-  const newProductId = productId || promotion.id || (promotion._id as string);
-
+function PromotionItem({ promotion }: { promotion: Promotion }) {
   return (
     <main className="w-full max-w-7xl md:px-4">
       <div className="w-full flex lg:flex-row flex-col justify-between border-slate-200 h-full gap-4 items-stretch">
         <div className="w-full md:hidden block">
-          <MobileViewCampaignBox
-            productId={productId || promotion.id || (promotion._id as string)}
-            promotion={promotion}
-          />
+          <MobileViewCampaignBox promotion={promotion} />
         </div>
         <div className="w-full hidden md:block lg:hidden">
-          <TabletViewCampaignBox
-            productId={productId || promotion.id || (promotion._id as string)}
-            promotion={promotion}
-          />
+          <TabletViewCampaignBox promotion={promotion} />
         </div>
         <div className="w-full hidden lg:block">
-          <DesktopViewCampaignBox
-            productId={productId || promotion.id || (promotion._id as string)}
-            promotion={promotion}
-          />
+          <DesktopViewCampaignBox promotion={promotion} />
         </div>
       </div>
     </main>
@@ -265,8 +227,8 @@ async function Giveaway() {
           Lucky Gifts Campaign
         </h2>
       )} */}
-      {promotionsWithProductIds.map(({ promotion, productId }) => (
-        <PromotionItem key={promotion.id} promotion={promotion} productId={productId} />
+      {promotionsWithProductIds.map(({ promotion }) => (
+        <PromotionItem key={promotion.id} promotion={promotion} />
       ))}
     </div>
   );

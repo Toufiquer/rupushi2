@@ -28,7 +28,9 @@ const DataLayerNextComponentCartPage = ({ product }: { product: IProduct }) => {
         newHistoryState: null,
       });
     };
-    product && fireGTMEvent(product);
+    if (product) {
+      fireGTMEvent(product);
+    }
   }, [product]);
 
   return null;

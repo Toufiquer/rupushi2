@@ -19,7 +19,7 @@ export default function TopBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [autoplayInterval, setAutoplayInterval] = useState<NodeJS.Timeout | null>(null);
+  const [, setAutoplayInterval] = useState<NodeJS.Timeout | null>(null);
   const [cartProductLength, setCartProductLength] = useState(0);
   const { cart } = useStore();
   useEffect(() => {
