@@ -107,7 +107,7 @@ const FormDataComponent = () => {
       const deliveryCharge = formData.deliveryOption === '130' ? 130 : 60;
       const shippingArea: string = deliveryCharge === 60 ? 'inside Dhaka' : 'outside Dhaka';
 
-      const totalPrice = deliveryCharge + 699;
+      const totalPrice = deliveryCharge + 699 * quantity;
       const result: IDBOrderData = {
         totalProduct: quantity,
         orderId: orderId,
@@ -125,7 +125,7 @@ const FormDataComponent = () => {
       };
       return result;
     }
-
+    luckyProduct.quantity = quantity;
     const newOrderData = generateOrder(formData, [luckyProduct]);
 
     setLoading(true);
