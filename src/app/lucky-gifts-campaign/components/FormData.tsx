@@ -14,6 +14,7 @@ import { useStore } from '@/app/utils/useStore';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { MinusCircle, PlusCircle } from 'lucide-react';
 
 // Define interfaces for form data and product
 interface FormData {
@@ -41,6 +42,7 @@ export interface IDBOrderData {
 
 const FormDataComponent = () => {
   const { deliveryCharge, setDeliveryCharge, setTextMessage } = useStore();
+  const [quantity, setQuantity] = useState(1);
   const luckyProduct: IProduct = {
     name: 'Luxurious Pendant & Earring Set',
     'product-code': 'LUCKY001',
@@ -106,9 +108,8 @@ const FormDataComponent = () => {
       const shippingArea: string = deliveryCharge === 60 ? 'inside Dhaka' : 'outside Dhaka';
 
       const totalPrice = deliveryCharge + 699;
-      const totalProduct = productData.length;
       const result: IDBOrderData = {
-        totalProduct,
+        totalProduct: quantity,
         orderId: orderId,
         totalPrice: totalPrice,
         deliveryCharge: deliveryCharge,
@@ -129,6 +130,7 @@ const FormDataComponent = () => {
 
     setLoading(true);
     try {
+      console.log('newOrderData', newOrderData);
       const response = await fetch('/api/orders', {
         method: 'POST',
         headers: {
@@ -163,6 +165,15 @@ const FormDataComponent = () => {
       console.error('Error creating order:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleIncrease = () => {
+    setQuantity(quantity + 1);
+  };
+  const handleDecrease = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
     }
   };
   return (
@@ -320,13 +331,27 @@ const FormDataComponent = () => {
             <div>
               <h3 className="font-medium">{luckyProduct.name}</h3>
               <p className="text-sm text-gray-500">
-                ৳{699} x {1} = {Number(699) * 1}
+                ৳{699} x {quantity} = {Number(699) * quantity}
               </p>
+              <div className="w-full flex items-center justify-between">
+                <button
+                  type="button"
+                  className="cursor-pointer"
+                  onClick={handleDecrease}
+                  disabled={quantity ? quantity <= 1 : false}
+                >
+                  <MinusCircle size={20} />
+                </button>
+                <input type="number" value={quantity} className="w-12 text-center mx-2" />
+                <button className="cursor-pointer" onClick={handleIncrease} type="button">
+                  <PlusCircle size={20} />
+                </button>
+              </div>
             </div>
           </div>
           <div className="w-full flex items-center justify-between">
             <h2>মোট</h2>
-            <h2>699TK</h2>
+            <h2> {Number(699) * quantity}TK</h2>
           </div>
           <div className="w-full flex items-center justify-between border-b-1">
             <h2>ডেলিভারি চার্জ</h2>
@@ -334,7 +359,11 @@ const FormDataComponent = () => {
           </div>
           <div className="w-full flex items-center justify-between border-b-1">
             <h2>সর্বমোট </h2>
-            <h2>{formData.deliveryOption == '60' ? '759TK' : '829TK'}</h2>
+            <h2>
+              {formData.deliveryOption == '60'
+                ? `${Number(699) * quantity + 60}Tk`
+                : `${Number(699) * quantity + 130}Tk`}
+            </h2>
           </div>
           <button
             disabled={loading}
