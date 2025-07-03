@@ -1,0 +1,163 @@
+685afd598e66f9a31d8c9894
+685afd958e66f9a31d8c9899
+
+
+
+
+{
+    "customerInfo": {
+      "customerName": "Toufiquer Rahman33",
+      "address": "",
+      "phone": "01991075127",
+      "note": ""
+    },
+    "_id": "685afd598e66f9a31d8c9894",
+    "orderId": 804130360689,
+    "totalProduct": 5,
+    "deliveryCharge": 60,
+    "orderStatus": "pending",
+    "totalPrice": 759,
+    "shippingArea": "inside Dhaka",
+    "productInfo": [
+      {
+        "name": "Luxurious Pendant & Earring Set",
+        "product-code": "LUCKY001",
+        "img": "https://i.ibb.co/jkSRXfDN/O1-CN01bq-KKK21t-Vut-VO951u-2216839565908-0-cib.jpg",
+        "realPrice": 699,
+        "discountedPrice": 699,
+        "offer": "15",
+        "stock": 500,
+        "description-top": "",
+        "description-bottom": "",
+        "material": "",
+        "design": "",
+        "color": "",
+        "category": "",
+        "weight": "",
+        "chain length": "",
+        "style": "",
+        "quantity": 1
+      }
+    ],
+    "createdAt": "2025-06-24T19:32:41.622Z",
+    "updatedAt": "2025-06-24T19:32:41.622Z",
+    "__v": 0
+  },
+  {
+    "customerInfo": {
+      "customerName": "User Name 1",
+      "address": "",
+      "phone": "01991075127",
+      "note": ""
+    },
+    "_id": "685afd958e66f9a31d8c9899",
+    "orderId": 804130421471,
+    "totalProduct": 3,
+    "deliveryCharge": 60,
+    "orderStatus": "pending",
+    "totalPrice": 759,
+    "shippingArea": "inside Dhaka",
+    "productInfo": [
+      {
+        "name": "Luxurious Pendant & Earring Set",
+        "product-code": "LUCKY001",
+        "img": "https://i.ibb.co/jkSRXfDN/O1-CN01bq-KKK21t-Vut-VO951u-2216839565908-0-cib.jpg",
+        "realPrice": 699,
+        "discountedPrice": 699,
+        "offer": "15",
+        "stock": 500,
+        "description-top": "",
+        "description-bottom": "",
+        "material": "",
+        "design": "",
+        "color": "",
+        "category": "",
+        "weight": "",
+        "chain length": "",
+        "style": "",
+        "quantity": 1
+      }
+    ],
+    "createdAt": "2025-06-24T19:33:41.661Z",
+    "updatedAt": "2025-06-24T19:33:41.661Z",
+    "__v": 0
+  },
+  {
+    "customerInfo": {
+      "customerName": "User Name 1",
+      "address": "",
+      "phone": "01991075127",
+      "note": ""
+    },
+    "_id": "685afe5e8e66f9a31d8c989e",
+    "orderId": 804130621941,
+    "totalProduct": 3,
+    "deliveryCharge": 130,
+    "orderStatus": "pending",
+    "totalPrice": 829,
+    "shippingArea": "outside Dhaka",
+    "productInfo": [
+      {
+        "name": "Luxurious Pendant & Earring Set",
+        "product-code": "LUCKY001",
+        "img": "https://i.ibb.co/jkSRXfDN/O1-CN01bq-KKK21t-Vut-VO951u-2216839565908-0-cib.jpg",
+        "realPrice": 699,
+        "discountedPrice": 699,
+        "offer": "15",
+        "stock": 500,
+        "description-top": "",
+        "description-bottom": "",
+        "material": "",
+        "design": "",
+        "color": "",
+        "category": "",
+        "weight": "",
+        "chain length": "",
+        "style": "",
+        "quantity": 3
+      }
+    ],
+    "createdAt": "2025-06-24T19:37:02.154Z",
+    "updatedAt": "2025-06-24T19:37:02.154Z",
+    "__v": 0
+  },
+  {
+    "customerInfo": {
+      "customerName": "Toufiquer Rahman33",
+      "address": "",
+      "phone": "01554214512",
+      "note": ""
+    },
+    "_id": "685afecf8e66f9a31d8c98a3",
+    "orderId": 804130734789,
+    "totalProduct": 2,
+    "deliveryCharge": 130,
+    "orderStatus": "pending",
+    "totalPrice": 1528,
+    "shippingArea": "outside Dhaka",
+    "productInfo": [
+      {
+        "name": "Luxurious Pendant & Earring Set",
+        "product-code": "LUCKY001",
+        "img": "https://i.ibb.co/jkSRXfDN/O1-CN01bq-KKK21t-Vut-VO951u-2216839565908-0-cib.jpg",
+        "realPrice": 699,
+        "discountedPrice": 699,
+        "offer": "15",
+        "stock": 500,
+        "description-top": "",
+        "description-bottom": "",
+        "material": "",
+        "design": "",
+        "color": "",
+        "category": "",
+        "weight": "",
+        "chain length": "",
+        "style": "",
+        "quantity": 2
+      }
+    ],
+    "createdAt": "2025-06-24T19:38:55.012Z",
+    "updatedAt": "2025-06-24T19:38:55.012Z",
+    "__v": 0
+  }
+],

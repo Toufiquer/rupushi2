@@ -73,14 +73,14 @@ const MobileViewCampaignBox = ({ promotion }: { promotion: Promotion }) => {
             <span className="my-kalpurush-text font-extrabold">ক্যাম্পেইন</span>
           </h2>
           <h2 className="text-[22px] font-normal  my-kalpurush-text  text-gray-900 tracking-tight w-full justify-center lg:text-start">
-            মোট ২ লক্ষ টাকার ১০টি পুরস্কার জিতার সুযোগ!
+            মোট ১০ লক্ষ টাকার ১১০ টি পুরস্কার জিতার সুযোগ!
           </h2>
           <h2 className="text-[38px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">
-            মাত্র ৯৯৯ টাকা
+            মাত্র ৬৯৯ টাকা
           </h2>
-          <p className="text-[21px] font-semibold mt-[-10px] my-kalpurush-text  text-rose-500 tracking-tight w-full justify-center lg:text-start ">
+          {/* <p className="text-[21px] font-semibold mt-[-10px] my-kalpurush-text  text-rose-500 tracking-tight w-full justify-center lg:text-start ">
             পুরো বাংলাদেশে ডেলিভারি চার্জ ফ্রি
-          </p>
+          </p> */}
           <Link href={`/lucky-gifts-campaign`} className="w-full">
             <OrderNowButton />
           </Link>
@@ -113,14 +113,14 @@ const TabletViewCampaignBox = ({ promotion }: { promotion: Promotion }) => {
             <span className="my-kalpurush-text font-extrabold">ক্যাম্পেইন</span>
           </h2>
           <h2 className="text-[22px] font-normal  my-kalpurush-text  text-gray-900 tracking-tight w-full justify-center lg:text-start">
-            মোট ২ লক্ষ টাকার ১০টি পুরস্কার জিতার সুযোগ!
+            মোট ১০ লক্ষ টাকার ১১০ টি পুরস্কার জিতার সুযোগ!
           </h2>
           <h2 className="text-[38px] font-extrabold my-kalpurush-text  text-red-500 tracking-tight w-full justify-center lg:text-start">
-            মাত্র ৯৯৯ টাকা
+            মাত্র ৬৯৯ টাকা
           </h2>
-          <p className="text-[20px] font-semibold mt-[-18px] my-kalpurush-text  text-rose-500 tracking-tight w-full justify-center lg:text-start ">
+          {/* <p className="text-[20px] font-semibold mt-[-18px] my-kalpurush-text  text-rose-500 tracking-tight w-full justify-center lg:text-start ">
             পুরো বাংলাদেশে ডেলিভারি চার্জ ফ্রি
-          </p>
+          </p> */}
 
           <Link href={`/lucky-gifts-campaign`} className="w-full">
             <OrderNowButton />
