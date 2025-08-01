@@ -112,7 +112,6 @@ const FormData = () => {
       newOrderData.deliveryCharge = 0;
       newOrderData.shippingArea = customShippingArea || 'outside Dhaka';
       newOrderData.totalPrice = 999;
-      
     }
     setLoading(true);
     try {
@@ -255,7 +254,12 @@ const FormData = () => {
           ) : (
             <div className="mt-2 space-y-2">
               <div
-                className={`flex items-center w-full p-2 rounded ${formData.deliveryOption === '130' ? ' bg-green-500 ' : 'bg-slate-200 '}`}
+                onClick={() => {
+                  setFormData({ ...formData, deliveryOption: '130' });
+                  setDeliveryCharge(Number(130));
+                  setCustomShippingArea('ঢাকার বাইরে');
+                }}
+                className={`flex cursor-pointer items-center w-full p-2 rounded ${formData.deliveryOption === '130' ? ' bg-green-500 ' : 'bg-slate-200 '}`}
               >
                 <input
                   type="radio"
@@ -265,19 +269,17 @@ const FormData = () => {
                   onChange={handleInputChange}
                   className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300"
                 />
-                <label
-                  className="ml-2 text-sm text-gray-700 cursor-pointer"
-                  onClick={() => {
-                    setFormData({ ...formData, deliveryOption: '130' });
-                    setDeliveryCharge(Number(130));
-                    setCustomShippingArea('ঢাকার বাইরে');
-                  }}
-                >
+                <label className="ml-2 text-sm text-gray-700 cursor-pointer">
                   ঢাকার বাইরে ১৩০ টাকা
                 </label>
               </div>
               <div
-                className={`flex items-center w-full p-2 rounded ${formData.deliveryOption === '60' ? ' bg-green-500 ' : 'bg-slate-200 '}`}
+                onClick={() => {
+                  setFormData({ ...formData, deliveryOption: '60' });
+                  setDeliveryCharge(Number(60));
+                  setCustomShippingArea('ঢাকার ভিতরে');
+                }}
+                className={`flex cursor-pointer items-center w-full p-2 rounded ${formData.deliveryOption === '60' ? ' bg-green-500 ' : 'bg-slate-200 '}`}
               >
                 <input
                   type="radio"
@@ -287,14 +289,7 @@ const FormData = () => {
                   onChange={handleInputChange}
                   className={`h-4 w-4 focus:ring-green-500 border-gray-300 `}
                 />
-                <label
-                  className="ml-2 text-sm text-gray-700 cursor-pointer"
-                  onClick={() => {
-                    setFormData({ ...formData, deliveryOption: '60' });
-                    setDeliveryCharge(Number(60));
-                    setCustomShippingArea('ঢাকার ভিতরে');
-                  }}
-                >
+                <label className="ml-2 text-sm text-gray-700 cursor-pointer">
                   ঢাকার ভিতরে ৬০ টাকা
                 </label>
               </div>
