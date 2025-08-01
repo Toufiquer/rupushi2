@@ -118,7 +118,7 @@ export interface IProductInfo {
   realPrice: number;
   discountedPrice: number;
   offer: string;
-  stock: number;
+  stock: number;  
   'description-top'?: string; // Optional fields marked with ?
   'description-bottom'?: string;
   material?: string;

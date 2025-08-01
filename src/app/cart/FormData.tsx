@@ -107,13 +107,26 @@ const FormData = () => {
       return result;
     }
 
-    const newOrderData = generateOrder(formData, cart);
+    let newOrderData = generateOrder(formData, cart);
     if (isFreeDelivery()) {
       newOrderData.deliveryCharge = 0;
       newOrderData.shippingArea = customShippingArea || 'outside Dhaka';
       newOrderData.totalPrice = 999;
     }
     setLoading(true);
+    console.log('newOrderData : ', newOrderData);
+    newOrderData = {
+      ...newOrderData,
+      productInfo: newOrderData.productInfo.map(i => {
+        const r = { ...i };
+        delete i['description-bottom'];
+        delete i['description-top'];
+        i.descriptionData = '';
+        i.realPrice = i.realPrice.replaceAll(',', '');
+        i.allImages = [];
+        return r;
+      }),
+    };
     try {
       const response = await fetch('/api/orders', {
         method: 'POST',
@@ -122,7 +135,6 @@ const FormData = () => {
         },
         body: JSON.stringify(newOrderData),
       });
-
       if (!response.ok) {
         throw new Error('Failed to create order');
       }
@@ -140,7 +152,6 @@ const FormData = () => {
         note: '',
         deliveryOption: '130',
       });
-
       // Redirect to the receipt page with the orderId
       router.push(`/receipt/${newOrderData.orderId}`);
       const receiptUrl = `/receipt/${newOrderData.orderId}`;
